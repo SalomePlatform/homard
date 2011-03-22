@@ -15,12 +15,12 @@ using namespace std;
  * MonEditFile classe derivee de EditFile
  *               elle meme generee par uic
  * Ouvre le fichier passe en parametre
- * et affiche le texte correspondant dans la fenêtre de log
+ * et affiche le texte correspondant dans la fenetre de log
  * ---------------------------------------------------------
  */
 
 /* ---------------------------------------------------------
- * MonEditFile Constructeur 
+ * MonEditFile Constructeur
  * ---------------------------------------------------------
  */
 MonEditFile::MonEditFile( QWidget* parent,  bool modal,
@@ -48,7 +48,6 @@ void MonEditFile::InitConnect()
 {
     connect( buttonQuit,     SIGNAL(pressed()), this, SLOT(close()));
     connect( buttonPrint,    SIGNAL(pressed()), this, SLOT(PushOnPrint()));
-    connect( buttonHelp,     SIGNAL(pressed()), this, SLOT(PushOnHelp()));
 }
 // ------------------------------------------------------------------------
 void MonEditFile::EditText()
@@ -88,12 +87,6 @@ void MonEditFile::PushOnPrint()
                             "Inactive button.",
                             QMessageBox::Ok + QMessageBox::Default );
   return;
-}
-// ------------------------------------------------------------------------
-void MonEditFile::PushOnHelp()
-// ------------------------------------------------------------------------
-{
-  HOMARD_UTILS::PushOnHelp(QString("gui_usage.html"));
 }
 
 

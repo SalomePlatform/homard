@@ -34,4 +34,9 @@ dist_salomeres_DATA =   \
      test_2.py \
      test_2.00.med \
      test_2.fr.med \
-     test_2.apad.03.bilan 
+     test_2.apad.03.bilan \
+     test_3.pdf \
+     test_3.py \
+     test_3.00.med \
+     test_3.fr.med \
+     test_3.apad.02.bilan 

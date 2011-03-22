@@ -1,6 +1,8 @@
 using namespace std;
 
 #include "MonCreateCase.h"
+#include "MonCreateBoundaryAn.h"
+#include "MonEditBoundaryAn.h"
 #include "MonCreateBoundaryDi.h"
 #include "MonEditBoundaryDi.h"
 
@@ -21,7 +23,7 @@ MonCreateCase::MonCreateCase(QWidget* parent, bool modal, HOMARD::HOMARD_Gen_var
  * Sets attributes to default values
  */
     :
-    Ui_CreateCase(), 
+    Ui_CreateCase(),
     _aCaseName(""),_aDirName(""), _ConfType(1)
     {
       _myHomardGen=HOMARD::HOMARD_Gen::_duplicate(myHomardGen);
@@ -61,6 +63,8 @@ void MonCreateCase::InitConnect()
     connect( PBBoundaryDiNew,  SIGNAL(pressed()), this, SLOT(PushBoundaryDiNew()));
     connect( PBBoundaryDiEdit, SIGNAL(pressed()), this, SLOT(PushBoundaryDiEdit()) );
     connect( CBBoundaryA,      SIGNAL(stateChanged(int)), this, SLOT(SetBoundaryA()));
+    connect( PBBoundaryAnNew,  SIGNAL(pressed()), this, SLOT(PushBoundaryAnNew()));
+    connect( PBBoundaryAnHelp, SIGNAL(pressed()), this, SLOT(PushBoundaryAnHelp()) );
 
     connect( buttonOk,       SIGNAL(pressed()), this, SLOT(PushOnOK()));
     connect( buttonApply,    SIGNAL(pressed()), this, SLOT(PushOnApply()));
@@ -137,6 +141,38 @@ bool MonCreateCase::PushOnApply()
     return false;
   }
 
+  if (CBBoundaryA->isChecked())
+  {
+    QStringList ListeGroup ;
+    QString NomGroup ;
+    int nbcol = TWBoundary->columnCount();
+    int nbrow = TWBoundary->rowCount();
+    for ( int col=1; col< nbcol; col++)
+    {
+      for ( int row=0; row< nbrow; row++)
+      {
+        if ( TWBoundary->item( row, col )->checkState() ==  Qt::Checked )
+        {
+//        Nom du groupe
+          NomGroup = QString(TWBoundary->item(row, 0)->text()) ;
+//           MESSAGE("NomGroup "<<NomGroup.toStdString().c_str());
+          for ( int nugr = 0 ; nugr<ListeGroup.size(); nugr++)
+          {
+//             MESSAGE("....... "<<ListeGroup[nugr].toStdString().c_str());
+            if ( NomGroup == ListeGroup[nugr] )
+            {
+              QMessageBox::information( 0, "Error",
+                        QString("Group "+NomGroup+" cannot be given for more than 1 boundary."),
+                        QMessageBox::Ok + QMessageBox::Default );
+              return false;
+            }
+          }
+          ListeGroup.insert(0, NomGroup );
+        }
+      }
+    }
+  }
+
   if (aCaseName != _aCaseName )
   {
     _aCaseName = aCaseName;
@@ -147,7 +183,7 @@ bool MonCreateCase::PushOnApply()
             CORBA::string_dup(aMeshName.toStdString().c_str()),  \
             CORBA::string_dup(aFileName.toStdString().c_str()) );
     }
-    catch( SALOME::SALOME_Exception& S_ex ) 
+    catch( SALOME::SALOME_Exception& S_ex )
     {
      QMessageBox::information( 0, "Error",
             QString(CORBA::string_dup(S_ex.details.text)),
@@ -173,12 +209,36 @@ bool MonCreateCase::PushOnApply()
   _aDirName=aDirName;
   aCase->SetConfType(_ConfType);
 
+// Enregistrement de la frontiere discrete
   if (CBBoundaryD->isChecked())
   {
     QString monBoundaryDiName=CBBoundaryDi->currentText();
     if (monBoundaryDiName != "" )
     {
-      aCase->AddBoundaryGroup(monBoundaryDiName.toStdString().c_str(), " ");
+      aCase->AddBoundaryGroup(monBoundaryDiName.toStdString().c_str(), "");
+    }
+  }
+
+// Enregistrement des liens (groupe,frontiere analytique)
+  if (CBBoundaryA->isChecked())
+  {
+    QString NomGroup ;
+    int nbcol = TWBoundary->columnCount();
+    int nbrow = TWBoundary->rowCount();
+    for ( int col=1; col< nbcol; col++)
+    {
+      for ( int row=0; row< nbrow; row++)
+      {
+        if ( TWBoundary->item( row, col )->checkState() ==  Qt::Checked )
+        {
+//        Nom du groupe
+          NomGroup = QString(TWBoundary->item(row, 0)->text()) ;
+//        Nom de la frontiere
+          QTableWidgetItem *__colItem = new QTableWidgetItem();
+          __colItem = TWBoundary->horizontalHeaderItem(col);
+          aCase->AddBoundaryGroup(QString(__colItem->text()).toStdString().c_str(), NomGroup.toStdString().c_str());
+        }
+      }
     }
   }
 
@@ -275,10 +335,17 @@ void MonCreateCase::SetQuelconque()
 void MonCreateCase::SetBoundaryD()
 // ------------------------------------------------------------------------
 {
-  if (CBBoundaryD->isChecked())
-  { GBBoundaryD->setVisible(1); }
-  else
-  { GBBoundaryD->setVisible(0); }
+  if    (CBBoundaryD->isChecked())
+  {
+    GBBoundaryD->setVisible(1);
+    bool bOK = PushOnApply();
+    if ( ! bOK) {
+      GBBoundaryD->setVisible(0);
+      CBBoundaryD->setChecked(0);
+      CBBoundaryD->setCheckState(Qt::Unchecked);
+    }
+  }
+  else { GBBoundaryD->setVisible(0); }
   adjustSize();
 }
 // ------------------------------------------------------------------------
@@ -292,7 +359,7 @@ void MonCreateCase::addBoundaryDi(QString newBoundary)
 void MonCreateCase::PushBoundaryDiNew()
 // ------------------------------------------------------------------------
 {
-   MonCreateBoundaryDi *BoundaryDlg = new MonCreateBoundaryDi(this, true, 
+   MonCreateBoundaryDi *BoundaryDlg = new MonCreateBoundaryDi(this, true,
                 HOMARD::HOMARD_Gen::_duplicate(_myHomardGen), _aCaseName, "") ;
    BoundaryDlg->show();
 }
@@ -301,7 +368,7 @@ void MonCreateCase::PushBoundaryDiEdit()
 // ------------------------------------------------------------------------
 {
   if (CBBoundaryDi->currentText() == QString(""))  return;
-  MonEditBoundaryDi *BoundaryDlg = new MonEditBoundaryDi(this, true, 
+  MonEditBoundaryDi *BoundaryDlg = new MonEditBoundaryDi(this, true,
        HOMARD::HOMARD_Gen::_duplicate(_myHomardGen), _aCaseName, CBBoundaryDi->currentText() ) ;
   BoundaryDlg->show();
 }
@@ -309,9 +376,77 @@ void MonCreateCase::PushBoundaryDiEdit()
 void MonCreateCase::SetBoundaryA()
 // ------------------------------------------------------------------------
 {
-  if    (CBBoundaryA->isChecked()) { GBBoundaryA->setVisible(1); }
+  MESSAGE("Debut de SetBoundaryA ");
+  if (CBBoundaryA->isChecked())
+  {
+    bool bOK = PushOnApply();
+    if (bOK) {
+      GBBoundaryA->setVisible(1);
+      HOMARD::ListGroupType_var _listeGroupesCas = aCase->GetGroups();
+      QTableWidgetItem *__colItem = new QTableWidgetItem();
+      __colItem->setText(QApplication::translate("CreateCase", "", 0, QApplication::UnicodeUTF8));
+      TWBoundary->setHorizontalHeaderItem(0, __colItem);
+      for ( int i = 0; i < _listeGroupesCas->length(); i++ )
+      {
+        TWBoundary->insertRow(i);
+        TWBoundary->setItem( i, 0, new QTableWidgetItem(QString((_listeGroupesCas)[i]).trimmed()));
+        TWBoundary->item( i, 0 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
+      }
+      TWBoundary->resizeColumnsToContents();
+      TWBoundary->resizeRowsToContents();
+      TWBoundary->clearSelection();
+    }
+    else{
+      GBBoundaryA->setVisible(0);
+      CBBoundaryA->setChecked(0);
+      CBBoundaryA->setCheckState(Qt::Unchecked); }
+  }
   else { GBBoundaryA->setVisible(0); }
   adjustSize();
+//
+  MESSAGE("Fin de SetBoundaryA ");
+}
+// ------------------------------------------------------------------------
+void MonCreateCase::addBoundaryAn(QString newBoundary)
+// ------------------------------------------------------------------------
+{
+  MESSAGE("Debut de addBoundaryAn ");
+// Ajout d'une nouvelle colonne
+  int nbcol = TWBoundary->columnCount();
+  MESSAGE("nbcol " <<  nbcol);
+  nbcol += 1 ;
+  TWBoundary->setColumnCount ( nbcol ) ;
+  QTableWidgetItem *__colItem = new QTableWidgetItem();
+  __colItem->setText(QApplication::translate("CreateCase", newBoundary.toStdString().c_str(), 0, QApplication::UnicodeUTF8));
+  TWBoundary->setHorizontalHeaderItem(nbcol-1, __colItem);
+/*  TWBoundary->horizontalHeaderItem(nbcol-1)->setFlags( Qt::ItemIsSelectable|Qt::ItemIsEnabled );*/
+// Chaque case est a cocher
+  int nbrow = TWBoundary->rowCount();
+  MESSAGE("nbrow " <<  nbrow);
+  for ( int i = 0; i < nbrow; i++ )
+  {
+    TWBoundary->setItem( i, nbcol-1, new QTableWidgetItem( QString ("") ) );
+    TWBoundary->item( i, nbcol-1 )->setFlags( 0 );
+    TWBoundary->item( i, nbcol-1 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
+    TWBoundary->item( i, nbcol-1 )->setCheckState( Qt::Unchecked );
+  }
+  TWBoundary->resizeColumnToContents(nbcol-1);
+//   TWBoundary->resizeRowsToContents();
+  MESSAGE("Fin de addBoundaryAn ");
+}
+// ------------------------------------------------------------------------
+void MonCreateCase::PushBoundaryAnNew()
+// ------------------------------------------------------------------------
+{
+   MonCreateBoundaryAn *BoundaryDlg = new MonCreateBoundaryAn(this, true,
+                HOMARD::HOMARD_Gen::_duplicate(_myHomardGen), _aCaseName) ;
+   BoundaryDlg->show();
+}
+// ------------------------------------------------------------------------
+void MonCreateCase::PushBoundaryAnHelp()
+// ------------------------------------------------------------------------
+{
+  HOMARD_UTILS::PushOnHelp(QString("gui_create_boundary.html#frontiere-analytique") ) ;
 }
 // ------------------------------------------------------------------------
 void MonCreateCase::CaseNameChanged()

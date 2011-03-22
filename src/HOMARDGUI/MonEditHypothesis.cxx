@@ -201,7 +201,7 @@ void MonEditHypothesis::InitAdaptChamps()
        TWCMP->item( 0, 0 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
        TWCMP->item( 0, 0 )->setCheckState(Qt::Checked );
        TWCMP->item( 0, 0 )->setFlags( 0 );
-       TWCMP->setItem( 0, 1, new QTableWidgetItem(QString(mesComposantsAvant[i])));
+       TWCMP->setItem( 0, 1, new QTableWidgetItem(QString(mesComposantsAvant[i]).trimmed()));
        TWCMP->item( 0, 1 )->setFlags( Qt::ItemIsEnabled |Qt::ItemIsSelectable );
     }
     TWCMP->resizeColumnsToContents();
@@ -302,7 +302,7 @@ void MonEditHypothesis::InitFieldInterp()
         TWField->item( 0, 0 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
         TWField->item( 0, 0 )->setCheckState(Qt::Checked );
         TWField->item( 0, 0 )->setFlags( 0 );
-        TWField->setItem( 0, 1, new QTableWidgetItem(QString(mesChampsAvant[i])));
+        TWField->setItem( 0, 1, new QTableWidgetItem(QString(mesChampsAvant[i]).trimmed()));
         TWField->item( 0, 1 )->setFlags( Qt::ItemIsEnabled |Qt::ItemIsSelectable );
       }
       TWField->resizeColumnsToContents();

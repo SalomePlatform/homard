@@ -279,7 +279,6 @@ void MonCreateHypothesis::GetAllZones()
 // Recuperation de toutes les zones enregistrees dans l'arbre d'etude
 {
   HOMARD::listeZones_var  mesZones = _myHomardGen->GetAllZones();
-  TWZone->clear();
   int stop=TWZone->rowCount();
   for ( int row=0; row< stop; row++)
   {
@@ -294,7 +293,7 @@ void MonCreateHypothesis::GetAllZones()
     TWZone->item( row, 0 )->setFlags( 0 );
     TWZone->item( row, 0 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
     TWZone->item( row, 0 )->setCheckState( Qt::Unchecked );
-    TWZone->setItem( row, 1, new QTableWidgetItem(QString(mesZones[i])));
+    TWZone->setItem( row, 1, new QTableWidgetItem(QString(mesZones[i]).trimmed()));
     TWZone->item( row, 1 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
     row=row+1;
   }
@@ -419,7 +418,7 @@ void MonCreateHypothesis::SetFieldName()
        TWCMP->item( 0, 0 )->setFlags( 0 );
        TWCMP->item( 0, 0 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
        TWCMP->item( 0, 0 )->setCheckState( Qt::Checked );
-       TWCMP->setItem( 0, 1, new QTableWidgetItem(QString((*it))));
+       TWCMP->setItem( 0, 1, new QTableWidgetItem(QString((*it)).trimmed()));
        TWCMP->item( 0, 1 )->setFlags( Qt::ItemIsEnabled |Qt::ItemIsSelectable );
   }
   TWCMP->resizeColumnsToContents();
@@ -702,7 +701,7 @@ void MonCreateHypothesis::SetFieldChosen()
     TWField->item( row, 0 )->setFlags( 0 );
     TWField->item( row, 0 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
     TWField->item( row, 0 )->setCheckState( Qt::Unchecked );
-    TWField->setItem( row, 1, new QTableWidgetItem(QString(*it)));
+    TWField->setItem( row, 1, new QTableWidgetItem(QString(*it).trimmed()));
     TWField->item( row, 1 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
     row=row+1;
   }

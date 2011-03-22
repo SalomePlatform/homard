@@ -222,6 +222,7 @@ void MonCreateZone::InitMinMax()
       SpinBox_Zcentre->setEnabled(false) ;
     }
 // Rayon
+    SpinBox_Rayon->setSingleStep(_Rayon/10.);
     SpinBox_Rayon->setMinimum(0.);
 }
 // ------------------------------------------------------------------------

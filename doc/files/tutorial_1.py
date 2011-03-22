@@ -23,7 +23,7 @@ Hypo_0.SetAdapRefinUnRef(-1, 1, 0)
 #
 # Case "Case_0"
 # =============
-Case_0 = homard.CreateCase('Case_0', 'MESH', dircase+'/tutorial_1.00.med')
+Case_0 = homard.CreateCase('Case_0', 'MAILL', dircase+'/tutorial_1.00.med')
 Case_0.SetDirName(dircase)
 Case_0.SetConfType(1)
 #

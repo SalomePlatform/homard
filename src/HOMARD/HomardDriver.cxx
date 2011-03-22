@@ -345,21 +345,24 @@ void HomardDriver::TexteBoundaryOption( int BoundaryOption )
 //  std::cerr << "A la fin de TexteBoundaryOption _Texte ="<<_Texte << std::endl;
 }
 ////=============================================================================
-void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::string MeshFile )
+void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::string MeshFile, const std::string GroupName )
 {
-//   std::cerr << "Dans HomardDriver::TexteBoundaryDi, MeshName ="<<MeshName << std::endl;
+  MESSAGE("Dans TexteBoundaryDi de HomardDriver MeshName  = "<<MeshName);
+  MESSAGE("Dans TexteBoundaryDi de HomardDriver MeshFile  = "<<MeshFile);
+  MESSAGE("Dans TexteBoundaryDi de HomardDriver GroupName = "<<GroupName);
 //
   _Texte += "CCNoMFro " + MeshName + "\n" ;
   _Texte += "CCFronti " + MeshFile + "\n" ;
+  if ( GroupName.size() > 0 ) _Texte += "CCGroFro " + GroupName + "\n" ;
 //
 //  std::cerr << "A la fin de TexteBoundaryOption _Texte ="<<_Texte << std::endl;
 }
 ////=============================================================================
 void HomardDriver::TexteBoundaryAn( int NumeBoundary, int BoundaryType, const std::string Group, double x0, double x1, double x2, double x3, double x4, double x5, double x6 )
 {
-std::cerr << "Dans TexteBoundaryAn de HomardDriver NumeBoundary = "<<NumeBoundary << std::endl;
-std::cerr << "Dans TexteBoundaryAn de HomardDriver BoundaryType = "<<BoundaryType << std::endl;
-std::cerr << "Dans TexteBoundaryAn de HomardDriver coor = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6 <<std::endl;
+  MESSAGE("Dans TexteBoundaryAn de HomardDriver NumeBoundary = "<<NumeBoundary);
+  MESSAGE("Dans TexteBoundaryAn de HomardDriver BoundaryType = "<<BoundaryType);
+  MESSAGE("Dans TexteBoundaryAn de HomardDriver coor         = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6);
 //
   std::string saux, saux2 ;
 //

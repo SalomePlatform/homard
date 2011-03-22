@@ -93,7 +93,6 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
   std::ostringstream aScript;
   aScript << "\n# Creation of the hypothesis " << _NomHypo << "\n" ; 
   aScript << "\t" << _NomHypo << " = homard.CreateHypothesis('" << _NomHypo << "')\n";
-  aScript << "\t" << _NomHypo << ".SetCaseCreation('" << _NomCasCreation << "')\n";
   aScript << "\t" << _NomHypo << ".SetAdapRefinUnRef(" << _TypeAdap << ", " << _TypeRaff << ", " << _TypeDera << ")\n";
 
 // Raffinement selon des zones geometriques

@@ -36,22 +36,16 @@ Copyright EDF-R&D 2010
 #
 # Creation of the zones
 # =====================
-# Creation of the  box Zone_1
+# Creation of the box Zone_1
   Zone_1 = homard.CreateZone('Zone_1', 2)
   Zone_1.SetBox(-0.01, 1.01, -0.01, 0.4, -0.01, 0.6)
 
-# Creation of the  sphere Zone_2
+# Creation of the sphere Zone_2
   Zone_2 = homard.CreateZone('Zone_2', 4)
   Zone_2.SetSphere(0.5, 0.6, 0.7, 0.75)
 #
 # Creation of the hypotheses
 # ==========================
-# Creation of the hypothesis Zones_1_et_2
-  Zones_1_et_2 = homard.CreateHypothesis('Zones_1_et_2')
-  Zones_1_et_2.SetAdapRefinUnRef(0, 1, 0)
-  homard.AssociateHypoZone('Zone_1', 'Zones_1_et_2')
-  homard.AssociateHypoZone('Zone_2', 'Zones_1_et_2')
-
 # Creation of the hypothesis a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM
   a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM = homard.CreateHypothesis('a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
   a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetAdapRefinUnRef(1, 1, 0)
@@ -59,6 +53,14 @@ Copyright EDF-R&D 2010
   a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetUseComp(0)
   a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddComp('ERREST')
   a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetRefinThr(3, 10.1)
+  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetTypeFieldInterp(2)
+  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddFieldInterp('RESU____DEPL____________________')
+  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddFieldInterp('RESU____ERRE_ELEM_SIGM__________')
+# Creation of the hypothesis Zones_1_et_2
+  Zones_1_et_2 = homard.CreateHypothesis('Zones_1_et_2')
+  Zones_1_et_2.SetAdapRefinUnRef(0, 1, 0)
+  homard.AssociateHypoZone('Zone_1', 'Zones_1_et_2')
+  homard.AssociateHypoZone('Zone_2', 'Zones_1_et_2')
 #
 # Creation of the cases
 # =====================
@@ -74,7 +76,7 @@ Copyright EDF-R&D 2010
   I1.SetMeshName('M1')
   I1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
   I1.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.00.med'))
-  I1.SetTimeStepRank( 1, 1)
+  I1.SetTimeStepRank(1, 1)
   homard.AssociateIterHypo('I1', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
   result1 = homard.Compute('I1', 1)
 
@@ -83,7 +85,7 @@ Copyright EDF-R&D 2010
   I2.SetMeshName('M2')
   I2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
   I2.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.01.med'))
-  I2.SetTimeStepRank( 1, 1)
+  I2.SetTimeStepRank(1, 1)
   homard.AssociateIterHypo('I2', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
   result2 = homard.Compute('I2', 1)
 
@@ -116,12 +118,14 @@ test_file_suff = "apad.0" + s_iter_test_file + ".bilan"
 rep_test_file = "I0" + s_iter_test_file
 #
 test_file = os.path.join(Rep_Test, Test_Name + "." + test_file_suff)
+mess_error_ref = "\nReference file: " + test_file
 try :
   file = open (test_file, "r")
   mess_ref = file.readlines()
   file.close()
 except :
-  raise Exception('Reference file does not exist.')
+  mess_error = mess_error_ref + "\nThis file does not exist.\n"
+  raise Exception(mess_error)
   sys.exit(2)
 #
 test_file = os.path.join(Rep_Test_Resu, rep_test_file, test_file_suff)
@@ -130,12 +134,16 @@ if os.path.isfile (test_file) :
    mess = file.readlines()
    file.close()
 else :
-  raise Exception('Result file does not exist.')
+  mess_error  = "\nResult file: " + test_file
+  mess_error += "\nThis file does not exist.\n"
+  raise Exception(mess_error)
   sys.exit(2)
 
 nblign = len(mess_ref)
 if ( len(mess) != nblign ):
-  raise Exception('The number of lines of the files are not the same.')
+  mess_error = mess_error_ref +  "\nResult file: " + test_file
+  mess_error += "\nThe number of lines of the files are not the same.\n"
+  raise Exception(mess_error)
   sys.exit(2)
 
 for num in range(nblign) :

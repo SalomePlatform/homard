@@ -43,6 +43,8 @@ nodist_libSalomeIDLHOMARD_la_SOURCES = \
         HOMARD_BoundarySK.cc \
         HOMARD_GenSK.cc
 
+BUILT_SOURCES = $(nodist_libSalomeIDLHOMARD_la_SOURCES)
+
 # header files must be exported: other modules have to use this library
 nodist_salomeinclude_HEADERS = $(BASEIDL_FILES:%.idl=%.hh)
 
@@ -85,8 +87,8 @@ IDLPYFLAGS  = \
 SUFFIXES = .idl .hh SK.cc
 .idlSK.cc:
 	$(OMNIORB_IDL) $(IDLCXXFLAGS) $(OMNIORB_IDLCXXFLAGS) $<
-.idl.hh:
-	$(OMNIORB_IDL) $(IDLCXXFLAGS) $(OMNIORB_IDLCXXFLAGS) $<
+#.idl.hh:
+#	$(OMNIORB_IDL) $(IDLCXXFLAGS) $(OMNIORB_IDLCXXFLAGS) $<
 
 install-exec-local: $(BASEIDL_FILES:%=$(top_srcdir)/idl/%)
 	$(INSTALL) -d  $(DESTDIR)$(salomepythondir)

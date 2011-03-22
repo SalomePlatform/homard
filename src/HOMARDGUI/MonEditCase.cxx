@@ -75,36 +75,89 @@ void MonEditCase::InitValEdit()
       RBNonConforme->setEnabled(false);
       RBConforme->setEnabled(false);
 
-//    Affichage du mode de suivi de frontiere
+//    Non affichage du mode de suivi de frontiere
       CBBoundaryA->setVisible(0);
       GBBoundaryA->setVisible(0);
       CBBoundaryD->setVisible(0);
       GBBoundaryD->setVisible(0);
 
+//    On passe en revue tous les couples (frontiere,groupe) du cas
       HOMARD::ListBoundaryGroupType_var mesBoundarys = aCase->GetBoundaryGroup();
       if (mesBoundarys->length()>0)
       {
+        QStringList ListeFron ;
+        QString NomFron ;
         bool BounDi = false ;
         bool BounAn = false ;
         for (int i=0; i<mesBoundarys->length(); i++)
         {
-          HOMARD::HOMARD_Boundary_var myBoundary = _myHomardGen->GetBoundary((mesBoundarys)[i]);
+//        Nom de la frontiere
+          NomFron = mesBoundarys[i++];
+          MESSAGE("NomFron "<<NomFron.toStdString().c_str());
+//        L'objet associe pour en deduire le type
+          HOMARD::HOMARD_Boundary_var myBoundary = _myHomardGen->GetBoundary(NomFron.toStdString().c_str());
           int type_obj = myBoundary->GetBoundaryType() ;
 
-          if ( type_obj==0 ) 
-          { CBBoundaryDi->addItem(QString((mesBoundarys)[i++]));
+//        C'est une frontiere discrete
+//        Rermarque : on ne gere pas les groupes
+          if ( type_obj==0 )
+          {
             BounDi = true ;
+            CBBoundaryDi->addItem(NomFron);
           }
+
+//        C'est une frontiere analytique
           else
           {
-            i++ ;
             BounAn = true ;
-          };
+            int nbcol = TWBoundary->columnCount();
+//          On ajoute une ligne pour le groupe
+            TWBoundary->insertRow(0);
+//          La colonne 0 comporte le nom du groupe
+            TWBoundary->setItem( 0, 0, new QTableWidgetItem(QString(mesBoundarys[i]).trimmed()));
+//             TWBoundary->item( 0, 0 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
+//          Chacune des colonnes suivantes est associé a une frontiere deja presente : on y met une
+//          case non cochee
+            for ( int j = 1; j < nbcol; j++ )
+            {
+              TWBoundary->setItem( 0, j, new QTableWidgetItem( QString ("") ) );
+              TWBoundary->item( 0, j )->setFlags( 0 );
+              TWBoundary->item( 0, j )->setFlags( Qt::ItemIsUserCheckable  );
+              TWBoundary->item( 0, j )->setCheckState( Qt::Unchecked );
+            }
+//          On cherche si la frontiere en cours d'examen a deja ete rencontree :
+//          si oui, on stocke son numero de colonne
+            int ok = -1 ;
+            for ( int nufr = 0 ; nufr<ListeFron.size(); nufr++)
+            {
+              if ( ListeFron[nufr] == NomFron ) ok = nufr+1 ;
+            }
+//            si non, on ajoute une colonne
+            if ( ok < 0 )
+            {
+              ListeFron.append(NomFron);
+              ok = ListeFron.size() ;
+              addBoundaryAn(NomFron);
+            }
+//          on coche la case correspondant au couple (frontiere,groupe) en cours d'examen
+            TWBoundary->item( 0, ok )->setCheckState( Qt::Checked );
+          }
         }
         MESSAGE("BounDi "<<BounDi<<", BounAn "<<BounAn);
         if ( BounAn )
         { GBBoundaryA->setVisible(1);
-          GBBoundaryA->setDisabled(true);}
+//        on rend les cases inactives. On ne peut pas le faire pour le tableau sinon on perd l'ascenseur !
+          int nbcol = TWBoundary->columnCount();
+          int nbrow = TWBoundary->rowCount();
+          for ( int i = 0; i < nbrow; i++ )
+          { for ( int j = 0; j < nbcol; j++ ) TWBoundary->item( i, j )->setFlags( !Qt::ItemIsEnabled ); }
+//        on met un nom blanc au coin
+          QTableWidgetItem *__colItem = new QTableWidgetItem();
+          __colItem->setText(QApplication::translate("CreateCase", "", 0, QApplication::UnicodeUTF8));
+          TWBoundary->setHorizontalHeaderItem(0, __colItem);
+//        on cache le bouton New
+          PBBoundaryAnNew->setVisible(0);
+        }
         if ( BounDi )
         { GBBoundaryD->setVisible(1);
           CBBoundaryDi->setDisabled(true);

@@ -3,10 +3,10 @@
 L'adaptation
 ============
 
-.. index:: single: itÃ©ration
+.. index:: single: itération
 .. index:: single: calcul
 
-MÃ©thodes de la classe homard
+Méthodes de la classe homard
 """"""""""""""""""""""""""""
 
 +---------------------------------------------------------------+
@@ -14,24 +14,24 @@ MÃ©thodes de la classe homard
 | .. index:: single: Compute                                    |
 |                                                               |
 | **Compute(iter_name, option)**                                |
-|     Calcule l'adaptation de maillage correspondant Ã           |
-|     une itÃ©ration                                             |
+|     Calcule l'adaptation de maillage correspondant à          |
+|     une itération                                             |
 |                                                               |
-|     - ``iter_name`` : le nom de l'itÃ©ration                   |
-|     - ``option`` : un entier prÃ©cisant ce qui se passe quand  |
-|     des fichiers de rÃ©sultats existent dÃ©jÃ                    |
-|         * 0 : arrÃªt en erreur                                 |
-|         * 1 : Ã©crasement des anciens fichiers                 |
+|     - ``iter_name`` : le nom de l'itération                   |
+|     - ``option`` : un entier précisant ce qui se passe quand  |
+|     des fichiers de résultats existent déjà                   |
+|         * 0 : arrêt en erreur                                 |
+|         * 1 : écrasement des anciens fichiers                 |
 |                                                               |
 |     Retourne un entier :                                      |
-|         * 0 : adaptation rÃ©ussie                              |
-|         * autre valeur : problÃ¨me                             |
+|         * 0 : adaptation réussie                              |
+|         * autre valeur : problème                             |
 +---------------------------------------------------------------+
 
 
 Exemple
 """""""
-Le calcul de l'itÃ©ration de nom "Iteration_1" avec Ã©crasement des anciens fichiers de rÃ©sultat se fait ainsi : ::
+Le calcul de l'itération de nom "Iteration_1" avec écrasement des anciens fichiers de résultat se fait ainsi : ::
 
     iter_name = "Iteration_1"
     codret = homard.Compute(iter_name, 1)

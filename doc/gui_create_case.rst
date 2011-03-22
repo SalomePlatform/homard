@@ -3,12 +3,14 @@
 Le cas
 ======
 .. index:: single: cas
-La dÃ©finition du cas se fait par la donnÃ©e des informations suivantes :
+
+La définition du cas se fait par la donnée des informations suivantes :
 
   - Un nom
-  - Un rÃ©pertoire
+  - Un répertoire
   - Le fichier du maillage initial
-  - Le type de conformitÃ© pour la sÃ©rie d'adaptations envisagÃ©es
+  - Le type de conformité pour la série d'adaptations envisagées
+  - Les éventuelles frontières courbes à respecter
 
 .. image:: images/create_case_1.png
    :align: center
@@ -16,20 +18,21 @@ La dÃ©finition du cas se fait par la donnÃ©e des informations suivantes :
 
 Le nom du cas
 """""""""""""
-Un nom de cas est proposÃ© automatiquement : Case_0, Case_1, etc. Ce nom peut Ãªtre modifiÃ©. Il ne doit pas avoir Ã©tÃ© utilisÃ© pour un cas prÃ©cÃ©dent.
+Un nom de cas est proposé automatiquement : Case_1, Case_2, etc. Ce nom peut être modifié. Il ne doit pas avoir déjà été utilisé pour un autre cas.
 
-Le rÃ©pertoire
+Le répertoire
 """""""""""""
-Le rÃ©pertoire est celui qui contiendra les fichiers produits par les adaptations successives. Ce rÃ©pertoire doit exister. Par dÃ©faut, Salome propose ``/tmp``. Ce choix peut Ãªtre modifiÃ©, soit en tapant le nom dans la zone de texte, soit en activant la fonction de recherche. C'est dans ce rÃ©pertoire que seront exportÃ©s les maillages au format MED, dans des fichiers de nom ``maill.xx.med``, oÃ¹ ``xx`` est un numÃ©ro d'ordre crÃ©Ã© automatiquement ; ces noms de fichiers seront visibles dans l'arbre d'Ã©tudes.
+Le répertoire est celui qui contiendra les fichiers produits par les adaptations successives. Ce répertoire doit exister. Par défaut, Salome propose ``/tmp``. Ce choix peut être modifié, soit en tapant le nom dans la zone de texte, soit en activant la fonction de recherche. C'est dans ce répertoire que seront exportés les maillages au format MED, dans des fichiers de nom ``maill.xx.med``, où ``xx`` est un numéro d'ordre créé automatiquement ; ces noms de fichiers seront visibles dans l'arbre d'études.
 
 .. image:: images/create_case_2.png
    :align: center
 
 .. index:: single: maillage;initial
 .. index:: single: MED
+
 Le maillage initial
 """""""""""""""""""
-Le maillage initial doit se trouver dans un fichier au format MED. Classiquement, il aura Ã©tÃ© produit par le logiciel de calcul avec lequel on travaille. Mais il peut Ã©galement avoir Ã©tÃ© crÃ©Ã© avec le module SMESH et exportÃ© au format MED. Le nom du fichier peut Ãªtre fourni, soit en tapant le nom dans la zone de texte, soit en activant la fonction de recherche.
+Le maillage initial doit se trouver dans un fichier au format MED. Classiquement, il aura été produit par le logiciel de calcul avec lequel on travaille. Mais il peut également avoir été créé avec le module SMESH et exporté au format MED. Le nom du fichier peut être fourni, soit en tapant le nom dans la zone de texte, soit en activant la fonction de recherche.
 
 .. image:: images/create_case_3.png
    :align: center
@@ -38,30 +41,51 @@ Le maillage initial doit se trouver dans un fichier au format MED. Classiquement
   Le fichier ne doit contenir qu'un seul maillage.
 
 .. warning::
-  Le maillage ne doit pas Ãªtre lui-mÃªme le produit d'une adaptation de maillage par HOMARD, sous peine de perdre la cohÃ©rence entre les diffÃ©rents niveaux de raffinement/dÃ©raffinement
+  Le maillage ne doit pas être lui-même le produit d'une adaptation de maillage par HOMARD, sous peine de perdre la cohérence entre les différents niveaux de raffinement/déraffinement
 
-.. index:: single: type de conformitÃ©
-Le type de conformitÃ©
+.. index:: single: type de conformité
+
+Le type de conformité
 """""""""""""""""""""
-Les itÃ©rations qui seront dÃ©finies pour ce cas devront respecter le mÃªme comportement vis-Ã -vis de la conformitÃ©.
+Les itérations qui seront définies pour ce cas devront respecter le même comportement vis-à-vis de la conformité.
 
-L'option par dÃ©faut, 'conforme', implique que les maillages produits par HOMARD seront conformes au sens des Ã©lÃ©ments finis. C'est le choix classique de la plupart des logiciels de simulation par Ã©lÃ©ments finis.
+L'option par défaut, 'conforme', implique que les maillages produits par HOMARD seront conformes au sens des éléments finis. C'est le choix classique de la plupart des logiciels de simulation par éléments finis.
 
-Si le calcul est possible avec des maillages non conforme, on a le choix entre 3 possibilitÃ©s :
+Néanmoins, si le calcul est possible avec des maillages non conformes, on a le choix entre 3 possibilités :
 
 .. image:: images/create_case_4.png
    :align: center
 
-* 1 noeud par maille : une maille ne peut possÃ©der qu'un seul noeud de non conformitÃ© avec ses voisines.
-* 1 noeud par arÃªte : chaque arÃªte d'une maille peut Ãªtre dÃ©coupÃ©e sans que la maille voisine par cette arÃªte ne le soit.
-* quelconque : aucune limitation sur les raccords de conformitÃ© d'une maille Ã  l'autre.
+* 1 noeud par maille : une maille ne peut posséder qu'un seul noeud de non conformité avec ses voisines.
+* 1 noeud par arête : chaque arête d'une maille peut être découpée sans que la maille voisine par cette arête ne le soit.
+* quelconque : aucune limitation sur les raccords de conformité d'une maille à l'autre.
 
-.. index:: single: arbre d'Ã©tude
-L'arbre d'Ã©tude
-"""""""""""""""
-A l'issue de cette crÃ©ation de cas, l'arbre d'Ã©tudes a Ã©tÃ© enrichi de ce nouveau cas. On y trouve l'itÃ©ration initiale, identifiÃ©e par le nom du maillage qui a Ã©tÃ© lu dans le fichier fourni.
+.. index:: single: frontière
+
+Les frontières courbes
+""""""""""""""""""""""
+Quand le bord du domaine est courbe, HOMARD sait placer les nouveaux noeuds sur ces frontières pour éviter des singularités artificielles. Cette technique est aussi applicable à une courbure intérieure à un domaine.
+
+Deux cas de figure sont présents :
+
+* courbe 1D : cette courbe peut être définie dans un plan, par exemple pour un calcul 2D. Elle peut également être définie dans l'espace 3D, par exemple pour l'intersection de deux surfaces. Une ligne à suivre est décrite de manière discrète.
+* surface : une surface à suivre est décrite de manière analytique.
+
+On cochera le ou les boutons voulus :
 
 .. image:: images/create_case_5.png
+   :align: center
+
+La définition des frontières est décrite dans :ref:`gui_create_boundary`.
+
+
+.. index:: single: arbre d'étude
+
+L'arbre d'étude
+"""""""""""""""
+A l'issue de cette création de cas, l'arbre d'études a été enrichi de ce nouveau cas. On y trouve l'itération initiale, identifiée par le nom du maillage qui a été lu dans le fichier fourni.
+
+.. image:: images/create_case_6.png
    :align: center
 
 

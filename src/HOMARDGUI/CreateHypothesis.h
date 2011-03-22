@@ -398,6 +398,9 @@ public:
     GBAreaManagement->setSizePolicy(sizePolicy);
     gridLayout_3 = new QGridLayout(GBAreaManagement);
     gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+
+
+
     TWZone = new QTableWidget(GBAreaManagement);
     if (TWZone->columnCount() < 2)
         TWZone->setColumnCount(2);

@@ -7,21 +7,25 @@ La zone
 .. index:: single: boite
 .. index:: single: sphere
 
-Les variables sont dÃ©crites dans :ref:`gui_create_zone`.
+Les variables sont décrites dans :ref:`gui_create_zone`.
 
-MÃ©thodes de la classe homard
+Méthodes de la classe homard
 """"""""""""""""""""""""""""
 
 +---------------------------------------------------------------+
 +===============================================================+
 | .. module:: CreateZone                                        |
 |                                                               |
-| **CreateZone(zone_name)**                                     |
+| **CreateZone(zone_name, zone_type)**                          |
 |                                                               |
 |     - ``zone_name`` : le nom de la zone                       |
+|     - ``zone_type`` : entier précisant le type de zone        |
+|                                                               |
+|         * 2 : parallélépipède                                 |
+|         * 4 : sphère                                          |
 +---------------------------------------------------------------+
 
-MÃ©thodes de la classe zone
+Méthodes de la classe zone
 """"""""""""""""""""""""""
 
 +---------------------------------------------------------------+
@@ -31,14 +35,10 @@ MÃ©thodes de la classe zone
 | **GetName()**                                                 |
 |     Retourne le nom de la zone                                |
 +---------------------------------------------------------------+
-| .. module:: SetZoneType                                       |
+| .. module:: GetZoneType                                       |
 |                                                               |
-| **SetZoneType(zone_type)**                                    |
-|                                                               |
-|     - ``zone_type`` : entier prÃ©cisant le type de zone        |
-|                                                               |
-|         * 2 : parallÃ©lÃ©pipÃ¨de                                 |
-|         * 4 : sphÃ¨re                                          |
+| **GetZoneType()**                                             |
+|     Retourne le type de la zone                               |
 +---------------------------------------------------------------+
 | .. module:: SetBox                                            |
 |                                                               |
@@ -54,16 +54,15 @@ MÃ©thodes de la classe zone
 |     - ``Xcen`` : X du centre                                  |
 |     - ``Ycen`` : Y du centre                                  |
 |     - ``Zcen`` : Z du centre                                  |
-|     - ``R`` : rayon de la sphÃ¨re                              |
+|     - ``R`` : rayon de la sphère                              |
 +---------------------------------------------------------------+
 
 
 Exemple
 """""""
-La crÃ©ation de l'objet zone_1 se fait ainsi : ::
+La création de l'objet zone_1 se fait ainsi : ::
 
-    zone_1 = homard.CreateZone("Zone_2")
-    zone_1.SetTypeZone(4)
+    zone_1 = homard.CreateZone("Zone_2", 4)
     zone_1.SetSphere(12.3, 3.4, .56, 6.5)
 
 

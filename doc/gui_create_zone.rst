@@ -4,37 +4,37 @@ La zone
 =======
 .. index:: single: zone
 
-L'objet zone contient toutes les dÃ©finitions gÃ©omÃ©triques permettant de dÃ©crire une zone Ã  raffiner. 
+L'objet zone contient toutes les définitions géométriques permettant de décrire une zone à raffiner.
 
 Il existe deux types de zone :
 
-  - ParallÃ©lÃ©pipÃ¨de
-  - SphÃ¨re
+  - Parallélépipède
+  - Sphère
 
 Nom de la zone
 """"""""""""""
-Un nom de zone est proposÃ© automatiquement : Zone_0, Zone_1, etc. Ce nom peut Ãªtre modifiÃ©. Il ne doit pas avoir Ã©tÃ© utilisÃ© pour une zone prÃ©cÃ©dente.
+Un nom de zone est proposé automatiquement : Zone_1, Zone_2, etc. Ce nom peut être modifié. Il ne doit pas avoir été déjà utilisé pour une autre zone.
 
-Un parallÃ©lÃ©pipÃ¨de
+Un parallélépipède
 """"""""""""""""""
 .. index:: single: boite
 
-Le parallÃ©lÃ©pipÃ¨de est forcÃ©ment parallÃ¨le aux axes de coordonnÃ©es, il est dÃ©fini par ses extrÃªmes dans chaque direction.
+Le parallélépipède est forcément parallèle aux axes de coordonnées. Il est défini par ses extrêmes dans chaque direction.
 
 .. image:: images/create_zone_1.png
    :align: center
 
-Une sphÃ¨re
+Une sphère
 """"""""""
 .. index:: single: sphere
 
-La sphÃ¨re est dÃ©finie par son centre et son rayon.
+La sphère est définie par son centre et son rayon.
 
 .. image:: images/create_zone_2.png
    :align: center
 
 .. note::
-  Les valeurs proposÃ©es par dÃ©faut tiennent compte de la gÃ©omÃ©trie du maillage. 
+  Les valeurs proposées par défaut tiennent compte de la géométrie du maillage.
 
 
 

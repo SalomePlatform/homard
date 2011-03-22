@@ -23,15 +23,15 @@
 class HOMARD_Gen_i:
   public virtual Engines_Component_i,
   public virtual POA_HOMARD::HOMARD_Gen
-{ 
+{
 public:
   HOMARD_Gen_i(CORBA::ORB_ptr orb,
 		PortableServer::POA_ptr poa,
-		PortableServer::ObjectId* contId, 
-		const char* instanceName, 
+		PortableServer::ObjectId* contId,
+		const char* instanceName,
 		const char* interfaceName);
   virtual ~HOMARD_Gen_i();
-  
+
 
   SALOMEDS::Study_ptr             GetCurrentStudy();
   void                            SetCurrentStudy(SALOMEDS::Study_ptr theStudy);
@@ -57,6 +57,7 @@ public:
   void                            AssociateHypoZone(const char* nomZone, const char* nomHypothesis);
   void                            DissociateHypoZone(const char* nomZone, const char* nomHypothesis);
 
+  void                            InvalideBoundary(const char* nomBoundary);
   void                            InvalideZone(const char* nomZone);
   void                            InvalideHypo(const char* nomHypo);
   void                            InvalideIter(const char* nomIter);
@@ -70,10 +71,10 @@ public:
   HOMARD::listeBoundarys*         GetAllBoundarys();
 
   char*                           GetCaseName(const char* nomIteration);
-  
+
   CORBA::Boolean                  Compute(const char* nomIteration, CORBA::Long etatMenage);
   CORBA::Boolean                  VerifieDir(const char* nomDir);
-  
+
   void                            PublishResultInSmesh(const char* NomFich, CORBA::Long IconeType);
   void                            DeleteResultInSmesh(const char* NomFich, const char* MeshName);
   void                            PublishFileUnderIteration(const char* NomIter, const char* NomFich,
@@ -87,11 +88,11 @@ public:
   virtual SALOMEDS::TMPFile*      Save(SALOMEDS::SComponent_ptr theComponent,
 					const char* theURL,
 					bool isMultiFile);
-  
+
   virtual SALOMEDS::TMPFile*      SaveASCII(SALOMEDS::SComponent_ptr theComponent,
 					     const char* theURL,
 					     bool isMultiFile);
-  
+
   virtual bool                    Load(SALOMEDS::SComponent_ptr theComponent,
 					const SALOMEDS::TMPFile& theStream,
 					const char* theURL,
@@ -103,9 +104,9 @@ public:
 					     bool isMultiFile);
 
   virtual void                    Close(SALOMEDS::SComponent_ptr IORSComponent);
-  
+
   virtual char*                   ComponentDataType();
-  
+
   virtual char*                   IORToLocalPersistentID(SALOMEDS::SObject_ptr theSObject,
 							  const char* IORString,
 							  CORBA::Boolean isMultiFile,
@@ -115,7 +116,7 @@ public:
 							  const char* aLocalPersistentID,
 							  CORBA::Boolean isMultiFile,
 							  CORBA::Boolean isASCII);
-  
+
   // --> Data publishing
   virtual bool                    CanPublishInStudy(CORBA::Object_ptr theIOR);
 
@@ -126,7 +127,7 @@ public:
 
   // --> Copy/Paste
   virtual CORBA::Boolean          CanCopy(SALOMEDS::SObject_ptr theObject);
-  
+
   virtual SALOMEDS::TMPFile*      CopyFrom(SALOMEDS::SObject_ptr theObject,
 					    CORBA::Long& theObjectID);
 
@@ -141,7 +142,7 @@ private:
   void                            addInStudy(SALOMEDS::Study_ptr theStudy);
   SALOMEDS::SObject_ptr           PublishCaseInStudy(SALOMEDS::Study_ptr theStudy, SALOMEDS::StudyBuilder_var aStudyBuilder,
                                                      HOMARD::HOMARD_Cas_ptr theObject, const char* theName);
-  
+
   SALOMEDS::SObject_ptr           PublishHypotheseInStudy(SALOMEDS::Study_ptr theStudy, SALOMEDS::StudyBuilder_var aStudyBuilder,
                                                      HOMARD::HOMARD_Hypothesis_ptr theObject, const char* theName);
 
@@ -177,7 +178,7 @@ private:
     std::map<int, PortableServer::ServantBase*>          _idmap;
   };
   typedef std::map<int, StudyContext> ContextMap;
-  
+
   ::HOMARD_Gen*                 myHomard;
   SALOMEDS::Study_var           myCurrentStudy;
   ContextMap                    myContextMap;

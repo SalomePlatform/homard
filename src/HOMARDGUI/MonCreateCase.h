@@ -19,6 +19,7 @@ public:
     MonCreateCase( QWidget* parent, bool modal, HOMARD::HOMARD_Gen_var myHomardGen);
     ~MonCreateCase();
 
+    void addBoundaryAn(QString newBoundary);
     void addBoundaryDi(QString newBoundary);
 
 protected :
@@ -49,6 +50,8 @@ public slots:
     virtual void PushBoundaryDiNew();
     virtual void PushBoundaryDiEdit();
     virtual void SetBoundaryA();
+    virtual void PushBoundaryAnNew();
+    virtual void PushBoundaryAnHelp();
 
     virtual void PushOnOK();
     virtual bool PushOnApply();

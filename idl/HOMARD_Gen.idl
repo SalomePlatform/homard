@@ -19,7 +19,7 @@ module HOMARD
   typedef sequence<string> listeCases;
   typedef sequence<string> listeBoundarys;
 
-  interface HOMARD_Gen : Engines::Component, SALOMEDS::Driver
+  interface HOMARD_Gen : Engines::EngineComponent, SALOMEDS::Driver
   {
     HOMARD_Cas        CreateCase(in string nomCas, in string MeshName, in string FileName )
                                                            raises (SALOME::SALOME_Exception);
@@ -41,6 +41,7 @@ module HOMARD
     void DissociateHypoZone(in string nomZone, in string nomHypothesis)
                                                            raises (SALOME::SALOME_Exception);
 
+    void InvalideBoundary (in string nomBoundary)          raises (SALOME::SALOME_Exception);
     void InvalideZone (in string nomZone)                  raises (SALOME::SALOME_Exception);
     void InvalideHypo (in string nomHypo)                  raises (SALOME::SALOME_Exception);
     void InvalideIter (in string nomIter)                  raises (SALOME::SALOME_Exception);

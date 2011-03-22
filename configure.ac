@@ -268,6 +268,14 @@ CHECK_HDF5
 
 echo
 echo ---------------------------------------------
+echo BOOST Library
+echo ---------------------------------------------
+echo
+
+CHECK_BOOST
+
+echo
+echo ---------------------------------------------
 echo Testing OpenCascade
 echo ---------------------------------------------
 echo
@@ -327,7 +335,7 @@ echo
 
 echo Configure
 if test "${HOMARD_WITH_GUI}" = "yes"; then
-variables="cc_ok fortran_ok   python_ok swig_ok threads_ok OpenGL_ok qt_ok  hdf5_ok omniORB_ok Kernel_ok med2_ok SalomeGUI_ok Med_ok SMesh_ok  sphinx_ok"
+variables="cc_ok fortran_ok boost_ok python_ok swig_ok threads_ok OpenGL_ok qt_ok  hdf5_ok omniORB_ok Kernel_ok med2_ok SalomeGUI_ok Med_ok SMesh_ok  sphinx_ok"
 fi
 
 if test "${HOMARD_WITH_GUI}" = "no"; then

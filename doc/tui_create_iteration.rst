@@ -1,15 +1,15 @@
 .. _tui_create_iteration:
 
-L'it√©ration
+L'itÈration
 ===========
 
-.. index:: single: it√©ration
-.. index:: single: hypoth√®se
+.. index:: single: itÈration
+.. index:: single: hypothËse
 .. index:: single: zone
 
-Les variables sont d√©crites dans :ref:`gui_create_iteration`.
+Les variables sont dÈcrites dans :ref:`gui_create_iteration`.
 
-M√©thodes de la classe homard
+MÈthodes de la classe homard
 """"""""""""""""""""""""""""
 
 +---------------------------------------------------------------+
@@ -19,25 +19,25 @@ M√©thodes de la classe homard
 | **CreateIteration(iter_name, iter_parent_name)**              |
 |     Retourne une instance de la classe iteration              |
 |                                                               |
-|     - ``iter_name`` : le nom de l'it√©ration                   |
-|     - ``iter_parent_name`` : le nom de l'it√©ration m√®re       |
+|     - ``iter_name`` : le nom de l'itÈration                   |
+|     - ``iter_parent_name`` : le nom de l'itÈration mËre       |
 |                                                               |
-| Par d√©faut :                                                  |
+| Par dÈfaut :                                                  |
 |                                                               |
-|  * le maillage produit a le m√™me nom que l'it√©ration          |
+|  * le maillage produit a le mÍme nom que l'itÈration          |
 +---------------------------------------------------------------+
 | .. module:: AssociateIterHypo                                 |
 |                                                               |
 | **AssociateIterHypo(iter_name, hypo_name)**                   |
 |                                                               |
-|     - ``iter_name`` : le nom de l'it√©ration                   |
-|     - ``hypo_name`` : le nom de l'hypoth√®se √† associer        |
+|     - ``iter_name`` : le nom de l'itÈration                   |
+|     - ``hypo_name`` : le nom de l'hypothËse ‡ associer        |
 +---------------------------------------------------------------+
 
-M√©thodes de la classe iteration
+MÈthodes de la classe iteration
 """""""""""""""""""""""""""""""
 
-G√©n√©ralit√©s
+GÈnÈralitÈs
 ^^^^^^^^^^^
 
 +---------------------------------------------------------------+
@@ -45,35 +45,35 @@ G√©n√©ralit√©s
 | .. module:: GetName                                           |
 |                                                               |
 | **GetName()**                                                 |
-|     Retourne le nom de l'it√©ration                            |
+|     Retourne le nom de l'itÈration                            |
 +---------------------------------------------------------------+
 | .. module:: GetNumber                                         |
 |                                                               |
 | **GetNumber()**                                               |
-|     Retourne le num√©ro de l'it√©ration                         |
+|     Retourne le numÈro de l'itÈration                         |
 +---------------------------------------------------------------+
 | .. module:: GetIterParent                                     |
 |                                                               |
 | **GetIterParent()**                                           |
-|     Retourne le nom de l'it√©ration m√®re                       |
+|     Retourne le nom de l'itÈration mËre                       |
 +---------------------------------------------------------------+
 | .. module:: GetHypoName                                       |
 |                                                               |
 | **GetHypoName()**                                             |
-|     Retourne le nom de l'hypoth√®se associ√©e                   |
+|     Retourne le nom de l'hypothËse associÈe                   |
 +---------------------------------------------------------------+
 | .. module:: GetCaseName                                       |
 |                                                               |
 | **GetCaseName()**                                             |
-|     Retourne le nom du cas associ√©                            |
+|     Retourne le nom du cas associÈ                            |
 +---------------------------------------------------------------+
 | .. module:: GetState                                          |
 |                                                               |
 | **GetState()**                                                |
-|     Retourne l'√©tat de l'it√©ration                            |
+|     Retourne l'Ètat de l'itÈration                            |
 |                                                               |
-|     - ``0`` : it√©ration non calcul√©e                          |
-|     - ``1`` : it√©ration calcul√©e correctement                 |
+|     - ``0`` : itÈration non calculÈe                          |
+|     - ``1`` : itÈration calculÈe correctement                 |
 +---------------------------------------------------------------+
 
 Informations sur les maillages
@@ -104,13 +104,18 @@ Informations sur le champ
 
 +---------------------------------------------------------------+
 +===============================================================+
-| .. module:: SetField                                          |
+| .. module:: SetFieldFile                                      |
 |                                                               |
-| **SetField(field_file, TimeStep, Rank)**                      |
+| **SetFieldFile(field_file)**                                  |
 |                                                               |
 |     - ``field_file`` : le nom du fichier contenant le champ   |
-|     - ``TimeStep`` : l'instant o√π est pris le champ           |
-|     - ``Rank`` : le num√©ro d'ordre o√π est pris le champ       |
++---------------------------------------------------------------+
+| .. module:: SetTimeStepRank                                   |
+|                                                               |
+| **SetTimeStepRank(fTimeStep, Rank)**                          |
+|                                                               |
+|     - ``TimeStep`` : l'instant o˘ est pris le champ           |
+|     - ``Rank`` : le numÈro d'ordre o˘ est pris le champ       |
 +---------------------------------------------------------------+
 | .. module:: GetFieldFileName                                  |
 |                                                               |
@@ -120,19 +125,19 @@ Informations sur le champ
 | .. module:: GetTimeStep                                       |
 |                                                               |
 | **GetTimeStep()**                                             |
-|     Retourne l'instant o√π est pris le champ                   |
+|     Retourne l'instant o˘ est pris le champ                   |
 +---------------------------------------------------------------+
 | .. module:: GetRank                                           |
 |                                                               |
 | **GetRank()**                                                 |
-|     Retourne le num√©ro d'ordre o√π est pris le champ           |
+|     Retourne le numÈro d'ordre o˘ est pris le champ           |
 +---------------------------------------------------------------+
 
 Exemple
 """""""
 .. index:: single: maillage;initial
 
-Pour la cr√©ation de la premi√®re it√©ration, il faut r√©cup√©rer le nom qui a √©t√© donn√© √† celle qui correspond au maillage initial. Ce nom s'obtient avec la m√©thode ``GetIter0Name`` appliqu√©e au cas. ::
+Pour la crÈation de la premiËre itÈration, il faut rÈcupÈrer le nom qui a ÈtÈ donnÈ ‡ celle qui correspond au maillage initial. Ce nom s'obtient avec la mÈthode ``GetIter0Name`` appliquÈe au cas. ::
 
     iter_name = "Iteration_1"
     iter_1 = homard.CreateIteration(iter_name, case_1.GetIter0Name())
@@ -141,7 +146,7 @@ Pour la cr√©ation de la premi√®re it√©ration, il faut r√©cup√©rer le nom qui a √
     iter_1.SetMeshFile("/local00/M.01.med")
     homard.AssociateIterHypo(iter_name, "HypoField")
 
-Pour la cr√©ation d'une it√©ration suivante, on donnera le nom de l'it√©ration parent de laquelle on part. ::
+Pour la crÈation d'une itÈration suivante, on donnera le nom de l'itÈration parent de laquelle on part. ::
 
     iter_name = "Iteration_2"
     iter_1 = homard.CreateIteration(iter_name, "Iteration_1")

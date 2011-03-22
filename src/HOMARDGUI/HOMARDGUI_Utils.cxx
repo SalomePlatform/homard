@@ -191,6 +191,13 @@ bool HOMARD_UTILS::isObject(_PTR(SObject) MonObj, QString TypeObject, int option
   return bOK ;
 }
 //================================================================
+// Retourne vrai si l objet est une frontiere analytique
+//================================================================
+bool HOMARD_UTILS::isBoundaryAn(_PTR(SObject) MonObj)
+{
+   return isObject( MonObj, QString("BoundaryAnHomard"), -1 ) ;
+}
+//================================================================
 // Retourne vrai si l objet est une frontiere discrete
 //================================================================
 bool HOMARD_UTILS::isBoundaryDi(_PTR(SObject) MonObj)

@@ -120,7 +120,7 @@ void MonCreateListGroup::InitGroupes()
       {TWGroupe->item( i, 0 )->setCheckState( Qt::Checked );}
     else
       {TWGroupe->item( i, 0 )->setCheckState( Qt::Unchecked );}
-    TWGroupe->setItem( i, 1, new QTableWidgetItem(QString((_listeGroupesCas)[i])));
+    TWGroupe->setItem( i, 1, new QTableWidgetItem(QString((_listeGroupesCas)[i]).trimmed()));
     TWGroupe->item( i, 1 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
   }
   TWGroupe->resizeColumnsToContents();

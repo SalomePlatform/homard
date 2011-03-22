@@ -1,32 +1,32 @@
 Mode d'emploi pour l'interface graphique
 ========================================
 .. index:: single: cas
-.. index:: single: itÃ©ration
+.. index:: single: itération
 
 Activer le module HOMARD
 """"""""""""""""""""""""
-Pour utiliser le module HOMARD, deux faÃ§ons existent :
+Pour utiliser le module HOMARD, deux façons existent :
 
 #. en activant l'onglet HOMARD dans la liste des modules,
 #. en cliquant sur le bouton HOMARD dans la barre d'outils.
 
-L'utilisateur a alors le choix entre crÃ©er une nouvelle Ã©tude ou en ouvrir une qui a Ã©tÃ© prÃ©cÃ©demment enregistrÃ©e.
+L'utilisateur a alors le choix entre créer une nouvelle étude ou en ouvrir une qui a été précédemment enregistrée.
 
-DÃ©finir une adaptation
+Définir une adaptation
 """"""""""""""""""""""
 
-Une fois que HOMARD a Ã©tÃ© activÃ©, la permiÃ¨re action consiste Ã  crÃ©er un cas. Il s'agit de sÃ©lectionner le maillage initial de la suite d'adaptations envisagÃ©e (voir :ref:`gui_create_case`). A partir de ce cas, on dÃ©finira les itÃ©rations successives (voir :ref:`gui_create_iteration`) Ã  partir des hypothÃ¨ses (voir :ref:`gui_create_hypothese`).
+Une fois que HOMARD a été activé, la permière action consiste à créer un cas. Il s'agit de sélectionner le maillage initial de la suite d'adaptations envisagée (voir :ref:`gui_create_case`). A partir de ce cas, on définira les itérations successives (voir :ref:`gui_create_iteration`) à partir des hypothèses (voir :ref:`gui_create_hypothese`).
 
-RÃ©cupÃ©rer le rÃ©sultat d'une adaptation
+Récupérer le résultat d'une adaptation
 """"""""""""""""""""""""""""""""""""""
-Le rÃ©sultat d'une adaptation s'obtient en sÃ©lectionnant l'itÃ©ration Ã  calculer. On sÃ©lectionne ensuite *Lancement* dans le menu HOMARD.
+Le résultat d'une adaptation s'obtient en sélectionnant l'itération à calculer. On sélectionne ensuite *Lancement* dans le menu HOMARD.
 
 .. image:: images/lancement_1.png
    :align: center
 
-Le fichier contenant le maillage produit est visible dans l'arbre d'Ã©tudes.
+Le fichier contenant le maillage produit est visible dans l'arbre d'études.
 
-Mode d'emploi de la saisie des donnÃ©es
+Mode d'emploi de la saisie des données
 """"""""""""""""""""""""""""""""""""""
 
 .. toctree::

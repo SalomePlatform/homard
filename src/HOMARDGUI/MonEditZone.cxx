@@ -103,20 +103,20 @@ void MonEditZone::SetBox()
   SpinBox_Xmini->setValue(_ZoneXmin);
   SpinBox_Xmaxi->setValue(_ZoneXmax);
 
-  int incr=1;
-  if ( _Xincr > 0 ) { incr=_Xincr;};
+  double incr ;
+  if ( _Xincr > 0 ) {incr=_Xincr;} else{incr=1.;}
   SpinBox_Xmini->setSingleStep(incr);
   SpinBox_Xmaxi->setSingleStep(incr);
 
   SpinBox_Ymini->setValue(_ZoneYmin);
   SpinBox_Ymaxi->setValue(_ZoneYmax);
-  if ( _Yincr > 0 ) {incr=_Yincr;} else{incr=1;}
+  if ( _Yincr > 0 ) {incr=_Yincr;} else{incr=1.;}
   SpinBox_Ymini->setSingleStep(incr);
   SpinBox_Ymaxi->setSingleStep(incr);
 
   SpinBox_Zmini->setValue(_ZoneZmin);
   SpinBox_Zmaxi->setValue(_ZoneZmax);
-  if ( _Zincr > 0 ) {incr=_Zincr;} else{incr=1;}
+  if ( _Zincr > 0 ) {incr=_Zincr;} else{incr=1.;}
   SpinBox_Zmini->setSingleStep(incr);
   SpinBox_Zmaxi->setSingleStep(incr);
 

@@ -22,7 +22,7 @@ public:
   void        TexteCompo( int NumeComp, const std::string NomCompo);
 
   void        TexteBoundaryOption( int BoundaryOption );
-  void        TexteBoundaryDi( const std::string MeshName, const std::string MeshFile );
+  void        TexteBoundaryDi( const std::string MeshName, const std::string MeshFile, const std::string GroupName );
   void        TexteBoundaryAn( int NumeBoundary, int BoundaryType, const std::string Group, double x0, double x1, double x2, double x3, double x4, double x5, double x6 );
 
   void        TexteFieldInterp( int TypeFieldInterp, const std::string FieldFile, const std::string MeshFile,

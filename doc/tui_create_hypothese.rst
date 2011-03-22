@@ -1,15 +1,15 @@
 .. _tui_create_hypothese:
 
-L'hypoth√®se
+L'hypothËse
 ===========
 
-.. index:: single: it√©ration
-.. index:: single: hypoth√®se
+.. index:: single: itÈration
+.. index:: single: hypothËse
 .. index:: single: zone
 
-Les variables sont d√©crites dans :ref:`gui_create_hypothese`.
+Les variables sont dÈcrites dans :ref:`gui_create_hypothese`.
 
-M√©thodes de la classe homard
+MÈthodes de la classe homard
 """"""""""""""""""""""""""""
 
 +---------------------------------------------------------------+
@@ -19,20 +19,20 @@ M√©thodes de la classe homard
 | **CreateHypothesis(hypo_name)**                               |
 |     Retourne une instance de la classe hypothese              |
 |                                                               |
-|     - ``hypo_name`` : le nom de l'hypoth√®se                   |
+|     - ``hypo_name`` : le nom de l'hypothËse                   |
 +---------------------------------------------------------------+
 | .. module:: AssociateHypoZone                                 |
 |                                                               |
 | **AssociateHypoZone(hypo_name, zone_name)**                   |
 |                                                               |
-|     - ``hypo_name`` : le nom de l'hypoth√®se                   |
-|     - ``zone_name`` : le nom de la zone √† associer            |
+|     - ``hypo_name`` : le nom de l'hypothËse                   |
+|     - ``zone_name`` : le nom de la zone ‡ associer            |
 +---------------------------------------------------------------+
 
-M√©thodes de la classe hypothese
+MÈthodes de la classe hypothese
 """""""""""""""""""""""""""""""
 
-G√©n√©ralit√©s
+GÈnÈralitÈs
 ^^^^^^^^^^^
 
 +---------------------------------------------------------------+
@@ -40,24 +40,24 @@ G√©n√©ralit√©s
 | .. module:: GetName                                           |
 |                                                               |
 | **GetName()**                                                 |
-|     Retourne le nom de l'hypoth√®se                            |
+|     Retourne le nom de l'hypothËse                            |
 +---------------------------------------------------------------+
 | .. module:: SetAdapRefinUnRef                                 |
 |                                                               |
 | **SetAdapRefinUnRef(Adap, Refin, UnRef)**                     |
 |                                                               |
-|     - ``Adap`` : entier pr√©cisant le type d'adaptation        |
+|     - ``Adap`` : entier prÈcisant le type d'adaptation        |
 |                                                               |
 |         * -1 : uniforme                                       |
 |         * 0 : selon des zones                                 |
 |         * 1 : selon un champ                                  |
 |                                                               |
-|     - ``Refin`` : entier pr√©cisant si le raffinement est actif|
+|     - ``Refin`` : entier prÈcisant si le raffinement est actif|
 |                                                               |
 |         0. inactif                                            |
 |         1. actif                                              |
 |                                                               |
-|     - ``UnRef`` : entier pr√©cisant si d√©raffinement est actif |
+|     - ``UnRef`` : entier prÈcisant si dÈraffinement est actif |
 |                                                               |
 |         0. inactif                                            |
 |         1. actif                                              |
@@ -76,7 +76,7 @@ G√©n√©ralit√©s
 | .. module:: GetUnRefType                                      |
 |                                                               |
 | **GetUnRefType()**                                            |
-|     Retourne le type de d√©raffinement                         |
+|     Retourne le type de dÈraffinement                         |
 +---------------------------------------------------------------+
 
 Le champ et les seuils
@@ -84,9 +84,9 @@ Le champ et les seuils
 
 +---------------------------------------------------------------+
 +===============================================================+
-| .. module:: SetFieldName                                      |
+| .. module:: SetField                                          |
 |                                                               |
-| **SetFieldName(field_name)**                                  |
+| **SetField(field_name)**                                      |
 |                                                               |
 |     - ``field_name`` : le nom du champ                        |
 +---------------------------------------------------------------+
@@ -99,16 +99,16 @@ Le champ et les seuils
 |                                                               |
 | **SetUseField(use_field)**                                    |
 |                                                               |
-|     - ``use_field`` : entier pr√©cisant l'usage du champ       |
+|     - ``use_field`` : entier prÈcisant l'usage du champ       |
 |                                                               |
-|         0. valeur par maille (d√©faut)                         |
+|         0. valeur par maille (dÈfaut)                         |
 |         1. saut entre une maille et ses voisines              |
 +---------------------------------------------------------------+
 | .. module:: SetRefinThr                                       |
 |                                                               |
 | **SetRefinThr(type_thres, threshold)**                        |
 |                                                               |
-|     - ``type_thres`` : entier pr√©cisant le type de seuil en   |
+|     - ``type_thres`` : entier prÈcisant le type de seuil en   |
 |       raffinement                                             |
 |                                                               |
 |         1. valeur absolue                                     |
@@ -126,8 +126,8 @@ Le champ et les seuils
 |                                                               |
 | **SetUnRefThr(type_thres, threshold)**                        |
 |                                                               |
-|     - ``type_thres`` : entier pr√©cisant le type de seuil en   |
-|       d√©raffinement                                           |
+|     - ``type_thres`` : entier prÈcisant le type de seuil en   |
+|       dÈraffinement                                           |
 |                                                               |
 |         1. valeur absolue                                     |
 |         2. valeur relative en %                               |
@@ -138,7 +138,7 @@ Le champ et les seuils
 | .. module:: GetUnRefThrType                                   |
 |                                                               |
 | **GetUnRefThrType()**                                         |
-|     Retourne le type de seuil de d√©raffinement                |
+|     Retourne le type de seuil de dÈraffinement                |
 +---------------------------------------------------------------+
 
 
@@ -151,23 +151,23 @@ Les composantes du champ
 |                                                               |
 | **AddComp(comp_name)**                                        |
 |                                                               |
-|     - ``comp_name`` : nom d'une composante √† prendre en       |
+|     - ``comp_name`` : nom d'une composante ‡ prendre en       |
 |       compte                                                  |
 +---------------------------------------------------------------+
 | .. module:: SetUseComp                                        |
 |                                                               |
 | **SetUseComp(use_comp)**                                      |
 |                                                               |
-|     - ``use_comp`` : entier pr√©cisant l'usage des composantes |
+|     - ``use_comp`` : entier prÈcisant l'usage des composantes |
 |                                                               |
-|         0. norme L2 (d√©faut)                                  |
+|         0. norme L2 (dÈfaut)                                  |
 |         1. norme infinie                                      |
 |         2. valeur relative, uniquement si une seule composante|
 +---------------------------------------------------------------+
 | .. module:: GetListComp                                       |
 |                                                               |
 | **GetListComp()**                                             |
-|     Retourne la liste des composantes utilis√©es               |
+|     Retourne la liste des composantes utilisÈes               |
 +---------------------------------------------------------------+
 
 Le filtrage par les groupes
@@ -179,21 +179,21 @@ Le filtrage par les groupes
 |                                                               |
 | **AddGroup(group_name)**                                      |
 |                                                               |
-|     - ``group_name`` : nom du groupe √† prendre en compte      |
+|     - ``group_name`` : nom du groupe ‡ prendre en compte      |
 +---------------------------------------------------------------+
 | .. module:: GetGroups                                         |
 |                                                               |
 | **GetGroups()**                                               |
-|     Retourne la liste des groupes utilis√©s pour le filtrage   |
+|     Retourne la liste des groupes utilisÈs pour le filtrage   |
 +---------------------------------------------------------------+
 
 Exemple
 """""""
-La cr√©ation de l'objet hypo_1 se fait ainsi : ::
+La crÈation de l'objet hypo_1 se fait ainsi : ::
 
     hypo_1 = homard.CreateHypothesis("HypoField")
     hypo_1.SetAdapRefinUnRef(1, 1, 0)
-    hypo_1.SetFieldName("INDICATEUR")
+    hypo_1.SetField("INDICATEUR")
     hypo_1.AddComp("INDX")
     hypo_1.AddComp("INDZ")
     hypo_1.SetRefinThr(1, 80.)

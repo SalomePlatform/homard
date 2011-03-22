@@ -89,7 +89,7 @@ bool MonCreateBoundaryDi::PushOnApply()
 // Creation de l'objet CORBA si ce n'est pas deja fait sous le meme nom
   if ( _aBoundaryName != aBoundaryName )
   {
-   try 
+   try
    {
      _aBoundaryName=aBoundaryName;
      _aBoundary=_myHomardGen->CreateBoundary(CORBA::string_dup(_aBoundaryName.toStdString().c_str()),0);
@@ -126,7 +126,7 @@ void MonCreateBoundaryDi::PushOnOK()
 void MonCreateBoundaryDi::PushOnHelp()
 // ------------------------------------------------------------------------
 {
-  HOMARD_UTILS::PushOnHelp(QString("gui_create_hypothese.html"));
+  HOMARD_UTILS::PushOnHelp(QString("gui_create_boundary.html#frontiere-discrete"));
 }
 // ------------------------------------------------------------------------
 void MonCreateBoundaryDi::AssocieLesGroupes()

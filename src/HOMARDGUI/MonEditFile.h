@@ -36,7 +36,6 @@ protected :
 
 public slots:
     virtual void PushOnPrint();
-    virtual void PushOnHelp();
 
 };
 

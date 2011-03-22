@@ -20,15 +20,18 @@
 #
 #  See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
-rm -rf autom4te.cache aclocal.m4 configure make_config
+rm -rf autom4te.cache aclocal.m4 configure make_config \$\(top_srcdir\)
 find . -name "*~" -print -exec rm {} \;
 find . -name "*.pyc" -print -exec rm {} \;
 #exit
 # ==================== ON SORT AVANT
 
 find bin -name Makefile.in | xargs rm -f
+find doc -name Makefile.in | xargs rm -f
 find idl -name Makefile.in | xargs rm -f
 find resources -name Makefile.in | xargs rm -f
-find salome_adm -name Makefile.in | xargs rm -f
+find tests -name Makefile.in | xargs rm -f
 find src -name Makefile.in | xargs rm -f
 rm -f Makefile.in
+rm -f COPYING INSTALL
+rm -rf salome_adm

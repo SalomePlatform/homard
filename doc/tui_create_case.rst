@@ -3,12 +3,12 @@
 Le cas
 ======
 .. index:: single: cas
-.. index:: single: type de conformitÃ©
+.. index:: single: type de conformité
 .. index:: single: maillage;initial
 
-Les variables sont dÃ©crites dans :ref:`gui_create_case`.
+Les variables sont décrites dans :ref:`gui_create_case`.
 
-MÃ©thodes de la classe homard
+Méthodes de la classe homard
 """"""""""""""""""""""""""""
 
 +---------------------------------------------------------------+
@@ -22,14 +22,14 @@ MÃ©thodes de la classe homard
 |     - ``mesh_name`` : le nom du maillage initial              |
 |     - ``mesh_file`` : le nom du fichier contenant ce maillage |
 |                                                               |
-| Par dÃ©faut :                                                  |
+| Par défaut :                                                  |
 |                                                               |
-|  * le rÃ©pertoire des rÃ©sultats est ``/tmp``                   |
+|  * le répertoire des résultats est ``/tmp``                   |
 |  * l'adaptation est conforme                                  |
 +---------------------------------------------------------------+
 
 
-MÃ©thodes de la classe cas
+Méthodes de la classe cas
 """""""""""""""""""""""""
 
 +---------------------------------------------------------------+
@@ -43,18 +43,18 @@ MÃ©thodes de la classe cas
 |                                                               |
 | **SetDirName(dirname)**                                       |
 |                                                               |
-|     - ``dirname`` : le nom du rÃ©pertoire des rÃ©sutats         |
+|     - ``dirname`` : le nom du répertoire des résutats         |
 +---------------------------------------------------------------+
 | .. module:: GetDirName                                        |
 |                                                               |
 | **GetDirName()**                                              |
-|     Retourne le nom du rÃ©pertoire des rÃ©sutats associÃ© au cas |
+|     Retourne le nom du répertoire des résutats associé au cas |
 +---------------------------------------------------------------+
 | .. module:: SetConfType                                       |
 |                                                               |
 | **SetConfType(conf_type)**                                    |
 |                                                               |
-|     - ``conf_type`` :  entier prÃ©cisant le mode de conformitÃ© |
+|     - ``conf_type`` : entier précisant le mode de conformité  |
 |                                                               |
 |         1. conforme                                           |
 |         2. non conforme avec 1 noeud par maille               |
@@ -64,20 +64,36 @@ MÃ©thodes de la classe cas
 | .. module:: GetConfType                                       |
 |                                                               |
 | **GetConfType()**                                             |
-|     Retourne le type de conformitÃ©                            |
+|     Retourne le type de conformité                            |
 +---------------------------------------------------------------+
 | .. module:: GetIter0Name                                      |
 |                                                               |
 | **GetIter0Name()**                                            |
-|     Retourne le nom de l'itÃ©ration 0, associÃ©e au maillage    |
+|     Retourne le nom de l'itération 0, associée au maillage    |
 |     initial. Ce nom est mis automatiquement par le module     |
-|     HOMARD et doit Ãªtre utilisÃ© pour enchaÃ®ner les adaptations|
+|     HOMARD et doit être utilisé pour enchaîner les adaptations|
++---------------------------------------------------------------+
+| .. module:: AddBoundaryGroup                                  |
+|                                                               |
+| **AddBoundaryGroup(boundary, group)**                         |
+|                                                               |
+|     - ``boundary`` : nom d'une frontière courbe à suivre      |
+|     Pour une frontière discrète :                             |
+|                                                               |
+|     . si toutes les lignes courbes sont suivies, le second    |
+|       argument est une chaîne vide.                           |
+|     . si seulement certaines lignes courbes sont suivies,     |
+|       ``group`` est le nom d'un groupe de segments à suivre.  |
+|     Pour une frontière analytique :                           |
+|                                                               |
+|     - ``group`` : nom d'un groupe de faces placées sur la     |
+|       frontière                                               |
 +---------------------------------------------------------------+
 
 
 Exemple
 """""""
-La crÃ©ation de l'objet case_1 se fait ainsi : ::
+La création de l'objet case_1 se fait ainsi : ::
 
     case_name = "CAS_1"
     mesh_name = "MAILL"
@@ -86,6 +102,10 @@ La crÃ©ation de l'objet case_1 se fait ainsi : ::
     dirname = "/local00/Salome/Adapt/resu"
     case_1.SetDirName(dirname)
     case_1.SetConfType(1)
+    case_1.AddBoundaryGroup( 'intersection', '' )
+    case_1.AddBoundaryGroup( 'cyl_1', 'T1_EXT' )
+    case_1.AddBoundaryGroup( 'cyl_1', 'T2_EXT' )
+    case_1.AddBoundaryGroup( 'cyl_2', 'T_INT' )
 
 
 

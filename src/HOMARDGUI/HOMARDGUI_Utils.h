@@ -73,6 +73,7 @@ namespace HOMARD_UTILS {
                                        // of selected objects
 
   bool isXmgrace(_PTR(SObject)  MonObj);
+  bool isBoundaryAn(_PTR(SObject)  MonObj);
   bool isBoundaryDi(_PTR(SObject)  MonObj);
   bool isZone(_PTR(SObject)  MonObj);
   bool isHypo(_PTR(SObject)  MonObj);

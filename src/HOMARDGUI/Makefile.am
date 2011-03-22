@@ -28,6 +28,9 @@
 include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
 salomeinclude_HEADERS =       \
+	MonCreateBoundaryAn.h \
+	CreateBoundaryAn.h    \
+	MonEditBoundaryAn.h   \
 	MonCreateBoundaryDi.h \
 	CreateBoundaryDi.h    \
 	MonEditBoundaryDi.h   \
@@ -60,6 +63,8 @@ dist_libHOMARD_la_SOURCES =     \
 	HOMARDGUI.cxx           \
 	HOMARDGUI_Utils.cxx     \
 	HomardConfigFile.cxx    \
+	MonCreateBoundaryAn.cxx \
+	MonEditBoundaryAn.cxx \
 	MonCreateBoundaryDi.cxx \
 	MonEditBoundaryDi.cxx \
 	MonCreateCase.cxx       \
@@ -78,6 +83,8 @@ dist_libHOMARD_la_SOURCES =     \
 # MOC pre-processing
 MOC_FILES =                         \
 	HOMARDGUI_moc.cxx           \
+	MonCreateBoundaryAn_moc.cxx \
+	MonEditBoundaryAn_moc.cxx   \
 	MonCreateBoundaryDi_moc.cxx \
 	MonEditBoundaryDi_moc.cxx   \
 	MonCreateCase_moc.cxx       \
@@ -100,6 +107,7 @@ libHOMARD_la_CPPFLAGS =          \
 	$(PYTHON_INCLUDES)       \
 	$(MED2_INCLUDES)         \
 	$(HDF5_INCLUDES)         \
+	$(BOOST_CPPFLAGS)        \
 	$(CORBA_CXXFLAGS)        \
 	$(CORBA_INCLUDES)        \
 	$(KERNEL_CXXFLAGS)       \

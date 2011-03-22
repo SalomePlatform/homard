@@ -25,6 +25,9 @@ Hypo_0.SetField('SOLU_0__QIRE_ELEM_SIGM__________')
 Hypo_0.SetUseComp(0)
 Hypo_0.AddComp('ERREST          ')
 Hypo_0.SetRefinThr(3, 1.0)
+Hypo_0.SetTypeFieldInterp(2)
+Hypo_0.AddFieldInterp('SOLU_0__DEPL____________________')
+Hypo_0.AddFieldInterp('SOLU_0__ERRE_ELEM_SIGM__________')
 #
 # Hypothesis "Hypo_1"
 # ===================
@@ -36,6 +39,9 @@ Hypo_1.SetUseComp(0)
 Hypo_1.AddComp('ERREST          ')
 Hypo_1.SetRefinThr(3, 1.5)
 Hypo_1.SetUnRefThr(3, 6.)
+Hypo_1.SetTypeFieldInterp(2)
+Hypo_1.AddFieldInterp('SOLU_1__DEPL____________________')
+Hypo_1.AddFieldInterp('SOLU_1__QIRE_ELEM_SIGM__________')
 #
 # Case "Case_0"
 # =============
@@ -47,7 +53,8 @@ Case_0.SetDirName(dircase)
 Iter_0 = homard.CreateIteration('Iter_0', Case_0.GetIter0Name())
 Iter_0.SetMeshName('H_1')
 Iter_0.SetMeshFile(dircase+'/maill.01.med')
-Iter_0.SetField(dircase+'/tutorial_3.00.med', 1, 1)
+Iter_0.SetFieldFile(dircase+'/tutorial_3.00.med')
+Iter_0.SetTimeStepRank( 1, 1)
 homard.AssociateIterHypo('Iter_0', 'Hypo_0')
 codret = homard.Compute('Iter_0', 1)
 #
@@ -56,7 +63,8 @@ codret = homard.Compute('Iter_0', 1)
 Iter_1 = homard.CreateIteration('Iter_1', 'Iter_0')
 Iter_1.SetMeshName('H_2')
 Iter_1.SetMeshFile('/tmp/maill.02.med')
-Iter_1.SetField(dircase+'/tutorial_3.01.med', 1, 1)
+Iter_1.SetFieldFile(dircase+'/tutorial_3.01.med')
+Iter_1.SetTimeStepRank(1, 1)
 homard.AssociateIterHypo('Iter_1', 'Hypo_1')
 codret = homard.Compute('Iter_1', 1)
 

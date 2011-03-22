@@ -45,6 +45,7 @@ using namespace std;
 #include "MonEditIteration.h"
 #include "MonEditHypothesis.h"
 #include "MonEditZone.h"
+#include "MonEditBoundaryAn.h"
 #include "MonEditBoundaryDi.h"
 #include "HomardQtCommun.h"
 
@@ -82,7 +83,7 @@ HOMARDGUI::~HOMARDGUI()
 //=======================================================================
 HOMARD::HOMARD_Gen_var HOMARDGUI::InitHOMARDGen(SalomeApp_Application* app)
 {
-  Engines::Component_var comp = app->lcc()->FindOrLoad_Component( "FactoryServer","HOMARD" );
+  Engines::EngineComponent_var comp = app->lcc()->FindOrLoad_Component( "FactoryServer","HOMARD" );
   HOMARD::HOMARD_Gen_var clr = HOMARD::HOMARD_Gen::_narrow(comp);
   ASSERT(!CORBA::is_nil(clr));
   return clr;
@@ -312,11 +313,20 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
     {
       MESSAGE("command " << theCommandID << " activated avec objet " << _ObjectName.toStdString().c_str() );
       _PTR(SObject) obj = chercheMonObjet();
-      if ((obj) and (HOMARD_UTILS::isBoundaryDi(obj)))
+      if ((obj))
       {
-          MESSAGE(".. Lancement de MonEditBoundaryDi" );
-          MonEditBoundaryDi *aDlg = new MonEditBoundaryDi(0, TRUE, HOMARD::HOMARD_Gen::_duplicate(homardGen), QString(""), _ObjectName ) ;
-          aDlg->show();
+          if (HOMARD_UTILS::isBoundaryDi(obj))
+          {
+              MESSAGE(".. Lancement de MonEditBoundaryDi" );
+              MonEditBoundaryDi *aDlg = new MonEditBoundaryDi(0, TRUE, HOMARD::HOMARD_Gen::_duplicate(homardGen), QString(""), _ObjectName ) ;
+              aDlg->show();
+          }
+          if (HOMARD_UTILS::isBoundaryAn(obj))
+          {
+              MESSAGE(".. Lancement de MonEditBoundaryAn" );
+              MonEditBoundaryAn *aDlg = new MonEditBoundaryAn(0, TRUE, HOMARD::HOMARD_Gen::_duplicate(homardGen), QString(""), _ObjectName ) ;
+              aDlg->show();
+          }
       }
     }
 
@@ -434,7 +444,12 @@ void HOMARDGUI::contextMenuPopup( const QString& client, QMenu* menu, QString& t
     _ObjectName = title;
     SUIT_ResourceMgr* resMgr = SUIT_Session::session()->resourceMgr();
 //
-    if ( HOMARD_UTILS::isBoundaryDi(obj) )
+    if ( HOMARD_UTILS::isBoundaryAn(obj) )
+    {
+      QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
+      menu->addAction(QIcon(pix), "Edit boundary", this,SLOT(EditBoDi()));
+    }
+    else if ( HOMARD_UTILS::isBoundaryDi(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
       menu->addAction(QIcon(pix), "Edit boundary", this,SLOT(EditBoDi()));

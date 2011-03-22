@@ -99,13 +99,6 @@ std::string HOMARD_Boundary::GetDumpPython() const
       break;
     }
   }
-  aScript << "\t" <<_NomBoundary << ".SetCaseCreation('";
-  aScript << _NomCasCreation << "')\n";
-
-  std::list<std::string>::const_iterator it;
-  for ( it=_ListGroupSelected.begin(); it!=_ListGroupSelected.end();it++)
-       aScript << "\t" << _NomBoundary << ".AddGroup('"  << (*it) <<  "')\n" ;
-
 
   return aScript.str();
 }
