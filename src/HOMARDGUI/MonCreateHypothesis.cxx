@@ -24,7 +24,7 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
     :
     QDialog(0), Ui_CreateHypothesis(),
     _parent(parent), _aHypothesisName(aHypothesisName),
-    _aCaseName(caseName), _aFieldFile(aFieldFile), 
+    _aCaseName(caseName), _aFieldFile(aFieldFile),
     _aFieldName(""),
     _aTypeAdap(-2), _aTypeRaff(1), _aTypeDera(0),
     _TypeThR(3), _ThreshR(0),
@@ -97,9 +97,8 @@ bool MonCreateHypothesis::PushOnApply()
 
 
   if (LEHypothesisName->text().trimmed()=="") {
-    QMessageBox::information( 0, "Error",
-                              "The hypothesis must be named.",
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_NAME") );
     return false;
   }
 
@@ -117,9 +116,8 @@ bool MonCreateHypothesis::PushOnApply()
     }
     catch( SALOME::SALOME_Exception& S_ex )
     {
-      QMessageBox::information( 0, "Error",
-                  QString(CORBA::string_dup(S_ex.details.text)),
-                  QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QString(CORBA::string_dup(S_ex.details.text)) );
       return false;
     }
   }
@@ -158,7 +156,7 @@ void MonCreateHypothesis::SetNewHypothesisName()
 {
 
   HOMARD::listeHypotheses_var  MyHypos = _myHomardGen->GetAllHypotheses();
-  int num = 0;// 
+  int num = 0;//
   QString aHypothesisName="";
   while (aHypothesisName=="" )
   {
@@ -196,9 +194,8 @@ void MonCreateHypothesis::SetChamp()
 {
   if (_aFieldFile == QString(""))
   {
-     QMessageBox::information( 0, "Error",
-                              QString("Enter FieldFile please "),
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_FIELD_FILE") );
      close();
      if ( _parent ) { _parent->raise(); _parent->activateWindow(); };
      return;
@@ -239,7 +236,7 @@ void MonCreateHypothesis::SetZone()
 void MonCreateHypothesis::PushZoneNew()
 // ------------------------------------------------------------------------
 {
-  MESSAGE("Debut de PushZoneNew")
+  MESSAGE("Debut de MonCreateHypothesis::PushZoneNew")
   MonCreateZone *aDlg = new MonCreateZone(this, TRUE, HOMARD::HOMARD_Gen::_duplicate(_myHomardGen), _aCaseName) ;
   aDlg->show();
 }
@@ -248,14 +245,13 @@ void MonCreateHypothesis::PushZoneNew()
 void MonCreateHypothesis::PushZoneEdit()
 // ------------------------------------------------------------------------
 {
-  MESSAGE("Debut de PushZoneEdit")
+  MESSAGE("Debut de MonCreateHypothesis::PushZoneEdit")
   int colonne = TWZone->currentColumn();
   QTableWidgetItem * monItem = TWZone->currentItem();
-  if (colonne !=1  or monItem == NULL) 
+  if (colonne !=1  or monItem == NULL)
   {
-    QMessageBox::information( 0, "Error",
-                              "Please, Select a Zone",
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_ZONE_1") );
     return;
   }
   QString zoneName = monItem->text().trimmed();
@@ -266,10 +262,9 @@ void MonCreateHypothesis::PushZoneEdit()
 void MonCreateHypothesis::PushZoneDelete()
 // ------------------------------------------------------------------------
 {
-  MESSAGE("Debut de PushZoneDelete")
-  QMessageBox::information( 0, "Error",
-                            "Inactive button.",
-                            QMessageBox::Ok + QMessageBox::Default );
+  MESSAGE("Debut de MonCreateHypothesis::PushZoneDelete")
+  QMessageBox::warning( 0, QObject::tr("HOM_WARNING"),
+                        QObject::tr("HOM_INACTIVE_BUTTON") );
   return;
 }
 
@@ -279,8 +274,8 @@ void MonCreateHypothesis::GetAllZones()
 // Recuperation de toutes les zones enregistrees dans l'arbre d'etude
 {
   HOMARD::listeZones_var  mesZones = _myHomardGen->GetAllZones();
-  int stop=TWZone->rowCount();
-  for ( int row=0; row< stop; row++)
+  int nbrow=TWZone->rowCount();
+  for ( int row=0; row< nbrow; row++)
   {
      TWZone->removeRow(row);
   }
@@ -301,7 +296,7 @@ void MonCreateHypothesis::GetAllZones()
   TWZone->resizeRowsToContents();
   TWZone->clearSelection();
 }
-    
+
 // ------------------------------------------------------------------------
 void MonCreateHypothesis::addZone(QString newZone)
 // ------------------------------------------------------------------------
@@ -338,7 +333,7 @@ QStringList MonCreateHypothesis::GetListCompChecked()
 // ------------------------------------------------------------------------
 // Retourne les composantes retenues
 {
-  MESSAGE( "Dans GetListCompChecked" );
+  MESSAGE( "Dans MonCreateHypothesis::GetListCompChecked" );
   QStringList ListeComposant ;
 
   ListeComposant.clear();
@@ -347,12 +342,12 @@ QStringList MonCreateHypothesis::GetListCompChecked()
           ListeComposant.insert(0, QString(TWCMP->item(row, 1)->text()) ) ;
   // Choix du texte des radio-boutons selon 1 ou plusieurs composantes
   if ( ListeComposant.count() < 2 )
-  { RBL2->setText(QString("Absolute value"));
-    RBInf->setText(QString("Relative value"));
+  { RBL2->setText(QObject::tr("HOM_HYPO_NORM_ABS"));
+    RBInf->setText(QObject::tr("HOM_HYPO_NORM_REL"));
   }
   else
-  { RBL2->setText(QString("L2 norm"));
-    RBInf->setText(QString("Infinite Norm"));
+  { RBL2->setText(QObject::tr("HOM_HYPO_NORM_L2"));
+    RBInf->setText(QObject::tr("HOM_HYPO_NORM_INF"));
   }
   return ListeComposant ;
 //
@@ -399,14 +394,16 @@ void MonCreateHypothesis::InitFields()
 void MonCreateHypothesis::SetFieldName()
 // -------------------------------------------
 {
+  MESSAGE("MonCreateHypothesis::SetFieldName");
   _aFieldName=CBFieldName->currentText();
   if (QString(_aFieldFile) == QString("") or QString(_aFieldName) == QString("") ) { return; }
 
-  for ( int row=0; row < TWCMP->rowCount() ; row++)
+  int nbrow= TWCMP->rowCount() ;
+  for ( int row=0; row < nbrow ; row++)
   {
      TWCMP->removeRow(row);
   }
-  //TWCMP->setRowCount(0);
+  TWCMP->setRowCount(0);
   //TWCMP->resizeRowsToContents();
 
   std::list<QString>  maListe =HOMARD_QT_COMMUN::GetListeComposants(_aFieldFile, _aFieldName);
@@ -426,12 +423,12 @@ void MonCreateHypothesis::SetFieldName()
   TWCMP->clearSelection();
   // Choix du texte des radio-boutons selon 1 ou plusieurs composantes
   if ( TWCMP->rowCount() == 1 )
-  { RBL2->setText(QString("Absolute value"));
-    RBInf->setText(QString("Relative value"));
+  { RBL2->setText(QObject::tr("HOM_HYPO_NORM_ABS"));
+    RBInf->setText(QObject::tr("HOM_HYPO_NORM_REL"));
   }
   else
-  { RBL2->setText(QString("L2 norm"));
-    RBInf->setText(QString("Infinite Norm"));
+  { RBL2->setText(QObject::tr("HOM_HYPO_NORM_L2"));
+    RBInf->setText(QObject::tr("HOM_HYPO_NORM_INF"));
   }
   // Par defaut, on propose la valeur absolue / norme L2
   SetUCL2();
@@ -561,9 +558,8 @@ bool MonCreateHypothesis::VerifieZone()
   _aListeZone = GetZonesChecked() ;
   if (_aListeZone.count() == 0)
   {
-     QMessageBox::information( 0, "Error",
-                              QString("At least, one zone must be given."),
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_ZONE_2") );
      return false;
   }
   return true;
@@ -576,9 +572,8 @@ bool MonCreateHypothesis::VerifieComposant()
   _aListeComposant = GetListCompChecked() ;
   if (_aListeComposant.count() == 0)
   {
-     QMessageBox::information( 0, "Error",
-                              QString("At least, one composant must be given."),
-                               QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_COMP") );
      return false;
   }
   return true;
@@ -652,9 +647,8 @@ void MonCreateHypothesis::SetFieldAll()
 {
   if (_aFieldFile == QString(""))
   {
-     QMessageBox::information( 0, "Error",
-                              QString("Enter FieldFile please "),
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_FIELD_FILE") );
      close();
      if ( _parent ) { _parent->raise(); _parent->activateWindow(); };
      return;
@@ -673,9 +667,8 @@ void MonCreateHypothesis::SetFieldChosen()
 {
   if (_aFieldFile == QString(""))
   {
-     QMessageBox::information( 0, "Error",
-                              QString("Enter FieldFile please "),
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_HYPO_FIELD_FILE") );
      close();
      if ( _parent ) { _parent->raise(); _parent->activateWindow(); };
      return;
@@ -688,9 +681,11 @@ void MonCreateHypothesis::SetFieldChosen()
 
   // Initialisation de la table
   TWField->clear();
-  for ( int row=0; row< TWField->rowCount(); row++)
+  int nbrow=TWField->rowCount();
+  for ( int row=0; row< nbrow; row++)
+  {
      TWField->removeRow(row);
-
+  }
   TWField->setRowCount(0);
   std:: list<QString>::const_iterator it;
   int row=0;

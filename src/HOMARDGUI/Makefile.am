@@ -19,11 +19,11 @@
 #
 #  See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
-# -* Makefile *- 
-# Author : 
+# -* Makefile *-
+# Author :
 # Modified by : Alexander BORODIN (OCN) - autotools usage
 #
-# header files 
+# header files
 
 include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
@@ -131,6 +131,5 @@ libHOMARD_la_LDFLAGS  =                 \
 
 # resources files
 nodist_salomeres_DATA =  \
-	HOMARD_msg_en.qm
-#	HOMARD_msg_fr.qm 
-#	HOMARD_icons.qm
+	HOMARD_msg_en.qm \
+	HOMARD_msg_fr.qm

@@ -18,7 +18,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle" >
-   <string>Create Case</string>
+   <string>Create a case</string>
   </property>
   <property name="autoFillBackground" >
    <bool>true</bool>
@@ -45,7 +45,7 @@
       <item row="0" column="0" >
        <widget class="QPushButton" name="buttonOk" >
         <property name="text" >
-         <string>&amp;Ok</string>
+         <string>OK</string>
         </property>
         <property name="autoDefault" >
          <bool>false</bool>
@@ -55,7 +55,7 @@
       <item row="0" column="1" >
        <widget class="QPushButton" name="buttonApply" >
         <property name="text" >
-         <string>&amp;Apply</string>
+         <string>Apply</string>
         </property>
         <property name="autoDefault" >
          <bool>false</bool>
@@ -65,7 +65,7 @@
       <item row="0" column="2" >
        <widget class="QPushButton" name="buttonCancel" >
         <property name="text" >
-         <string>&amp;Cancel</string>
+         <string>Cancel</string>
         </property>
         <property name="autoDefault" >
          <bool>false</bool>
@@ -75,7 +75,7 @@
       <item row="0" column="3" >
        <widget class="QPushButton" name="buttonHelp" >
         <property name="text" >
-         <string>&amp;Help</string>
+         <string>Help</string>
         </property>
         <property name="autoDefault" >
          <bool>false</bool>
@@ -94,7 +94,7 @@
       </size>
      </property>
      <property name="title" >
-      <string>Analytic Boundary</string>
+      <string>Analytical boundary</string>
      </property>
      <widget class="QWidget" name="layoutWidget" >
       <property name="geometry" >
@@ -280,7 +280,7 @@
    <item row="5" column="0" colspan="2" >
     <widget class="QGroupBox" name="GBTypeConf" >
      <property name="title" >
-      <string>Conformity Type</string>
+      <string>Conformity type</string>
      </property>
      <layout class="QHBoxLayout" >
       <property name="margin" >
@@ -325,7 +325,7 @@
    <item row="7" column="0" colspan="2" >
     <widget class="QGroupBox" name="GBTypeNoConf" >
      <property name="title" >
-      <string>Non Conformal option</string>
+      <string>Non conformal option</string>
      </property>
      <layout class="QHBoxLayout" >
       <property name="margin" >
@@ -351,7 +351,7 @@
       <item>
        <widget class="QRadioButton" name="RBQuelconque" >
         <property name="text" >
-         <string>free</string>
+         <string>Free</string>
         </property>
        </widget>
       </item>
@@ -382,14 +382,14 @@
      <item>
       <widget class="QCheckBox" name="CBBoundaryD" >
        <property name="text" >
-        <string>Discrete Boundary </string>
+        <string>Discrete boundary</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="CBBoundaryA" >
        <property name="text" >
-        <string>Analytic Boundary </string>
+        <string>Analytical boundary</string>
        </property>
       </widget>
      </item>
@@ -432,7 +432,7 @@
       </sizepolicy>
      </property>
      <property name="title" >
-      <string>Discrete Boundary</string>
+      <string>Discrete boundary</string>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >

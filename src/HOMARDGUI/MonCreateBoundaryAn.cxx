@@ -169,9 +169,8 @@ bool MonCreateBoundaryAn::PushOnApply()
   std::cerr << LEBoundaryName->text().trimmed().toStdString() << std::endl;
   if (LEBoundaryName->text().trimmed()=="")
   {
-    QMessageBox::information( 0, "Error",
-                              "The boundary must be named.",
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_BOUN_NAME") );
     return false;
   }
 
@@ -236,14 +235,13 @@ bool MonCreateBoundaryAn:: CreateOrUpdateBoundaryAn()
               CORBA::string_dup(_aBoundaryAnName.toStdString().c_str()), \
               CORBA::Long(_BoundaryType) );
       _parent->addBoundaryAn(_aBoundaryAnName);
-     }
-     catch( SALOME::SALOME_Exception& S_ex )
-     {
-       QMessageBox::information( 0, "Error",
-                QString(CORBA::string_dup(S_ex.details.text)),
-                QMessageBox::Ok + QMessageBox::Default );
-       return false;
-     }
+    }
+    catch( SALOME::SALOME_Exception& S_ex )
+    {
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QString(CORBA::string_dup(S_ex.details.text)) );
+      return false;
+    }
   }
 // Mise en place des attributs
   aBoundaryAn->SetBoundaryType(_BoundaryType);

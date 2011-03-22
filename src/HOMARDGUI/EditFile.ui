@@ -5,12 +5,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>548</width>
+    <width>675</width>
     <height>901</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Edit File</string>
+   <string>Edit a file</string>
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
@@ -47,14 +47,14 @@
       <item row="0" column="1" >
        <widget class="QPushButton" name="buttonPrint" >
         <property name="text" >
-         <string>&amp;Print</string>
+         <string>Print</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0" >
        <widget class="QPushButton" name="buttonQuit" >
         <property name="text" >
-         <string>&amp;Quit</string>
+         <string>Quit</string>
         </property>
         <property name="autoDefault" >
          <bool>true</bool>

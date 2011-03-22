@@ -22,7 +22,7 @@ MonEditIteration::MonEditIteration ( QWidget* parent, bool modal,
    _rank(0), _step(0), _IterationName(""), _FieldFile(""),_aTypeAdap()
 {
     MESSAGE("Debut de  MonEditIteration" << IterName.toStdString().c_str());
-    setWindowTitle("Edit iteration");
+    setWindowTitle(QObject::tr("HOM_ITER_EDIT_WINDOW_TITLE"));
     _IterationName = IterName;
     aIter = _myHomardGen->GetIteration(_IterationName.toStdString().c_str());
 
@@ -53,12 +53,12 @@ void MonEditIteration::InitValEdit0()
 
 //    Affichage bloque du nom du maillage de l'iteration courante
       QString MeshName = aIter->GetMeshName();
-      Mesh_n->setText(QString("Mesh name"));
+      Mesh_n->setText(QObject::tr("HOM_ITER_STARTING_POINT_0"));
       LEMeshName_n->setText(MeshName);
       LEMeshName_n->setReadOnly(1);
 
 //    Message general
-      Mesh_np1->setText(QString("First iteration of the case."));
+      Mesh_np1->setText(QObject::tr("HOM_ITER_STARTING_POINT_1"));
       LEMeshName_np1->setVisible(0);
 //
 //    Invisibilite des hypotheses et des champs
@@ -150,7 +150,7 @@ bool MonEditIteration::PushOnApply()
   if ( _aTypeAdap ==  1)
   {
 // Pour du raffinement selon un champ, les instants ont-ils change ?
-    if ( (_FieldFile != LEFieldFile->text().trimmed()) or 
+    if ( (_FieldFile != LEFieldFile->text().trimmed()) or
        (  _rank != SpinBox_Rank->value())  or
        (  _step != SpinBox_TimeStep->value()))
     {

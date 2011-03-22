@@ -107,6 +107,7 @@ void HOMARDGUI::initialize( CAM_Application* app )
 //================================================
 void HOMARDGUI::createHOMARDAction( const int id, const QString& po_id, const QString& icon_id, const int key, const bool toggle  )
 {
+  MESSAGE("HOMARDGUI::createHOMARDAction");
   QIcon icon;
   QWidget* parent = application()->desktop();
   SUIT_ResourceMgr* resMgr = application()->resourceMgr();
@@ -114,13 +115,13 @@ void HOMARDGUI::createHOMARDAction( const int id, const QString& po_id, const QS
   if ( icon_id.length() )
      pix = resMgr->loadPixmap( "HOMARD", tr( icon_id .toLatin1().data()) );
   else
-     pix = resMgr->loadPixmap( "HOMARD", tr( QString( "ICO_%1" ).arg( po_id ).toLatin1().data() ), false );
+     pix = resMgr->loadPixmap( "HOMARD", tr( QString( "ICO_%1" ).arg( po_id ).toLatin1().data()), false );
   if ( !pix.isNull() )
       icon = QIcon( pix );
 
-  QString tooltip    = tr( QString( "TOP_%1" ).arg( po_id ).toLatin1().data() ),
-          menu       = tr( QString( "MEN_%1" ).arg( po_id ).toLatin1().data() ),
-          status_bar = tr( QString( "STB_%1" ).arg( po_id ).toLatin1().data() );
+  QString tooltip    = tr(QString( "HOM_TOP_%1" ).arg( po_id ).toLatin1().data()),
+          menu       = tr(QString( "HOM_MEN_%1" ).arg( po_id ).toLatin1().data()),
+          status_bar = tr(QString( "HOM_STB_%1" ).arg( po_id ).toLatin1().data());
 
   createAction( id, tooltip, icon, menu, status_bar, key, parent, toggle, this, SLOT( OnGUIEvent() )  );
 }
@@ -162,6 +163,7 @@ void HOMARDGUI::createPreferences(){
 //                Verifier l'avant dernier nombre passe en parametre
 //================================================
 void HOMARDGUI::createMenus(){
+  MESSAGE("HOMARDGUI::createMenus")
   int HOMARD_Id  = createMenu( tr( "HOMARD" ),  -1,  5, 10 );
   createMenu( 1101, HOMARD_Id, -1 ); //Create_Case
   createMenu( 1102, HOMARD_Id, -1 ); //Create_Iteration
@@ -227,8 +229,9 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
   {
     case 1101: // Creation d un Cas
     {
+      MESSAGE("etape 1101")
       MESSAGE("command " << theCommandID << " activated");
-      MonCreateCase *aDlg = new MonCreateCase( parent, TRUE, 
+      MonCreateCase *aDlg = new MonCreateCase( parent, TRUE,
                             HOMARD::HOMARD_Gen::_duplicate(homardGen) ) ;
       aDlg->show();
       break;
@@ -239,7 +242,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
       MESSAGE("command " << theCommandID << " activated");
       QString IterParentName=HOMARD_QT_COMMUN::SelectionArbreEtude(QString("IterationHomard"), 0);
       MESSAGE("IterParentName " << IterParentName.toStdString().c_str() << " choisi dans arbre");
-      MonCreateIteration *IterDlg = new MonCreateIteration( parent, true, 
+      MonCreateIteration *IterDlg = new MonCreateIteration( parent, true,
                                      HOMARD::HOMARD_Gen::_duplicate(homardGen), IterParentName ) ;
       IterDlg->show();
       break;
@@ -256,9 +259,8 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
       }
       catch( SALOME::SALOME_Exception& S_ex )
       {
-        QMessageBox::information( 0, "Error",
-                    QString(CORBA::string_dup(S_ex.details.text)),
-                    QMessageBox::Ok + QMessageBox::Default );
+        QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                  QString(CORBA::string_dup(S_ex.details.text)) );
         getApp()->updateObjectBrowser();
         return false;
       }
@@ -398,13 +400,13 @@ void HOMARDGUI::windows( QMap<int, int>& theMap ) const
 void HOMARDGUI::setOrb()
 //=============================================================================
 {
-  try 
+  try
   {
      ORB_INIT &init = *SINGLETON_<ORB_INIT>::Instance();
      ASSERT(SINGLETON_<ORB_INIT>::IsAlreadyExisting());
      _orb = init( 0 , 0 );
-  } 
-  catch (...) 
+  }
+  catch (...)
   {
      INFOS("internal error : orb not found");
      _orb = 0;
@@ -420,7 +422,7 @@ _PTR(SObject) HOMARDGUI::chercheMonObjet()
     _PTR(SObject) obj;
     SALOME_ListIO lst;
     getApp()->selectionMgr()->selectedObjects( lst );
-    if (  lst.Extent() == 1 ) 
+    if (  lst.Extent() == 1 )
     {
 	Handle(SALOME_InteractiveObject) io = lst.First();
 	SalomeApp_Study* appStudy = dynamic_cast<SalomeApp_Study*>( application()->activeStudy() );
@@ -436,7 +438,7 @@ _PTR(SObject) HOMARDGUI::chercheMonObjet()
 void HOMARDGUI::contextMenuPopup( const QString& client, QMenu* menu, QString& title )
 //=============================================================================
 {
-  MESSAGE("Debut de contextMenuPopup");
+  MESSAGE("Debut de HOMARDGUI::contextMenuPopup");
   _PTR(SObject) obj = chercheMonObjet();
   if ( obj )
   {
@@ -447,41 +449,41 @@ void HOMARDGUI::contextMenuPopup( const QString& client, QMenu* menu, QString& t
     if ( HOMARD_UTILS::isBoundaryAn(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
-      menu->addAction(QIcon(pix), "Edit boundary", this,SLOT(EditBoDi()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_EDIT_BOUNDARY").toLatin1().data()), this,SLOT(EditBoDi()));
     }
     else if ( HOMARD_UTILS::isBoundaryDi(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
-      menu->addAction(QIcon(pix), "Edit boundary", this,SLOT(EditBoDi()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_EDIT_BOUNDARY").toLatin1().data()), this,SLOT(EditBoDi()));
     }
     else if ( HOMARD_UTILS::isZone(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
-      menu->addAction(QIcon(pix), "Edit zone", this,SLOT(EditZone()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_EDIT_ZONE").toLatin1().data()), this,SLOT(EditZone()));
     }
     else if ( HOMARD_UTILS::isHypo(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
-      menu->addAction(QIcon(pix), "Edit hypothesis", this,SLOT(EditHypo()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_EDIT_HYPO").toLatin1().data()), this,SLOT(EditHypo()));
     }
     else if ( HOMARD_UTILS::isIter(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "iter_next.png" );
-      menu->addAction(QIcon(pix), "Next iteration", this,SLOT(NextIter()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_NEW_ITERATION").toLatin1().data()), this,SLOT(NextIter()));
       QPixmap pix1 = resMgr->loadPixmap( "HOMARD", "whatis.png" );
-      menu->addAction(QIcon(pix1), "Edit iteration", this,SLOT(EditIter()));
+      menu->addAction(QIcon(pix1), tr(QString("HOM_MEN_EDIT_ITERATION").toLatin1().data()), this,SLOT(EditIter()));
       QPixmap pix2 = resMgr->loadPixmap( "HOMARD", "mesh_compute.png" );
-      menu->addAction(QIcon(pix2), "Compute", this,SLOT(LanceCalcul()));
+      menu->addAction(QIcon(pix2), tr(QString("HOM_MEN_COMPUTE").toLatin1().data()), this,SLOT(LanceCalcul()));
     }
     else if ( HOMARD_UTILS::isCase(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "whatis.png" );
-      menu->addAction(QIcon(pix), "Edit case", this,SLOT(EditCase()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_EDIT_CASE").toLatin1().data()), this,SLOT(EditCase()));
     }
     else if ( HOMARD_UTILS::isFileMess(obj) or HOMARD_UTILS::isFileSummary(obj) )
     {
       QPixmap pix = resMgr->loadPixmap( "HOMARD", "texte.png" );
-      menu->addAction(QIcon(pix), "Show file", this,SLOT(EditAsciiFile()));
+      menu->addAction(QIcon(pix), tr(QString("HOM_MEN_EDIT_MESS_FILE").toLatin1().data()), this,SLOT(EditAsciiFile()));
     }
   }
 }
@@ -501,9 +503,9 @@ void HOMARDGUI::EditCase()
   this->OnGUIEvent(1120);
 }
 
-void HOMARDGUI::EditIter() 
+void HOMARDGUI::EditIter()
 {
-  this->OnGUIEvent(1121); 
+  this->OnGUIEvent(1121);
 }
 
 void HOMARDGUI::EditHypo()

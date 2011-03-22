@@ -10,21 +10,29 @@
    </rect>
   </property>
   <property name="sizePolicy" >
-   <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+   <sizepolicy>
+    <hsizetype>0</hsizetype>
+    <vsizetype>0</vsizetype>
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="windowTitle" >
-   <string>Create Discrete Boundary</string>
+   <string>Create a discrete boundary</string>
   </property>
   <property name="autoFillBackground" >
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="sizeGripEnabled" >
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
+  <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
    <item row="0" column="0" >
     <widget class="QLabel" name="Name" >
      <property name="text" >
@@ -81,32 +89,38 @@
      <property name="title" >
       <string/>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="0" >
        <widget class="QPushButton" name="buttonOk" >
         <property name="text" >
-         <string>&amp;Ok</string>
+         <string>OK</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1" >
        <widget class="QPushButton" name="buttonApply" >
         <property name="text" >
-         <string>&amp;Apply</string>
+         <string>Apply</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2" >
        <widget class="QPushButton" name="buttonCancel" >
         <property name="text" >
-         <string>&amp;Cancel</string>
+         <string>Cancel</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3" >
        <widget class="QPushButton" name="buttonHelp" >
         <property name="text" >
-         <string>&amp;Help</string>
+         <string>Help</string>
         </property>
        </widget>
       </item>

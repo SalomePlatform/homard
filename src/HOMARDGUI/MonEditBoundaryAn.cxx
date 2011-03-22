@@ -18,7 +18,7 @@ MonEditBoundaryAn::MonEditBoundaryAn( MonCreateCase* parent, bool modal,
     MonCreateBoundaryAn(parent, myHomardGen, caseName)
 {
     MESSAGE("Debut de MonEditBoundaryAn pour " << zoneName.toStdString().c_str());
-    setWindowTitle("Edit BoundaryAn");
+    setWindowTitle(QObject::tr("HOM_BOUN_A_EDIT_WINDOW_TITLE"));
     _aBoundaryAnName=zoneName;
     aBoundaryAn = _myHomardGen->GetBoundary(_aBoundaryAnName.toStdString().c_str());
     InitValEdit();

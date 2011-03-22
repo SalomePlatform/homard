@@ -4,17 +4,17 @@ using namespace std;
 #include <utilities.h>
 
 //---------------------------------------------------------------------
-MonEditListGroup::MonEditListGroup( MonCreateHypothesis* parentHyp, 
-                                    MonCreateBoundaryDi* parentBound, 
-                                    bool modal, 
-                                    HOMARD::HOMARD_Gen_var myHomardGen, 
-                                    QString aCaseName,  
+MonEditListGroup::MonEditListGroup( MonCreateHypothesis* parentHyp,
+                                    MonCreateBoundaryDi* parentBound,
+                                    bool modal,
+                                    HOMARD::HOMARD_Gen_var myHomardGen,
+                                    QString aCaseName,
                                     QStringList listeGroupesHypo):
 //---------------------------------------------------------------------
 MonCreateListGroup(parentHyp,parentBound,myHomardGen,aCaseName,listeGroupesHypo)
 {
   MESSAGE("Debut de MonEditListGroup");
-  setWindowTitle("Edit ListGroup");
+    setWindowTitle(QObject::tr("HOM_GROU_EDIT_WINDOW_TITLE"));
   setModal(true);
   InitGroupes();
 }

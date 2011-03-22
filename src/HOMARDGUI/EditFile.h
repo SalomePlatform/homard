@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'EditFile.ui'
 **
-** Created: Tue Feb 1 14:56:22 2011
+** Created: Tue Mar 15 10:38:58 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -82,7 +82,7 @@ public:
 
     retranslateUi(EditFile);
 
-    QSize size(548, 901);
+    QSize size(675, 901);
     size = size.expandedTo(EditFile->minimumSizeHint());
     EditFile->resize(size);
 
@@ -92,10 +92,10 @@ public:
 
     void retranslateUi(QWidget *EditFile)
     {
-    EditFile->setWindowTitle(QApplication::translate("EditFile", "Edit File", 0, QApplication::UnicodeUTF8));
+    EditFile->setWindowTitle(QApplication::translate("EditFile", "Edit a file", 0, QApplication::UnicodeUTF8));
     GroupButtons->setTitle(QString());
-    buttonPrint->setText(QApplication::translate("EditFile", "&Print", 0, QApplication::UnicodeUTF8));
-    buttonQuit->setText(QApplication::translate("EditFile", "&Quit", 0, QApplication::UnicodeUTF8));
+    buttonPrint->setText(QApplication::translate("EditFile", "Print", 0, QApplication::UnicodeUTF8));
+    buttonQuit->setText(QApplication::translate("EditFile", "Quit", 0, QApplication::UnicodeUTF8));
     Q_UNUSED(EditFile);
     } // retranslateUi
 

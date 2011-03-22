@@ -2,8 +2,6 @@ using namespace std;
 
 #include "MonEditCase.h"
 
-#include <QMessageBox>
-
 #include "SalomeApp_Tools.h"
 #include "HOMARDGUI_Utils.h"
 #include "HomardQtCommun.h"
@@ -21,7 +19,7 @@ MonEditCase::MonEditCase ( QWidget* parent, bool modal,
    MonCreateCase(parent, modal, myHomardGen)
 {
     MESSAGE("Debut de MonEditCase" << CaseName.toStdString().c_str());
-    setWindowTitle("Edit case");
+    setWindowTitle(QObject::tr("HOM_CASE_EDIT_WINDOW_TITLE"));
     _aCaseName = CaseName;
     aCase = _myHomardGen->GetCas(_aCaseName.toStdString().c_str());
     InitValEdit();
@@ -37,7 +35,7 @@ MonEditCase::~MonEditCase()
 void MonEditCase::InitValEdit()
 // ------------------------------
 {
-    MESSAGE("Debut de InitValEdit");
+    MESSAGE("Debut de MonEditCase::InitValEdit");
       LECaseName->setText(_aCaseName);
       LECaseName->setReadOnly(true);
 

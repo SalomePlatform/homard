@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateBoundaryAn.ui'
 **
-** Created: Wed Jan 19 15:34:59 2011
+** Created: Thu Feb 24 09:10:36 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -409,7 +409,7 @@ public:
 
     void retranslateUi(QDialog *CreateBoundaryAn)
     {
-    CreateBoundaryAn->setWindowTitle(QApplication::translate("CreateBoundaryAn", "Create Analytical Boundary", 0, QApplication::UnicodeUTF8));
+    CreateBoundaryAn->setWindowTitle(QApplication::translate("CreateBoundaryAn", "Create an analytical boundary", 0, QApplication::UnicodeUTF8));
     gBCylindre->setTitle(QApplication::translate("CreateBoundaryAn", "Coordinates of the cylindre", 0, QApplication::UnicodeUTF8));
     TLXcent->setText(QApplication::translate("CreateBoundaryAn", "X centre", 0, QApplication::UnicodeUTF8));
     TLradius->setText(QApplication::translate("CreateBoundaryAn", "Radius", 0, QApplication::UnicodeUTF8));
@@ -419,10 +419,10 @@ public:
     TLYaxis->setText(QApplication::translate("CreateBoundaryAn", "Y axis", 0, QApplication::UnicodeUTF8));
     TLZaxis->setText(QApplication::translate("CreateBoundaryAn", "Z axis", 0, QApplication::UnicodeUTF8));
     GBButtons->setTitle(QString());
-    buttonOk->setText(QApplication::translate("CreateBoundaryAn", "&Ok", 0, QApplication::UnicodeUTF8));
-    buttonApply->setText(QApplication::translate("CreateBoundaryAn", "&Apply", 0, QApplication::UnicodeUTF8));
-    buttonCancel->setText(QApplication::translate("CreateBoundaryAn", "&Cancel", 0, QApplication::UnicodeUTF8));
-    buttonHelp->setText(QApplication::translate("CreateBoundaryAn", "&Help", 0, QApplication::UnicodeUTF8));
+    buttonOk->setText(QApplication::translate("CreateBoundaryAn", "OK", 0, QApplication::UnicodeUTF8));
+    buttonApply->setText(QApplication::translate("CreateBoundaryAn", "Apply", 0, QApplication::UnicodeUTF8));
+    buttonCancel->setText(QApplication::translate("CreateBoundaryAn", "Cancel", 0, QApplication::UnicodeUTF8));
+    buttonHelp->setText(QApplication::translate("CreateBoundaryAn", "Help", 0, QApplication::UnicodeUTF8));
     gBSphere->setTitle(QApplication::translate("CreateBoundaryAn", "Coordinates of the sphere", 0, QApplication::UnicodeUTF8));
     TLRayon->setText(QApplication::translate("CreateBoundaryAn", "Radius", 0, QApplication::UnicodeUTF8));
     TLZcentre->setText(QApplication::translate("CreateBoundaryAn", "Z centre", 0, QApplication::UnicodeUTF8));

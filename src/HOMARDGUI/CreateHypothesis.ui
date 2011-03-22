@@ -6,25 +6,33 @@
     <x>0</x>
     <y>0</y>
     <width>717</width>
-    <height>1005</height>
+    <height>1166</height>
    </rect>
   </property>
   <property name="sizePolicy" >
-   <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+   <sizepolicy>
+    <hsizetype>0</hsizetype>
+    <vsizetype>0</vsizetype>
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="windowTitle" >
-   <string>Create Hypothesis</string>
+   <string>Create an hypothesis</string>
   </property>
   <property name="autoFillBackground" >
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="sizeGripEnabled" >
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_10" >
+  <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
    <item row="0" column="0" >
     <widget class="QLabel" name="Name" >
      <property name="text" >
@@ -50,7 +58,13 @@
      <property name="title" >
       <string>Type of adaptation</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout" >
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item>
        <widget class="QRadioButton" name="RBUniforme" >
         <property name="text" >
@@ -64,7 +78,7 @@
       <item>
        <widget class="QRadioButton" name="RBChamp" >
         <property name="text" >
-         <string>Following a field</string>
+         <string>Driven by a field</string>
         </property>
        </widget>
       </item>
@@ -83,7 +97,13 @@
      <property name="title" >
       <string>Uniform adaptation</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="1" >
        <widget class="QRadioButton" name="RBUniDera" >
         <property name="text" >
@@ -109,7 +129,13 @@
      <property name="title" >
       <string/>
      </property>
-     <layout class="QGridLayout" name="gridLayout_9" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="0" >
        <widget class="QLabel" name="FieldFile" >
         <property name="text" >
@@ -133,7 +159,9 @@
    <item row="4" column="0" colspan="2" >
     <widget class="QGroupBox" name="GBFieldManagement" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+      <sizepolicy>
+       <hsizetype>0</hsizetype>
+       <vsizetype>0</vsizetype>
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -141,20 +169,34 @@
      <property name="title" >
       <string>Governing field for the adaptation</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_6" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="0" >
-       <layout class="QHBoxLayout" name="horizontalLayout_6" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
         <item>
          <widget class="QLabel" name="FieldName" >
           <property name="text" >
-           <string>Field Name</string>
+           <string>Field name</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QComboBox" name="CBFieldName" >
           <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+           <sizepolicy>
+            <hsizetype>0</hsizetype>
+            <vsizetype>0</vsizetype>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -168,11 +210,11 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_3" >
+         <spacer>
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" >
            <size>
             <width>48</width>
             <height>20</height>
@@ -183,11 +225,17 @@
        </layout>
       </item>
       <item row="1" column="0" >
-       <layout class="QHBoxLayout" name="horizontalLayout_7" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
         <item>
          <widget class="QTableWidget" name="TWCMP" >
           <property name="editTriggers" >
-           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::NoEditTriggers|QAbstractItemView::SelectedClicked</set>
           </property>
           <property name="showGrid" >
            <bool>true</bool>
@@ -211,11 +259,11 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_4" >
+         <spacer>
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" >
            <size>
             <width>60</width>
             <height>20</height>
@@ -224,9 +272,21 @@
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3" >
+         <layout class="QVBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" >
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
             <item>
              <widget class="QRadioButton" name="RBL2" >
               <property name="text" >
@@ -254,19 +314,33 @@
        </layout>
       </item>
       <item row="2" column="0" >
-       <layout class="QHBoxLayout" name="horizontalLayout_2" >
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
         <item>
          <widget class="QGroupBox" name="GBRefinementThresholds" >
           <property name="sizePolicy" >
-           <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <sizepolicy>
+            <hsizetype>0</hsizetype>
+            <vsizetype>0</vsizetype>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="title" >
-           <string>Refinement thresholds</string>
+           <string>Refinement threshold</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout" >
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>9</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
            <item row="0" column="0" >
             <widget class="QRadioButton" name="RBRPE" >
              <property name="text" >
@@ -361,9 +435,15 @@
         <item>
          <widget class="QGroupBox" name="GBCoarseningThresholds" >
           <property name="title" >
-           <string>Coarsening thresholds</string>
+           <string>Coarsening threshold</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4" >
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>9</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
            <item row="0" column="0" >
             <widget class="QRadioButton" name="RBCPE" >
              <property name="text" >
@@ -466,19 +546,27 @@
    <item row="5" column="0" colspan="2" >
     <widget class="QGroupBox" name="GBAreaManagement" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+      <sizepolicy>
+       <hsizetype>0</hsizetype>
+       <vsizetype>0</vsizetype>
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="title" >
-      <string>Area management</string>
+      <string>Zone management</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="0" >
        <widget class="QTableWidget" name="TWZone" >
         <property name="editTriggers" >
-         <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+         <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::NoEditTriggers|QAbstractItemView::SelectedClicked</set>
         </property>
         <property name="showGrid" >
          <bool>true</bool>
@@ -502,9 +590,21 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout" >
+         <layout class="QVBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
           <item>
            <widget class="QPushButton" name="PBZoneNew" >
             <property name="text" >
@@ -529,11 +629,11 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer" >
+         <spacer>
           <property name="orientation" >
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" >
            <size>
             <width>20</width>
             <height>48</height>
@@ -551,9 +651,21 @@
      <property name="title" >
       <string>Field Interpolation</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_8" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="0" >
-       <layout class="QGridLayout" name="gridLayout_7" >
+       <layout class="QGridLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
         <item row="0" column="0" >
          <widget class="QRadioButton" name="RBFieldNo" >
           <property name="text" >
@@ -615,32 +727,38 @@
      <property name="title" >
       <string/>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
       <item row="0" column="0" >
        <widget class="QPushButton" name="buttonOk" >
         <property name="text" >
-         <string>&amp;Ok</string>
+         <string>OK</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1" >
        <widget class="QPushButton" name="buttonApply" >
         <property name="text" >
-         <string>&amp;Apply</string>
+         <string>Apply</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2" >
        <widget class="QPushButton" name="buttonCancel" >
         <property name="text" >
-         <string>&amp;Cancel</string>
+         <string>Cancel</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3" >
        <widget class="QPushButton" name="buttonHelp" >
         <property name="text" >
-         <string>&amp;Help</string>
+         <string>Help</string>
         </property>
        </widget>
       </item>

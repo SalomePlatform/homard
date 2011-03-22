@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateCase.ui'
 **
-** Created: Mon Jan 31 13:48:20 2011
+** Created: Tue Mar 15 09:25:40 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -364,13 +364,13 @@ public:
 
     void retranslateUi(QDialog *CreateCase)
     {
-    CreateCase->setWindowTitle(QApplication::translate("CreateCase", "Create Case", 0, QApplication::UnicodeUTF8));
+    CreateCase->setWindowTitle(QApplication::translate("CreateCase", "Create a case", 0, QApplication::UnicodeUTF8));
     GroupButtons->setTitle(QString());
-    buttonOk->setText(QApplication::translate("CreateCase", "&Ok", 0, QApplication::UnicodeUTF8));
-    buttonApply->setText(QApplication::translate("CreateCase", "&Apply", 0, QApplication::UnicodeUTF8));
-    buttonCancel->setText(QApplication::translate("CreateCase", "&Cancel", 0, QApplication::UnicodeUTF8));
-    buttonHelp->setText(QApplication::translate("CreateCase", "&Help", 0, QApplication::UnicodeUTF8));
-    GBBoundaryA->setTitle(QApplication::translate("CreateCase", "Analytic Boundary", 0, QApplication::UnicodeUTF8));
+    buttonOk->setText(QApplication::translate("CreateCase", "OK", 0, QApplication::UnicodeUTF8));
+    buttonApply->setText(QApplication::translate("CreateCase", "Apply", 0, QApplication::UnicodeUTF8));
+    buttonCancel->setText(QApplication::translate("CreateCase", "Cancel", 0, QApplication::UnicodeUTF8));
+    buttonHelp->setText(QApplication::translate("CreateCase", "Help", 0, QApplication::UnicodeUTF8));
+    GBBoundaryA->setTitle(QApplication::translate("CreateCase", "Analytical boundary", 0, QApplication::UnicodeUTF8));
     PBBoundaryAnNew->setText(QApplication::translate("CreateCase", "New", 0, QApplication::UnicodeUTF8));
     PBBoundaryAnHelp->setText(QApplication::translate("CreateCase", "Help", 0, QApplication::UnicodeUTF8));
     if (TWBoundary->columnCount() < 1)
@@ -384,16 +384,16 @@ public:
     PushDir->setText(QString());
     Mesh_2->setText(QApplication::translate("CreateCase", "Mesh", 0, QApplication::UnicodeUTF8));
     PushFichier->setText(QString());
-    GBTypeConf->setTitle(QApplication::translate("CreateCase", "Conformity Type", 0, QApplication::UnicodeUTF8));
+    GBTypeConf->setTitle(QApplication::translate("CreateCase", "Conformity type", 0, QApplication::UnicodeUTF8));
     RBConforme->setText(QApplication::translate("CreateCase", "Conformal", 0, QApplication::UnicodeUTF8));
     RBNonConforme->setText(QApplication::translate("CreateCase", "Non conformal", 0, QApplication::UnicodeUTF8));
-    GBTypeNoConf->setTitle(QApplication::translate("CreateCase", "Non Conformal option", 0, QApplication::UnicodeUTF8));
+    GBTypeNoConf->setTitle(QApplication::translate("CreateCase", "Non conformal option", 0, QApplication::UnicodeUTF8));
     RB1NpM->setText(QApplication::translate("CreateCase", "1 hanging node per mesh", 0, QApplication::UnicodeUTF8));
     RB1NpA->setText(QApplication::translate("CreateCase", "1 node per edge", 0, QApplication::UnicodeUTF8));
-    RBQuelconque->setText(QApplication::translate("CreateCase", "free", 0, QApplication::UnicodeUTF8));
-    CBBoundaryD->setText(QApplication::translate("CreateCase", "Discrete Boundary ", 0, QApplication::UnicodeUTF8));
-    CBBoundaryA->setText(QApplication::translate("CreateCase", "Analytic Boundary ", 0, QApplication::UnicodeUTF8));
-    GBBoundaryD->setTitle(QApplication::translate("CreateCase", "Discrete Boundary", 0, QApplication::UnicodeUTF8));
+    RBQuelconque->setText(QApplication::translate("CreateCase", "Free", 0, QApplication::UnicodeUTF8));
+    CBBoundaryD->setText(QApplication::translate("CreateCase", "Discrete boundary", 0, QApplication::UnicodeUTF8));
+    CBBoundaryA->setText(QApplication::translate("CreateCase", "Analytical boundary", 0, QApplication::UnicodeUTF8));
+    GBBoundaryD->setTitle(QApplication::translate("CreateCase", "Discrete boundary", 0, QApplication::UnicodeUTF8));
     PBBoundaryDiHelp->setText(QApplication::translate("CreateCase", "Help", 0, QApplication::UnicodeUTF8));
     PBBoundaryDiNew->setText(QApplication::translate("CreateCase", "New", 0, QApplication::UnicodeUTF8));
     PBBoundaryDiEdit->setText(QApplication::translate("CreateCase", "Edit", 0, QApplication::UnicodeUTF8));

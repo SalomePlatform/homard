@@ -90,54 +90,48 @@ void MonCreateCase::GetBoundarys()
 bool MonCreateCase::PushOnApply()
 // --------------------------------
 {
-  MESSAGE("PushOnApply");
+  MESSAGE("MonCreateCase::PushOnApply");
   QString aCaseName=LECaseName->text().trimmed();
   if ( aCaseName == "" )
   {
-    QMessageBox::information( 0, "Error",
-            QString("The case must be named"),
-            QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_CASE_NAME") );
     return false;
   }
 
   QString aDirName=LEDirName->text().trimmed();
   if (aDirName == QString(""))
   {
-    QMessageBox::information( 0, "Error",
-              QString("A directory for the case must be selected."),
-              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_CASE_DIRECTORY_1") );
     return false;
   }
   if ((aDirName != _aDirName) and (_myHomardGen->VerifieDir( aDirName.toStdString().c_str()) == false))
   {
-    QMessageBox::information( 0, "Error",
-              QString("This directory is already used"),
-              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_CASE_DIRECTORY_2") );
     return false;
   }
   if (chdir(aDirName.toStdString().c_str()) != 0)
   {
-    QMessageBox::information( 0, "Error",
-              QString("A valid directory for the case must be selected."),
-              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_CASE_DIRECTORY_3") );
     return false;
   }
 
   QString aFileName=LEFileName->text().trimmed();
   if (aFileName ==QString(""))
   {
-    QMessageBox::information( 0, "Error",
-              QString("The initial mesh must be selected."),
-              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_CASE_MESH") );
     return false;
   }
 
   QString aMeshName = HOMARD_QT_COMMUN::LireNomMaillage(aFileName);
   if (aMeshName == "" )
   {
-    QMessageBox::information( 0, "Error",
-              QString("no mesh in mesh file"),
-              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_MED_FILE_2") );
     return false;
   }
 
@@ -161,9 +155,8 @@ bool MonCreateCase::PushOnApply()
 //             MESSAGE("....... "<<ListeGroup[nugr].toStdString().c_str());
             if ( NomGroup == ListeGroup[nugr] )
             {
-              QMessageBox::information( 0, "Error",
-                        QString("Group "+NomGroup+" cannot be given for more than 1 boundary."),
-                        QMessageBox::Ok + QMessageBox::Default );
+              QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                        QObject::tr("HOM_CASE_GROUP").arg(NomGroup) );
               return false;
             }
           }
@@ -185,9 +178,8 @@ bool MonCreateCase::PushOnApply()
     }
     catch( SALOME::SALOME_Exception& S_ex )
     {
-     QMessageBox::information( 0, "Error",
-            QString(CORBA::string_dup(S_ex.details.text)),
-            QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QString(CORBA::string_dup(S_ex.details.text)) );
       try
       {
           aCase = _myHomardGen->GetCas(_aCaseName.toStdString().c_str());
@@ -293,8 +285,10 @@ void MonCreateCase::SetDirName()
 void MonCreateCase::SetFileName()
 // ------------------------------------------------------------------------
 {
+  QString fileName0 = LEFileName->text().trimmed();
   QString fileName = HOMARD_QT_COMMUN::PushNomFichier();
-  if (!(fileName.isEmpty())) LEFileName->setText(fileName);
+  if (fileName.isEmpty()) fileName = fileName0 ;
+  LEFileName->setText(fileName);
 }
 // ------------------------------------------------------------------------
 void MonCreateCase::SetConforme()
@@ -376,7 +370,7 @@ void MonCreateCase::PushBoundaryDiEdit()
 void MonCreateCase::SetBoundaryA()
 // ------------------------------------------------------------------------
 {
-  MESSAGE("Debut de SetBoundaryA ");
+  MESSAGE("Debut de MonCreateCase::SetBoundaryA ");
   if (CBBoundaryA->isChecked())
   {
     bool bOK = PushOnApply();
@@ -404,13 +398,13 @@ void MonCreateCase::SetBoundaryA()
   else { GBBoundaryA->setVisible(0); }
   adjustSize();
 //
-  MESSAGE("Fin de SetBoundaryA ");
+//   MESSAGE("Fin de MonCreateCase::SetBoundaryA ");
 }
 // ------------------------------------------------------------------------
 void MonCreateCase::addBoundaryAn(QString newBoundary)
 // ------------------------------------------------------------------------
 {
-  MESSAGE("Debut de addBoundaryAn ");
+  MESSAGE("Debut de MonCreateCase::addBoundaryAn ");
 // Ajout d'une nouvelle colonne
   int nbcol = TWBoundary->columnCount();
   MESSAGE("nbcol " <<  nbcol);
@@ -432,7 +426,7 @@ void MonCreateCase::addBoundaryAn(QString newBoundary)
   }
   TWBoundary->resizeColumnToContents(nbcol-1);
 //   TWBoundary->resizeRowsToContents();
-  MESSAGE("Fin de addBoundaryAn ");
+//   MESSAGE("Fin de addBoundaryAn ");
 }
 // ------------------------------------------------------------------------
 void MonCreateCase::PushBoundaryAnNew()

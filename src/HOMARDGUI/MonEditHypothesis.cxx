@@ -23,7 +23,7 @@ MonEditHypothesis::MonEditHypothesis( MonCreateIteration* parent, bool modal,
     MonCreateHypothesis(parent, modal,myHomardGen, aHypothesisName, caseName, aFieldFile)
 {
     MESSAGE("Hypothese " << aHypothesisName.toStdString().c_str());
-    setWindowTitle("Edit Hypothesis");
+    setWindowTitle(QObject::tr("HOM_HYPO_EDIT_WINDOW_TITLE"));
     _aHypothesis    = _myHomardGen->GetHypothesis(_aHypothesisName.toStdString().c_str());
     if (caseName == QString("") ){ _aCaseName = _aHypothesis->GetCaseCreation();}
     InitValEdit();
@@ -243,12 +243,12 @@ void MonEditHypothesis::InitAdaptChamps()
   }
   // Le choix de la prise en compte des composantes
   if ( TWCMP->rowCount() == 1 )
-  { RBL2->setText(QString("Absolute value"));
-    RBInf->setText(QString("Relative value"));
+  { RBL2->setText(QObject::tr("HOM_HYPO_NORM_ABS"));
+    RBInf->setText(QObject::tr("HOM_HYPO_NORM_REL"));
   }
   else
-  { RBL2->setText(QString("L2 norm"));
-    RBInf->setText(QString("Infinite Norm"));
+  { RBL2->setText(QObject::tr("HOM_HYPO_NORM_L2"));
+    RBInf->setText(QObject::tr("HOM_HYPO_NORM_INF"));
   }
   if ( _UsCmpI == 0 )
   {

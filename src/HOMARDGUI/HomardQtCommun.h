@@ -32,9 +32,6 @@ namespace HOMARD_QT_COMMUN
     std::list<QString> GetListeChamps(QString aFile);
     std::list<QString> GetListeComposants(QString aFile, QString aChamp);
 
-    void    Recopie(QString aDir, QString aFichier);
-    void    Creetmp();
-
     QString SelectionArbreEtude(QString commentaire, int grave );
     QString SelectionCasEtude();
 

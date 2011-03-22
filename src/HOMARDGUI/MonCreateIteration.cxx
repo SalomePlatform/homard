@@ -14,7 +14,7 @@ using namespace std;
 
 
 // -----------------------------------------------------------------------------------------------------
-MonCreateIteration::MonCreateIteration(QWidget* parent, bool modal, 
+MonCreateIteration::MonCreateIteration(QWidget* parent, bool modal,
                                        HOMARD::HOMARD_Gen_var myHomardGen, QString IterParentName ):
 // -----------------------------------------------------------------------------------------------------
 /* Constructs a MonCreateIteration
@@ -35,9 +35,9 @@ MonCreateIteration::MonCreateIteration(QWidget* parent, bool modal,
 
       SetNewIterationName();
       GetHypotheses();
-      if (_IterParentName != QString("")) 
+      if (_IterParentName != QString(""))
          { SetIterParentName(); }
-      else 
+      else
          {setModal(false); /* permet selection de l iteration dans l arbre d etude */}
       SetTSNo();
     }
@@ -81,38 +81,34 @@ bool MonCreateIteration::PushOnApply()
 // ------------------------------------------------------------------------
 // Appele lorsque l'un des boutons Ok ou Apply est presse
 {
-  MESSAGE("PushOnApply");
+  MESSAGE("MonCreateIteration::PushOnApply");
 //
   QString aIterationName = LEIterationName->text().trimmed();
   if ( aIterationName == QString (""))
   {
-    QMessageBox::information( 0, "Error",
-           QString(" Nommer l iteration "),
-          QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_NAME") );
     return false;
   }
 
   if ( _IterParentName == QString (""))
   {
-    QMessageBox::information( 0, "Error",
-    QString(" Donner le point de depart "),
-    QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_STARTING_POINT") );
     return false;
   }
   QString aMeshName_np1=LEMeshName_np1->text().trimmed();
   if (aMeshName_np1 == "" )
   {
-    QMessageBox::information( 0, "Error",
-    QString(" Donner le nom du maillage final."),
-    QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_MESH") );
     return false;
   }
   QString monHypoName=CBHypothese->currentText();
   if (monHypoName == "" )
   {
-    QMessageBox::information( 0, "Error",
-    QString(" Choisir une hypothese "),
-    QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_HYPO") );
     return false;
   }
   HOMARD::HOMARD_Hypothesis_var _myHypothesis = _myHomardGen->GetHypothesis(monHypoName.toStdString().c_str());
@@ -120,9 +116,8 @@ bool MonCreateIteration::PushOnApply()
   int TypeAdap = ListTypes[0];
   if ( TypeAdap == 1 and LEFieldFile->text().trimmed() == QString("") )
   {
-    QMessageBox::information( 0, "Error",
-    QString("Avec cette hypothese, il faut fournir le fichier du champ."),
-    QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_FIELD_FILE") );
     return false;
   }
 
@@ -141,11 +136,10 @@ bool MonCreateIteration::PushOnApply()
                CORBA::string_dup(_IterationName.toStdString().c_str()),
                CORBA::string_dup(_IterParentName.toStdString().c_str()));
     }
-    catch( SALOME::SALOME_Exception& S_ex ) 
+    catch( SALOME::SALOME_Exception& S_ex )
     {
-       QMessageBox::information( 0, "Error",
-                QString(CORBA::string_dup(S_ex.details.text)),
-                QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QString(CORBA::string_dup(S_ex.details.text)) );
        return false;
     }
   }
@@ -181,7 +175,7 @@ void MonCreateIteration::PushOnOK()
 void MonCreateIteration::PushOnHelp()
 // ------------------------------------------------------------------------
 {
-	HOMARD_UTILS::PushOnHelp(QString("gui_create_iteration.html"));
+  HOMARD_UTILS::PushOnHelp(QString("gui_create_iteration.html"));
 }
 
 // ------------------------------------------------------------------------
@@ -199,7 +193,7 @@ void MonCreateIteration::SetIterParentName()
   LEMeshName_n->setText(MeshName);
   LEMeshName_n->setReadOnly(1);
   LEMeshName_np1->setText(MeshName);
-  
+
   LEIterationParentName->setText(_IterParentName);
 }
 
@@ -210,7 +204,7 @@ void MonCreateIteration::SetNewIterationName()
 // Recherche d'un nom par defaut qui n'existe pas encore
 
   HOMARD::listeIterations_var  myIters=_myHomardGen->GetAllIterations();
-  int num = 0;// 
+  int num = 0;//
   QString aIterationName="";
   while (aIterationName=="" )
   {
@@ -237,11 +231,10 @@ void MonCreateIteration::PushHypoEdit()
   if (CBHypothese->currentText() == QString(""))  return;
   if (_IterParentName == QString(""))
   {
-        QMessageBox::information( 0, "Error",
-        QString("The previous iteration must be given."),
-        QMessageBox::Ok + QMessageBox::Default );
-        raise();
-        return;
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_STARTING_POINT") );
+    raise();
+    return;
   }
   QString aFieldFile=LEFieldFile->text().trimmed();
   MonEditHypothesis *HypoDlg = new MonEditHypothesis(this,TRUE, HOMARD::HOMARD_Gen::_duplicate(_myHomardGen),CBHypothese->currentText(), _CaseName, aFieldFile) ;
@@ -252,28 +245,27 @@ void MonCreateIteration::PushHypoEdit()
 void MonCreateIteration::addHypothese(QString newHypothese)
 // ------------------------------------------------------------------------
 {
-         CBHypothese->insertItem(0,newHypothese);
-         CBHypothese->setCurrentIndex(0);
+  CBHypothese->insertItem(0,newHypothese);
+  CBHypothese->setCurrentIndex(0);
 }
 // ------------------------------------------------------------------------
 void MonCreateIteration::PushHypoNew()
 // ------------------------------------------------------------------------
 {
-    if (_IterParentName == QString(""))
-    {
-         QMessageBox::information( 0, "Error",
-         QString("The previous iteration must be given."),
-         QMessageBox::Ok + QMessageBox::Default );
-         raise();
-         return;
-    }
-    if ( _CaseName == QString(""))
-    {
-         _CaseName = _myHomardGen->GetCaseName(CORBA::string_dup(_IterParentName.toStdString().c_str()));
-    }
-   QString aFieldFile=LEFieldFile->text().trimmed();
-   MonCreateHypothesis *HypoDlg = new MonCreateHypothesis(this,TRUE,HOMARD::HOMARD_Gen::_duplicate(_myHomardGen),QString(""),_CaseName, aFieldFile) ;
-   HypoDlg->show();
+  if (_IterParentName == QString(""))
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ITER_STARTING_POINT") );
+    raise();
+    return;
+  }
+  if ( _CaseName == QString(""))
+  {
+        _CaseName = _myHomardGen->GetCaseName(CORBA::string_dup(_IterParentName.toStdString().c_str()));
+  }
+  QString aFieldFile=LEFieldFile->text().trimmed();
+  MonCreateHypothesis *HypoDlg = new MonCreateHypothesis(this,TRUE,HOMARD::HOMARD_Gen::_duplicate(_myHomardGen),QString(""),_CaseName, aFieldFile) ;
+  HypoDlg->show();
 }
 
 // ------------------------------------------------------------------------

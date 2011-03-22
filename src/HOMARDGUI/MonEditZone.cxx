@@ -18,7 +18,7 @@ MonEditZone::MonEditZone( MonCreateHypothesis* parent, bool modal,
     MonCreateZone(parent, myHomardGen, caseName)
 {
     MESSAGE("Debut de MonEditZone pour " << zoneName.toStdString().c_str());
-    setWindowTitle("Edit Zone");
+    setWindowTitle(QObject::tr("HOM_ZONE_EDIT_WINDOW_TITLE"));
     _aZoneName=zoneName;
     aZone = _myHomardGen->GetZone(_aZoneName.toStdString().c_str());
     InitValEdit();
@@ -153,7 +153,7 @@ void MonEditZone::SetSphere()
 bool MonEditZone::CreateOrUpdateZone()
 //----------------------------------------------------
 //  Pas de Creation de la zone
-//  Mise a jour des attributs de la Zone 
+//  Mise a jour des attributs de la Zone
 
 {
   try
@@ -165,7 +165,7 @@ bool MonEditZone::CreateOrUpdateZone()
     HOMARD_UTILS::updateObjBrowser();
   }
   catch( const SALOME::SALOME_Exception& S_ex ) {
-       SalomeApp_Tools::QtCatchCorbaException( S_ex ); 
+       SalomeApp_Tools::QtCatchCorbaException( S_ex );
        return false;
   }
   return true;

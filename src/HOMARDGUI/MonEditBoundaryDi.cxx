@@ -22,7 +22,7 @@ MonEditBoundaryDi::MonEditBoundaryDi( MonCreateCase* parent, bool modal,
     MonCreateBoundaryDi(parent, modal, myHomardGen, caseName, BoundaryName)
 {
     MESSAGE("Debut de Boundary pour " << BoundaryName.toStdString().c_str());
-    setWindowTitle("Edit BoundaryDi");
+    setWindowTitle(QObject::tr("HOM_BOUN_D_EDIT_WINDOW_TITLE"));
     try
     {
      _aBoundary=_myHomardGen->GetBoundary(CORBA::string_dup(_aBoundaryName.toStdString().c_str()));
@@ -31,10 +31,9 @@ MonEditBoundaryDi::MonEditBoundaryDi( MonCreateCase* parent, bool modal,
     }
     catch( SALOME::SALOME_Exception& S_ex )
     {
-        QMessageBox::information( 0, "Error",
-                  QString(CORBA::string_dup(S_ex.details.text)),
-                  QMessageBox::Ok + QMessageBox::Default );
-        return;
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QString(CORBA::string_dup(S_ex.details.text)) );
+      return;
     }
 
     HOMARD::ListGroupType_var maListe = _aBoundary->GetGroups();
@@ -71,19 +70,18 @@ bool MonEditBoundaryDi::PushOnApply()
 void MonEditBoundaryDi::SetFiltrage()
 // // ------------------------------------------------------------------------
 {
-   if (!CBGroupe->isChecked()) return;
-   if (_aCaseName.toStdString().c_str() == QString()) 
-   {
-        QMessageBox::information( 0, "Error",
-                              "Case MeshFile unknowned.",
-                              QMessageBox::Ok + QMessageBox::Default );
-        return;
-   }
-   HOMARD::HOMARD_Cas_var monCas= _myHomardGen->GetCas(_aCaseName.toStdString().c_str());
-   HOMARD::ListGroupType_var _listeGroupesCas = monCas->GetGroups();
+  if (!CBGroupe->isChecked()) return;
+  if (_aCaseName.toStdString().c_str() == QString())
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_BOUN_CASE") );
+    return;
+  }
+  HOMARD::HOMARD_Cas_var monCas= _myHomardGen->GetCas(_aCaseName.toStdString().c_str());
+  HOMARD::ListGroupType_var _listeGroupesCas = monCas->GetGroups();
 
-   MonEditListGroup *aDlg = new MonEditListGroup(NULL,this,  TRUE, HOMARD::HOMARD_Gen::_duplicate(_myHomardGen),
-                              _aCaseName, _listeGroupesBoundary) ;
-   aDlg->show();
+  MonEditListGroup *aDlg = new MonEditListGroup(NULL,this,  TRUE, HOMARD::HOMARD_Gen::_duplicate(_myHomardGen),
+                            _aCaseName, _listeGroupesBoundary) ;
+  aDlg->show();
 }
 

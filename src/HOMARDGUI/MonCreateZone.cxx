@@ -234,35 +234,34 @@ bool MonCreateZone::PushOnApply()
   std::cerr << LEZoneName->text().trimmed().toStdString() << std::endl;
   if (LEZoneName->text().trimmed()=="")
   {
-    QMessageBox::information( 0, "Error",
-                              "The zone must be named.",
-                              QMessageBox::Ok + QMessageBox::Default );
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_ZONE_NAME") );
     return false;
   }
 
   switch (_ZoneType)
   {
-      case 2 : // il s agit d une boite
-      {
-        if ((_ZoneXmin != SpinBox_Xmini->value()) or (_ZoneXmax != SpinBox_Xmaxi->value()) or
-            (_ZoneYmin != SpinBox_Ymini->value()) or (_ZoneYmax != SpinBox_Ymaxi->value()) or
-            (_ZoneZmin != SpinBox_Zmini->value()) or (_ZoneZmax != SpinBox_Zmaxi->value()) )
-            Chgt = true;
-        break;
-      } 
+    case 2 : // il s agit d une boite
+    {
+      if ((_ZoneXmin != SpinBox_Xmini->value()) or (_ZoneXmax != SpinBox_Xmaxi->value()) or
+          (_ZoneYmin != SpinBox_Ymini->value()) or (_ZoneYmax != SpinBox_Ymaxi->value()) or
+          (_ZoneZmin != SpinBox_Zmini->value()) or (_ZoneZmax != SpinBox_Zmaxi->value()) )
+          Chgt = true;
+      break;
+    }
 
-      case 4 : // il s agit d une sphere
-      {
-        if ((_ZoneXcentre != SpinBox_Xcentre->value()) or (_ZoneYcentre != SpinBox_Ycentre->value()) 
-        or  (_ZoneZcentre != SpinBox_Zcentre->value()) or (_ZoneRayon != SpinBox_Rayon->value()))
-           Chgt = true;
-           break;
-      }
+    case 4 : // il s agit d une sphere
+    {
+      if ((_ZoneXcentre != SpinBox_Xcentre->value()) or (_ZoneYcentre != SpinBox_Ycentre->value())
+      or  (_ZoneZcentre != SpinBox_Zcentre->value()) or (_ZoneRayon != SpinBox_Rayon->value()))
+          Chgt = true;
+          break;
+    }
   }
 
-  _ZoneXmin= SpinBox_Xmini->value(); _ZoneXmax= SpinBox_Xmaxi->value(); 
-  _ZoneYmin= SpinBox_Ymini->value(); _ZoneYmax= SpinBox_Ymaxi->value(); 
-  _ZoneZmin= SpinBox_Zmini->value(); _ZoneZmax= SpinBox_Zmaxi->value(); 
+  _ZoneXmin= SpinBox_Xmini->value(); _ZoneXmax= SpinBox_Xmaxi->value();
+  _ZoneYmin= SpinBox_Ymini->value(); _ZoneYmax= SpinBox_Ymaxi->value();
+  _ZoneZmin= SpinBox_Zmini->value(); _ZoneZmax= SpinBox_Zmaxi->value();
 
   _ZoneXcentre=SpinBox_Xcentre->value();_ZoneYcentre=SpinBox_Ycentre->value();
   _ZoneZcentre=SpinBox_Zcentre->value();_ZoneRayon=SpinBox_Rayon->value();
@@ -270,21 +269,18 @@ bool MonCreateZone::PushOnApply()
   if( _ZoneType == 2 )
   {
     if ((_ZoneXmin>= _ZoneXmax) and (_Xincr > 0)) {
-      QMessageBox::information( 0, "Error",
-               QString("X maxi must be greater than X mini."),
-               QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QObject::tr("HOM_ZONE_LIMIT").arg("X") );
       return false; }
 
     if  ((_ZoneYmin>= _ZoneYmax) and (_Yincr > 0)) {
-      QMessageBox::information( 0, "Error",
-                  QString("Y maxi must be greater than Y mini."),
-                  QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QObject::tr("HOM_ZONE_LIMIT").arg("Y") );
       return false; }
 
     if ((_ZoneZmin>= _ZoneZmax) and (_Zincr > 0)) {
-      QMessageBox::information( 0, "Error",
-                    QString("Z maxi must be greater than Z mini."),
-                    QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QObject::tr("HOM_ZONE_LIMIT").arg("Z") );
       return false; }
   }
 
@@ -308,14 +304,13 @@ bool MonCreateZone:: CreateOrUpdateZone()
               CORBA::string_dup(_aZoneName.toStdString().c_str()), \
               CORBA::Long(_ZoneType) );
       _parent->addZone(_aZoneName);
-     }
-     catch( SALOME::SALOME_Exception& S_ex ) 
-     {
-       QMessageBox::information( 0, "Error",
-                QString(CORBA::string_dup(S_ex.details.text)),
-                QMessageBox::Ok + QMessageBox::Default );
-       return false;
-     }
+    }
+    catch( SALOME::SALOME_Exception& S_ex )
+    {
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QString(CORBA::string_dup(S_ex.details.text)) );
+      return false;
+    }
   }
 // Mise en place des attributs
   aZone->SetZoneType(_ZoneType);
@@ -347,19 +342,19 @@ void MonCreateZone::SetNewZoneName()
 
   HOMARD::listeZones_var  MyZones = _myHomardGen->GetAllZones();
   int num = 0; QString aZoneName="";
-  while (aZoneName=="" ) 
+  while (aZoneName=="" )
   {
     aZoneName.setNum(num+1) ;
     aZoneName.insert(0, QString("Zone_")) ;
-    for ( int i=0; i<MyZones->length(); i++) 
+    for ( int i=0; i<MyZones->length(); i++)
     {
-      if ( aZoneName ==  QString(MyZones[i])) 
+      if ( aZoneName ==  QString(MyZones[i]))
       {
           num=num+1;
           aZoneName="";
           break;
-      } 
-   } 
+      }
+   }
   }
   LEZoneName->clear() ;
   LEZoneName->insert(aZoneName);
@@ -405,7 +400,7 @@ void MonCreateZone::SetSphere()
   if ( _Zincr > 0 ) {
      SpinBox_Zcentre->setValue(_Zcentre);
    }
-   SpinBox_Rayon->setValue(_Rayon); 
+   SpinBox_Rayon->setValue(_Rayon);
 }
 
 

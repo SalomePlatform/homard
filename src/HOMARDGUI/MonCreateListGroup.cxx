@@ -19,8 +19,8 @@ using namespace std;
 #include <SUIT_ViewManager.h>
 
 // --------------------------------------------------------------------------------------------------------------
-MonCreateListGroup::MonCreateListGroup(MonCreateHypothesis* parentHyp, MonCreateBoundaryDi* parentBound, bool modal, 
-                                       HOMARD::HOMARD_Gen_var myHomardGen, QString aCaseName,  QStringList listeGroupesHypo) : 
+MonCreateListGroup::MonCreateListGroup(MonCreateHypothesis* parentHyp, MonCreateBoundaryDi* parentBound, bool modal,
+                                       HOMARD::HOMARD_Gen_var myHomardGen, QString aCaseName,  QStringList listeGroupesHypo) :
 // --------------------------------------------------------------------------------------------------------------
 //
     QDialog(0), Ui_CreateListGroup(),
@@ -37,8 +37,8 @@ MonCreateListGroup::MonCreateListGroup(MonCreateHypothesis* parentHyp, MonCreate
     InitGroupes();
 }
 // --------------------------------------------------------------------------------------------------------------
-MonCreateListGroup::MonCreateListGroup(MonCreateHypothesis* parentHyp, MonCreateBoundaryDi* parentBound,  
-                                       HOMARD::HOMARD_Gen_var myHomardGen, QString aCaseName,  QStringList listeGroupesHypo) : 
+MonCreateListGroup::MonCreateListGroup(MonCreateHypothesis* parentHyp, MonCreateBoundaryDi* parentBound,
+                                       HOMARD::HOMARD_Gen_var myHomardGen, QString aCaseName,  QStringList listeGroupesHypo) :
 // --------------------------------------------------------------------------------------------------------------
 //
     QDialog(0), Ui_CreateListGroup(),
@@ -103,7 +103,7 @@ void MonCreateListGroup::PushOnHelp()
 void MonCreateListGroup::InitGroupes()
 // ------------------------------------------------------------------------
 {
-  MESSAGE("Debut de InitGroupes ");
+  MESSAGE("Debut de MonCreateListGroup::InitGroupes ");
   for ( int row=0; row< TWGroupe->rowCount(); row++)
       TWGroupe->removeRow(row);
   TWGroupe->setRowCount(0);
@@ -126,6 +126,6 @@ void MonCreateListGroup::InitGroupes()
   TWGroupe->resizeColumnsToContents();
   TWGroupe->resizeRowsToContents();
   TWGroupe->clearSelection();
-  MESSAGE("Fin de InitGroupes ");
+//   MESSAGE("Fin de MonCreateListGroup::InitGroupes ");
 }
 

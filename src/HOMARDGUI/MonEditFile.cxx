@@ -83,9 +83,8 @@ void MonEditFile::PushOnPrint()
 // ------------------------------------------------------------------------
 {
   MESSAGE("Debut de MonEditFile::PushOnPrint")
-  QMessageBox::information( 0, "Error",
-                            "Inactive button.",
-                            QMessageBox::Ok + QMessageBox::Default );
+  QMessageBox::warning( 0, QObject::tr("HOM_WARNING"),
+                            QObject::tr("HOM_INACTIVE_BUTTON") );
   return;
 }
 

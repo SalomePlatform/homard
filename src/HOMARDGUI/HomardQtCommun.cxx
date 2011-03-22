@@ -15,7 +15,7 @@
 #include "SalomeApp_Tools.h"
 
 using namespace std;
-extern "C" 
+extern "C"
 {
 #include <med.h>
 }
@@ -30,141 +30,145 @@ QString HOMARD_QT_COMMUN::SelectionArbreEtude(QString commentaire, int grave )
 // Si grave = 0, ce n'est pas grave de ne rien trouver et pas de message
 // Si grave = 1, ce n'est pas grave de ne rien trouver mais on emet un message
 {
-   int nbSel = HOMARD_UTILS::IObjectCount() ;
-   if ( nbSel == 0 )
-   {
-      if ( grave == 1 )
-      {
-        QMessageBox::information( 0, "Bad selection",
-                                  QString("Select an object."),
-        QMessageBox::Ok + QMessageBox::Default );
-      }
-      return QString("");
-    }
-   if ( nbSel > 1 )
-   {
-      QMessageBox::information( 0, "Bad selection",
-                                QString("Select one object only."),
-      QMessageBox::Ok + QMessageBox::Default );
-      return QString("");
-    }
-
-    Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
-    if ( aIO->hasEntry() )
+  int nbSel = HOMARD_UTILS::IObjectCount() ;
+  if ( nbSel == 0 )
+  {
+    if ( grave == 1 )
     {
-      _PTR(Study) aStudy = HOMARD_UTILS::GetActiveStudyDocument();
-      _PTR(SObject) aSO ( aStudy->FindObjectID( aIO->getEntry() ) );
-      _PTR(GenericAttribute) anAttr;
-      if (aSO->FindAttribute(anAttr, "AttributeComment") )
-      {
-           _PTR(AttributeComment) attributComment = anAttr;
-           QString aComment= QString(attributComment->Value().data());
-           int iteration = aComment.lastIndexOf(commentaire);
-           if ( iteration !=0  )
-           {
-                  QString message=QString("Select an object : ");
-                  message += commentaire;
-                  QMessageBox::information( 0, "Bad selection", message,
-                  QMessageBox::Ok + QMessageBox::Default );
-                  return QString("");
-           }
-           if (aSO->FindAttribute(anAttr, "AttributeName") )
-           {
-                _PTR(AttributeName) attributName = anAttr;
-                 QString aName= QString(attributName->Value().data());
-                 return aName;
-           }
-      }
+      QMessageBox::warning( 0, QObject::tr("HOM_WARNING"),
+                                QObject::tr("HOM_SELECT_OBJECT_1") );
     }
     return QString("");
+  }
+  if ( nbSel > 1 )
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_SELECT_OBJECT_2") );
+    return QString("");
+  }
+//
+  Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
+  if ( aIO->hasEntry() )
+  {
+    _PTR(Study) aStudy = HOMARD_UTILS::GetActiveStudyDocument();
+    _PTR(SObject) aSO ( aStudy->FindObjectID( aIO->getEntry() ) );
+    _PTR(GenericAttribute) anAttr;
+    if (aSO->FindAttribute(anAttr, "AttributeComment") )
+    {
+      _PTR(AttributeComment) attributComment = anAttr;
+      QString aComment= QString(attributComment->Value().data());
+      int iteration = aComment.lastIndexOf(commentaire);
+      if ( iteration !=0  )
+      {
+        QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                  QObject::tr("HOM_SELECT_OBJECT_3").arg(commentaire) );
+        return QString("");
+      }
+      if (aSO->FindAttribute(anAttr, "AttributeName") )
+      {
+        _PTR(AttributeName) attributName = anAttr;
+        QString aName= QString(attributName->Value().data());
+        return aName;
+      }
+    }
+  }
+//
+  return QString("");
 }
 
 // =======================================================================
 QString HOMARD_QT_COMMUN::SelectionCasEtude()
 // =======================================================================
 {
-   QString aName    = QString("");
-   int nbSel = HOMARD_UTILS::IObjectCount() ;
-   if ((nbSel > 1) or ( nbSel == 0 )) 
-   {
-      QMessageBox::information( 0, "Bad selection",
-                                QString("Select one object only"),
-			        QMessageBox::Ok + QMessageBox::Default );
-      return QString("");
+  QString aName    = QString("");
+  int nbSel = HOMARD_UTILS::IObjectCount() ;
+  if ( nbSel == 0 )
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_SELECT_OBJECT_1") );
+    return QString("");
+  }
+  if ( nbSel > 1 )
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_SELECT_OBJECT_2") );
+    return QString("");
+  }
+  Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
+  if ( aIO->hasEntry() )
+  {
+	_PTR(Study) aStudy = HOMARD_UTILS::GetActiveStudyDocument();
+	_PTR(SObject) aSO ( aStudy->FindObjectID( aIO->getEntry() ) );
+        _PTR(SObject) aSObjCas = aSO->GetFather();
+	_PTR(GenericAttribute) anAttr;
+	if (aSObjCas->FindAttribute(anAttr, "AttributeName") )
+        {
+            _PTR(AttributeName) attributName = anAttr;
+            aName= QString(attributName->Value().data());
+        }
+        return aName;
     }
-    Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
-    if ( aIO->hasEntry() )
-    {
-	 _PTR(Study) aStudy = HOMARD_UTILS::GetActiveStudyDocument();
-	 _PTR(SObject) aSO ( aStudy->FindObjectID( aIO->getEntry() ) );
-         _PTR(SObject) aSObjCas = aSO->GetFather();
-	 _PTR(GenericAttribute) anAttr;
-	  if (aSObjCas->FindAttribute(anAttr, "AttributeName") )
-          {
-             _PTR(AttributeName) attributName = anAttr;
-             aName= QString(attributName->Value().data());
-          }
-          return aName;
-      }
-      return QString("");
+    return QString("");
 }
 
 // =======================================================================
 QString HOMARD_QT_COMMUN::PushNomFichier(bool avertir)
 // =======================================================================
-// Gestion les boutons qui permettent  de 
+// Gestion les boutons qui permettent  de
 // 1) retourne le nom d'un fichier par une fenetre de dialogue si aucun
 //    objet est selectionne dans l arbre d etude
-// 2) retourne le nom du fichier asocie a l objet 
+// 2) retourne le nom du fichier asocie a l objet
 //    selectionne dans l arbre d etude
 {
-   MESSAGE("HOMARD_QT_COMMUN::PushNomFichier");
-   QString aFile=QString::null;
-   int nbSel = HOMARD_UTILS::IObjectCount() ;
-   if ( nbSel == 0 )
-   {
-      aFile = QFileDialog::getOpenFileName(0,QString("File Selection"),QString("") ,QString("Med files (*.med);;all (*) ") );
-   }
-   if (nbSel > 1)
-   {
-      QMessageBox::information( 0, "Bad selection",
-                                QString("Select one file only"),
-			        QMessageBox::Ok + QMessageBox::Default );
-   }
-   if (nbSel == 1)
-   {
-      Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
-      if ( aIO->hasEntry() )
-      {
-	 _PTR(Study) aStudy = HOMARD_UTILS::GetActiveStudyDocument();
-	 _PTR(SObject) aSO ( aStudy->FindObjectID( aIO->getEntry() ) );
-	 _PTR(GenericAttribute) anAttr;
-	 _PTR(AttributeFileType) aFileType;
-	 _PTR(AttributeExternalFileDef) aFileName;
-	 if (aSO) {
-	    if (aSO->FindAttribute(anAttr, "AttributeFileType") ) {
-	       aFileType=anAttr;
-	       QString fileType=QString(aFileType->Value().data());
-	       if ( fileType==QString("FICHIERMED")) {
-		   if (aSO->FindAttribute(anAttr,"AttributeExternalFileDef")) {
-		       aFileName=anAttr;
-		      aFile= QString(aFileName->Value().data()); } } } } }
-	
-      if ( aFile==QString::null )
-      {
-         if (avertir ) { 
-         QMessageBox::information( 0, "Bad selection",
-                QString(" Select a study object with associated MED file \n or a MED file"),
-		QMessageBox::Ok + QMessageBox::Default );
+  MESSAGE("HOMARD_QT_COMMUN::PushNomFichier");
+  QString aFile=QString::null;
+  int nbSel = HOMARD_UTILS::IObjectCount() ;
+  if ( nbSel == 0 )
+  {
+    aFile = QFileDialog::getOpenFileName(0,QString("File Selection"),QString("") ,QString("Med files (*.med);;all (*) ") );
+  }
+  if (nbSel > 1)
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_SELECT_FILE_2") );
+  }
+  if (nbSel == 1)
+  {
+    Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
+    if ( aIO->hasEntry() )
+    {
+      _PTR(Study) aStudy = HOMARD_UTILS::GetActiveStudyDocument();
+      _PTR(SObject) aSO ( aStudy->FindObjectID( aIO->getEntry() ) );
+      _PTR(GenericAttribute) anAttr;
+      _PTR(AttributeFileType) aFileType;
+      _PTR(AttributeExternalFileDef) aFileName;
+      if (aSO) {
+        if (aSO->FindAttribute(anAttr, "AttributeFileType") ) {
+          aFileType=anAttr;
+          QString fileType=QString(aFileType->Value().data());
+          if ( fileType==QString("FICHIERMED")) {
+            if (aSO->FindAttribute(anAttr,"AttributeExternalFileDef")) {
+            aFileName=anAttr;
+            aFile= QString(aFileName->Value().data()); }
           }
-         aFile = QFileDialog::getOpenFileName();
-         if (!aFile.isEmpty())
-         {
-	     aFile=aFile;
-         }
+        }
       }
-   }
-   return aFile;
+    }
+
+    if ( aFile==QString::null )
+    {
+      if ( avertir ) {
+        QMessageBox::warning( 0, QObject::tr("HOM_WARNING"),
+                                QObject::tr("HOM_SELECT_STUDY") );
+      }
+      aFile = QFileDialog::getOpenFileName();
+      if (!aFile.isEmpty())
+      {
+        aFile=aFile;
+      }
+    }
+  }
+  return aFile;
 
 }
 
@@ -174,33 +178,35 @@ int HOMARD_QT_COMMUN::OuvrirFichier(QString aFile)
 // =======================================================================
 // renvoie le medId associe au fichier Med apres ouverture
 {
-   int MedIdt = MEDouvrir(const_cast<char *>(aFile.toStdString().c_str()),MED_LECTURE);
-   if (MedIdt <0)
-   {
-      QMessageBox::information( 0, "Bad selection",
-      QString("MED File is unreadable"),
-      QMessageBox::Ok + QMessageBox::Default );
-   }
-   return MedIdt;
+  int MedIdt = MEDouvrir(const_cast<char *>(aFile.toStdString().c_str()),MED_LECTURE);
+  if (MedIdt <0)
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_MED_FILE_1") );
+  }
+  return MedIdt;
 }
 
 // ======================================================
 QString HOMARD_QT_COMMUN::LireNomMaillage(QString aFile)
 // ========================================================
 {
-    
-    int MedIdt = HOMARD_QT_COMMUN::OuvrirFichier(aFile);
-    int numberOfMeshes = MEDnMaa(MedIdt) ;
-    if (numberOfMeshes != 1 )
-    {
-      QMessageBox::information( 0, "Bad selection",
-      QString("MED File contains more than one mesh"),
-      QMessageBox::Ok + QMessageBox::Default );
-    }
+  int MedIdt = HOMARD_QT_COMMUN::OuvrirFichier(aFile);
+  int numberOfMeshes = MEDnMaa(MedIdt) ;
+  if (numberOfMeshes == 0 )
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_MED_FILE_2") );
+  }
+  if (numberOfMeshes > 1 )
+  {
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_MED_FILE_3") );
+  }
 
-    QString nomMaillage= HOMARD_QT_COMMUN::LireNomMaillage(MedIdt,1);
-    MEDfermer(MedIdt);
-    return nomMaillage;
+  QString nomMaillage= HOMARD_QT_COMMUN::LireNomMaillage(MedIdt,1);
+  MEDfermer(MedIdt);
+  return nomMaillage;
 }
 // =======================================================================
 QString HOMARD_QT_COMMUN::LireNomMaillage(int MedIdt ,int MeshId)
@@ -214,13 +220,12 @@ QString HOMARD_QT_COMMUN::LireNomMaillage(int MedIdt ,int MeshId)
 
      if ( MEDmaaInfo(MedIdt,MeshId,maa,&mdim,&type,desc) < 0 )
      {
-          QMessageBox::information( 0, "Bad selection",
-          QString("Error : Mesh is unreadable"),
-          QMessageBox::Ok + QMessageBox::Default );
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QObject::tr("HOM_MED_FILE_4") );
      }
      else
      {
-        NomMaillage=QString(maa);  
+        NomMaillage=QString(maa);
      }
      return NomMaillage;
 }
@@ -243,7 +248,7 @@ std::list<QString> HOMARD_QT_COMMUN::GetListeChamps(QString aFile)
    SCRUTE(aFile.toStdString());
    int MedIdt = HOMARD_QT_COMMUN::OuvrirFichier(aFile);
    if ( MedIdt < 0 ) { return ListeChamp; }
-   
+
    // Le fichier Med est lisible
    // Lecture du maillage
 
@@ -251,35 +256,25 @@ std::list<QString> HOMARD_QT_COMMUN::GetListeChamps(QString aFile)
    med_int ncha = MEDnChamp(MedIdt, 0) ;
    if (ncha < 1 )
    {
-          QMessageBox::information( 0, "Bad selection",
-	              QString(" Error : Fields are unreadable"),
-	              QMessageBox::Ok + QMessageBox::Default );
-	  MEDfermer(MedIdt);
-	  return ListeChamp;
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_MED_FILE_5") );
+   MEDfermer(MedIdt);
+   return ListeChamp;
    }
 
    for (int i=0; i< ncha; i++)
    {
-       if ((ncomp = MEDnChamp(MedIdt,i+1)) < 0)  
-       {
-            QMessageBox::information( 0, "Bad selection",
-	              QString("Error : field's componants are unreadable"),
-	              QMessageBox::Ok + QMessageBox::Default );
-            MEDfermer(MedIdt);
-	    return ListeChamp;
-        }
-
    /* Lecture du type du champ, des noms des composantes et du nom de l'unite*/
-        comp = (char*) malloc(ncomp*MED_TAILLE_PNOM+1);
-        unit = (char*) malloc(ncomp*MED_TAILLE_PNOM+1);
-        if ( MEDchampInfo(MedIdt,i+1,nomcha,&typcha,comp,unit,ncomp) < 0 ) 
-        {
-             QMessageBox::information( 0, "Bad selection",
-	               QString(" Error : Fields are unreadable"),
-	               QMessageBox::Ok + QMessageBox::Default );
-	    MEDfermer(MedIdt);
-            return ListeChamp;
-         }
+      ncomp = MEDnChamp(MedIdt,i+1);
+      comp = (char*) malloc(ncomp*MED_TAILLE_PNOM+1);
+      unit = (char*) malloc(ncomp*MED_TAILLE_PNOM+1);
+      if ( MEDchampInfo(MedIdt,i+1,nomcha,&typcha,comp,unit,ncomp) < 0 )
+      {
+        QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                  QObject::tr("HOM_MED_FILE_6") );
+   MEDfermer(MedIdt);
+          return ListeChamp;
+        }
 
       ListeChamp.push_back(QString(nomcha));
       free(comp);
@@ -305,49 +300,39 @@ std::list<QString> HOMARD_QT_COMMUN::GetListeComposants(QString aFile, QString a
 
    int MedIdt = HOMARD_QT_COMMUN::OuvrirFichier(aFile);
    if ( MedIdt < 0 ) { return ListeComposants; }
-   
+
 
    // Lecture du nombre de champs
    med_int ncha = MEDnChamp(MedIdt, 0) ;
    if (ncha < 1 )
    {
-          QMessageBox::information( 0, "Bad selection",
-	               QString(" Error : Fields are unreadable"),
-	               QMessageBox::Ok + QMessageBox::Default );
-	  MEDfermer(MedIdt);
-	  return ListeComposants;
+    QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                              QObject::tr("HOM_MED_FILE_5") );
+   MEDfermer(MedIdt);
+   return ListeComposants;
    }
 
    for (int i=0; i< ncha; i++)
    {
-     if ((ncomp = MEDnChamp(MedIdt,i+1)) < 0)  
-     {
-          QMessageBox::information( 0, "Bad selection",
-	              QString("Error : field's componants are unreadable"),
-	              QMessageBox::Ok + QMessageBox::Default );
-	  MEDfermer(MedIdt);
-	  return ListeComposants;
-      }
-
    /* Lecture du type du champ, des noms des composantes et du nom de l'unite*/
+      ncomp = MEDnChamp(MedIdt,i+1);
       comp = (char*) malloc(ncomp*MED_TAILLE_PNOM+1);
       unit = (char*) malloc(ncomp*MED_TAILLE_PNOM+1);
 
-      if ( MEDchampInfo(MedIdt,i+1,nomcha,&typcha,comp,unit,ncomp) < 0 ) 
+      if ( MEDchampInfo(MedIdt,i+1,nomcha,&typcha,comp,unit,ncomp) < 0 )
       {
-          QMessageBox::information( 0, "Bad selection",
-	               QString(" Error : Fields are unreadable"),
-	               QMessageBox::Ok + QMessageBox::Default );
-	   MEDfermer(MedIdt);
+        QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                  QObject::tr("HOM_MED_FILE_6") );
+    MEDfermer(MedIdt);
            return ListeComposants;
        }
        if ( QString(nomcha) != aChamp ) {
-	  free(comp);
+   free(comp);
           free (unit);
           continue;}
 
-       for (int j = 0; j <ncomp; j++) 
-       { 
+       for (int j = 0; j <ncomp; j++)
+       {
              char cible[MED_TAILLE_PNOM +1];
              strncpy(cible,comp+j*MED_TAILLE_PNOM,MED_TAILLE_PNOM );
              cible[MED_TAILLE_PNOM ]='\0';
@@ -359,55 +344,4 @@ std::list<QString> HOMARD_QT_COMMUN::GetListeComposants(QString aFile, QString a
    free(unit);
    MEDfermer(MedIdt);
    return ListeComposants;
-}
-
-// =======================================================================
-void HOMARD_QT_COMMUN::Recopie(QString aDir, QString aFichier)
-// =======================================================================
-{
-   if (chdir(aDir.toLatin1()) != 0)
-   {
-	if (mkdir(aDir.toLatin1(), S_IRWXU|S_IRGRP|S_IXGRP) != 0)
-        {
-          QMessageBox::information( 0, "ERROR",
-                    QString("Unable to create directory."),
-                    QMessageBox::Ok + QMessageBox::Default );
-                    return;
-          //ASSERT("Pb a la creation de la directory" == 0);
-        }
-	if (chdir(aDir.toLatin1()) != 0)
-        {
-          QMessageBox::information( 0, "ERROR",
-                    QString("Unable to access directory."),
-                    QMessageBox::Ok + QMessageBox::Default );
-                    return;
-          //ASSERT("Pb pour acceder la directory" == 0);
-        }
-   }
-   QString copie = QString("cp ")+aFichier+QString(" ")+aDir;
-   system(copie.toLatin1());
-}
-
-// =======================================================================
-void HOMARD_QT_COMMUN::Creetmp()
-// =======================================================================
-{
-   QString aDir=QString("/tmp/Homard/");
-   if (chdir(aDir.toLatin1()) != 0)
-   {
-	if (mkdir(aDir.toLatin1(), S_IRWXU|S_IRGRP|S_IXGRP) != 0)
-        {
-          QMessageBox::information( 0, "ERROR",
-                    QString("Unable to create directory /tmp/Homard."),
-                    QMessageBox::Ok + QMessageBox::Default );
-                    return;
-         }
-	if (chdir(aDir.toLatin1()) != 0)
-        {
-          QMessageBox::information( 0, "ERROR",
-                    QString("Unable to access directory /tmp/Homard."),
-                    QMessageBox::Ok + QMessageBox::Default );
-                    return;
-         }
-   }
 }

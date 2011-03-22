@@ -26,6 +26,7 @@ HomardDriver::HomardDriver(const std::string siter, const std::string siterp1):
   else
     executable = std::string(execchar);
   _HOMARD_Exec = dir + "/" + executable ;
+  MESSAGE("Dans HomardDriver::HomardDriver, _HOMARD_Exec ="<<_HOMARD_Exec);
 //
   _siter = siter ;
   _siterp1 = siterp1 ;
@@ -40,7 +41,8 @@ HomardDriver::~HomardDriver()
 ////=============================================================================
 void HomardDriver::TexteInit( const std::string DirCompute, const std::string DirComputePa, const std::string MessFile )
 {
-
+  MESSAGE("Dans HomardDriver::TexteInit, MessFile ="<<MessFile);
+//
   _Texte  = "Action   homa\n" ;
   _Texte += "CCAssoci med\n" ;
   _Texte += "ModeHOMA 1\n" ;
@@ -56,6 +58,7 @@ void HomardDriver::TexteInit( const std::string DirCompute, const std::string Di
 ////=============================================================================
 void HomardDriver::TexteMaillage( const std::string NomMesh, const std::string MeshFile, int apres )
 {
+  MESSAGE("Dans HomardDriver::TexteMaillage, NomMesh ="<<NomMesh<<", MeshFile ="<<MeshFile);
   std::string saux ;
   saux = "P1" ;
   if ( apres < 1 ) { saux = "__" ; }
@@ -68,10 +71,8 @@ void HomardDriver::TexteMaillage( const std::string NomMesh, const std::string M
 ////=============================================================================
 void HomardDriver::TexteConfRaffDera( int ConfType, int TypeAdap, int TypeRaff, int TypeDera )
 {
-//   std::cerr << "Dans HomardDriver::TexteConfRaffDera, ConfType ="<<ConfType << std::endl;
-//   std::cerr << "Dans HomardDriver::TexteConfRaffDera, TypeAdap ="<<TypeAdap << std::endl;
-//   std::cerr << "Dans HomardDriver::TexteConfRaffDera, TypeRaff ="<<TypeRaff << std::endl;
-//   std::cerr << "Dans HomardDriver::TexteConfRaffDera, TypeDera ="<<TypeDera << std::endl;
+  MESSAGE("Dans HomardDriver::TexteConfRaffDera, ConfType ="<<ConfType);
+  MESSAGE("Dans HomardDriver::TexteConfRaffDera, TypeAdap ="<<TypeAdap<<", TypeRaff ="<<TypeRaff<<", TypeDera ="<<TypeDera);
 //
 // Type de conformite
 //
@@ -143,21 +144,20 @@ void HomardDriver::TexteConfRaffDera( int ConfType, int TypeAdap, int TypeRaff, 
   }
   _Texte += "# Type de raffinement/deraffinement\n" + saux + "\n" ;
 //
-//  std::cerr << "A la fin de TexteConfRaffDera _Texte ="<<_Texte << std::endl;
+//   MESSAGE("A la fin de HomardDriver::TexteConfRaffDera, _Texte ="<<_Texte);
 }
 ////=============================================================================
 void HomardDriver::TexteCompo( int NumeComp, const std::string NompCompo)
 {
-//   std::cerr << "Dans TexteCompo de HomardDriver NompCompo = "<<NompCompo << std::endl;
+  MESSAGE("Dans HomardDriver::TexteCompo, NumeComp = "<<NumeComp<<", NompCompo = "<<NompCompo);
   _Texte +="CCCoChaI \"" + NompCompo + "\"\n" ;
 }
 
 ////=============================================================================
 void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, double x2, double x3, double x4, double x5 )
 {
-// std::cerr << "Dans TexteZone de HomardDriver NumeZone = "<<NumeZone << std::endl;
-// std::cerr << "Dans TexteZone de HomardDriver ZoneType = "<<ZoneType << std::endl;
-// std::cerr << "Dans TexteZone de HomardDriver coor = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5 <<std::endl;
+  MESSAGE("Dans HomardDriver::TexteZone, NumeZone = "<<NumeZone<<", ZoneType = "<<ZoneType);
+  MESSAGE("Dans HomardDriver::TexteZone, coor = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5);
 //
   std::string saux, saux2 ;
 //
@@ -240,15 +240,15 @@ void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, 
 //
   _Texte += saux + "#\n" ;
 //
-//  std::cerr << "A la fin de TexteZone _Texte ="<<_Texte << std::endl;
+//   MESSAGE("A la fin de HomardDriver::TexteZone, _Texte ="<<_Texte);
 }
 
 ////=============================================================================
 void HomardDriver::TexteField( const std::string FieldName, const std::string FieldFile, int TimeStep, int Rank,
                int TypeThR, double ThreshR, int TypeThC, double ThreshC, int UsCmpI )
 {
-  MESSAGE("TexteField, FieldName = "<<FieldName<<", FieldFile = "<<FieldFile);
-  MESSAGE("TexteField, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
+  MESSAGE("Dans HomardDriver::TexteField, FieldName = "<<FieldName<<", FieldFile = "<<FieldFile);
+  MESSAGE("Dans HomardDriver::TexteField, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
 
   std::string saux, saux2 ;
 //
@@ -257,8 +257,6 @@ void HomardDriver::TexteField( const std::string FieldName, const std::string Fi
   _Texte += "CCIndica " + FieldFile  + "\n" ;
   _Texte += "CCNoChaI \"" + FieldName  + "\"\n" ;
 
-//  std::cerr << "HomardDriver::TexteField TimeStep" << TimeStep<<std::endl;
-//  std::cerr << "HomardDriver::TexteField Rank" << Rank<<std::endl;
 // Cas ou on prend le dernier pas de temps
   if ( TimeStep == -2 )
   { _Texte += "CCNumPTI Last\n" ; }
@@ -325,7 +323,7 @@ void HomardDriver::TexteField( const std::string FieldName, const std::string Fi
 ////=============================================================================
 void HomardDriver::TexteGroup( const std::string GroupName )
 {
-//   std::cerr << "Dans HomardDriver::TexteGroup NomGroupe  ="<<NomGroupe << std::endl;
+  MESSAGE("Dans HomardDriver::TexteGroup, GroupName = "<<GroupName);
 //
   _Texte += "CCGroAda " + GroupName  + "\n" ;
 //
@@ -333,7 +331,7 @@ void HomardDriver::TexteGroup( const std::string GroupName )
 ////=============================================================================
 void HomardDriver::TexteBoundaryOption( int BoundaryOption )
 {
-//   std::cerr << "Dans HomardDriver::TexteBoundaryOption, BoundaryOption ="<<BoundaryOption << std::endl;
+  MESSAGE("Dans HomardDriver::TexteBoundaryOption, BoundaryOption = "<<BoundaryOption);
 //
 // Type de suivi de frontiere
 //
@@ -342,27 +340,25 @@ void HomardDriver::TexteBoundaryOption( int BoundaryOption )
   std::string saux = saux1.str() ;
   _Texte += "SuivFron " + saux + "\n" ;
 //
-//  std::cerr << "A la fin de TexteBoundaryOption _Texte ="<<_Texte << std::endl;
 }
 ////=============================================================================
 void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::string MeshFile, const std::string GroupName )
 {
-  MESSAGE("Dans TexteBoundaryDi de HomardDriver MeshName  = "<<MeshName);
-  MESSAGE("Dans TexteBoundaryDi de HomardDriver MeshFile  = "<<MeshFile);
-  MESSAGE("Dans TexteBoundaryDi de HomardDriver GroupName = "<<GroupName);
+  MESSAGE("Dans HomardDriver::TexteBoundaryDi, MeshName  = "<<MeshName);
+  MESSAGE("Dans HomardDriver::TexteBoundaryDi, MeshFile  = "<<MeshFile);
+  MESSAGE("Dans HomardDriver::TexteBoundaryDi, GroupName = "<<GroupName);
 //
   _Texte += "CCNoMFro " + MeshName + "\n" ;
   _Texte += "CCFronti " + MeshFile + "\n" ;
   if ( GroupName.size() > 0 ) _Texte += "CCGroFro " + GroupName + "\n" ;
 //
-//  std::cerr << "A la fin de TexteBoundaryOption _Texte ="<<_Texte << std::endl;
 }
 ////=============================================================================
 void HomardDriver::TexteBoundaryAn( int NumeBoundary, int BoundaryType, const std::string Group, double x0, double x1, double x2, double x3, double x4, double x5, double x6 )
 {
-  MESSAGE("Dans TexteBoundaryAn de HomardDriver NumeBoundary = "<<NumeBoundary);
-  MESSAGE("Dans TexteBoundaryAn de HomardDriver BoundaryType = "<<BoundaryType);
-  MESSAGE("Dans TexteBoundaryAn de HomardDriver coor         = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6);
+  MESSAGE("Dans HomardDriver::TexteBoundaryAn, NumeBoundary = "<<NumeBoundary);
+  MESSAGE("Dans HomardDriver::TexteBoundaryAn, BoundaryType = "<<BoundaryType);
+  MESSAGE("Dans HomardDriver::TexteBoundaryAn, coor         = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6);
 //
   std::string saux, saux2 ;
 //
@@ -460,14 +456,13 @@ void HomardDriver::TexteBoundaryAn( int NumeBoundary, int BoundaryType, const st
 //
   _Texte += saux + "#\n" ;
 //
-//  std::cerr << "A la fin de TexteBoundaryAn _Texte ="<<_Texte << std::endl;
 }
 ////=============================================================================
 void HomardDriver::TexteFieldInterp( int TypeFieldInterp, const std::string FieldFile, const std::string MeshFile, int TimeStep, int Rank )
 {
-  MESSAGE("TexteFieldInterp, TypeFieldInterp = "<<TypeFieldInterp);
-  MESSAGE("TexteFieldInterp, FieldFile = "<<FieldFile<<", MeshFile = "<<MeshFile);
-  MESSAGE("TexteFieldInterp, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
+  MESSAGE("Dans HomardDriver::TexteFieldInterp, TypeFieldInterp = "<<TypeFieldInterp);
+  MESSAGE("Dans HomardDriver::TexteFieldInterp, FieldFile = "<<FieldFile<<", MeshFile = "<<MeshFile);
+  MESSAGE("Dans HomardDriver::TexteFieldInterp, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
 //
 // Type d'interpolation
 //
@@ -487,7 +482,7 @@ void HomardDriver::TexteFieldInterp( int TypeFieldInterp, const std::string Fiel
 ////=============================================================================
 void HomardDriver::TexteFieldInterpName( int NumeChamp, const std::string FieldName)
 {
-  MESSAGE("TexteFieldInterpName, NumeChamp = "<<NumeChamp<<", FieldName = "<<FieldName);
+  MESSAGE("Dans HomardDriver::TexteFieldInterpName, NumeChamp = "<<NumeChamp<<", FieldName = "<<FieldName);
   std::stringstream saux1 ;
   saux1 << NumeChamp+1 ;
   std::string saux = saux1.str() ;
