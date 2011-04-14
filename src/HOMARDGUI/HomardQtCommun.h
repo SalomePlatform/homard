@@ -13,10 +13,6 @@
 #include <qstring.h>
 #include <vector>
 #include <set>
-extern "C"
-{
-#include <med.h>
-}
 
 class QComboBox;
 
