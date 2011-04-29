@@ -56,10 +56,10 @@ libHOMARDImpl_la_LDFLAGS = \
 	$(KERNEL_LDFLAGS) \
 	-lSALOMELocalTrace
 
-check_PROGRAMS = testhomard
-
-TESTS = $(check_PROGRAMS)
-
-testhomard_SOURCES = testhomard.cxx
-
-testhomard_LDADD = libHOMARDImpl.la
+# check_PROGRAMS = testhomard
+# 
+# TESTS = $(check_PROGRAMS)
+# 
+# testhomard_SOURCES = testhomard.cxx
+# 
+# testhomard_LDADD = libHOMARDImpl.la
