@@ -4,7 +4,14 @@
 Exemple de couplage HOMARD-Salome
 Copyright EDF-R&D 1996, 2010
 """
-__revision__ = "V1.0"
+__revision__ = "V1.1"
+#
+# ==================================
+# Repertoire a personnaliser
+# Ce repertoire contient les fichiers de donnees : tutorial_1.00.med
+# Ce repertoire contiendra les fichiers de resultats : maill.01.med, maill.02.med, maill.03.med
+dircase = "/tmp"
+# ==================================
 #
 import salome
 salome.salome_init()
@@ -13,8 +20,6 @@ import HOMARD
 homard = salome.lcc.FindOrLoadComponent("FactoryServer", "HOMARD")
 study_main = salome.myStudyManager.NewStudy("HOMARD")
 homard.SetCurrentStudy(salome.myStudy)
-#
-dircase = "/tmp"
 #
 # Hypothesis "Hypo_0"
 # ===================

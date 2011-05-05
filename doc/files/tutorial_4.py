@@ -4,7 +4,14 @@
 Exemple de couplage HOMARD-Salome
 Copyright EDF-R&D 1996, 2011
 """
-__revision__ = "V1.0"
+__revision__ = "V1.1"
+#
+# ==================================
+# Repertoire a personnaliser
+# Ce repertoire contient les fichiers de donnees : tutorial_4.00.med, tutorial_4.fr.med
+# Ce repertoire contiendra les fichiers de resultats : maill.01.med, maill.02.med
+dircase = "/tmp"
+# ==================================
 #
 import salome
 salome.salome_init()
@@ -13,8 +20,6 @@ import HOMARD
 homard = salome.lcc.FindOrLoadComponent("FactoryServer", "HOMARD")
 study_main = salome.myStudyManager.NewStudy("HOMARD")
 homard.SetCurrentStudy(salome.myStudy)
-#
-dircase = "/tmp"
 #
 # Creation of the boundaries
 # ==========================
@@ -52,9 +57,11 @@ Hypo_2.AddGroup('T2_EXT')
 Case = homard.CreateCase('Case', 'PIQUAGE', dircase+'/tutorial_4.00.med')
 Case.SetDirName(dircase)
 Case.AddBoundaryGroup( 'intersection', '' )
-Case.AddBoundaryGroup( 'cyl_1_ext', 'T1_EXT' )
+Case.AddBoundaryGroup( 'cyl_1_ext', 'T1_EXT_I' )
+Case.AddBoundaryGroup( 'cyl_1_ext', 'T1_EXT_O' )
 Case.AddBoundaryGroup( 'cyl_2_ext', 'T2_EXT' )
-Case.AddBoundaryGroup( 'cyl_1_int', 'T1_INT' )
+Case.AddBoundaryGroup( 'cyl_1_int', 'T1_INT_I' )
+Case.AddBoundaryGroup( 'cyl_1_int', 'T1_INT_O' )
 Case.AddBoundaryGroup( 'cyl_2_int', 'T2_INT' )
 #
 # Creation of the iterations
