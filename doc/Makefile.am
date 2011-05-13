@@ -79,6 +79,7 @@ install-data-local:
 	if test -d $$b"html"; then cp -rf $$b"html"/* $(DESTDIR)$(homarddocdir); fi;
 
 uninstall-local:
+	chmod -R +w $(DESTDIR)$(homarddocdir)
 	rm -rf $(DESTDIR)$(homarddocdir)/*
 
 clean-local:
