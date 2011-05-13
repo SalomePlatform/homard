@@ -19,36 +19,7 @@
 #
 #  See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
-# -* Makefile *- 
-# Author : Patrick GOLDBRONN (CEA)
-# Date : 28/06/2001
-# Modified by : Alexander BORODIN (OCN) - autotools usage
-#
+
 include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
-ACLOCAL_AMFLAGS = -I $(top_srcdir)/adm_local/unix/config_files			\
-                  -I ${KERNEL_ROOT_DIR}/salome_adm/unix/config_files \
-                  -I ${GUI_ROOT_DIR}/adm_local/unix/config_files \
-                  -I ${HOMARD_SRC}/adm_local/unix/config_files
-
-SUBDIRS = idl adm_local resources src doc tests
-
-DIST_SUBDIRS = idl adm_local resources src doc tests
-
-DISTCLEANFILES = a.out aclocal.m4 configure
-
-
-EXTRA_DIST +=		\
-	build_configure	\
-	clean_configure	
-
-dist-hook:
-	rm -rf `find $(distdir) -name CVS`
-
-usr_docs:
-	(cd doc && $(MAKE) $(AM_MAKEFLAGS) usr_docs)
-
-docs:usr_docs
-
-dev_docs:
-	(cd doc && $(MAKE) $(AM_MAKEFLAGS) dev_docs)
+SUBDIRS = unix

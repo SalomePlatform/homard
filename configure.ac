@@ -32,6 +32,8 @@ AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wno-portability])
 
+SHORT_VERSION=`echo $VERSION | awk -F. '{printf("%d.%d",$1,$2)}'`
+AC_SUBST(SHORT_VERSION)
 XVERSION=`echo $VERSION | awk -F. '{printf("0x%02x%02x%02x",$1,$2,$3)}'`
 AC_SUBST(XVERSION)
 
@@ -388,12 +390,17 @@ AC_OUTPUT([ \
 	salome_adm/unix/SALOMEconfig.h \
 	Makefile \
 	idl/Makefile \
+	adm_local/Makefile \
+	adm_local/unix/Makefile \
+	adm_local/unix/config_files/Makefile \
 	doc/Makefile \
-	src/Makefile \
+	doc/conf.py \
+  	src/Makefile \
 	src/HOMARD_I/Makefile \
 	src/HOMARD/Makefile \
 	src/HOMARDGUI/Makefile \
 	src/HOMARD_SWIG/Makefile \
 	resources/Makefile \
+	resources/HOMARDCatalog.xml \
 	tests/Makefile \
 ])

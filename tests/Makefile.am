@@ -39,4 +39,12 @@ dist_salomeres_DATA =   \
      test_3.py \
      test_3.00.med \
      test_3.fr.med \
-     test_3.apad.02.bilan 
+     test_3.apad.02.bilan
+
+EXTRA_DIST += \
+     test_1.odt \
+     test_1.png \
+     test_2.odt \
+     test_2.png \
+     test_3.odt \
+     test_3.png

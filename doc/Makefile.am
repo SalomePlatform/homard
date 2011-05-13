@@ -30,6 +30,7 @@ if SPHINX_IS_OK
 homarddoc_DATA=html/index.html
 html/index.html:$(RSTFILES)
 	make htm
+
 endif
 
 homarddocdir=$(docdir)/gui/HOMARD
@@ -40,17 +41,32 @@ SPHINXBUILD     = sphinx-build
 PAPEROPT_a4     = -D latex_paper_size=a4
 ALLSPHINXOPTS   = -d doctrees $(PAPEROPT_a4) $(SPHINXOPTS) $(SOURCEDIR)
 
-EXTRA_DIST+= images files html $(docdir) $(docdir)/gui $(homarddoc_DATA)
 htm:
 	mkdir -p html doctrees
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) html
+	$(SPHINXBUILD) -c $(top_builddir)/doc -b html $(ALLSPHINXOPTS) html
 	@echo
 	@echo "Build finished. The HTML pages are in html."
 
-RSTFILES=          \
-index.rst          \
-intro.rst    \
+RSTFILES= \
+glossaire.rst \
+gui_create_boundary.rst \
+gui_create_case.rst \
+gui_create_hypothese.rst \
+gui_create_iteration.rst \
+gui_create_zone.rst \
+gui_usage.rst \
+index.rst \
+intro.rst \
+tui_create_boundary.rst \
+tui_create_case.rst \
+tui_create_hypothese.rst \
+tui_create_iteration.rst \
+tui_create_zone.rst \
+tui_homard.rst \
+tui_usage.rst \
 tutorials.rst
+
+EXTRA_DIST+= $(RSTFILES) images files
 
 usr_docs: 
 	make install-data-local
@@ -59,7 +75,16 @@ docs: usr_docs
 
 install-data-local:
 	$(INSTALL) -d $(DESTDIR)$(homarddocdir)
-	if test -d "html"; then cp -rf html/* $(DESTDIR)$(homarddocdir); fi;
+	if test -d "html"; then b=; else b="$(srcdir)/"; fi; \
+	if test -d $$b"html"; then cp -rf $$b"html"/* $(DESTDIR)$(homarddocdir); fi;
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(homarddocdir)/*
+
+clean-local:
+	-rm -rf doctrees
+	if test -d "html"; then rm -rf html ; fi
+
+dist-hook:
+	if test -d "html"; then b=; else b="$(srcdir)/"; fi; \
+	if test -d $$b"html"; then cp -rf $$b"html" $(distdir) ; fi

@@ -29,25 +29,38 @@ dist_salomeres_DATA =   \
 	boxdxyz.png \
 	boxdxyz_2.png \
 	cas_calcule.png \
+	cas_non_calcule.png \
 	cylinderpointvector.png \
 	cylinderpointvector_2.png \
+	delete.png \
 	HOMARD.png \
 	HOMARD_2.png \
 	hypotheses.png \
 	iter0.png \
 	iter_calculee.png \
+	iter_calulee.png \
 	iter_next.png \
 	iter_non_calculee.png \
+	iter_non_calulee.png \
 	med.png \
 	mesh_compute.png \
+	mesh_hypo_edit.png \
 	mesh_tree_mesh.png \
+	mesh_tree_importedmesh.png \
+	mesh_whatis.png \
 	spherepoint.png \
 	spherepoint_2.png \
 	texte.png \
 	texte_2.png \
+	triangle.png \
 	whatis.png \
+	zone_boxdxyz.png \
+	zone_boxdxyz_2.png \
 	zone_icone.png \
-	zone_icone_2.png
+	zone_icone_2.png \
+	zone_spherepoint.png \
+	zone_spherepoint_2.png \
+	zones.png
 
 # VSR: little trick to avoid putting if HOMARDCatalog.xml to the distribution archive
 nodist_salomeres_SCRIPTS = HOMARDCatalog.xml

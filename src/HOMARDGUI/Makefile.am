@@ -28,6 +28,7 @@
 include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
 salomeinclude_HEADERS =       \
+	HomardConfigFile.hxx  \
 	MonCreateBoundaryAn.h \
 	CreateBoundaryAn.h    \
 	MonEditBoundaryAn.h   \
@@ -44,6 +45,7 @@ salomeinclude_HEADERS =       \
 	CreateHypothesis.h    \
 	MonEditHypothesis.h   \
 	MonCreateListGroup.h  \
+	CreateListGroup.h     \
 	MonEditListGroup.h    \
 	MonCreateIteration.h  \
 	CreateIteration.h     \
@@ -133,3 +135,15 @@ libHOMARD_la_LDFLAGS  =                 \
 nodist_salomeres_DATA =  \
 	HOMARD_msg_en.qm \
 	HOMARD_msg_fr.qm
+
+UI_FILES = \
+CreateBoundaryAn.ui \
+CreateBoundaryDi.ui \
+CreateCase.ui \
+CreateHypothesis.ui \
+CreateIteration.ui \
+CreateListGroup.ui \
+CreateZone.ui \
+EditFile.ui
+
+EXTRA_DIST += $(UI_FILES)
