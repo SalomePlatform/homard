@@ -16,23 +16,7 @@
 #
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
-#  File   : Makefile.in
-#  Author : Nicolas REJNERI, Paul RASCLE
-#  Modified by : Alexander BORODIN (OCN) - autotools usage
-#  Module : HOMARD
 
-
-# Libraries targets
-#
 include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
-# ===============================================================
-# Files to be installed
-# ===============================================================
-#
-
-# Scripts to be installed.
-dist_salomescript_DATA =		
-
-sharedpkgpython_PYTHON =		\
-	HOMARD_shared_modules.py
+SUBDIRS = unix

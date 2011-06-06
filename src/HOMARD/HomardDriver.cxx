@@ -1,3 +1,24 @@
+//  HOMARD HOMARD : implementaion of HOMARD idl descriptions
+//
+// Copyright (C) 2011  CEA/DEN, EDF R&D
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+//
+// See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
+//
+
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -342,27 +363,34 @@ void HomardDriver::TexteBoundaryOption( int BoundaryOption )
 //
 }
 ////=============================================================================
-void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::string MeshFile, const std::string GroupName )
+void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::string MeshFile )
 {
   MESSAGE("Dans HomardDriver::TexteBoundaryDi, MeshName  = "<<MeshName);
   MESSAGE("Dans HomardDriver::TexteBoundaryDi, MeshFile  = "<<MeshFile);
-  MESSAGE("Dans HomardDriver::TexteBoundaryDi, GroupName = "<<GroupName);
 //
   _Texte += "CCNoMFro " + MeshName + "\n" ;
   _Texte += "CCFronti " + MeshFile + "\n" ;
-  if ( GroupName.size() > 0 ) _Texte += "CCGroFro " + GroupName + "\n" ;
 //
 }
 ////=============================================================================
-void HomardDriver::TexteBoundaryAn( int NumeBoundary, int BoundaryType, const std::string Group, double x0, double x1, double x2, double x3, double x4, double x5, double x6 )
+void HomardDriver::TexteBoundaryDiGr(  const std::string GroupName )
 {
+  MESSAGE("Dans HomardDriver::TexteBoundaryDiGr, GroupName  = "<<GroupName);
+//
+  _Texte += "CCGroFro " + GroupName + "\n" ;
+//
+}
+////=============================================================================
+void HomardDriver::TexteBoundaryAn( const std::string NameBoundary, int NumeBoundary, int BoundaryType, double x0, double x1, double x2, double x3, double x4, double x5, double x6 )
+{
+  MESSAGE("Dans HomardDriver::TexteBoundaryAn, NameBoundary = "<<NameBoundary);
   MESSAGE("Dans HomardDriver::TexteBoundaryAn, NumeBoundary = "<<NumeBoundary);
   MESSAGE("Dans HomardDriver::TexteBoundaryAn, BoundaryType = "<<BoundaryType);
   MESSAGE("Dans HomardDriver::TexteBoundaryAn, coor         = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6);
 //
   std::string saux, saux2 ;
 //
-// Type de zones
+// Commentaires
 //
   std::stringstream saux1 ;
   saux1 << NumeBoundary ;
@@ -373,18 +401,20 @@ void HomardDriver::TexteBoundaryAn( int NumeBoundary, int BoundaryType, const st
   if ( BoundaryType == 2 )
   { saux += "# Sphere\n" ; }
 //
-  { std::stringstream saux1 ;
-    saux1 << NumeBoundary << " " << BoundaryType ;
-    saux2 = saux1.str() ;
-    saux += "FAType " + saux2 + "\n" ;
-  }
-//
-// Le groupe
+// Le nom de la frontiere
 //
   { std::stringstream saux1 ;
     saux1 << NumeBoundary ;
     saux2 = saux1.str() ;
-    saux += "FAGroupe " + saux2 + " '" + Group + "'\n" ;
+    saux += "FANom " + saux2 + " '" + NameBoundary + "'\n" ;
+  }
+//
+// Type de frontiere
+//
+  { std::stringstream saux1 ;
+    saux1 << NumeBoundary << " " << BoundaryType ;
+    saux2 = saux1.str() ;
+    saux += "FAType " + saux2 + "\n" ;
   }
 //
 // Cas du cylindre
@@ -453,6 +483,27 @@ void HomardDriver::TexteBoundaryAn( int NumeBoundary, int BoundaryType, const st
       saux += "FARayon " + saux2 + "\n" ;
     }
   }
+//
+  _Texte += saux + "#\n" ;
+//
+}
+////=============================================================================
+void HomardDriver::TexteBoundaryAnGr( const std::string NameBoundary, int NumeBoundary, const std::string GroupName )
+{
+  MESSAGE("Dans HomardDriver::TexteBoundaryAnGr, NameBoundary  = "<<NameBoundary);
+  MESSAGE("Dans HomardDriver::TexteBoundaryAnGr, NumeBoundary  = "<<NumeBoundary);
+  MESSAGE("Dans HomardDriver::TexteBoundaryAnGr, GroupName  = "<<GroupName);
+//
+// Commentaires
+//
+  std::string saux, saux2 ;
+  std::stringstream saux1 ;
+  saux1 << NumeBoundary ;
+  saux2 = saux1.str() ;
+  saux = "#\n# Lien Frontiere/Groupe numero " + saux2 + "\n" ;
+//
+  saux += "FGNomFro " + saux2 + " '" + NameBoundary + "'\n" ;
+  saux += "FGNomGro " + saux2 + " '" + GroupName + "'\n" ;
 //
   _Texte += saux + "#\n" ;
 //

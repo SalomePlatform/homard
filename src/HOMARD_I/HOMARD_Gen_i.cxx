@@ -1,3 +1,22 @@
+// Copyright (C) 2011  CEA/DEN, EDF R&D
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+//
+// See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
+//
+
 #include "HOMARD_Gen_i.hxx"
 #include "HOMARD_Cas_i.hxx"
 #include "HOMARD_Hypothesis_i.hxx"
@@ -31,6 +50,24 @@
 
 using  namespace std;
 
+//=======================================================================
+//function : RemoveTabulation
+//purpose  : 
+//=======================================================================
+std::string RemoveTabulation( std::string theScript )
+{
+  std::string::size_type aPos = 0;
+  while( aPos < theScript.length() )
+  {
+    aPos = theScript.find( "\n\t", aPos );
+    if( aPos == std::string::npos )
+      break;
+    theScript.replace( aPos, 2, "\n" );
+    aPos++;
+  }
+  return theScript;
+}
+      
 //=============================================================================
 /*!
  *  standard constructor
@@ -1197,12 +1234,81 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
   }
 
   // E.5. Ajout des informations liees a l'eventuel suivi de frontiere
+  // On ecrit d'abord la definition des frontieres, puis les liens avec les groupes
+  std::list<std::string>  ListeBoundaryTraitees ;
   HOMARD::ListBoundaryGroupType* ListBoundaryGroupType = myCase->GetBoundaryGroup();
   int numberOfitems = ListBoundaryGroupType->length();
   MESSAGE ( "... number of string for Boundary+Group = " << numberOfitems);
   int BoundaryOption = 1 ;
   int NumBoundaryAnalytical = 0 ;
   for (int NumBoundary = 0; NumBoundary< numberOfitems; NumBoundary=NumBoundary+2)
+  {
+    std::string BoundaryName = std::string((*ListBoundaryGroupType)[NumBoundary]);
+    MESSAGE ( "... BoundaryName = " << BoundaryName);
+    int A_faire = 1 ;
+    std::list<std::string>::const_iterator it = ListeBoundaryTraitees.begin();
+    while (it != ListeBoundaryTraitees.end())
+    {
+      MESSAGE ( "... BoundaryNameTraitee = " << *it);
+      if ( BoundaryName == *it ) { A_faire = 0 ; }
+      it++;
+    }
+    if ( A_faire == 1 )
+    {
+// Caracteristiques de la frontiere
+      HOMARD::HOMARD_Boundary_var myBoundary = myContextMap[GetCurrentStudyID()]._mesBoundarys[BoundaryName];
+      ASSERT(!CORBA::is_nil(myBoundary));
+      int BoundaryType = myBoundary->GetBoundaryType();
+      MESSAGE ( "... BoundaryType = " << BoundaryType );
+// Ecriture selon le type
+      if (BoundaryType == 0) // Cas d une frontiere discrete
+      {
+        const char* MeshName = myBoundary->GetMeshName() ;
+        const char* MeshFile = myBoundary->GetMeshFile() ;
+        myDriver->TexteBoundaryDi( MeshName, MeshFile);
+        BoundaryOption = BoundaryOption*2 ;
+      }
+      else if (BoundaryType == 1) // Cas d un cylindre
+      {
+        NumBoundaryAnalytical++ ;
+        HOMARD::double_array* coor = myBoundary->GetCylinder();
+        myDriver->TexteBoundaryAn(BoundaryName, NumBoundaryAnalytical, BoundaryType, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], (*coor)[4], (*coor)[5], (*coor)[6]);
+        BoundaryOption = BoundaryOption*3 ;
+      }
+      else if (BoundaryType == 2) // Cas d une sphere
+      {
+        NumBoundaryAnalytical++ ;
+        HOMARD::double_array* coor = myBoundary->GetSphere();
+        myDriver->TexteBoundaryAn(BoundaryName, NumBoundaryAnalytical, BoundaryType, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], 0., 0., 0.);
+        BoundaryOption = BoundaryOption*3 ;
+      }
+// Memorisation du traitement
+      ListeBoundaryTraitees.push_back( BoundaryName );
+    }
+  }
+  NumBoundaryAnalytical = 0 ;
+  for (int NumBoundary = 0; NumBoundary< numberOfitems; NumBoundary=NumBoundary+2)
+  {
+    std::string BoundaryName = std::string((*ListBoundaryGroupType)[NumBoundary]);
+    MESSAGE ( "... BoundaryName = " << BoundaryName);
+    HOMARD::HOMARD_Boundary_var myBoundary = myContextMap[GetCurrentStudyID()]._mesBoundarys[BoundaryName];
+    ASSERT(!CORBA::is_nil(myBoundary));
+    int BoundaryType = myBoundary->GetBoundaryType();
+    MESSAGE ( "... BoundaryType = " << BoundaryType );
+//  Recuperation du nom du groupe
+    std::string GroupName = std::string((*ListBoundaryGroupType)[NumBoundary+1]);
+    MESSAGE ( "... GroupName = " << GroupName);
+    if (BoundaryType == 0) // Cas d une frontiere discrete
+    {
+      if ( GroupName.size() > 0 ) { myDriver->TexteBoundaryDiGr ( GroupName ) ; }
+    }
+    else // Cas d une frontiere analytique
+    {
+      NumBoundaryAnalytical++ ;
+      myDriver->TexteBoundaryAnGr ( BoundaryName, NumBoundaryAnalytical, GroupName ) ;
+    }
+  }
+/*  for (int NumBoundary = 0; NumBoundary< numberOfitems; NumBoundary=NumBoundary+2)
   {
     std::string BoundaryName = std::string((*ListBoundaryGroupType)[NumBoundary]);
     MESSAGE ( "... BoundaryName = " << BoundaryName);
@@ -1234,7 +1340,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
       myDriver->TexteBoundaryAn(NumBoundaryAnalytical, BoundaryType, GroupName, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], 0., 0., 0.);
       BoundaryOption = BoundaryOption*3 ;
     }
-  }
+  }*/
   myDriver->TexteBoundaryOption(BoundaryOption);
 
   // E.6. Ajout des informations liees a l'eventuelle interpolation des champs
@@ -2352,6 +2458,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::newZone()
 //==========================================================================
 Engines::TMPFile* HOMARD_Gen_i::DumpPython(CORBA::Object_ptr theStudy,
                                        CORBA::Boolean isPublished,
+                                       CORBA::Boolean isMultiFile,
                                        CORBA::Boolean& isValidScript)
 {
    MESSAGE ("Entree dans DumpPython");
@@ -2370,10 +2477,15 @@ Engines::TMPFile* HOMARD_Gen_i::DumpPython(CORBA::Object_ptr theStudy,
    aScript += "\"\"\"\n";
    aScript += "__revision__ = \"V1.2\"\n";
    aScript += "import HOMARD\n";
-   aScript += "import salome\n";
+   if( isMultiFile )
+      aScript += "import salome\n";
    aScript += "homard = salome.lcc.FindOrLoadComponent('FactoryServer','HOMARD')\n";
-   aScript += "def RebuildData(theStudy):\n";
-   aScript += "\thomard.SetCurrentStudy(theStudy)\n";
+   if( isMultiFile ) {
+      aScript += "def RebuildData(theStudy):\n";
+      aScript += "\thomard.SetCurrentStudy(theStudy)\n";
+   }
+   else
+      aScript += "\thomard.SetCurrentStudy(salome.myStudy)\n";
 
 
    if (myContextMap[GetCurrentStudyID()]._mesBoundarys.size() > 0)
@@ -2461,8 +2573,14 @@ Engines::TMPFile* HOMARD_Gen_i::DumpPython(CORBA::Object_ptr theStudy,
     std::string dumpIter = dumpCorbaIter.in();
     aScript+=dumpIter;
    }
+   
+    if( isMultiFile )
+      aScript += "\n\tpass";
+    aScript += "\n";
 
-
+    if( !isMultiFile ) // remove unnecessary tabulation
+      aScript = RemoveTabulation( aScript );
+    
    const size_t aLen = strlen(aScript.c_str());
    char* aBuffer = new char[aLen+1];
    strcpy(aBuffer, aScript.c_str());

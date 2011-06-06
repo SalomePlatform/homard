@@ -2,7 +2,7 @@ Exemples
 ========
 .. index:: single: exemple
 .. index:: single: python
-On trouvera ici les instructions python pour quelques configurations caractéristiques. Les fichiers de données associés sont téléchargeables.
+On trouvera ici les instructions python pour quelques configurations caractéristiques. Les fichiers de données associés sont téléchargeables. Il faut penser à modifier le contenu de la variable ``dircase`` : c'est le répertoire dans lequel les fichiers med auront été enregistrés. C'est dans ce répertoire que seront écrits les fichiers résultant des adaptations successives.
 
 Raffinement uniforme
 """"""""""""""""""""
@@ -177,7 +177,7 @@ On procède ici au raffinement selon un champ. Les hypothèses servent à définir l
   # ==================
   Iter_1 = homard.CreateIteration('Iter_1', 'Iter_0')
   Iter_1.SetMeshName('H_2')
-  Iter_1.SetMeshFile('/tmp/maill.02.med')
+  Iter_1.SetMeshFile(dircase+'/maill.02.med')
   Iter_1.SetFieldFile(dircase+'/tutorial_3.01.med')
   Iter_1.SetTimeStepRank(1, 1)
   homard.AssociateIterHypo('Iter_1', 'Hypo_1')
