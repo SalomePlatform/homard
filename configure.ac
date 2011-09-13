@@ -399,5 +399,6 @@ AC_OUTPUT([ \
 	src/HOMARD_SWIG/Makefile \
 	resources/Makefile \
 	resources/HOMARDCatalog.xml \
+	resources/SalomeApp.xml \
 	tests/Makefile \
 ])
