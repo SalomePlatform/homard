@@ -36,6 +36,7 @@ DIST_SUBDIRS = idl adm_local resources src doc tests
 
 DISTCLEANFILES = a.out aclocal.m4 configure
 
+salomeinclude_DATA = HOMARD_version.h
 
 EXTRA_DIST +=		\
 	build_configure	\

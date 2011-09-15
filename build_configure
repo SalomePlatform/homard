@@ -67,10 +67,6 @@ fi
 cd ${CONF_DIR}
 ABS_CONF_DIR=`pwd`
 
-mkdir -p salome_adm/unix/config_files
-cp -f ${KERNEL_ROOT_DIR}/salome_adm/unix/SALOMEconfig.h.in salome_adm/unix
-
-
 
 # ____________________________________________________________________
 # aclocal creates the aclocal.m4 file from the standard macro and the
