@@ -22,9 +22,14 @@
 <document>
   <section name="HOMARD">
     <!-- Major module parameters -->
-    <parameter name="name"    value="Homard"/>
-    <parameter name="icon"    value="HOMARD.png"/>
-    <parameter name="version"    value="@VERSION@"/>
+    <parameter name="name"          value="Homard"/>
+    <parameter name="icon"          value="HOMARD.png"/>
+    <parameter name="version"       value="@VERSION@"/>
+    <parameter name="documentation" value="homard_help"/>
+  </section>
+  <section name="homard_help" >
+    <parameter name="sub_menu"          value="%1 module"/>
+    <parameter name="User's Guide"      value="%HOMARD_ROOT_DIR%/share/doc/salome/gui/HOMARD/index.html"/>
   </section>
   <section name="resources">
     <!-- Module resources -->
