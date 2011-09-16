@@ -45,11 +45,13 @@ module HOMARD
     void     SetCylinder (in double Xcentre, in double Ycentre, in double Zcentre,
                           in double Xaxe, in double Yaxe, in double Zaxe, in double rayon)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD::double_array GetCylinder()                     raises (SALOME::SALOME_Exception);
+//    HOMARD::double_array GetCylinder()                     raises (SALOME::SALOME_Exception);
 
     void     SetSphere (in double Xcentre, in double Ycentre, in double Zcentre, in double rayon)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD::double_array GetSphere()                       raises (SALOME::SALOME_Exception);
+//    HOMARD::double_array GetSphere()                       raises (SALOME::SALOME_Exception);
+
+    HOMARD::double_array GetCoords()                       raises (SALOME::SALOME_Exception);
 
     void     SetLimit (in double Xincr, in double Yincr, in double Zincr)
                                                            raises (SALOME::SALOME_Exception);
