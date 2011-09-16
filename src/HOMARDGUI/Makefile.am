@@ -116,7 +116,7 @@ libHOMARD_la_CPPFLAGS =          \
 	-I$(top_builddir)        \
 	-I$(VISU_ROOT_DIR)/include/salome  \
 	-I$(MED_ROOT_DIR)/include/salome   \
-	-I$(top_builddir)/salome_adm/unix
+	-I$(top_builddir)/adm_local/unix
 
 libHOMARD_la_LDFLAGS  =                 \
 	../../idl/libSalomeIDLHOMARD.la \

@@ -24,7 +24,7 @@
 # Created from configure.in.base
 #
 AC_INIT([Salome2 Project HOMARD module], [6.3.1], [webmaster.salome@opencascade.com], [SalomeHOMARD])
-AC_CONFIG_AUX_DIR(salome_adm/unix/config_files)
+AC_CONFIG_AUX_DIR(adm_local/unix/config_files)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wno-portability])
@@ -106,7 +106,7 @@ dnl Fix up the INSTALL macro if it s a relative path. We want the
 dnl full-path to the binary instead.
 case "$INSTALL" in
    *install-sh*)
-      INSTALL='\${ROOT_BUILDDIR}'/salome_adm/unix/config_files/install-sh
+      INSTALL='\${ROOT_BUILDDIR}'/adm_local/unix/config_files/install-sh
       ;;
 esac
 

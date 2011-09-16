@@ -48,7 +48,7 @@ nodist_salomeinclude_HEADERS = $(BASEIDL_FILES:%.idl=%.hh)
 
 libSalomeIDLHOMARD_la_CPPFLAGS =		\
 	$(KERNEL_CXXFLAGS)			\
-	-I$(top_builddir)/salome_adm/unix	\
+	-I$(top_builddir)/adm_local/unix	\
 	-I$(top_builddir)/idl			\
 	$(MED_CXXFLAGS) 			\
 	@CORBA_CXXFLAGS@			\
@@ -75,7 +75,7 @@ IDLCXXFLAGS = \
 	-I$(top_builddir)/idl/salome \
 	-I$(KERNEL_ROOT_DIR)/idl/salome \
 	-I$(MED_ROOT_DIR)/idl/salome \
-	-I$(top_builddir)/salome_adm/unix
+	-I$(top_builddir)/adm_local/unix
 IDLPYFLAGS  = \
 	@IDLPYFLAGS@ \
 	-I$(KERNEL_ROOT_DIR)/idl/salome \

@@ -70,7 +70,7 @@ ABS_CONF_DIR=`pwd`
 
 # ____________________________________________________________________
 # aclocal creates the aclocal.m4 file from the standard macro and the
-# custom macro embedded in the directory salome_adm/unix/config_files
+# custom macro embedded in the directory adm_local/unix/config_files
 # and KERNEL config_files directory.
 # output:
 #   aclocal.m4
@@ -89,9 +89,9 @@ aclocal -I adm_local/unix/config_files \
 # version. The files are created in the directory specified with the
 # AC_CONFIG_AUX_DIR(<mydir>) tag (see configure.ac).
 # output:
-#   salome_adm/unix/config_files/config.guess
-#   salome_adm/unix/config_files/config.sub
-#   salome_adm/unix/config_files/ltmain.sh
+#   adm_local/unix/config_files/config.guess
+#   adm_local/unix/config_files/config.sub
+#   adm_local/unix/config_files/ltmain.sh
 #echo "====================================================== libtoolize"
 
 libtoolize --force --copy --automake || exit 1
@@ -112,11 +112,11 @@ autoconf
 # AC_CONFIG_AUX_DIR(<mydir>) tag (see configure.ac). This step also
 # creates the Makefile.in files from the Makefile.am files.
 # output:
-#   salome_adm/unix/config_files/compile
-#   salome_adm/unix/config_files/depcomp
-#   salome_adm/unix/config_files/install-sh
-#   salome_adm/unix/config_files/missing
-#   salome_adm/unix/config_files/py-compile
+#   adm_local/unix/config_files/compile
+#   adm_local/unix/config_files/depcomp
+#   adm_local/unix/config_files/install-sh
+#   adm_local/unix/config_files/missing
+#   adm_local/unix/config_files/py-compile
 #   Makefile.in (from Makefile.am)
 echo "====================================================== automake"
 

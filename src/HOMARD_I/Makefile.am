@@ -63,7 +63,7 @@ libHOMARDEngine_la_CPPFLAGS = 		      \
         -I$(GEOM_ROOT_DIR)/include/salome     \
         -I$(SMESH_ROOT_DIR)/include/salome     \
         -I$(MED_ROOT_DIR)/include/salome      \
-	-I$(top_builddir)/salome_adm/unix
+	-I$(top_builddir)/adm_local/unix
 
 
 libHOMARDEngine_la_LDFLAGS  =            \
