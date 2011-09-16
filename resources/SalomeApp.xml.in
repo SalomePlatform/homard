@@ -24,10 +24,10 @@
     <!-- Major module parameters -->
     <parameter name="name"    value="Homard"/>
     <parameter name="icon"    value="HOMARD.png"/>
-    <parameter name="HOMARD_VERSION"    value="@VERSION@"/>
+    <parameter name="version"    value="@VERSION@"/>
   </section>
   <section name="resources">
     <!-- Module resources -->
-    <parameter name="HOMARD" value="${HOMARD_ROOT_DIR}/share/salome/resources/homard"/>
+    <parameter name="HOMARD" value="%HOMARD_ROOT_DIR%/share/salome/resources/homard"/>
   </section>
 </document>
