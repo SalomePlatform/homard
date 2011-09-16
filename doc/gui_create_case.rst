@@ -79,13 +79,31 @@ On cochera le ou les boutons voulus :
 La définition des frontières est décrite dans :ref:`gui_create_boundary`.
 
 
+Les options avancées
+""""""""""""""""""""
+Si la case "Options avancées" n'est pas cochée, aucune contrainte supplémentaire n'est définie.
+
+Si la case est cochée, on définira les options avancées qui portent sur la finesse maximale de maillage que l'on ne veut pas dépasser. Deux directives sont possibles, séparément ou ensemble.
+
+On peut imposer une taille de maille minimale : une maille dont le diamètre est inférieur à cette limite ne sera plus découpée. Par défaut, on propose un diamètre minimal nul, ce qui revient à ne rien imposer.
+
+On peut imposer un niveau de raffinement maximal. Par défaut, le maximum est à 99, ce qui équivaut en général à ne rien imposer.
+
+.. image:: images/create_case_6.png
+   :align: center
+
 .. index:: single: arbre d'étude
 
 L'arbre d'étude
 """""""""""""""
 A l'issue de cette création de cas, l'arbre d'études a été enrichi de ce nouveau cas. On y trouve l'itération initiale, identifiée par le nom du maillage qui a été lu dans le fichier fourni.
 
-.. image:: images/create_case_6.png
+.. image:: images/create_case_7.png
    :align: center
 
+
+
+Méthodes python correspondantes
+"""""""""""""""""""""""""""""""
+Consulter :ref:`tui_create_case`
 

@@ -12,62 +12,72 @@ Les variables sont décrites dans :ref:`gui_create_boundary`.
 
 Méthodes de la classe homard
 """"""""""""""""""""""""""""
+Ces méthodes retournent une instance de la classe boundary.
 
-+----------------------------------------------------------------+
-+================================================================+
-| .. module:: CreateBoundary                                     |
-|                                                                |
-| **CreateBoundary(boundary_name, boundary_type)**               |
-|                                                                |
-|     - ``boundary_name`` : le nom de la zone                    |
-|     - ``boundary_type`` : entier précisant le type de frontière|
-|                                                                |
-|         * 1 : cylindre                                         |
-|         * 2 : sphère                                           |
-+----------------------------------------------------------------+
++----------------------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------+
+| .. module:: CreateBoundaryDi                                                           |
+|                                                                                        |
+| **CreateBoundaryDi(boundary_name, mesh_name, mesh_file)**                              |
+|                                                                                        |
+|     - ``boundary_name`` : le nom de la frontière discrète                              |
+|     - ``mesh_name`` : le nom du maillage de la frontière                               |
+|     - ``mesh_file`` : le nom du fichier contenant ce maillage                          |
++----------------------------------------------------------------------------------------+
+| .. module:: CreateBoundaryCylinder                                                     |
+|                                                                                        |
+| **CreateBoundaryCylinder(boundary_name, Xcen, Ycen, Zcen, Xaxe, Yaxe, Zaxe, R)**       |
+|                                                                                        |
+|     - ``boundary_name`` : le nom de la frontière analytique basée sur un cylindre      |
+|     - ``Xcen``, ``Ycen``, ``Zcen`` : coordonnées d'un point sur l'axe du cylindre      |
+|     - ``Xaxe``, ``Yaxe``, ``Zaxe`` : vecteur de l'axe                                  |
+|     - ``R`` : rayon du cylindre                                                        |
++----------------------------------------------------------------------------------------+
+| .. module:: CreateBoundarySphere                                                       |
+|                                                                                        |
+| **CreateBoundarySphere(boundary_name, Xcen, Ycen, Zcen, R)**                           |
+|                                                                                        |
+|     - ``boundary_name`` : le nom de la frontière analytique basée sur une sphere       |
+|     - ``Xcen``, ``Ycen``, ``Zcen`` : coordonnées du centre de la sphère                |
+|     - ``R`` : rayon de la sphère                                                       |
++----------------------------------------------------------------------------------------+
 
 Méthodes de la classe boundary
 """"""""""""""""""""""""""""""
 
-+---------------------------------------------------------------+
-+===============================================================+
-| .. module:: GetName                                           |
-|                                                               |
-| **GetName()**                                                 |
-|     Retourne le nom de la frontière                           |
-+---------------------------------------------------------------+
-| .. module:: GetBoundaryType                                   |
-|                                                               |
-| **GetBoundaryType()**                                         |
-|     Retourne le type de la frontière                          |
-+---------------------------------------------------------------+
-| .. module:: SetCylinder                                       |
-|                                                               |
-| **SetCylinder(Xcen, Ycen, Zcen, Xaxe, Yaxe, Zaxe, R)**        |
-|                                                               |
-|     - ``Xcen``, ``Ycen``, ``Zcen`` : coordonnées d'un point   |
-|        sur l'axe du cylindre                                  |
-|     - ``Xaxe``, ``Yaxe``, ``Zaxe`` : vecteur de l'axe         |
-|     - ``R`` : rayon du cylindre                               |
-+---------------------------------------------------------------+
-| .. module:: SetSphere                                         |
-|                                                               |
-| **SetSphere(Xcen, Ycen, Zcen, R)**                            |
-|                                                               |
-|     - ``Xcen`` : X du centre                                  |
-|     - ``Ycen`` : Y du centre                                  |
-|     - ``Zcen`` : Z du centre                                  |
-|     - ``R`` : rayon de la sphère                              |
-+---------------------------------------------------------------+
++-------------------------------------------------------------------+
++-------------------------------------------------------------------+
+| .. module:: GetName                                               |
+|                                                                   |
+| **GetName()**                                                     |
+|     Retourne le nom de la frontière                               |
++-------------------------------------------------------------------+
+| .. module:: GetBoundaryType                                       |
+|                                                                   |
+| **GetBoundaryType()**                                             |
+|     Retourne le type de la frontière :                            |
+|                                                                   |
+|         * 0 : discrète                                            |
+|         * 1 : cylindre                                            |
+|         * 2 : sphère                                              |
++-------------------------------------------------------------------+
+| .. module:: GetCoords                                             |
+|                                                                   |
+| **GetCoords()**                                                   |
+|     Retourne un tableau contenant les coordonnées de la frontière |
+|     dans l'ordre d'entrée dans le CreateBoundaryXXXX associé      |
++-------------------------------------------------------------------+
 
 
 Exemple
 """""""
-Création d'une frontière sphérique, puis d'une frontière cylindrique : ::
+Création d'une frontière discrète, d'une frontière sphérique, puis d'une frontière cylindrique : ::
 
-    fron_1 = homard.CreateBoundary("FRON_1", 2)
-    fron_1.SetSphere(12.3, 3.4, .56, 6.5)
-    fron_2 = homard.CreateBoundary('CYL_1', 1)
-    fron_2.SetCylinder(0.0, 25., -25., 25., 50., 75., 100.)
+    inter = homard.CreateBoundaryDi("INTERSECTION", 'PIQUAGE', dircase+'/tutorial_4.fr.med')
+    fron_1 = homard.CreateBoundarySphere("FRON_1", 12.3, 3.4, .56, 6.5)
+    fron_2 = homard.CreateBoundaryCylinder('CYL_1', 0.0, 25., -25., 25., 50., 75., 100.)
 
 
+Saisie graphique correspondante
+"""""""""""""""""""""""""""""""
+Consulter :ref:`gui_create_boundary`

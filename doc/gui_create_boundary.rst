@@ -18,7 +18,7 @@ Frontière discrète
 
 Le suivi d'une frontière discrète se fera en sélectionnant une frontière choisie dans la liste des frontières discrètes existantes.
 
-Au démarrage, la liste est vide. Il faut créer une première frontière discrète par activation du bouton 'New' :
+Au démarrage, la liste est vide. Il faut créer une première frontière discrète par activation du bouton "*Nouveau*" :
 
 .. image:: images/create_boundary_di_1.png
    :align: center
@@ -31,7 +31,7 @@ La fenêtre proposée invite au choix d'un fichier de maillage. Ce maillage est ce
 .. note::
   Le fichier ne doit contenir qu'un seul maillage.
 
-Si des frontières discrètes ont déjà été définies pour un autre cas, on peut sélectionner l'une d'elles. On peut également créer une nouvelle frontière discrète par activation du bouton 'New', comme expliqué précédemment.
+Si des frontières discrètes ont déjà été définies pour un autre cas, on peut sélectionner l'une d'elles. On peut également créer une nouvelle frontière discrète par activation du bouton "*Nouveau*", comme expliqué précédemment.
 
 .. image:: images/create_boundary_di_3.png
    :align: center
@@ -45,7 +45,7 @@ Au démarrage, Salome affiche un tableau avec un seule colonne. Cette colonne con
 .. image:: images/create_boundary_an_1.png
    :align: center
 
-Il faut créer une première frontière analytique par activation du bouton 'New'. On aura le choix entre cylindre ou sphère. Une fois que la frontière sera validée, son nom figurera en en-tête d'une deuxième colonne.
+Il faut créer une première frontière analytique par activation du bouton "*Nouveau*". On aura le choix entre cylindre ou sphère. Une fois que la frontière sera validée, son nom figurera en en-tête d'une deuxième colonne.
 
 .. image:: images/create_boundary_an_2.png
    :align: center
@@ -99,12 +99,18 @@ La sphère est définie par son centre et son rayon. Un nom de frontière est propo
    :align: center
 
 .. index:: single: arbre d'étude
+
 L'arbre d'étude
 """""""""""""""
 A l'issue de cette création de frontières, l'arbre d'études a été enrichi. On y trouve toutes les frontières créées, identifiées par leur nom, avec la possibilité de les éditer.
 
 .. image:: images/create_boundary_1.png
    :align: center
+
+
+Méthodes python correspondantes
+"""""""""""""""""""""""""""""""
+Consulter : :ref:`tui_create_boundary`
 
 
 

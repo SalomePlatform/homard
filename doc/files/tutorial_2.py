@@ -24,7 +24,7 @@
 Exemple de couplage HOMARD-Salome
 Copyright EDF-R&D 1996, 2010
 """
-__revision__ = "V1.1"
+__revision__ = "V1.2"
 #
 # ==================================
 # Repertoire a personnaliser
@@ -44,16 +44,13 @@ homard.SetCurrentStudy(salome.myStudy)
 # Creation of the zones
 # =====================
 # Box "Zone_0"
-Zone_0 = homard.CreateZone('Zone_0', 2)
-Zone_0.SetBox(-0.1, 1.1, -0.1, 1.1, 0.9, 1.1)
+Zone_0 = homard.CreateZoneBox ('Zone_0', -0.1, 1.1, -0.1, 1.1, 0.9, 1.1)
 #
 # Sphere "Zone_1"
-Zone_1 = homard.CreateZone('Zone_1', 4)
-Zone_1.SetSphere(0., 0., 0., 1.05)
+Zone_1 = homard.CreateZoneSphere ('Zone_1', 0., 0., 0., 1.05)
 #
 # Box "Zone_2"
-Zone_2 = homard.CreateZone('Zone_2', 2)
-Zone_2.SetBox(-0.1, 0.51, -0.1, 0.51, -0.1, 0.51)
+Zone_2 = homard.CreateZoneBox ('Zone_2', -0.1, 0.51, -0.1, 0.51, -0.1, 0.51)
 #
 # Hypothesis "Hypo_0"
 # ===================

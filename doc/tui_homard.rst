@@ -1,8 +1,7 @@
 .. _tui_homard:
 
-L'adaptation
-============
-
+Le calcul
+=========
 .. index:: single: itération
 .. index:: single: calcul
 
@@ -10,7 +9,7 @@ Méthodes de la classe homard
 """"""""""""""""""""""""""""
 
 +---------------------------------------------------------------+
-+===============================================================+
++---------------------------------------------------------------+
 | .. index:: single: Compute                                    |
 |                                                               |
 | **Compute(iter_name, option)**                                |
@@ -19,7 +18,8 @@ Méthodes de la classe homard
 |                                                               |
 |     - ``iter_name`` : le nom de l'itération                   |
 |     - ``option`` : un entier précisant ce qui se passe quand  |
-|     des fichiers de résultats existent déjà                   |
+|       des fichiers de résultats existent déjà                 |
+|                                                               |
 |         * 0 : arrêt en erreur                                 |
 |         * 1 : écrasement des anciens fichiers                 |
 |                                                               |
@@ -35,3 +35,7 @@ Le calcul de l'itération de nom "Iteration_1" avec écrasement des anciens fichie
 
     iter_name = "Iteration_1"
     codret = homard.Compute(iter_name, 1)
+
+Saisie graphique correspondante
+"""""""""""""""""""""""""""""""
+Consulter :ref:`gui_homard`

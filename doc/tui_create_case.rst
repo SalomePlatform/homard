@@ -78,16 +78,40 @@ Méthodes de la classe cas
 | **AddBoundaryGroup(boundary, group)**                         |
 |                                                               |
 |     - ``boundary`` : nom d'une frontière courbe à suivre      |
+|                                                               |
 |     Pour une frontière discrète :                             |
 |                                                               |
 |     . si toutes les lignes courbes sont suivies, le second    |
 |       argument est une chaîne vide.                           |
 |     . si seulement certaines lignes courbes sont suivies,     |
 |       ``group`` est le nom d'un groupe de segments à suivre.  |
+|                                                               |
 |     Pour une frontière analytique :                           |
 |                                                               |
 |     - ``group`` : nom d'un groupe de faces placées sur la     |
 |       frontière                                               |
++---------------------------------------------------------------+
+| .. module:: SetNivMax                                         |
+|                                                               |
+| **SetNivMax(nivmax)**                                         |
+|                                                               |
+|     - ``nivmax`` : niveau de raffinement à ne pas dépasser    |
++---------------------------------------------------------------+
+| .. module:: GetNivMax                                         |
+|                                                               |
+| **GetNivMax()**                                               |
+|     Retourne le niveau maximal de raffinement                 |
++---------------------------------------------------------------+
+| .. module:: SetDiamMin                                        |
+|                                                               |
+| **SetDiamMin(diammin)**                                       |
+|                                                               |
+|     - ``diammin`` : diamètre minimal voulu pour une maille    |
++---------------------------------------------------------------+
+| .. module:: GetDiamMin                                        |
+|                                                               |
+| **GetDiamMin()**                                              |
+|     Retourne le diamètre minimal voulu                        |
 +---------------------------------------------------------------+
 
 
@@ -108,5 +132,9 @@ La création de l'objet case_1 se fait ainsi : ::
     case_1.AddBoundaryGroup( 'cyl_2', 'T_INT' )
 
 
+
+Saisie graphique correspondante
+"""""""""""""""""""""""""""""""
+Consulter :ref:`gui_create_case`
 
 

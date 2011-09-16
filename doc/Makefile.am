@@ -52,6 +52,7 @@ gui_create_case.rst \
 gui_create_hypothese.rst \
 gui_create_iteration.rst \
 gui_create_zone.rst \
+gui_homard.rst \
 gui_usage.rst \
 index.rst \
 intro.rst \

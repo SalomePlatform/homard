@@ -18,7 +18,7 @@ Il existe trois classes d'hypothèses :
 
 Nom de l'hypothèse
 """"""""""""""""""
-Un nom de l'hypothèse est proposé automatiquement : Hypo_0, Hypo_1, etc. Ce nom peut être modifié. Il ne doit pas avoir été utilisé pour une hypothèse précédente.
+Un nom de l'hypothèse est proposé automatiquement : Hypo_1, Hypo_2, etc. Ce nom peut être modifié. Il ne doit pas avoir été utilisé pour une hypothèse précédente.
 
 Adaptation uniforme
 """""""""""""""""""
@@ -34,13 +34,17 @@ Adaptation selon un champ
    :align: center
 
 Le champ voulu est à choisir dans la liste des champs contenus dans le fichier.
-Une fois ce champ choisi, la liste des ses composantes s'affiche. Il suffit de désigner la (ou les) composantes désirées. Si l'on choisi une seule composante, par défaut, c'est sa valeur absolue qui sera utilisée, mais il est possible d'utiliser la valeur relative. Dans le cas de plusieurs composantes, par défaut HOMARD utilisera la norme L2 (euclidienne). On peut toutefois choisir d'utiliser la norme infinie (le max des valeurs absolues des composantes).
+Une fois ce champ choisi, la liste des ses composantes s'affiche. Il suffit de désigner la (ou les) composantes désirées.
+
+Si l'on choisit une seule composante, par défaut, c'est sa valeur absolue qui sera utilisée, mais il est possible d'utiliser la valeur relative. Dans le cas de plusieurs composantes, par défaut HOMARD utilisera la norme L2 (euclidienne). On peut toutefois choisir d'utiliser la norme infinie (le max des valeurs absolues des composantes).
+
+On peut choisir de ne pas utiliser directement le champ, mais sa variation d'un élément à ses voisins. Pour cela, on activera le bouton "*Saut entre éléments*".
 
 .. image:: images/create_hypothese_ch_2.png
    :align: center
 
 
-Le raffinement se fait selon un seuil qui définit un critère haut de raffinement. Toutes les mailles pour lesqules l'indicateur est supérieur à ce critère seront raffinées.
+Le raffinement se fait selon un seuil qui définit un critère haut de raffinement. Toutes les mailles pour lesquelles l'indicateur est supérieur à ce critère seront raffinées.
 Pour le choix du critère, trois variantes sont possible :
 
   - selon un pourcentage de mailles à raffiner, nombre réel compris entre 0 et 100 ; HOMARD raffinera les x% des mailles qui ont la plus grande valeur du champ.
@@ -57,12 +61,12 @@ Adaptation selon une zone
 """""""""""""""""""""""""
 .. index:: single: zone
 
-Au démarrage, il faut créer une première zone par activation du bouton 'New' (voir :ref:`gui_create_zone`) :
+Au démarrage, il faut créer une première zone par activation du bouton "*Nouveau*" (voir :ref:`gui_create_zone`) :
 
 .. image:: images/create_hypothese_zo_1.png
    :align: center
 
-Lorsque des zones ont déjà été créées, la liste apparaît dans la fenêtre ce qui permet de sélectionner les zones voulues.
+Lorsque des zones ont déjà été créées, la liste apparaît dans la fenêtre, ce qui permet de sélectionner les zones voulues.
 
 .. image:: images/create_hypothese_zo_2.png
    :align: center
@@ -72,7 +76,8 @@ Filtrage par les groupes
 """"""""""""""""""""""""
 .. index:: single: groupe
 
-On peut restreindre l'application de l'hypothèse d'adaptation à des groupes. On coche le bouton associé :
+On peut restreindre l'application de l'hypothèse d'adaptation à des groupes. Ainsi les mailles n'appartenant pas à ces groupes ne seront pas modidiées, sauf par contamination ultérieure du raffinement pour assurer la conformité du maillage final.
+On coche le bouton associé :
 
 .. image:: images/create_hypothese_gr_1.png
    :align: center
@@ -111,3 +116,7 @@ L'arbre d'études contient les hypothèses créées et les itérations qui les utilis
    :align: center
 
 
+
+Méthodes python correspondantes
+"""""""""""""""""""""""""""""""
+Consulter :ref:`tui_create_hypothese`

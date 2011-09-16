@@ -24,7 +24,7 @@
 Exemple de couplage HOMARD-Salome
 Copyright EDF-R&D 1996, 2011
 """
-__revision__ = "V1.1"
+__revision__ = "V1.2"
 #
 # ==================================
 # Repertoire a personnaliser
@@ -43,33 +43,29 @@ homard.SetCurrentStudy(salome.myStudy)
 #
 # Creation of the boundaries
 # ==========================
-Boundary_1 = homard.CreateBoundary('intersection', 0)
-Boundary_1.SetMeshFile(dircase+'/tutorial_4.fr.med')
-Boundary_1.SetMeshName('PIQUAGE')
+Boundary_1 = homard.CreateBoundaryDi('intersection', 'PIQUAGE', dircase+'/tutorial_4.fr.med')
 #
-Boundary_2 = homard.CreateBoundary('cyl_1_ext', 1)
-Boundary_2.SetCylinder(0.0, 25., -25., 25., 50., 75., 100.)
+Boundary_2 = homard.CreateBoundaryCylinder('cyl_1_ext', 0.0, 25., -25., 25., 50., 75., 100.)
 #
-Boundary_3 = homard.CreateBoundary('cyl_2_ext', 1)
-Boundary_3.SetCylinder(17.5, -2.5, -12.5, -100., -75., -25., 50.)
+Boundary_3 = homard.CreateBoundaryCylinder('cyl_2_ext', 17.5, -2.5, -12.5, -100., -75., -25., 50.)
 #
-Boundary_4 = homard.CreateBoundary('cyl_1_int', 1)
-Boundary_4.SetCylinder(0.0, 25., -25., 25., 50., 75., 75.)
+Boundary_4 = homard.CreateBoundaryCylinder('cyl_1_int', 0.0, 25., -25., 25., 50., 75., 75.)
 #
-Boundary_5 = homard.CreateBoundary('cyl_2_int', 1)
-Boundary_5.SetCylinder(17.5, -2.5, -12.5, -100., -75., -25., 25.)
+Boundary_5 = homard.CreateBoundaryCylinder('cyl_2_int', 17.5, -2.5, -12.5, -100., -75., -25., 25.)
 #
-# Hypothesis "Hypo"
-# ===================
+# Hypothesis
+# ==========
 # Creation of the hypothesis Hypo_1
 Hypo_1 = homard.CreateHypothesis('Hypo_1')
 Hypo_1.SetAdapRefinUnRef(-1, 1, 0)
-Hypo_1.AddGroup('T1_INT')
+Hypo_1.AddGroup('T1_INT_I')
+Hypo_1.AddGroup('T1_INT_O')
 Hypo_1.AddGroup('T2_INT')
 # Creation of the hypothesis Hypo_2
 Hypo_2 = homard.CreateHypothesis('Hypo_2')
 Hypo_2.SetAdapRefinUnRef(-1, 1, 0)
-Hypo_2.AddGroup('T1_EXT')
+Hypo_2.AddGroup('T1_EXT_I')
+Hypo_2.AddGroup('T1_EXT_O')
 Hypo_2.AddGroup('T2_EXT')
 #
 # Case "Case"
