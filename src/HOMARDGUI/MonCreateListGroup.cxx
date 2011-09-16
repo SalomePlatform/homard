@@ -24,7 +24,6 @@ using namespace std;
 #include "MonCreateBoundaryDi.h"
 
 #include <QFileDialog>
-#include <QMessageBox>
 
 #include "SalomeApp_Tools.h"
 #include "HOMARDGUI_Utils.h"

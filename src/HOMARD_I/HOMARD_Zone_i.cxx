@@ -106,11 +106,11 @@ void HOMARD_Zone_i::SetBox( double X0, double X1, double X2, double X3, double X
 }
 
 //=============================================================================
-HOMARD::double_array* HOMARD_Zone_i::GetBox()
+HOMARD::double_array* HOMARD_Zone_i::GetCoords()
 {
   ASSERT( myHomardZone );
   HOMARD::double_array_var aResult = new HOMARD::double_array();
-  std::vector<double> mesCoor = myHomardZone->GetBox();
+  std::vector<double> mesCoor = myHomardZone->GetCoords();
   aResult->length( mesCoor .size() );
   std::vector<double>::const_iterator it;
   int i = 0;
@@ -120,24 +120,27 @@ HOMARD::double_array* HOMARD_Zone_i::GetBox()
 }
 
 //=============================================================================
-void HOMARD_Zone_i::SetSphere( double Xcentre, double Ycentre, double ZCentre, double rayon )
+void HOMARD_Zone_i::SetSphere( double Xcentre, double Ycentre, double Zcentre, double Rayon )
 {
   ASSERT( myHomardZone );
-  myHomardZone->SetSphere( Xcentre, Ycentre, ZCentre, rayon );
+  myHomardZone->SetSphere( Xcentre, Ycentre, Zcentre, Rayon );
 }
 
 //=============================================================================
-HOMARD::double_array* HOMARD_Zone_i::GetSphere()
+void HOMARD_Zone_i::SetCylinder( double Xcentre, double Ycentre, double Zcentre,
+                                 double Xaxis, double Yaxis, double Zaxis,
+                                 double Rayon, double Haut )
 {
   ASSERT( myHomardZone );
-  HOMARD::double_array_var aResult = new HOMARD::double_array();
-  std::vector<double> mesCoor = myHomardZone->GetSphere();
-  aResult->length( mesCoor .size() );
-  std::vector<double>::const_iterator it;
-  int i = 0;
-  for ( it = mesCoor.begin(); it != mesCoor.end(); it++ )
-    aResult[i++] = (*it);
-  return aResult._retn();
+  myHomardZone->SetCylinder( Xcentre, Ycentre, Zcentre, Xaxis, Yaxis, Zaxis, Rayon, Haut );
+}
+//=============================================================================
+void HOMARD_Zone_i::SetPipe( double Xcentre, double Ycentre, double Zcentre,
+                             double Xaxis, double Yaxis, double Zaxis,
+                             double Rayon, double Haut, double Rayonint )
+{
+  ASSERT( myHomardZone );
+  myHomardZone->SetPipe( Xcentre, Ycentre, Zcentre, Xaxis, Yaxis, Zaxis, Rayon, Haut, Rayonint );
 }
 
 //=============================================================================
@@ -165,8 +168,10 @@ HOMARD::double_array* HOMARD_Zone_i::GetLimit()
 //=============================================================================
 void HOMARD_Zone_i::AddHypo( const char* NomHypo )
 {
+  MESSAGE ( " AddHypo, NomHypo= " << NomHypo);
   ASSERT( myHomardZone );
   myHomardZone->AddHypo( NomHypo );
+  MESSAGE ( " FIn de AddHypo");
 }
 
 //=============================================================================

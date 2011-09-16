@@ -57,6 +57,7 @@ public:
   double                        GetThreshR()   const;
   int                           GetUnRefThrType()   const;
   double                        GetThreshC()   const;
+  int                           GetUseField()    const;
   int                           GetUseCompI()    const;
 
   void                          AddComp( const char* NomComposant );
@@ -89,8 +90,8 @@ private:
   std::string                   _NomHypo;
   std::string                   _NomCasCreation;
 
-  int                           _TypeAdap; // -1 pour une adapation Uniforme, 
-                                           //  0 si l adaptation depend des zones, 
+  int                           _TypeAdap; // -1 pour une adapation Uniforme,
+                                           //  0 si l adaptation depend des zones,
                                            //  1 pour des champs
 
   int                           _TypeRaff;
@@ -101,9 +102,10 @@ private:
   int                           _TypeThC;
   double                        _ThreshR;
   double                        _ThreshC;
+  int                           _UsField;
   int                           _UsCmpI;
-  int                           _TypeFieldInterp; // 0 pour aucune interpolation, 
-                                                  // 1 pour interpolation de tous les champs, 
+  int                           _TypeFieldInterp; // 0 pour aucune interpolation,
+                                                  // 1 pour interpolation de tous les champs,
                                                   // 2 pour une liste
 
   std::list<std::string>        _ListIter;

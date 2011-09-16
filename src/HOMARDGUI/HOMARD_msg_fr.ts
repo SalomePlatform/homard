@@ -336,6 +336,18 @@
         <translation>1 noeud pendant par arête</translation>
     </message>
     <message>
+        <source>Advanced options</source>
+        <translation>Options avancées</translation>
+    </message>
+    <message>
+        <source>Minimal diameter</source>
+        <translation>Diamètre minimal</translation>
+    </message>
+    <message>
+        <source>Maximal level</source>
+        <translation>Niveau maximal</translation>
+    </message>
+    <message>
         <source>Create an iteration</source>
         <translation>Création d&apos;une itération</translation>
     </message>
@@ -472,6 +484,10 @@
         <translation>Nom du champ</translation>
     </message>
     <message>
+        <source>Jump between elements</source>
+        <translation>Saut entre éléments</translation>
+    </message>
+    <message>
         <source>Component</source>
         <translation>Composante</translation>
     </message>
@@ -524,12 +540,40 @@
         <translation>%1 maxi doit être plus grand que %1 mini.</translation>
     </message>
     <message>
+        <source>HOM_ZONE_RAYON</source>
+        <translation>Le rayon externe doit être supérieur au rayon interne.</translation>
+    </message>
+    <message>
         <source>HOM_ZONE_EDIT_WINDOW_TITLE</source>
         <translation>Edition d&apos;une zone</translation>
     </message>
     <message>
         <source>Type of zone</source>
         <translation>Type de la zone</translation>
+    </message>
+    <message>
+        <source>Box</source>
+        <translation>Boîte</translation>
+    </message>
+    <message>
+        <source>Sphere</source>
+        <translation>Sphère</translation>
+    </message>
+    <message>
+        <source>Cylinder</source>
+        <translation>Cylindre</translation>
+    </message>
+    <message>
+        <source>Disk</source>
+        <translation>Disque</translation>
+    </message>
+    <message>
+        <source>Disk with hole</source>
+        <translation>Disque avec trou</translation>
+    </message>
+    <message>
+        <source>Pipe</source>
+        <translation>Tuyau</translation>
     </message>
     <message>
         <source>Coordinates</source>
@@ -548,16 +592,20 @@
         <translation>Type de la frontière</translation>
     </message>
     <message>
-        <source>Coordinates of the cylindre</source>
-        <translation>Coordonnées du cylindre</translation>
-    </message>
-    <message>
-        <source>Coordinates of the sphere</source>
-        <translation>Coordonnées de la sphère</translation>
-    </message>
-    <message>
         <source>Radius</source>
         <translation>Rayon</translation>
+    </message>
+    <message>
+        <source>External radius</source>
+        <translation>Rayon externe</translation>
+    </message>
+    <message>
+        <source>Internal radius</source>
+        <translation>Rayon interne</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Hauteur</translation>
     </message>
     <message>
         <source>X axis</source>
@@ -584,12 +632,20 @@
         <translation>Le fichier du maillage du cas est inconnu.</translation>
     </message>
     <message>
+        <source>HOM_AXE</source>
+        <translation>L&apos;axe doit être un vecteur non nul.</translation>
+    </message>
+    <message>
         <source>HOM_BOUN_A_EDIT_WINDOW_TITLE</source>
         <translation>Edition d&apos;une frontière analytique</translation>
     </message>
     <message>
         <source>HOM_BOUN_D_EDIT_WINDOW_TITLE</source>
         <translation>Edition d&apos;une frontière discrète</translation>
+    </message>
+    <message>
+        <source>HOM_GROU_EDIT_WINDOW_TITLE</source>
+        <translation>Groupes choisis</translation>
     </message>
     <message>
         <source>Filtering with groups</source>

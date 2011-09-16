@@ -46,13 +46,15 @@ protected :
     QString _aDirName;
 
     int _ConfType;
+    int _NivMax;
+    double _DiamMin;
 
 
     HOMARD::HOMARD_Cas_var aCase ;
     HOMARD::HOMARD_Gen_var _myHomardGen;
 
     virtual void InitConnect();
-    virtual void GetBoundarys();
+    virtual void InitBoundarys();
     virtual void SetNewCaseName();
 
 public slots:
@@ -68,9 +70,13 @@ public slots:
     virtual void SetBoundaryD();
     virtual void PushBoundaryDiNew();
     virtual void PushBoundaryDiEdit();
+    virtual void PushBoundaryDiHelp();
     virtual void SetBoundaryA();
     virtual void PushBoundaryAnNew();
+    virtual void PushBoundaryAnEdit();
     virtual void PushBoundaryAnHelp();
+
+    virtual void SetAdvanced();
 
     virtual void PushOnOK();
     virtual bool PushOnApply();

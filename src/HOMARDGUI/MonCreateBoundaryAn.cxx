@@ -73,8 +73,8 @@ MonCreateBoundaryAn::MonCreateBoundaryAn(MonCreateCase* parent, bool modal,
       InitConnect( );
 
       SetNewBoundaryAnName() ;
-      InitValBoundaryAn();           // Cherche les valeurs de la boite englobante le maillage
-      InitMinMax();            // Initialise les bornes des boutons
+      InitValBoundaryAn();          // Cherche les valeurs de la boite englobante le maillage
+      InitMinMax();                 // Initialise les bornes des boutons
       SetCylinder();                // Propose un cylindre en premier choix
     }
 // --------------------------------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ void MonCreateBoundaryAn::InitValBoundaryAn()
      MESSAGE ("_Zmin : " << _Zmin << " _Zmax : " << _Zmax << " _Zincr : " << _Zincr) ;
      MESSAGE ("_DMax : " << _DMax);
 
-//  2. Caracteristiques des zones
+//  2. Caracteristiques des frontieres
 // en X
     _Xcentre=(_Xmin + _Xmax)/2.;
 // en Y
@@ -168,16 +168,16 @@ void MonCreateBoundaryAn::InitMinMax()
   SpinBox_Xaxis->setSingleStep(0.1);
   SpinBox_Xcentre->setSingleStep(_Xincr);
 //en Y
-      SpinBox_Yaxis->setSingleStep(0.1);
-      SpinBox_Ycentre->setSingleStep(_Yincr);
+  SpinBox_Yaxis->setSingleStep(0.1);
+  SpinBox_Ycentre->setSingleStep(_Yincr);
 //en Z
-      SpinBox_Zaxis->setSingleStep(0.1);
-      SpinBox_Zcentre->setSingleStep(_Zincr);
+  SpinBox_Zaxis->setSingleStep(0.1);
+  SpinBox_Zcentre->setSingleStep(_Zincr);
 // Rayon
-    SpinBox_Radius->setSingleStep(_Rayon/10.);
-    SpinBox_Radius->setMinimum(0.);
-    SpinBox_Rayon->setSingleStep(_Rayon/10.);
-    SpinBox_Rayon->setMinimum(0.);
+  SpinBox_Radius->setSingleStep(_Rayon/10.);
+  SpinBox_Radius->setMinimum(0.);
+  SpinBox_Rayon->setSingleStep(_Rayon/10.);
+  SpinBox_Rayon->setMinimum(0.);
 }
 // ------------------------------------------------------------------------
 bool MonCreateBoundaryAn::PushOnApply()
@@ -205,19 +205,26 @@ bool MonCreateBoundaryAn::PushOnApply()
             (_BoundaryAnYaxis   != SpinBox_Yaxis->value()) or
             (_BoundaryAnZaxis   != SpinBox_Zaxis->value()) )
         {
-            Chgt = true;
-            _BoundaryAnXaxis= SpinBox_Xaxis->value();
-            _BoundaryAnYaxis= SpinBox_Yaxis->value();
-            _BoundaryAnZaxis= SpinBox_Zaxis->value();
-            _BoundaryAnXcentre=SpinBox_Xcent->value();
-            _BoundaryAnYcentre=SpinBox_Ycent->value();
-            _BoundaryAnZcentre=SpinBox_Zcent->value();
-            _BoundaryAnRayon=SpinBox_Radius->value();
+          Chgt = true;
+          _BoundaryAnXaxis= SpinBox_Xaxis->value();
+          _BoundaryAnYaxis= SpinBox_Yaxis->value();
+          _BoundaryAnZaxis= SpinBox_Zaxis->value();
+          _BoundaryAnXcentre=SpinBox_Xcent->value();
+          _BoundaryAnYcentre=SpinBox_Ycent->value();
+          _BoundaryAnZcentre=SpinBox_Zcent->value();
+          _BoundaryAnRayon=SpinBox_Radius->value();
+          double daux = _BoundaryAnXaxis*_BoundaryAnXaxis + _BoundaryAnYaxis*_BoundaryAnYaxis + _BoundaryAnZaxis*_BoundaryAnZaxis ;
+          if ( daux < 0.0000001 )
+          {
+            QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                      QObject::tr("HOM_AXE") );
+            return false;
+          }
         }
         break;
       }
 
-      case 4 : // il s agit d une sphere
+      case 2 : // il s agit d une sphere
       {
         if ((_BoundaryAnXcentre != SpinBox_Xcentre->value()) or
             (_BoundaryAnYcentre != SpinBox_Ycentre->value()) or
@@ -242,42 +249,28 @@ bool MonCreateBoundaryAn::PushOnApply()
 bool MonCreateBoundaryAn:: CreateOrUpdateBoundaryAn()
 //----------------------------------------------------
 //  Creation de l'objet boundary
-//  Mise a jour des attributs de la BoundaryAn
-
 {
   if (_aBoundaryAnName != LEBoundaryName->text().trimmed())
   {
-    try
+    _aBoundaryAnName = LEBoundaryName->text().trimmed();
+    switch (_BoundaryType)
     {
-      _aBoundaryAnName = LEBoundaryName->text().trimmed();
-      aBoundaryAn = _myHomardGen->CreateBoundary( \
-              CORBA::string_dup(_aBoundaryAnName.toStdString().c_str()), \
-              CORBA::Long(_BoundaryType) );
-      _parent->addBoundaryAn(_aBoundaryAnName);
-    }
-    catch( SALOME::SALOME_Exception& S_ex )
-    {
-      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
-                                QString(CORBA::string_dup(S_ex.details.text)) );
-      return false;
-    }
-  }
-// Mise en place des attributs
-  aBoundaryAn->SetBoundaryType(_BoundaryType);
-  switch (_BoundaryType)
-  {
       case 1 : // il s agit d un cylindre
       {
-        aBoundaryAn->SetCylinder(_BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnXaxis, _BoundaryAnYaxis, _BoundaryAnZaxis, _BoundaryAnRayon );
+        aBoundaryAn = _myHomardGen->CreateBoundaryCylinder(CORBA::string_dup(_aBoundaryAnName.toStdString().c_str()), \
+        _BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnXaxis, _BoundaryAnYaxis, _BoundaryAnZaxis, _BoundaryAnRayon );
         break;
       }
-
       case 2 : // il s agit d une sphere
       {
-        aBoundaryAn->SetSphere(_BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnRayon);
+        aBoundaryAn = _myHomardGen->CreateBoundarySphere(CORBA::string_dup(_aBoundaryAnName.toStdString().c_str()), \
+        _BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnRayon);
         break;
       }
+    }
+    _parent->addBoundaryAn(_aBoundaryAnName);
   }
+// Mise en place des attributs
   aBoundaryAn->SetLimit(_Xincr, _Yincr, _Zincr);
 
   HOMARD_UTILS::updateObjBrowser();
@@ -331,13 +324,13 @@ void MonCreateBoundaryAn::SetCylinder()
   adjustSize();
   _BoundaryType=1;
   SpinBox_Xcent->setValue(_Xcentre);
-  SpinBox_Xaxis->setValue(1.);
+  SpinBox_Xaxis->setValue(0.);
   SpinBox_Ycent->setValue(_Ycentre);
-  SpinBox_Yaxis->setValue(1.);
+  SpinBox_Yaxis->setValue(0.);
   SpinBox_Zcent->setValue(_Zcentre);
   SpinBox_Zaxis->setValue(1.);
   SpinBox_Radius->setValue(_Rayon);
-  MESSAGE("Fin de SetCylinder")
+//   MESSAGE("Fin de SetCylinder")
 }
 // ------------------------------------------------------------------------
 void MonCreateBoundaryAn::SetSphere()
@@ -352,7 +345,7 @@ void MonCreateBoundaryAn::SetSphere()
   SpinBox_Ycentre->setValue(_Ycentre);
   SpinBox_Zcentre->setValue(_Zcentre);
   SpinBox_Rayon->setValue(_Rayon);
-  MESSAGE("Fin de SetSphere")
+//   MESSAGE("Fin de SetSphere")
 }
 
 

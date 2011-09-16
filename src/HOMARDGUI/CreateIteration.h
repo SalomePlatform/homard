@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateIteration.ui'
 **
-** Created: Tue Mar 15 10:16:06 2011
+** Created: Thu Sep 1 13:07:29 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -29,34 +29,34 @@ class Ui_CreateIteration
 {
 public:
     QGridLayout *gridLayout;
+    QGroupBox *GBField;
+    QGridLayout *gridLayout1;
+    QLineEdit *LEFieldFile;
+    QSpacerItem *spacerItem;
+    QRadioButton *RBChosen;
+    QSpacerItem *spacerItem1;
+    QSpinBox *SpinBox_Rank;
+    QLabel *Rank;
+    QSpacerItem *spacerItem2;
+    QSpinBox *SpinBox_TimeStep;
+    QLabel *TimeStep;
+    QSpacerItem *spacerItem3;
+    QRadioButton *RBLast;
+    QRadioButton *RBNo;
+    QPushButton *PushFieldFile;
+    QLabel *FieldFile;
     QLabel *Iteration_Name;
     QLineEdit *LEIterationName;
     QLabel *Iter_Parent;
-    QSpacerItem *spacerItem;
+    QSpacerItem *spacerItem4;
     QPushButton *PBIterParent;
     QLineEdit *LEIterationParentName;
     QLabel *Mesh_n;
-    QSpacerItem *spacerItem1;
+    QSpacerItem *spacerItem5;
     QLineEdit *LEMeshName_n;
-    QSpacerItem *spacerItem2;
+    QSpacerItem *spacerItem6;
     QLabel *Mesh_np1;
     QLineEdit *LEMeshName_np1;
-    QSpacerItem *spacerItem3;
-    QGroupBox *GBField;
-    QGridLayout *gridLayout1;
-    QLabel *FieldFile;
-    QPushButton *PushFieldFile;
-    QLineEdit *LEFieldFile;
-    QSpacerItem *spacerItem4;
-    QRadioButton *RBNo;
-    QRadioButton *RBLast;
-    QRadioButton *RBChosen;
-    QSpacerItem *spacerItem5;
-    QLabel *TimeStep;
-    QSpinBox *SpinBox_TimeStep;
-    QSpacerItem *spacerItem6;
-    QLabel *Rank;
-    QSpinBox *SpinBox_Rank;
     QSpacerItem *spacerItem7;
     QSpacerItem *spacerItem8;
     QGroupBox *Hypothese;
@@ -80,6 +80,90 @@ public:
     gridLayout->setSpacing(6);
     gridLayout->setMargin(9);
     gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+    GBField = new QGroupBox(CreateIteration);
+    GBField->setObjectName(QString::fromUtf8("GBField"));
+    gridLayout1 = new QGridLayout(GBField);
+    gridLayout1->setSpacing(6);
+    gridLayout1->setMargin(9);
+    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
+    LEFieldFile = new QLineEdit(GBField);
+    LEFieldFile->setObjectName(QString::fromUtf8("LEFieldFile"));
+    LEFieldFile->setMinimumSize(QSize(282, 21));
+
+    gridLayout1->addWidget(LEFieldFile, 0, 2, 1, 5);
+
+    spacerItem = new QSpacerItem(138, 18, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    gridLayout1->addItem(spacerItem, 1, 3, 1, 4);
+
+    RBChosen = new QRadioButton(GBField);
+    RBChosen->setObjectName(QString::fromUtf8("RBChosen"));
+
+    gridLayout1->addWidget(RBChosen, 2, 6, 1, 1);
+
+    spacerItem1 = new QSpacerItem(255, 13, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    gridLayout1->addItem(spacerItem1, 4, 6, 1, 1);
+
+    SpinBox_Rank = new QSpinBox(GBField);
+    SpinBox_Rank->setObjectName(QString::fromUtf8("SpinBox_Rank"));
+    SpinBox_Rank->setMaximum(1010000);
+    SpinBox_Rank->setMinimum(-1);
+    SpinBox_Rank->setValue(1);
+
+    gridLayout1->addWidget(SpinBox_Rank, 4, 5, 1, 1);
+
+    Rank = new QLabel(GBField);
+    Rank->setObjectName(QString::fromUtf8("Rank"));
+
+    gridLayout1->addWidget(Rank, 4, 4, 1, 1);
+
+    spacerItem2 = new QSpacerItem(40, 13, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+    gridLayout1->addItem(spacerItem2, 4, 2, 1, 2);
+
+    SpinBox_TimeStep = new QSpinBox(GBField);
+    SpinBox_TimeStep->setObjectName(QString::fromUtf8("SpinBox_TimeStep"));
+    SpinBox_TimeStep->setMaximum(100000);
+    SpinBox_TimeStep->setMinimum(-2);
+    SpinBox_TimeStep->setValue(-1);
+
+    gridLayout1->addWidget(SpinBox_TimeStep, 4, 1, 1, 1);
+
+    TimeStep = new QLabel(GBField);
+    TimeStep->setObjectName(QString::fromUtf8("TimeStep"));
+
+    gridLayout1->addWidget(TimeStep, 4, 0, 1, 1);
+
+    spacerItem3 = new QSpacerItem(138, 28, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    gridLayout1->addItem(spacerItem3, 3, 0, 1, 4);
+
+    RBLast = new QRadioButton(GBField);
+    RBLast->setObjectName(QString::fromUtf8("RBLast"));
+
+    gridLayout1->addWidget(RBLast, 2, 3, 1, 3);
+
+    RBNo = new QRadioButton(GBField);
+    RBNo->setObjectName(QString::fromUtf8("RBNo"));
+    RBNo->setCheckable(true);
+    RBNo->setChecked(true);
+
+    gridLayout1->addWidget(RBNo, 2, 0, 1, 3);
+
+    PushFieldFile = new QPushButton(GBField);
+    PushFieldFile->setObjectName(QString::fromUtf8("PushFieldFile"));
+
+    gridLayout1->addWidget(PushFieldFile, 0, 1, 1, 1);
+
+    FieldFile = new QLabel(GBField);
+    FieldFile->setObjectName(QString::fromUtf8("FieldFile"));
+
+    gridLayout1->addWidget(FieldFile, 0, 0, 1, 1);
+
+
+    gridLayout->addWidget(GBField, 6, 0, 1, 4);
+
     Iteration_Name = new QLabel(CreateIteration);
     Iteration_Name->setObjectName(QString::fromUtf8("Iteration_Name"));
 
@@ -97,9 +181,9 @@ public:
 
     gridLayout->addWidget(Iter_Parent, 1, 0, 1, 1);
 
-    spacerItem = new QSpacerItem(20, 24, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem4 = new QSpacerItem(20, 24, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem, 1, 1, 1, 1);
+    gridLayout->addItem(spacerItem4, 1, 1, 1, 1);
 
     PBIterParent = new QPushButton(CreateIteration);
     PBIterParent->setObjectName(QString::fromUtf8("PBIterParent"));
@@ -121,9 +205,9 @@ public:
 
     gridLayout->addWidget(Mesh_n, 2, 0, 1, 1);
 
-    spacerItem1 = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem5 = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem1, 2, 1, 1, 1);
+    gridLayout->addItem(spacerItem5, 2, 1, 1, 1);
 
     LEMeshName_n = new QLineEdit(CreateIteration);
     LEMeshName_n->setObjectName(QString::fromUtf8("LEMeshName_n"));
@@ -133,9 +217,9 @@ public:
 
     gridLayout->addWidget(LEMeshName_n, 2, 2, 1, 2);
 
-    spacerItem2 = new QSpacerItem(20, 22, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem6 = new QSpacerItem(20, 22, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem2, 3, 1, 1, 1);
+    gridLayout->addItem(spacerItem6, 3, 1, 1, 1);
 
     Mesh_np1 = new QLabel(CreateIteration);
     Mesh_np1->setObjectName(QString::fromUtf8("Mesh_np1"));
@@ -149,93 +233,9 @@ public:
 
     gridLayout->addWidget(LEMeshName_np1, 4, 2, 1, 2);
 
-    spacerItem3 = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem7 = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem3, 5, 1, 1, 1);
-
-    GBField = new QGroupBox(CreateIteration);
-    GBField->setObjectName(QString::fromUtf8("GBField"));
-    gridLayout1 = new QGridLayout(GBField);
-    gridLayout1->setSpacing(6);
-    gridLayout1->setMargin(9);
-    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
-    FieldFile = new QLabel(GBField);
-    FieldFile->setObjectName(QString::fromUtf8("FieldFile"));
-
-    gridLayout1->addWidget(FieldFile, 0, 0, 1, 1);
-
-    PushFieldFile = new QPushButton(GBField);
-    PushFieldFile->setObjectName(QString::fromUtf8("PushFieldFile"));
-
-    gridLayout1->addWidget(PushFieldFile, 0, 1, 1, 1);
-
-    LEFieldFile = new QLineEdit(GBField);
-    LEFieldFile->setObjectName(QString::fromUtf8("LEFieldFile"));
-    LEFieldFile->setMinimumSize(QSize(282, 21));
-
-    gridLayout1->addWidget(LEFieldFile, 0, 2, 1, 6);
-
-    spacerItem4 = new QSpacerItem(138, 18, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-    gridLayout1->addItem(spacerItem4, 1, 3, 1, 4);
-
-    RBNo = new QRadioButton(GBField);
-    RBNo->setObjectName(QString::fromUtf8("RBNo"));
-    RBNo->setCheckable(true);
-    RBNo->setChecked(true);
-
-    gridLayout1->addWidget(RBNo, 2, 0, 1, 3);
-
-    RBLast = new QRadioButton(GBField);
-    RBLast->setObjectName(QString::fromUtf8("RBLast"));
-
-    gridLayout1->addWidget(RBLast, 2, 3, 1, 3);
-
-    RBChosen = new QRadioButton(GBField);
-    RBChosen->setObjectName(QString::fromUtf8("RBChosen"));
-
-    gridLayout1->addWidget(RBChosen, 2, 7, 1, 1);
-
-    spacerItem5 = new QSpacerItem(138, 28, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-    gridLayout1->addItem(spacerItem5, 3, 0, 1, 4);
-
-    TimeStep = new QLabel(GBField);
-    TimeStep->setObjectName(QString::fromUtf8("TimeStep"));
-
-    gridLayout1->addWidget(TimeStep, 4, 0, 1, 1);
-
-    SpinBox_TimeStep = new QSpinBox(GBField);
-    SpinBox_TimeStep->setObjectName(QString::fromUtf8("SpinBox_TimeStep"));
-    SpinBox_TimeStep->setMaximum(100000);
-    SpinBox_TimeStep->setMinimum(-2);
-    SpinBox_TimeStep->setValue(-1);
-
-    gridLayout1->addWidget(SpinBox_TimeStep, 4, 1, 1, 1);
-
-    spacerItem6 = new QSpacerItem(40, 13, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-    gridLayout1->addItem(spacerItem6, 4, 2, 1, 2);
-
-    Rank = new QLabel(GBField);
-    Rank->setObjectName(QString::fromUtf8("Rank"));
-
-    gridLayout1->addWidget(Rank, 4, 4, 1, 1);
-
-    SpinBox_Rank = new QSpinBox(GBField);
-    SpinBox_Rank->setObjectName(QString::fromUtf8("SpinBox_Rank"));
-    SpinBox_Rank->setMaximum(1010000);
-    SpinBox_Rank->setMinimum(-1);
-    SpinBox_Rank->setValue(1);
-
-    gridLayout1->addWidget(SpinBox_Rank, 4, 5, 1, 1);
-
-    spacerItem7 = new QSpacerItem(255, 13, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-    gridLayout1->addItem(spacerItem7, 4, 6, 1, 2);
-
-
-    gridLayout->addWidget(GBField, 6, 0, 1, 4);
+    gridLayout->addItem(spacerItem7, 5, 1, 1, 1);
 
     spacerItem8 = new QSpacerItem(20, 22, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -272,7 +272,7 @@ public:
 
     spacerItem10 = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem10, 9, 0, 1, 2);
+    gridLayout->addItem(spacerItem10, 9, 0, 1, 1);
 
     GroupButtons = new QGroupBox(CreateIteration);
     GroupButtons->setObjectName(QString::fromUtf8("GroupButtons"));
@@ -308,7 +308,7 @@ public:
 
     retranslateUi(CreateIteration);
 
-    QSize size(587, 598);
+    QSize size(610, 598);
     size = size.expandedTo(CreateIteration->minimumSizeHint());
     CreateIteration->resize(size);
 
@@ -322,19 +322,19 @@ public:
     void retranslateUi(QWidget *CreateIteration)
     {
     CreateIteration->setWindowTitle(QApplication::translate("CreateIteration", "Create an iteration", 0, QApplication::UnicodeUTF8));
+    GBField->setTitle(QApplication::translate("CreateIteration", "Field information", 0, QApplication::UnicodeUTF8));
+    RBChosen->setText(QApplication::translate("CreateIteration", "Chosen time step", 0, QApplication::UnicodeUTF8));
+    Rank->setText(QApplication::translate("CreateIteration", "Rank", 0, QApplication::UnicodeUTF8));
+    TimeStep->setText(QApplication::translate("CreateIteration", "Time step", 0, QApplication::UnicodeUTF8));
+    RBLast->setText(QApplication::translate("CreateIteration", "Last time step", 0, QApplication::UnicodeUTF8));
+    RBNo->setText(QApplication::translate("CreateIteration", "No time step", 0, QApplication::UnicodeUTF8));
+    PushFieldFile->setText(QString());
+    FieldFile->setText(QApplication::translate("CreateIteration", "Field file", 0, QApplication::UnicodeUTF8));
     Iteration_Name->setText(QApplication::translate("CreateIteration", "Iteration Name", 0, QApplication::UnicodeUTF8));
     Iter_Parent->setText(QApplication::translate("CreateIteration", "Previous iteration", 0, QApplication::UnicodeUTF8));
     PBIterParent->setText(QString());
     Mesh_n->setText(QApplication::translate("CreateIteration", "Mesh n", 0, QApplication::UnicodeUTF8));
     Mesh_np1->setText(QApplication::translate("CreateIteration", "Mesh n+1", 0, QApplication::UnicodeUTF8));
-    GBField->setTitle(QApplication::translate("CreateIteration", "Field information", 0, QApplication::UnicodeUTF8));
-    FieldFile->setText(QApplication::translate("CreateIteration", "Field file", 0, QApplication::UnicodeUTF8));
-    PushFieldFile->setText(QString());
-    RBNo->setText(QApplication::translate("CreateIteration", "No time step", 0, QApplication::UnicodeUTF8));
-    RBLast->setText(QApplication::translate("CreateIteration", "Last time step", 0, QApplication::UnicodeUTF8));
-    RBChosen->setText(QApplication::translate("CreateIteration", "Chosen time step", 0, QApplication::UnicodeUTF8));
-    TimeStep->setText(QApplication::translate("CreateIteration", "Time step", 0, QApplication::UnicodeUTF8));
-    Rank->setText(QApplication::translate("CreateIteration", "Rank", 0, QApplication::UnicodeUTF8));
     Hypothese->setTitle(QApplication::translate("CreateIteration", "Hypothesis", 0, QApplication::UnicodeUTF8));
     PBHypoEdit->setText(QApplication::translate("CreateIteration", "Edit", 0, QApplication::UnicodeUTF8));
     PBHypoNew->setText(QApplication::translate("CreateIteration", "New", 0, QApplication::UnicodeUTF8));

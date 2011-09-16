@@ -22,8 +22,6 @@ using namespace std;
 #include "MonEditHypothesis.h"
 #include "MonEditListGroup.h"
 
-#include <QMessageBox>
-
 #include "SalomeApp_Tools.h"
 #include "HOMARDGUI_Utils.h"
 #include "HomardQtCommun.h"
@@ -201,6 +199,7 @@ void MonEditHypothesis::InitAdaptChamps()
     _ThreshR = aInfosHypo->ThreshR;
     _TypeThC = aInfosHypo->TypeThC;
     _ThreshC = aInfosHypo->ThreshC;
+    _UsField = aInfosHypo->UsField;
     _UsCmpI  = aInfosHypo->UsCmpI;
 
 
@@ -268,6 +267,12 @@ void MonEditHypothesis::InitAdaptChamps()
   else
   { RBL2->setText(QObject::tr("HOM_HYPO_NORM_L2"));
     RBInf->setText(QObject::tr("HOM_HYPO_NORM_INF"));
+  }
+  if ( _UsField == 0 ) { CBJump->hide(); }
+  else
+  {
+    CBJump->setChecked(true);
+    CBJump->setEnabled(false);
   }
   if ( _UsCmpI == 0 )
   {

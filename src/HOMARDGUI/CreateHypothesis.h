@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateHypothesis.ui'
 **
-** Created: Tue Mar 15 11:33:40 2011
+** Created: Fri Sep 2 15:33:39 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -61,6 +61,7 @@ public:
     QHBoxLayout *hboxLayout3;
     QRadioButton *RBL2;
     QRadioButton *RBInf;
+    QCheckBox *CBJump;
     QHBoxLayout *hboxLayout4;
     QGroupBox *GBRefinementThresholds;
     QGridLayout *gridLayout4;
@@ -274,6 +275,11 @@ public:
 
     vboxLayout->addLayout(hboxLayout3);
 
+    CBJump = new QCheckBox(GBFieldManagement);
+    CBJump->setObjectName(QString::fromUtf8("CBJump"));
+
+    vboxLayout->addWidget(CBJump);
+
 
     hboxLayout2->addLayout(vboxLayout);
 
@@ -333,7 +339,7 @@ public:
     SpinBox_RAbs = new QDoubleSpinBox(GBRefinementThresholds);
     SpinBox_RAbs->setObjectName(QString::fromUtf8("SpinBox_RAbs"));
     SpinBox_RAbs->setEnabled(false);
-    SpinBox_RAbs->setDecimals(3);
+    SpinBox_RAbs->setDecimals(8);
     SpinBox_RAbs->setMaximum(100);
     SpinBox_RAbs->setSingleStep(0.1);
 
@@ -391,7 +397,7 @@ public:
     SpinBox_CAbs = new QDoubleSpinBox(GBCoarseningThresholds);
     SpinBox_CAbs->setObjectName(QString::fromUtf8("SpinBox_CAbs"));
     SpinBox_CAbs->setEnabled(false);
-    SpinBox_CAbs->setDecimals(3);
+    SpinBox_CAbs->setDecimals(8);
     SpinBox_CAbs->setMaximum(100);
     SpinBox_CAbs->setSingleStep(0.1);
 
@@ -579,6 +585,7 @@ public:
     TWCMP->setHorizontalHeaderItem(1, __colItem1);
     RBL2->setText(QApplication::translate("CreateHypothesis", "L2 norm", 0, QApplication::UnicodeUTF8));
     RBInf->setText(QApplication::translate("CreateHypothesis", "Infinite norm", 0, QApplication::UnicodeUTF8));
+    CBJump->setText(QApplication::translate("CreateHypothesis", "Jump between elements", 0, QApplication::UnicodeUTF8));
     GBRefinementThresholds->setTitle(QApplication::translate("CreateHypothesis", "Refinement threshold", 0, QApplication::UnicodeUTF8));
     RBRPE->setText(QApplication::translate("CreateHypothesis", "Percentage of meshes", 0, QApplication::UnicodeUTF8));
     SpinBox_RPE->setSuffix(QApplication::translate("CreateHypothesis", " %", 0, QApplication::UnicodeUTF8));

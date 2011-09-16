@@ -30,7 +30,7 @@ class HOMARD_Hypothesis;
 
 class HOMARD_Hypothesis_i: public virtual POA_HOMARD::HOMARD_Hypothesis,
 			   public virtual PortableServer::ServantBase
-{ 
+{
 public:
   HOMARD_Hypothesis_i( CORBA::ORB_ptr orb, HOMARD::HOMARD_Gen_var gen_i );
   HOMARD_Hypothesis_i();

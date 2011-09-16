@@ -225,6 +225,30 @@ HOMARD::ListBoundaryGroupType* HOMARD_Cas_i::GetBoundaryGroup()
   }
   return aResult._retn();
 }
+//=============================================================================
+void HOMARD_Cas_i::SetNivMax( CORBA::Long NivMax )
+{
+  ASSERT( myHomardCas );
+  myHomardCas->SetNivMax( NivMax );
+}
+//=============================================================================
+CORBA::Long HOMARD_Cas_i::GetNivMax()
+{
+  ASSERT( myHomardCas );
+  return myHomardCas->GetNivMax();
+}
+//=============================================================================
+void HOMARD_Cas_i::SetDiamMin( CORBA::Double DiamMin )
+{
+  ASSERT( myHomardCas );
+  myHomardCas->SetDiamMin( DiamMin );
+}
+//=============================================================================
+CORBA::Double HOMARD_Cas_i::GetDiamMin()
+{
+  ASSERT( myHomardCas );
+  return myHomardCas->GetDiamMin();
+}
 
 //=============================================================================
 std::string HOMARD_Cas_i::Dump() const

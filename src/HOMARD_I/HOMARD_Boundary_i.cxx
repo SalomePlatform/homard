@@ -133,21 +133,6 @@ void HOMARD_Boundary_i::SetCylinder( double X0, double X1, double X2, double X3,
   ASSERT( myHomardBoundary );
   myHomardBoundary->SetCylinder( X0, X1, X2, X3, X4, X5, X6 );
 }
-
-//=============================================================================
-HOMARD::double_array* HOMARD_Boundary_i::GetCylinder()
-{
-  ASSERT( myHomardBoundary );
-  HOMARD::double_array_var aResult = new HOMARD::double_array();
-  std::vector<double> mesCoor = myHomardBoundary->GetCylinder();
-  aResult->length( mesCoor .size() );
-  std::vector<double>::const_iterator it;
-  int i = 0;
-  for ( it = mesCoor.begin(); it != mesCoor.end(); it++ )
-    aResult[i++] = (*it);
-  return aResult._retn();
-}
-
 //=============================================================================
 void HOMARD_Boundary_i::SetSphere( double Xcentre, double Ycentre, double ZCentre, double rayon )
 {
@@ -156,11 +141,11 @@ void HOMARD_Boundary_i::SetSphere( double Xcentre, double Ycentre, double ZCentr
 }
 
 //=============================================================================
-HOMARD::double_array* HOMARD_Boundary_i::GetSphere()
+HOMARD::double_array* HOMARD_Boundary_i::GetCoords()
 {
   ASSERT( myHomardBoundary );
   HOMARD::double_array_var aResult = new HOMARD::double_array();
-  std::vector<double> mesCoor = myHomardBoundary->GetSphere();
+  std::vector<double> mesCoor = myHomardBoundary->GetCoords();
   aResult->length( mesCoor .size() );
   std::vector<double>::const_iterator it;
   int i = 0;

@@ -292,6 +292,10 @@
         <translation>%1 maxi must be greater than %1 mini.</translation>
     </message>
     <message>
+        <source>HOM_ZONE_RAYON</source>
+        <translation>The external radius must be greater than the internal radius.</translation>
+    </message>
+    <message>
         <source>HOM_ZONE_EDIT_WINDOW_TITLE</source>
         <translation>Edition of a zone</translation>
     </message>
@@ -308,12 +312,20 @@
         <translation>The meshfile of the case is unknown.</translation>
     </message>
     <message>
+        <source>HOM_AXE</source>
+        <translation>The axis must be a non 0 vector.</translation>
+    </message>
+    <message>
         <source>HOM_BOUN_A_EDIT_WINDOW_TITLE</source>
         <translation>Edition of an analytical boundary</translation>
     </message>
     <message>
         <source>HOM_BOUN_D_EDIT_WINDOW_TITLE</source>
         <translation>Edition of a discrete boundary</translation>
+    </message>
+    <message>
+        <source>HOM_GROU_EDIT_WINDOW_TITLE</source>
+        <translation>Selected groups</translation>
     </message>
 </context>
 </TS>

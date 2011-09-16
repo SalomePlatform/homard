@@ -45,6 +45,12 @@ public:
   const int                     GetConfType() const;
   int                           GetNumber();
 
+  void                          SetNivMax( int NivMax );
+  const int                     GetNivMax() const;
+
+  void                          SetDiamMin( double DiamMin );
+  const double                  GetDiamMin() const;
+
   void                          AddIteration( const char* NomIteration );
   const std::list<std::string>& GetIterations() const;
   void                          SupprIterations();
@@ -71,6 +77,8 @@ private:
   std::string                   _NomCas;
   std::string                   _NomDir;
   int                           _ConfType;
+  int                           _NivMax;
+  double                        _DiamMin;
 
   std::vector<double>           _Boite;         // cf HomardQTCommun pour structure du vecteur
   std::list<std::string>        _ListGroup;

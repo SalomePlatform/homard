@@ -54,132 +54,146 @@ MonEditCase::~MonEditCase()
 void MonEditCase::InitValEdit()
 // ------------------------------
 {
-    MESSAGE("Debut de MonEditCase::InitValEdit");
-      LECaseName->setText(_aCaseName);
-      LECaseName->setReadOnly(true);
+  MESSAGE("Debut de MonEditCase::InitValEdit");
+  LECaseName->setText(_aCaseName);
+  LECaseName->setReadOnly(true);
 
-      QString aDirName = aCase->GetDirName();
-      LEDirName->setText(aDirName);
-      LEDirName->setReadOnly(true);
-      PushDir->setVisible(0);
+  QString aDirName = aCase->GetDirName();
+  LEDirName->setText(aDirName);
+  LEDirName->setReadOnly(true);
+  PushDir->setVisible(0);
 
-      QString _aitername=aCase->GetIter0Name();
-      HOMARD::HOMARD_Iteration_var aIter = _myHomardGen->GetIteration(_aitername.toStdString().c_str());
-      QString aFileName = aIter->GetMeshFile();
-      LEFileName->setText(aFileName);
-      LEFileName->setReadOnly(true);
-      PushFichier->setVisible(0);
+  QString _aitername=aCase->GetIter0Name();
+  HOMARD::HOMARD_Iteration_var aIter = _myHomardGen->GetIteration(_aitername.toStdString().c_str());
+  QString aFileName = aIter->GetMeshFile();
+  LEFileName->setText(aFileName);
+  LEFileName->setReadOnly(true);
+  PushFichier->setVisible(0);
 
-      int ConfType=aCase->GetConfType();
-      if(ConfType==1)
-      {
-         GBTypeNoConf->setVisible(0);
-         RBConforme->setChecked(true);
-      }
-      else
-      {
-        RBNonConforme->setChecked(true);
-        GBTypeNoConf->setVisible(1);
-        RB1NpM->setEnabled(false);
-        RB1NpA->setEnabled(false);
-        RBQuelconque->setEnabled(false);
-      };
+  int ConfType=aCase->GetConfType();
+  if(ConfType==1)
+  {
+      GBTypeNoConf->setVisible(0);
+      RBConforme->setChecked(true);
+  }
+  else
+  {
+    RBNonConforme->setChecked(true);
+    GBTypeNoConf->setVisible(1);
+    RB1NpM->setEnabled(false);
+    RB1NpA->setEnabled(false);
+    RBQuelconque->setEnabled(false);
+  };
 
-      if (_ConfType==2) { RB1NpM->setChecked(true);};
-      if (_ConfType==3) { RB1NpA->setChecked(true);};
-      if (_ConfType==4) { RBQuelconque->setChecked(true);};
+  if (_ConfType==2) { RB1NpM->setChecked(true);};
+  if (_ConfType==3) { RB1NpA->setChecked(true);};
+  if (_ConfType==4) { RBQuelconque->setChecked(true);};
 
-      RBNonConforme->setEnabled(false);
-      RBConforme->setEnabled(false);
+  RBNonConforme->setEnabled(false);
+  RBConforme->setEnabled(false);
 
 //    Non affichage du mode de suivi de frontiere
-      CBBoundaryA->setVisible(0);
-      GBBoundaryA->setVisible(0);
-      CBBoundaryD->setVisible(0);
-      GBBoundaryD->setVisible(0);
+  CBBoundaryA->setVisible(0);
+  GBBoundaryA->setVisible(0);
+  CBBoundaryD->setVisible(0);
+  GBBoundaryD->setVisible(0);
 
 //    On passe en revue tous les couples (frontiere,groupe) du cas
-      HOMARD::ListBoundaryGroupType_var mesBoundarys = aCase->GetBoundaryGroup();
-      if (mesBoundarys->length()>0)
-      {
-        QStringList ListeFron ;
-        QString NomFron ;
-        bool BounDi = false ;
-        bool BounAn = false ;
-        for (int i=0; i<mesBoundarys->length(); i++)
-        {
+  HOMARD::ListBoundaryGroupType_var mesBoundarys = aCase->GetBoundaryGroup();
+  if (mesBoundarys->length()>0)
+  {
+    QStringList ListeFron ;
+    QString NomFron ;
+    bool BounDi = false ;
+    bool BounAn = false ;
+    for (int i=0; i<mesBoundarys->length(); i++)
+    {
 //        Nom de la frontiere
-          NomFron = mesBoundarys[i++];
-          MESSAGE("NomFron "<<NomFron.toStdString().c_str());
+      NomFron = mesBoundarys[i++];
+      MESSAGE("NomFron "<<NomFron.toStdString().c_str());
 //        L'objet associe pour en deduire le type
-          HOMARD::HOMARD_Boundary_var myBoundary = _myHomardGen->GetBoundary(NomFron.toStdString().c_str());
-          int type_obj = myBoundary->GetBoundaryType() ;
-
+      HOMARD::HOMARD_Boundary_var myBoundary = _myHomardGen->GetBoundary(NomFron.toStdString().c_str());
+      int type_obj = myBoundary->GetBoundaryType() ;
 //        C'est une frontiere discrete
 //        Rermarque : on ne gere pas les groupes
-          if ( type_obj==0 )
-          {
-            BounDi = true ;
-            CBBoundaryDi->addItem(NomFron);
-          }
-
+      if ( type_obj==0 )
+      {
+        BounDi = true ;
+        CBBoundaryDi->addItem(NomFron);
+      }
 //        C'est une frontiere analytique
-          else
-          {
-            BounAn = true ;
-            int nbcol = TWBoundary->columnCount();
+      else
+      {
+        BounAn = true ;
+        int nbcol = TWBoundary->columnCount();
 //          On ajoute une ligne pour le groupe
-            TWBoundary->insertRow(0);
+        TWBoundary->insertRow(0);
 //          La colonne 0 comporte le nom du groupe
-            TWBoundary->setItem( 0, 0, new QTableWidgetItem(QString(mesBoundarys[i]).trimmed()));
+        TWBoundary->setItem( 0, 0, new QTableWidgetItem(QString(mesBoundarys[i]).trimmed()));
 //             TWBoundary->item( 0, 0 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
 //          Chacune des colonnes suivantes est associé a une frontiere deja presente : on y met une
 //          case non cochee
-            for ( int j = 1; j < nbcol; j++ )
-            {
-              TWBoundary->setItem( 0, j, new QTableWidgetItem( QString ("") ) );
-              TWBoundary->item( 0, j )->setFlags( 0 );
-              TWBoundary->item( 0, j )->setFlags( Qt::ItemIsUserCheckable  );
-              TWBoundary->item( 0, j )->setCheckState( Qt::Unchecked );
-            }
+        for ( int j = 1; j < nbcol; j++ )
+        {
+          TWBoundary->setItem( 0, j, new QTableWidgetItem( QString ("") ) );
+          TWBoundary->item( 0, j )->setFlags( 0 );
+          TWBoundary->item( 0, j )->setFlags( Qt::ItemIsUserCheckable  );
+          TWBoundary->item( 0, j )->setCheckState( Qt::Unchecked );
+        }
 //          On cherche si la frontiere en cours d'examen a deja ete rencontree :
 //          si oui, on stocke son numero de colonne
-            int ok = -1 ;
-            for ( int nufr = 0 ; nufr<ListeFron.size(); nufr++)
-            {
-              if ( ListeFron[nufr] == NomFron ) ok = nufr+1 ;
-            }
+        int ok = -1 ;
+        for ( int nufr = 0 ; nufr<ListeFron.size(); nufr++)
+        { if ( ListeFron[nufr] == NomFron ) ok = nufr+1 ; }
 //            si non, on ajoute une colonne
-            if ( ok < 0 )
-            {
-              ListeFron.append(NomFron);
-              ok = ListeFron.size() ;
-              addBoundaryAn(NomFron);
-            }
+        if ( ok < 0 )
+        {
+          ListeFron.append(NomFron);
+          ok = ListeFron.size() ;
+          addBoundaryAn(NomFron);
+        }
 //          on coche la case correspondant au couple (frontiere,groupe) en cours d'examen
-            TWBoundary->item( 0, ok )->setCheckState( Qt::Checked );
-          }
-        }
-        MESSAGE("BounDi "<<BounDi<<", BounAn "<<BounAn);
-        if ( BounAn )
-        { GBBoundaryA->setVisible(1);
-//        on rend les cases inactives. On ne peut pas le faire pour le tableau sinon on perd l'ascenseur !
-          int nbcol = TWBoundary->columnCount();
-          int nbrow = TWBoundary->rowCount();
-          for ( int i = 0; i < nbrow; i++ )
-          { for ( int j = 0; j < nbcol; j++ ) TWBoundary->item( i, j )->setFlags( !Qt::ItemIsEnabled ); }
-//        on met un nom blanc au coin
-          QTableWidgetItem *__colItem = new QTableWidgetItem();
-          __colItem->setText(QApplication::translate("CreateCase", "", 0, QApplication::UnicodeUTF8));
-          TWBoundary->setHorizontalHeaderItem(0, __colItem);
-//        on cache le bouton New
-          PBBoundaryAnNew->setVisible(0);
-        }
-        if ( BounDi )
-        { GBBoundaryD->setVisible(1);
-          CBBoundaryDi->setDisabled(true);
-          PBBoundaryDiNew->setVisible(0);}
+        TWBoundary->item( 0, ok )->setCheckState( Qt::Checked );
       }
+    }
+    MESSAGE("BounDi "<<BounDi<<", BounAn "<<BounAn);
+    if ( BounAn )
+    { GBBoundaryA->setVisible(1);
+//    On rend les cases non modifiables.
+//    On ne peut pas le faire pour tout le tableau sinon on perd l'ascenseur !
+      int nbcol = TWBoundary->columnCount();
+      int nbrow = TWBoundary->rowCount();
+      for ( int i = 0; i < nbrow; i++ )
+      { for ( int j = 0; j < nbcol; j++ ) TWBoundary->item( i, j )->setFlags( !Qt::ItemIsEnabled ); }
+//    on met un nom blanc au coin
+      QTableWidgetItem *__colItem = new QTableWidgetItem();
+      __colItem->setText(QApplication::translate("CreateCase", "", 0, QApplication::UnicodeUTF8));
+      TWBoundary->setHorizontalHeaderItem(0, __colItem);
+//    on cache les boutons inutiles
+      PBBoundaryAnNew->setVisible(0);
+      PBBoundaryAnHelp->setVisible(0);
+    }
+    if ( BounDi )
+    { GBBoundaryD->setVisible(1);
+      CBBoundaryDi->setDisabled(true);
+      PBBoundaryDiNew->setVisible(0);
+      PBBoundaryDiHelp->setVisible(0); }
+  }
+// Les options avancees (non modifiables)
+  CBAdvanced->setVisible(0) ;
+  int NivMax = aCase->GetNivMax();
+  double DiamMin = aCase->GetDiamMin();
+  if ( NivMax > 0 )
+  { GBAdvancedOptions->setVisible(1);
+    spinBoxNivMax->setValue(NivMax);
+    spinBoxNivMax->setDisabled(true);
+    doubleSpinBoxDiamMin->setValue(DiamMin);
+    doubleSpinBoxDiamMin->setDisabled(true);
+  }
+  else
+  { GBAdvancedOptions->setVisible(0); }
+//
+  adjustSize();
 }
 
 // -------------------------------------

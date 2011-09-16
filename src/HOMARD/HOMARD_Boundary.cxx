@@ -64,36 +64,30 @@ std::string HOMARD_Boundary::GetDumpPython() const
 {
   std::ostringstream aScript;
   aScript << "\n# Creation of the ";
-  if ( _BoundaryType == 0 ) { aScript << "discrete boundary " << _NomBoundary << "\n";}
-  if ( _BoundaryType == 1 ) { aScript << "cylinder " << _NomBoundary << "\n";}
-  if ( _BoundaryType == 2 ) { aScript << "sphere " << _NomBoundary << "\n"; }
-
-  aScript << "\t" << _NomBoundary << " = homard.CreateBoundary('" << _NomBoundary ;
-  aScript << "', " << _BoundaryType << ")\n";
 //
   switch (_BoundaryType)
   {
     case 0:
     {
-      aScript << "\t" <<_NomBoundary << ".SetMeshFile('";
-      aScript << _MeshFile << "')\n";
-      aScript << "\t" <<_NomBoundary << ".SetMeshName('";
-      aScript << _MeshName << "')\n";
-      break;
+      aScript << "discrete boundary " << _NomBoundary << "\n";
+      aScript << "\t" << _NomBoundary << " = homard.CreateBoundaryDi('" << _NomBoundary << "', ";
+      aScript << "'" << _MeshName << "', ";
+      aScript << "'" << _MeshFile << "')\n";
+      break ;
     }
-
     case 1:
     {
-      aScript << "\t" << _NomBoundary << ".SetCylinder(" ;
+      aScript << "cylinder " << _NomBoundary << "\n";
+      aScript << "\t" << _NomBoundary << " = homard.CreateBoundaryCylinder('" << _NomBoundary << "', ";
       aScript << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Xaxe << ", " << _Yaxe << ", " << _Zaxe << ", " << _rayon << ")\n";
-      break;
+      break ;
     }
-
     case 2:
     {
-      aScript << "\t" << _NomBoundary << ".SetSphere(" ;
+      aScript << "sphere" << _NomBoundary << "\n";
+      aScript << "\t" << _NomBoundary << " = homard.CreateBoundarySphere('" << _NomBoundary << "', ";
       aScript << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _rayon << ")\n";
-      break;
+      break ;
     }
   }
 
@@ -167,27 +161,35 @@ std::vector<double> HOMARD_Boundary::GetLimit() const
 }
 
 //=======================================================================================
-std::vector<double> HOMARD_Boundary::GetCylinder() const
+std::vector<double> HOMARD_Boundary::GetCoords() const
 {
   std::vector<double> mesCoor;
-  mesCoor.push_back( _Xcentre );
-  mesCoor.push_back( _Ycentre );
-  mesCoor.push_back( _Zcentre );
-  mesCoor.push_back( _Xaxe );
-  mesCoor.push_back( _Yaxe );
-  mesCoor.push_back( _Zaxe );
-  mesCoor.push_back( _rayon );
-  return mesCoor;
-}
-
-//=======================================================================================
-std::vector<double> HOMARD_Boundary::GetSphere() const
-{
-  std::vector<double> mesCoor;
-  mesCoor.push_back( _Xcentre );
-  mesCoor.push_back( _Ycentre );
-  mesCoor.push_back( _Zcentre );
-  mesCoor.push_back( _rayon );
+//
+  switch (_BoundaryType)
+  {
+//  Cylindre
+    case 1:
+    {
+      mesCoor.push_back( _Xcentre );
+      mesCoor.push_back( _Ycentre );
+      mesCoor.push_back( _Zcentre );
+      mesCoor.push_back( _Xaxe );
+      mesCoor.push_back( _Yaxe );
+      mesCoor.push_back( _Zaxe );
+      mesCoor.push_back( _rayon );
+      break ;
+    }
+//  Sphere
+    case 2:
+    {
+      mesCoor.push_back( _Xcentre );
+      mesCoor.push_back( _Ycentre );
+      mesCoor.push_back( _Zcentre );
+      mesCoor.push_back( _rayon );
+      break ;
+    }
+    ASSERT ( _BoundaryType == -1 ) ;
+  }
   return mesCoor;
 }
 //=============================================================================

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateBoundaryDi.ui'
 **
-** Created: Thu Feb 24 09:10:36 2011
+** Created: Thu Sep 1 16:37:21 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -26,18 +26,18 @@ class Ui_CreateBoundaryDi
 {
 public:
     QGridLayout *gridLayout;
-    QLabel *Name;
-    QLineEdit *LEBoundaryName;
-    QLabel *Mesh;
-    QPushButton *PushFichier;
-    QLineEdit *LEFileName;
-    QCheckBox *CBGroupe;
     QGroupBox *GBButtons;
     QGridLayout *gridLayout1;
-    QPushButton *buttonOk;
-    QPushButton *buttonApply;
-    QPushButton *buttonCancel;
     QPushButton *buttonHelp;
+    QPushButton *buttonCancel;
+    QPushButton *buttonApply;
+    QPushButton *buttonOk;
+    QCheckBox *CBGroupe;
+    QLineEdit *LEFileName;
+    QPushButton *PushFichier;
+    QLabel *Mesh;
+    QLineEdit *LEBoundaryName;
+    QLabel *Name;
 
     void setupUi(QDialog *CreateBoundaryDi)
     {
@@ -53,10 +53,55 @@ public:
     gridLayout->setSpacing(6);
     gridLayout->setMargin(9);
     gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-    Name = new QLabel(CreateBoundaryDi);
-    Name->setObjectName(QString::fromUtf8("Name"));
+    GBButtons = new QGroupBox(CreateBoundaryDi);
+    GBButtons->setObjectName(QString::fromUtf8("GBButtons"));
+    gridLayout1 = new QGridLayout(GBButtons);
+    gridLayout1->setSpacing(6);
+    gridLayout1->setMargin(9);
+    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
+    buttonHelp = new QPushButton(GBButtons);
+    buttonHelp->setObjectName(QString::fromUtf8("buttonHelp"));
 
-    gridLayout->addWidget(Name, 0, 0, 1, 1);
+    gridLayout1->addWidget(buttonHelp, 0, 3, 1, 1);
+
+    buttonCancel = new QPushButton(GBButtons);
+    buttonCancel->setObjectName(QString::fromUtf8("buttonCancel"));
+
+    gridLayout1->addWidget(buttonCancel, 0, 2, 1, 1);
+
+    buttonApply = new QPushButton(GBButtons);
+    buttonApply->setObjectName(QString::fromUtf8("buttonApply"));
+
+    gridLayout1->addWidget(buttonApply, 0, 1, 1, 1);
+
+    buttonOk = new QPushButton(GBButtons);
+    buttonOk->setObjectName(QString::fromUtf8("buttonOk"));
+
+    gridLayout1->addWidget(buttonOk, 0, 0, 1, 1);
+
+
+    gridLayout->addWidget(GBButtons, 3, 0, 1, 3);
+
+    CBGroupe = new QCheckBox(CreateBoundaryDi);
+    CBGroupe->setObjectName(QString::fromUtf8("CBGroupe"));
+
+    gridLayout->addWidget(CBGroupe, 2, 0, 1, 3);
+
+    LEFileName = new QLineEdit(CreateBoundaryDi);
+    LEFileName->setObjectName(QString::fromUtf8("LEFileName"));
+    LEFileName->setMinimumSize(QSize(370, 21));
+
+    gridLayout->addWidget(LEFileName, 1, 2, 1, 1);
+
+    PushFichier = new QPushButton(CreateBoundaryDi);
+    PushFichier->setObjectName(QString::fromUtf8("PushFichier"));
+
+    gridLayout->addWidget(PushFichier, 1, 1, 1, 1);
+
+    Mesh = new QLabel(CreateBoundaryDi);
+    Mesh->setObjectName(QString::fromUtf8("Mesh"));
+
+    gridLayout->addWidget(Mesh, 1, 0, 1, 1);
 
     LEBoundaryName = new QLineEdit(CreateBoundaryDi);
     LEBoundaryName->setObjectName(QString::fromUtf8("LEBoundaryName"));
@@ -65,55 +110,10 @@ public:
 
     gridLayout->addWidget(LEBoundaryName, 0, 1, 1, 2);
 
-    Mesh = new QLabel(CreateBoundaryDi);
-    Mesh->setObjectName(QString::fromUtf8("Mesh"));
+    Name = new QLabel(CreateBoundaryDi);
+    Name->setObjectName(QString::fromUtf8("Name"));
 
-    gridLayout->addWidget(Mesh, 1, 0, 1, 1);
-
-    PushFichier = new QPushButton(CreateBoundaryDi);
-    PushFichier->setObjectName(QString::fromUtf8("PushFichier"));
-
-    gridLayout->addWidget(PushFichier, 1, 1, 1, 1);
-
-    LEFileName = new QLineEdit(CreateBoundaryDi);
-    LEFileName->setObjectName(QString::fromUtf8("LEFileName"));
-    LEFileName->setMinimumSize(QSize(370, 21));
-
-    gridLayout->addWidget(LEFileName, 1, 2, 1, 1);
-
-    CBGroupe = new QCheckBox(CreateBoundaryDi);
-    CBGroupe->setObjectName(QString::fromUtf8("CBGroupe"));
-
-    gridLayout->addWidget(CBGroupe, 2, 0, 1, 3);
-
-    GBButtons = new QGroupBox(CreateBoundaryDi);
-    GBButtons->setObjectName(QString::fromUtf8("GBButtons"));
-    gridLayout1 = new QGridLayout(GBButtons);
-    gridLayout1->setSpacing(6);
-    gridLayout1->setMargin(9);
-    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
-    buttonOk = new QPushButton(GBButtons);
-    buttonOk->setObjectName(QString::fromUtf8("buttonOk"));
-
-    gridLayout1->addWidget(buttonOk, 0, 0, 1, 1);
-
-    buttonApply = new QPushButton(GBButtons);
-    buttonApply->setObjectName(QString::fromUtf8("buttonApply"));
-
-    gridLayout1->addWidget(buttonApply, 0, 1, 1, 1);
-
-    buttonCancel = new QPushButton(GBButtons);
-    buttonCancel->setObjectName(QString::fromUtf8("buttonCancel"));
-
-    gridLayout1->addWidget(buttonCancel, 0, 2, 1, 1);
-
-    buttonHelp = new QPushButton(GBButtons);
-    buttonHelp->setObjectName(QString::fromUtf8("buttonHelp"));
-
-    gridLayout1->addWidget(buttonHelp, 0, 3, 1, 1);
-
-
-    gridLayout->addWidget(GBButtons, 3, 0, 1, 3);
+    gridLayout->addWidget(Name, 0, 0, 1, 1);
 
 
     retranslateUi(CreateBoundaryDi);
@@ -129,15 +129,15 @@ public:
     void retranslateUi(QDialog *CreateBoundaryDi)
     {
     CreateBoundaryDi->setWindowTitle(QApplication::translate("CreateBoundaryDi", "Create a discrete boundary", 0, QApplication::UnicodeUTF8));
-    Name->setText(QApplication::translate("CreateBoundaryDi", "Name", 0, QApplication::UnicodeUTF8));
-    Mesh->setText(QApplication::translate("CreateBoundaryDi", "Mesh", 0, QApplication::UnicodeUTF8));
-    PushFichier->setText(QString());
-    CBGroupe->setText(QApplication::translate("CreateBoundaryDi", "Filtering with groups", 0, QApplication::UnicodeUTF8));
     GBButtons->setTitle(QString());
-    buttonOk->setText(QApplication::translate("CreateBoundaryDi", "OK", 0, QApplication::UnicodeUTF8));
-    buttonApply->setText(QApplication::translate("CreateBoundaryDi", "Apply", 0, QApplication::UnicodeUTF8));
-    buttonCancel->setText(QApplication::translate("CreateBoundaryDi", "Cancel", 0, QApplication::UnicodeUTF8));
     buttonHelp->setText(QApplication::translate("CreateBoundaryDi", "Help", 0, QApplication::UnicodeUTF8));
+    buttonCancel->setText(QApplication::translate("CreateBoundaryDi", "Cancel", 0, QApplication::UnicodeUTF8));
+    buttonApply->setText(QApplication::translate("CreateBoundaryDi", "Apply", 0, QApplication::UnicodeUTF8));
+    buttonOk->setText(QApplication::translate("CreateBoundaryDi", "OK", 0, QApplication::UnicodeUTF8));
+    CBGroupe->setText(QApplication::translate("CreateBoundaryDi", "Filtering with groups", 0, QApplication::UnicodeUTF8));
+    PushFichier->setText(QString());
+    Mesh->setText(QApplication::translate("CreateBoundaryDi", "Mesh", 0, QApplication::UnicodeUTF8));
+    Name->setText(QApplication::translate("CreateBoundaryDi", "Name", 0, QApplication::UnicodeUTF8));
     Q_UNUSED(CreateBoundaryDi);
     } // retranslateUi
 

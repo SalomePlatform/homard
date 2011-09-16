@@ -39,15 +39,15 @@ HomardDriver::HomardDriver(const std::string siter, const std::string siterp1):
   std::string dir;
   std::string executable;
   if ( !(dirchar = getenv("HOMARD_REP_EXE")) )
-    dir = "/logiciels/HOMARD/HOMARD_PUBLIC/Linux64" ;
+    dir = "/local00/HOMARD_SVN/trunk/bin" ;
   else
     dir = std::string(dirchar);
   if ( !(execchar = getenv("HOMARD_EXE")) )
-    executable = "HOMARD";
+    executable = "HOMARD.out";
   else
     executable = std::string(execchar);
   _HOMARD_Exec = dir + "/" + executable ;
-  MESSAGE("Dans HomardDriver::HomardDriver, _HOMARD_Exec ="<<_HOMARD_Exec);
+  MESSAGE("Dans HomardDriver, _HOMARD_Exec ="<<_HOMARD_Exec);
 //
   _siter = siter ;
   _siterp1 = siterp1 ;
@@ -62,7 +62,7 @@ HomardDriver::~HomardDriver()
 ////=============================================================================
 void HomardDriver::TexteInit( const std::string DirCompute, const std::string DirComputePa, const std::string MessFile )
 {
-  MESSAGE("Dans HomardDriver::TexteInit, MessFile ="<<MessFile);
+  MESSAGE("Dans TexteInit, MessFile ="<<MessFile);
 //
   _Texte  = "Action   homa\n" ;
   _Texte += "CCAssoci med\n" ;
@@ -79,7 +79,7 @@ void HomardDriver::TexteInit( const std::string DirCompute, const std::string Di
 ////=============================================================================
 void HomardDriver::TexteMaillage( const std::string NomMesh, const std::string MeshFile, int apres )
 {
-  MESSAGE("Dans HomardDriver::TexteMaillage, NomMesh ="<<NomMesh<<", MeshFile ="<<MeshFile);
+  MESSAGE("Dans TexteMaillage, NomMesh ="<<NomMesh<<", MeshFile ="<<MeshFile);
   std::string saux ;
   saux = "P1" ;
   if ( apres < 1 ) { saux = "__" ; }
@@ -92,8 +92,8 @@ void HomardDriver::TexteMaillage( const std::string NomMesh, const std::string M
 ////=============================================================================
 void HomardDriver::TexteConfRaffDera( int ConfType, int TypeAdap, int TypeRaff, int TypeDera )
 {
-  MESSAGE("Dans HomardDriver::TexteConfRaffDera, ConfType ="<<ConfType);
-  MESSAGE("Dans HomardDriver::TexteConfRaffDera, TypeAdap ="<<TypeAdap<<", TypeRaff ="<<TypeRaff<<", TypeDera ="<<TypeDera);
+  MESSAGE("Dans TexteConfRaffDera, ConfType ="<<ConfType);
+  MESSAGE("Dans TexteConfRaffDera, TypeAdap ="<<TypeAdap<<", TypeRaff ="<<TypeRaff<<", TypeDera ="<<TypeDera);
 //
 // Type de conformite
 //
@@ -170,19 +170,25 @@ void HomardDriver::TexteConfRaffDera( int ConfType, int TypeAdap, int TypeRaff, 
 ////=============================================================================
 void HomardDriver::TexteCompo( int NumeComp, const std::string NompCompo)
 {
-  MESSAGE("Dans HomardDriver::TexteCompo, NumeComp = "<<NumeComp<<", NompCompo = "<<NompCompo);
+  MESSAGE("Dans TexteCompo, NumeComp = "<<NumeComp<<", NompCompo = "<<NompCompo);
   _Texte +="CCCoChaI \"" + NompCompo + "\"\n" ;
 }
 
 ////=============================================================================
-void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, double x2, double x3, double x4, double x5 )
+void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, double x2, double x3, double x4, double x5, double x6, double x7, double x8 )
 {
-  MESSAGE("Dans HomardDriver::TexteZone, NumeZone = "<<NumeZone<<", ZoneType = "<<ZoneType);
-  MESSAGE("Dans HomardDriver::TexteZone, coor = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5);
+  MESSAGE("TexteZone, NumeZone = "<<NumeZone<<", ZoneType = "<<ZoneType);
+  MESSAGE("TexteZone, coor = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6<<","<<x7<<","<<x8);
 //
   std::string saux, saux2 ;
 //
 // Type de zones
+//
+  int ZoneTypeHOMARD ;
+  if ( ZoneType >= 11 and ZoneType <= 13 ) { ZoneTypeHOMARD = 1 ; }
+  else if ( ZoneType >= 31 and ZoneType <= 33 ) { ZoneTypeHOMARD = 3 ; }
+  else if ( ZoneType >= 61 and ZoneType <= 63 ) { ZoneTypeHOMARD = 6 ; }
+  else { ZoneTypeHOMARD = ZoneType ; }
 //
   std::stringstream saux1 ;
   saux1 << NumeZone ;
@@ -190,14 +196,94 @@ void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, 
   saux = "#\n# Zone numero " + saux2 + "\n" ;
 //
   { std::stringstream saux1 ;
-    saux1 << NumeZone << " " << ZoneType ;
+    saux1 << NumeZone << " " << ZoneTypeHOMARD ;
     saux2 = saux1.str() ;
     saux += "ZoRaType " + saux2 + "\n" ;
   }
 //
-// Cas du rectangle/parallelepipede
+// Cas du rectangle
 //
-  if ( ZoneType == 2 )
+  if ( ZoneType == 11 ) // Z est constant X Homard <=> X Salome
+//                                        Y Homard <=> Y Salome
+  {
+    saux += "#Rectangle\n" ;
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x0 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXmin " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x1 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXmax " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x2 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYmin " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x3 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYmax " + saux2 + "\n" ;
+    }
+  }
+//
+  else if ( ZoneType == 12 ) // X est constant X Homard <=> Y Salome
+//                                             Y Homard <=> Z Salome
+  {
+    saux += "#Rectangle\n" ;
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x2 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXmin " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x3 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXmax " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x4 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYmin " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x5 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYmax " + saux2 + "\n" ;
+    }
+  }
+//
+  else if ( ZoneType == 13 ) // Y est constant X Homard <=> X Salome
+//                                             Y Homard <=> Z Salome
+  {
+    saux += "#Rectangle\n" ;
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x0 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXmin " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x1 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXmax " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x4 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYmin " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x5 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYmax " + saux2 + "\n" ;
+    }
+  }
+//
+// Cas du parallelepipede
+//
+  else if ( ZoneType == 2 )
   {
     saux += "# Boite\n" ;
     { std::stringstream saux1 ;
@@ -232,7 +318,88 @@ void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, 
     }
   }
 //
-// Cas du cercle/sphere
+// Cas du disque
+//
+  else if ( ZoneType == 31 or ZoneType == 61 )
+  {
+    saux += "# Sphere\n" ;
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x0 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXCen " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x1 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYCen " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x6 ;
+      saux2 = saux1.str() ;
+      if ( ZoneType == 61 ) { saux += "ZoRaRayE " + saux2 + "\n" ; }
+      else                  { saux += "ZoRaRayo " + saux2 + "\n" ; }
+    }
+    if ( ZoneType == 61 )
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x8 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaRayI " + saux2 + "\n" ;
+    }
+  }
+  else if ( ZoneType == 32 or ZoneType == 62 )
+  {
+    saux += "# Sphere\n" ;
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x1 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXCen " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x2 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYCen " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x6 ;
+      saux2 = saux1.str() ;
+      if ( ZoneType == 62 ) { saux += "ZoRaRayE " + saux2 + "\n" ; }
+      else                  { saux += "ZoRaRayo " + saux2 + "\n" ; }
+    }
+    if ( ZoneType == 62 )
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x8 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaRayI " + saux2 + "\n" ;
+    }
+  }
+  else if ( ZoneType == 33 or ZoneType == 63 )
+  {
+    saux += "# Sphere\n" ;
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x0 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXCen " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x2 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYCen " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x6 ;
+      saux2 = saux1.str() ;
+      if ( ZoneType == 63 ) { saux += "ZoRaRayE " + saux2 + "\n" ; }
+      else                  { saux += "ZoRaRayo " + saux2 + "\n" ; }
+    }
+    if ( ZoneType == 63 )
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x8 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaRayI " + saux2 + "\n" ;
+    }
+  }
+//
+// Cas de la sphere
 //
   else if ( ZoneType == 4 )
   {
@@ -259,6 +426,61 @@ void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, 
     }
   }
 //
+// Cas du cylindre ou du tuyau
+//
+  else if ( ZoneType == 5 or ZoneType == 7 )
+  {
+    if ( ZoneType == 5 ) { saux += "# Cylindre\n" ; }
+    else                 { saux += "# Tuyau\n" ; }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x0 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXBas " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x1 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYBas " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x2 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaZBas " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x3 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaXAxe " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x4 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaYAxe " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x5 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaZAxe " + saux2 + "\n" ;
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x6 ;
+      saux2 = saux1.str() ;
+     if ( ZoneType == 5 ) { saux += "ZoRaRayo " + saux2 + "\n" ; }
+     else                 { saux += "ZoRaRayE " + saux2 + "\n" ; }
+    }
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x7 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaHaut " + saux2 + "\n" ;
+    }
+    if ( ZoneType == 7 )
+    { std::stringstream saux1 ;
+      saux1 << NumeZone << " " << x8 ;
+      saux2 = saux1.str() ;
+      saux += "ZoRaRayI " + saux2 + "\n" ;
+    }
+  }
+//
   _Texte += saux + "#\n" ;
 //
 //   MESSAGE("A la fin de HomardDriver::TexteZone, _Texte ="<<_Texte);
@@ -266,10 +488,11 @@ void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, 
 
 ////=============================================================================
 void HomardDriver::TexteField( const std::string FieldName, const std::string FieldFile, int TimeStep, int Rank,
-               int TypeThR, double ThreshR, int TypeThC, double ThreshC, int UsCmpI )
+               int TypeThR, double ThreshR, int TypeThC, double ThreshC,
+               int UsField, int UsCmpI )
 {
-  MESSAGE("Dans HomardDriver::TexteField, FieldName = "<<FieldName<<", FieldFile = "<<FieldFile);
-  MESSAGE("Dans HomardDriver::TexteField, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
+  MESSAGE("Dans TexteField, FieldName = "<<FieldName<<", FieldFile = "<<FieldFile);
+  MESSAGE("Dans TexteField, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
 
   std::string saux, saux2 ;
 //
@@ -329,6 +552,16 @@ void HomardDriver::TexteField( const std::string FieldName, const std::string Fi
   }
 //
   saux = " " ;
+  if ( UsField == 0 )
+  { saux = "MAILLE" ; }
+  if ( UsField == 1 )
+  { saux = "SAUT" ; }
+  if ( saux != " " )
+  {
+    _Texte += "CCModeFI " + saux  + "\n" ;
+  }
+//
+  saux = " " ;
   if ( UsCmpI == 0 )
   { saux = "L2" ; }
   if ( UsCmpI == 1 )
@@ -344,7 +577,7 @@ void HomardDriver::TexteField( const std::string FieldName, const std::string Fi
 ////=============================================================================
 void HomardDriver::TexteGroup( const std::string GroupName )
 {
-  MESSAGE("Dans HomardDriver::TexteGroup, GroupName = "<<GroupName);
+  MESSAGE("Dans TexteGroup, GroupName = "<<GroupName);
 //
   _Texte += "CCGroAda " + GroupName  + "\n" ;
 //
@@ -352,7 +585,7 @@ void HomardDriver::TexteGroup( const std::string GroupName )
 ////=============================================================================
 void HomardDriver::TexteBoundaryOption( int BoundaryOption )
 {
-  MESSAGE("Dans HomardDriver::TexteBoundaryOption, BoundaryOption = "<<BoundaryOption);
+  MESSAGE("Dans TexteBoundaryOption, BoundaryOption = "<<BoundaryOption);
 //
 // Type de suivi de frontiere
 //
@@ -365,8 +598,8 @@ void HomardDriver::TexteBoundaryOption( int BoundaryOption )
 ////=============================================================================
 void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::string MeshFile )
 {
-  MESSAGE("Dans HomardDriver::TexteBoundaryDi, MeshName  = "<<MeshName);
-  MESSAGE("Dans HomardDriver::TexteBoundaryDi, MeshFile  = "<<MeshFile);
+  MESSAGE("Dans TexteBoundaryDi, MeshName  = "<<MeshName);
+  MESSAGE("Dans TexteBoundaryDi, MeshFile  = "<<MeshFile);
 //
   _Texte += "CCNoMFro " + MeshName + "\n" ;
   _Texte += "CCFronti " + MeshFile + "\n" ;
@@ -375,7 +608,7 @@ void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::stri
 ////=============================================================================
 void HomardDriver::TexteBoundaryDiGr(  const std::string GroupName )
 {
-  MESSAGE("Dans HomardDriver::TexteBoundaryDiGr, GroupName  = "<<GroupName);
+  MESSAGE("Dans TexteBoundaryDiGr, GroupName  = "<<GroupName);
 //
   _Texte += "CCGroFro " + GroupName + "\n" ;
 //
@@ -383,10 +616,10 @@ void HomardDriver::TexteBoundaryDiGr(  const std::string GroupName )
 ////=============================================================================
 void HomardDriver::TexteBoundaryAn( const std::string NameBoundary, int NumeBoundary, int BoundaryType, double x0, double x1, double x2, double x3, double x4, double x5, double x6 )
 {
-  MESSAGE("Dans HomardDriver::TexteBoundaryAn, NameBoundary = "<<NameBoundary);
-  MESSAGE("Dans HomardDriver::TexteBoundaryAn, NumeBoundary = "<<NumeBoundary);
-  MESSAGE("Dans HomardDriver::TexteBoundaryAn, BoundaryType = "<<BoundaryType);
-  MESSAGE("Dans HomardDriver::TexteBoundaryAn, coor         = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6);
+  MESSAGE("Dans TexteBoundaryAn, NameBoundary = "<<NameBoundary);
+//   MESSAGE("Dans TexteBoundaryAn, NumeBoundary = "<<NumeBoundary);
+  MESSAGE("Dans TexteBoundaryAn, BoundaryType = "<<BoundaryType);
+//   MESSAGE("Dans TexteBoundaryAn, coor         = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6);
 //
   std::string saux, saux2 ;
 //
@@ -490,9 +723,9 @@ void HomardDriver::TexteBoundaryAn( const std::string NameBoundary, int NumeBoun
 ////=============================================================================
 void HomardDriver::TexteBoundaryAnGr( const std::string NameBoundary, int NumeBoundary, const std::string GroupName )
 {
-  MESSAGE("Dans HomardDriver::TexteBoundaryAnGr, NameBoundary  = "<<NameBoundary);
-  MESSAGE("Dans HomardDriver::TexteBoundaryAnGr, NumeBoundary  = "<<NumeBoundary);
-  MESSAGE("Dans HomardDriver::TexteBoundaryAnGr, GroupName  = "<<GroupName);
+  MESSAGE("Dans TexteBoundaryAnGr, NameBoundary  = "<<NameBoundary);
+//   MESSAGE("Dans TexteBoundaryAnGr, NumeBoundary  = "<<NumeBoundary);
+//   MESSAGE("Dans TexteBoundaryAnGr, GroupName  = "<<GroupName);
 //
 // Commentaires
 //
@@ -511,9 +744,9 @@ void HomardDriver::TexteBoundaryAnGr( const std::string NameBoundary, int NumeBo
 ////=============================================================================
 void HomardDriver::TexteFieldInterp( int TypeFieldInterp, const std::string FieldFile, const std::string MeshFile, int TimeStep, int Rank )
 {
-  MESSAGE("Dans HomardDriver::TexteFieldInterp, TypeFieldInterp = "<<TypeFieldInterp);
-  MESSAGE("Dans HomardDriver::TexteFieldInterp, FieldFile = "<<FieldFile<<", MeshFile = "<<MeshFile);
-  MESSAGE("Dans HomardDriver::TexteFieldInterp, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
+  MESSAGE("Dans TexteFieldInterp, TypeFieldInterp = "<<TypeFieldInterp);
+  MESSAGE("Dans TexteFieldInterp, FieldFile = "<<FieldFile<<", MeshFile = "<<MeshFile);
+  MESSAGE("Dans TexteFieldInterp, TimeStep = "<<TimeStep<<", Rank = "<<Rank);
 //
 // Type d'interpolation
 //
@@ -533,7 +766,7 @@ void HomardDriver::TexteFieldInterp( int TypeFieldInterp, const std::string Fiel
 ////=============================================================================
 void HomardDriver::TexteFieldInterpName( int NumeChamp, const std::string FieldName)
 {
-  MESSAGE("Dans HomardDriver::TexteFieldInterpName, NumeChamp = "<<NumeChamp<<", FieldName = "<<FieldName);
+  MESSAGE("Dans TexteFieldInterpName, NumeChamp = "<<NumeChamp<<", FieldName = "<<FieldName);
   std::stringstream saux1 ;
   saux1 << NumeChamp+1 ;
   std::string saux = saux1.str() ;
@@ -556,7 +789,25 @@ void HomardDriver::TexteFieldInterpName( int NumeChamp, const std::string FieldN
     }
   }
 }
+////=============================================================================
+void HomardDriver::TexteAdvanced( int NivMax, double DiamMin)
+{
+  MESSAGE("Dans TexteAdvanced, NivMax ="<<NivMax<<", DiamMin ="<<DiamMin);
+  std::string saux ;
 
+  _Texte += "# Niveaux extremes\n" ;
+  { std::stringstream saux1 ;
+    saux1 << NivMax ;
+    std::string saux2 = saux1.str() ;
+    _Texte += "NiveauMa " + saux2 + "\n" ;
+  }
+  {
+    std::stringstream saux1 ;
+    saux1 << DiamMin ;
+    std::string saux2 = saux1.str() ;
+    _Texte += "DiametMi " + saux2  + "\n" ;
+  }
+}
 
 ////=============================================================================
 void HomardDriver::CreeFichier( )

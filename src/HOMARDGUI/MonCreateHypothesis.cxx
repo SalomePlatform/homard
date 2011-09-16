@@ -48,7 +48,7 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
     _aTypeAdap(-2), _aTypeRaff(1), _aTypeDera(0),
     _TypeThR(3), _ThreshR(0),
     _TypeThC(0), _ThreshC(0),
-    _UsCmpI(0), _TypeFieldInterp(0)
+    _UsField(0), _UsCmpI(0), _TypeFieldInterp(0)
 {
       MESSAGE("Constructeur") ;
       _myHomardGen=HOMARD::HOMARD_Gen::_duplicate(myHomardGen);
@@ -57,12 +57,13 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
       InitConnect();
 
       SetNewHypothesisName();
-      if (_aFieldFile != QString("")) {
-          RBChamp->setChecked(1);
-          SetChamp();
-      } else {
-          RBUniforme->setChecked(1);
-          SetUniforme();
+      if (_aFieldFile != QString(""))
+      { RBChamp->setChecked(1);
+        SetChamp();
+      }
+      else
+      { RBUniforme->setChecked(1);
+        SetUniforme();
       }
       SetFieldNo();
 }
@@ -93,6 +94,7 @@ void MonCreateHypothesis::InitConnect()
     connect( RBCNo,        SIGNAL(clicked()), this, SLOT(SetCNo()));
     connect( RBL2,         SIGNAL(clicked()), this, SLOT(SetUCL2()));
     connect( RBInf,        SIGNAL(clicked()), this, SLOT(SetUCInf()));
+    connect( CBJump,       SIGNAL(stateChanged(int)), this, SLOT(SetUseField()));
     connect( PBZoneNew,    SIGNAL(pressed()), this, SLOT(PushZoneNew()));
     connect( PBZoneEdit,   SIGNAL(pressed()), this, SLOT(PushZoneEdit()) );
     connect( PBZoneDelete, SIGNAL(pressed()), this, SLOT(PushZoneDelete()) );
@@ -290,8 +292,9 @@ void MonCreateHypothesis::PushZoneDelete()
 // ------------------------------------------------------------------------
 void MonCreateHypothesis::GetAllZones()
 // ------------------------------------------------------------------------
-// Recuperation de toutes les zones enregistrees dans l'arbre d'etude
+// Recuperation de toutes les zones enregistrees dans l'arbre d'etude et affichage
 {
+  MESSAGE("GetAllZones") ;
   HOMARD::listeZones_var  mesZones = _myHomardGen->GetAllZones();
   int nbrow=TWZone->rowCount();
   for ( int row=0; row< nbrow; row++)
@@ -320,6 +323,7 @@ void MonCreateHypothesis::GetAllZones()
 void MonCreateHypothesis::addZone(QString newZone)
 // ------------------------------------------------------------------------
 {
+  MESSAGE("addZone") ;
   int row = TWZone->rowCount() ;
   TWZone->setRowCount( row+1 );
   TWZone->setItem( row, 0, new QTableWidgetItem( 0 ) );
@@ -555,6 +559,13 @@ void MonCreateHypothesis::SetUCInf()
   RBInf->setChecked(true);
 }
 // ------------------------------------------------------------------------
+void MonCreateHypothesis::SetUseField()
+// ------------------------------------------------------------------------
+{
+  if ( CBJump->isChecked() ) { _UsField = 1 ; }
+  else                       { _UsField = 0 ; }
+}
+// ------------------------------------------------------------------------
 void MonCreateHypothesis::SetFiltrage()
 // ------------------------------------------------------------------------
 {
@@ -629,6 +640,7 @@ void MonCreateHypothesis::AssocieComposants()
   _aHypothesis->SetField(CORBA::string_dup(_aFieldName.toStdString().c_str()) ) ;
   _aHypothesis->SetRefinThr( _TypeThR, _ThreshR ) ;
   _aHypothesis->SetUnRefThr( _TypeThC, _ThreshC ) ;
+  _aHypothesis->SetUseField( _UsField ) ;
   _aHypothesis->SetUseComp( _UsCmpI ) ;
   _aListeComposant = GetListCompChecked() ;
   for ( int i=0 ; i< _aListeComposant.count() ; i++ )

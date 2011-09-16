@@ -21,8 +21,6 @@ using namespace std;
 
 #include "MonEditIteration.h"
 
-#include <QMessageBox>
-
 #include "SalomeApp_Tools.h"
 #include "HOMARDGUI_Utils.h"
 #include "HomardQtCommun.h"

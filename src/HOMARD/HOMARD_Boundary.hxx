@@ -50,10 +50,8 @@ public:
 
   void                          SetCylinder( double X0, double X1, double X2, double X3,
                                              double X4, double X5, double X6 );
-  std::vector<double>           GetCylinder() const;
-
   void                          SetSphere( double X0, double X1, double X2, double X3 );
-  std::vector<double>           GetSphere() const;
+  std::vector<double>           GetCoords() const;
 
   void                          SetBoundaryType( int BoundaryType );
   int                           GetBoundaryType() const;

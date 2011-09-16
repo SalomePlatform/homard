@@ -52,64 +52,62 @@ MonEditBoundaryAn::~MonEditBoundaryAn()
 void MonEditBoundaryAn::InitValEdit()
 // ------------------------------------------------------------------------
 {
-    LEBoundaryName->setText(_aBoundaryAnName);
-    LEBoundaryName->setReadOnly(true);
-    _BoundaryType = aBoundaryAn->GetBoundaryType();
-    InitValBoundaryAnLimit();
-    if (_aCaseName != QString("")) InitValBoundaryAn();
-    switch (_BoundaryType)
+  LEBoundaryName->setText(_aBoundaryAnName);
+  LEBoundaryName->setReadOnly(true);
+  _BoundaryType = aBoundaryAn->GetBoundaryType();
+  MESSAGE("_BoundaryType : "<<_BoundaryType);
+  InitValBoundaryAnLimit();
+  if (_aCaseName != QString("")) InitValBoundaryAn();
+  switch (_BoundaryType)
+  {
+    case 1 : // il s agit d un cylindre
     {
-      case 1 : // il s agit d une boite
-      {
-        InitValBoundaryAnCylindre();
-        SetCylinder();
-        break;
-      }
-      case 2: // il s agit d une sphere
-      {
-        InitValBoundaryAnSphere();
-        SetSphere();
-        break;
-      }
-    };
+      InitValBoundaryAnCylindre();
+      SetCylinder();
+      break;
+    }
+    case 2: // il s agit d une sphere
+    {
+      InitValBoundaryAnSphere();
+      SetSphere();
+      break;
+    }
+  };
 }
 // ------------------------------------------------------------------------
 void MonEditBoundaryAn::InitValBoundaryAnLimit()
 // ------------------------------------------------------------------------
 {
-      HOMARD::double_array_var  mesCoordLimits = aBoundaryAn->GetLimit();
-      ASSERT(mesCoordLimits->length() == 3 );
-      _Xincr=mesCoordLimits[0];
-      _Yincr=mesCoordLimits[1];
-      _Zincr=mesCoordLimits[2];
-
+  HOMARD::double_array_var  mesCoordLimits = aBoundaryAn->GetLimit();
+  ASSERT(mesCoordLimits->length() == 3 );
+  _Xincr=mesCoordLimits[0];
+  _Yincr=mesCoordLimits[1];
+  _Zincr=mesCoordLimits[2];
 }
 // ------------------------------------------------------------------------
 void MonEditBoundaryAn::InitValBoundaryAnCylindre()
 // ------------------------------------------------------------------------
 {
-      HOMARD::double_array_var  mesCoordBoundary = aBoundaryAn->GetCylinder();
-      ASSERT(mesCoordBoundary->length() == 7 );
-      _BoundaryAnXcentre=mesCoordBoundary[0];
-      _BoundaryAnYcentre=mesCoordBoundary[1];
-      _BoundaryAnZcentre=mesCoordBoundary[2];
-      _BoundaryAnXaxis=mesCoordBoundary[3];
-      _BoundaryAnYaxis=mesCoordBoundary[4];
-      _BoundaryAnZaxis=mesCoordBoundary[5];
-      _BoundaryAnRayon=mesCoordBoundary[6];
-
+  HOMARD::double_array_var  mesCoordBoundary = aBoundaryAn->GetCoords();
+  ASSERT(mesCoordBoundary->length() == 7 );
+  _BoundaryAnXcentre=mesCoordBoundary[0];
+  _BoundaryAnYcentre=mesCoordBoundary[1];
+  _BoundaryAnZcentre=mesCoordBoundary[2];
+  _BoundaryAnXaxis=mesCoordBoundary[3];
+  _BoundaryAnYaxis=mesCoordBoundary[4];
+  _BoundaryAnZaxis=mesCoordBoundary[5];
+  _BoundaryAnRayon=mesCoordBoundary[6];
 }
 // ------------------------------------------------------------------------
 void MonEditBoundaryAn::InitValBoundaryAnSphere()
 // ------------------------------------------------------------------------
 {
-      HOMARD::double_array_var  mesCoordBoundary = aBoundaryAn->GetSphere();
-      ASSERT(mesCoordBoundary->length() == 4 );
-      _BoundaryAnXcentre=mesCoordBoundary[0];
-      _BoundaryAnYcentre=mesCoordBoundary[1];
-      _BoundaryAnZcentre=mesCoordBoundary[2];
-      _BoundaryAnRayon=mesCoordBoundary[3];
-
+  HOMARD::double_array_var  mesCoordBoundary = aBoundaryAn->GetCoords();
+  ASSERT(mesCoordBoundary->length() == 4 );
+  _BoundaryAnXcentre=mesCoordBoundary[0];
+  _BoundaryAnYcentre=mesCoordBoundary[1];
+  _BoundaryAnZcentre=mesCoordBoundary[2];
+  _BoundaryAnRayon=mesCoordBoundary[3];
 }
 // ------------------------------------------------------------------------
 void MonEditBoundaryAn::SetCylinder()
@@ -169,39 +167,26 @@ void MonEditBoundaryAn::SetSphere()
   SpinBox_Rayon->setMinimum(0.);
   SpinBox_Rayon->setValue(_BoundaryAnRayon);
 }
-
-
 // ---------------------------------------------------
 bool MonEditBoundaryAn::CreateOrUpdateBoundaryAn()
 //----------------------------------------------------
-//  Pas de Creation de la zone
 //  Mise a jour des attributs de la BoundaryAn
-
 {
-  try
+  switch (_BoundaryType)
   {
-    aBoundaryAn->SetBoundaryType(_BoundaryType);
-    switch (_BoundaryType)
+    case 1 : // il s agit d un cylindre
     {
-        case 1 : // il s agit d un cylindre
-        {
-          aBoundaryAn->SetCylinder(_BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnXaxis, _BoundaryAnYaxis, _BoundaryAnZaxis, _BoundaryAnRayon );
-          break;
-        }
-
-        case 2 : // il s agit d une sphere
-        {
-          aBoundaryAn->SetSphere(_BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnRayon);
-          break;
-        }
+      aBoundaryAn->SetCylinder(_BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnXaxis, _BoundaryAnYaxis, _BoundaryAnZaxis, _BoundaryAnRayon );
+      break;
     }
-    if (Chgt) _myHomardGen->InvalideBoundary(_aBoundaryAnName.toStdString().c_str());
-    HOMARD_UTILS::updateObjBrowser();
+    case 2 : // il s agit d une sphere
+    {
+      aBoundaryAn->SetSphere(_BoundaryAnXcentre, _BoundaryAnYcentre, _BoundaryAnZcentre, _BoundaryAnRayon);
+      break;
+    }
   }
-  catch( const SALOME::SALOME_Exception& S_ex ) {
-       SalomeApp_Tools::QtCatchCorbaException( S_ex );
-       return false;
-  }
+  if (Chgt) _myHomardGen->InvalideBoundary(_aBoundaryAnName.toStdString().c_str());
+  HOMARD_UTILS::updateObjBrowser();
   return true;
 }
 

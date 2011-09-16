@@ -55,8 +55,8 @@ SALOME_ListIO HOMARD_UTILS::mySelected;
 {
     return theStudy->studyDS();
 }
-    
-    
+
+
 //================================================================
 // Function : GetActiveStudy
 // Returne un pointeur sur l'etude active
@@ -69,7 +69,7 @@ SUIT_Study* HOMARD_UTILS::GetActiveStudy()
     else
       return NULL;
 }
-    
+
 //================================================================
 // Function : GetActiveStudyDocument
 // Returne un pointeur sur l'etude active
@@ -83,7 +83,7 @@ _PTR(Study) HOMARD_UTILS::GetActiveStudyDocument()
     else
       return _PTR(Study)();
 }
-    
+
 //================================================================
 // Function : updateObjBrowser
 // Purpose  : met a jour l arbre d 'etude pour Homard
@@ -93,14 +93,14 @@ void HOMARD_UTILS::updateObjBrowser()
     SalomeApp_Application* app = dynamic_cast<SalomeApp_Application*>(SUIT_Session::session()->activeApplication());
     if (app) {
       //  Le nom identifiant doit etre la valeur du parametre
-      // name de la section HOMARD du fichier SalomeApp.xml 
+      // name de la section HOMARD du fichier SalomeApp.xml
       CAM_Module* module = app->module("Homard" );
       SalomeApp_Module* appMod = dynamic_cast<SalomeApp_Module*>( module );
       if ( appMod ) {
         app->updateObjectBrowser();
         appMod->updateObjBrowser( true );
       }
-      else 
+      else
         MESSAGE( "---   HOMARD::updateObjBrowser: appMod = NULL");
     }
 }
@@ -116,13 +116,13 @@ const SALOME_ListIO& HOMARD_UTILS::selectedIO()
       if( aSelectionMgr )
       {
 	      aSelectionMgr->selectedObjects( mySelected );
-              for (SALOME_ListIteratorOfListIO it (mySelected); it.More(); it.Next()) 
+              for (SALOME_ListIteratorOfListIO it (mySelected); it.More(); it.Next())
 		 SCRUTE(it.Value()->getEntry());
       };
       return mySelected;
-	       
+
 }
-    
+
 //================================================================
 // Function : IObjectCount
 // Return the number of selected objects
@@ -139,7 +139,7 @@ int HOMARD_UTILS::IObjectCount()
       }
       return 0;
 }
-    
+
 //================================================================
 // Function : firstIObject
 // Purpose  :  Return the first selected object in the selected object list
@@ -264,125 +264,6 @@ bool HOMARD_UTILS::isFileMess(_PTR(SObject) MonObj)
 bool HOMARD_UTILS::isFileSummary(_PTR(SObject) MonObj)
 {
    return isObject( MonObj, QString("Summary"), 0 ) ;
-}
-//================================================================
-// Function : ChercheFileDansSelection
-// Retourne Le nom du fichier associe
-//================================================================
-QString HOMARD_UTILS::ChercheFileDansSelection()
-{
-   MESSAGE("ChercheFileDansSelection");
-   int nbSel = HOMARD_UTILS::IObjectCount() ;
-   if (nbSel > 1 or nbSel == 0) return QString::null;
-
-   Handle(SALOME_InteractiveObject) aIO = HOMARD_UTILS::firstIObject();
-   ASSERT(aIO);
-   if (!( aIO->hasEntry())) return QString::null; 
-
-   _PTR(Study) myStudy = HOMARD_UTILS::GetActiveStudyDocument();
-   _PTR(SObject) aSObj ( myStudy->FindObjectID( aIO->getEntry() ) );
-   if (!aSObj) return QString::null;
-
-   _PTR(GenericAttribute) anAttr;
-   if (!aSObj->FindAttribute(anAttr, "AttributeExternalFileDef")) return QString::null;
-   _PTR(AttributeExternalFileDef) aFileName (anAttr);
-   std::string aFile = aFileName->Value();
-   SCRUTE(aFile);
-   return QString(aFile.c_str());
-}
-
-//============================================================
-// Function ChercheDansDir
-// Cherche tous les fichiers dans la directory qui correspondent 
-// a la fois a la base et au numero d iteration, numero d iteration +1
-// exple info.00.bilan
-// ou qual.tetr.00.dat
-//================================================================================
-QStringList HOMARD_UTILS::ChercheDansDir(QString direct, QString base, int numIter)
-//================================================================================
-{
-    QStringList liste;
-
-
-    QString strNum = QString("");
-    if (numIter != -1) strNum = HOMARD_UTILS::Transforme(numIter);
-    QString strNum1 = QString("");
-    if (numIter != -1) strNum1 = HOMARD_UTILS::Transforme(numIter+1);
-
-    struct dirent **namelist;
-    int n = scandir(direct.toLatin1(), &namelist, 0, alphasort);
-    while(n--) 
-    {
-       QString fich =QString( namelist[n]->d_name);
-       if (fich.contains(base) > 0) 
-       {
-	 if (numIter != -1)
-	 {
-	   if ((fich.contains(strNum)>0) or (fich.contains(strNum1)>0))
-	      liste.append(fich);
-         }
-	 else
-	 {
-	   liste.append(fich);
-         }
-       }
-    }
-    return liste;
-}
-
-QString HOMARD_UTILS::Transforme(int num)
-{
-    std::ostringstream nb ;
-    nb << std::setw(2) << std::setfill('0') << num ;
-    QString retour= QString(nb.str().c_str());
-    return retour;
-
-}
-
-//=============================================================================
-void HOMARD_UTILS::AddNewRoot(int Tag, QString Racine)
-//=============================================================================
-{
-     _PTR(Study) myStudy = HOMARD_UTILS::GetActiveStudyDocument();
-     ASSERT(myStudy);
-     _PTR(StudyBuilder) myBuilder( myStudy->NewBuilder() );
-     ASSERT(myBuilder);
-     _PTR(SComponent)  aFather=myStudy->FindComponent("HOMARD");
-     ASSERT(aFather);
-    
-     _PTR(SObject) InfoRoot = myBuilder->NewObjectToTag (aFather, Tag);
-     _PTR(GenericAttribute) anAttr;
-    anAttr = myBuilder->FindOrCreateAttribute(InfoRoot, "AttributeName");
-    _PTR(AttributeName) aName (anAttr);
-    aName->SetValue(Racine.toStdString());
-}
-//=============================================================================
-void HOMARD_UTILS::RangeSousTag(int Tag,QString FileName, int TagFichier, QString Comment,QString FileDir)
-//=============================================================================
-{
-    _PTR(SObject) Root;
-     _PTR(Study) myStudy = HOMARD_UTILS::GetActiveStudyDocument();
-     ASSERT(myStudy);
-     _PTR(StudyBuilder) myBuilder( myStudy->NewBuilder() );
-     ASSERT(myBuilder);
-     _PTR(SComponent)  aFather=myStudy->FindComponent("HOMARD");
-     ASSERT(aFather);
-     bool found = aFather->FindSubObject(Tag,Root);
-     ASSERT(found);
-
-     _PTR(SObject) MonInfo = myBuilder->NewObjectToTag (Root, TagFichier);
-     ASSERT(MonInfo);
-     _PTR(GenericAttribute) anAttr;
-     anAttr = myBuilder->FindOrCreateAttribute(MonInfo, "AttributeName");
-    _PTR(AttributeName) aName (anAttr);
-     aName->SetValue(FileName.toStdString());
-     QString FileComplet = FileDir +QString("/") +FileName;
-     anAttr = myBuilder->FindOrCreateAttribute(MonInfo, "AttributeExternalFileDef");
-    _PTR(AttributeExternalFileDef) aFile (anAttr);
-     aFile->SetValue((FileComplet).toStdString());
-     anAttr = myBuilder->FindOrCreateAttribute(MonInfo, "AttributeComment");
-    _PTR(AttributeComment) aComment (anAttr);
-     aComment->SetValue(Comment.toStdString());
 }
 
 //=========================================================================================================

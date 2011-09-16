@@ -23,34 +23,33 @@
 
 using namespace std;
 #include "HOMARDGUI.h"
-#include <HOMARD_version.h>
 
 // SALOME Includes
-#include <Utils_ORB_INIT.hxx>
-#include <Utils_SINGLETON.hxx>
-#include <SALOME_LifeCycleCORBA.hxx>
+#include "Utils_ORB_INIT.hxx"
+#include "Utils_SINGLETON.hxx"
+#include "SALOME_LifeCycleCORBA.hxx"
 
-#include <SUIT_ResourceMgr.h>
-#include <SUIT_MessageBox.h>
-#include <SUIT_Session.h>
-#include <SUIT_ViewWindow.h>
-#include <SUIT_ViewManager.h>
+#include "SUIT_ResourceMgr.h"
+#include "SUIT_MessageBox.h"
+#include "SUIT_Session.h"
+#include "SUIT_ViewWindow.h"
+#include "SUIT_ViewManager.h"
 #include <SUIT_Desktop.h>
 
-#include <CAM_Module.h>
-#include <OB_Browser.h>
+#include "CAM_Module.h"
+#include "OB_Browser.h"
 
-#include <SALOME_ListIO.hxx>
-#include <SALOME_ListIteratorOfListIO.hxx>
+#include "SALOME_ListIO.hxx"
+#include "SALOME_ListIteratorOfListIO.hxx"
 
-#include <SalomeApp_Application.h>
-#include <SalomeApp_DataModel.h>
-#include <SalomeApp_Study.h>
-#include <LightApp_SelectionMgr.h>
-#include <LightApp_Selection.h>
+#include "SalomeApp_Application.h"
+#include "SalomeApp_DataModel.h"
+#include "SalomeApp_Study.h"
+#include "LightApp_SelectionMgr.h"
+#include "LightApp_Selection.h"
 #include <LightApp_Preferences.h>
-#include <SalomeApp_Module.h>
-#include <SALOMEconfig.h>
+#include "SalomeApp_Module.h"
+#include "SALOMEconfig.h"
 #include <SALOME_LifeCycleCORBA.hxx>
 
 #include <utilities.h>
@@ -73,7 +72,7 @@ using namespace std;
 #include <boost/shared_ptr.hpp>
 
 //Pour le _CAST
-#include <SALOMEDS_Study.hxx>
+#include "SALOMEDS_Study.hxx"
 #include "HOMARDGUI_Utils.h"
 
 static CORBA::ORB_var _orb;
@@ -127,7 +126,7 @@ void HOMARDGUI::initialize( CAM_Application* app )
 //================================================
 void HOMARDGUI::createHOMARDAction( const int id, const QString& po_id, const QString& icon_id, const int key, const bool toggle  )
 {
-  MESSAGE("HOMARDGUI::createHOMARDAction");
+//   MESSAGE("HOMARDGUI::createHOMARDAction");
   QIcon icon;
   QWidget* parent = application()->desktop();
   SUIT_ResourceMgr* resMgr = application()->resourceMgr();
@@ -208,9 +207,9 @@ void HOMARDGUI::OnGUIEvent()
   if ( !obj || !obj->inherits( "QAction" ) )
        return;
   int id = actionId((QAction*)obj);
-  // bool ret;
+  bool ret;
   if ( id != -1 )
-      /*ret = */OnGUIEvent( id );
+      ret = OnGUIEvent( id );
   MESSAGE("************** End of HOMARDGUI::OnGUIEvent()");
 }
 
@@ -555,11 +554,6 @@ extern "C" {
   Standard_EXPORT CAM_Module* createModule()
   {
     return new HOMARDGUI("");
-  }
-
-  char* getModuleVersion()
-  {
-      return (char*)HOMARD_VERSION_STR;
   }
 }
 

@@ -52,7 +52,7 @@ using  namespace std;
 
 //=======================================================================
 //function : RemoveTabulation
-//purpose  : 
+//purpose  :
 //=======================================================================
 std::string RemoveTabulation( std::string theScript )
 {
@@ -67,7 +67,7 @@ std::string RemoveTabulation( std::string theScript )
   }
   return theScript;
 }
-      
+
 //=============================================================================
 /*!
  *  standard constructor
@@ -106,7 +106,7 @@ HOMARD_Gen_i::~HOMARD_Gen_i()
 void HOMARD_Gen_i::addInStudy(SALOMEDS::Study_ptr theStudy)
 {
   ASSERT(!CORBA::is_nil(theStudy));
-  MESSAGE("addInStudy: current study ID = " << GetCurrentStudyID());
+  MESSAGE("addInStudy: ajout eventuel du composant HOMARD dans current study ID = " << GetCurrentStudyID()) ;
   SALOMEDS::StudyBuilder_var myBuilder = theStudy->NewBuilder();
 
   // Create SComponent labelled 'homard' if it doesn't already exit
@@ -173,14 +173,7 @@ int HOMARD_Gen_i::GetCurrentStudyID()
 void HOMARD_Gen_i::AssociateCaseIter(const char* nomCas, const char* nomIter, const char* labelIter)
 {
   MESSAGE( "AssociateCaseIter " << nomCas << " ," << nomIter << ","  << labelIter );
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return ;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Cas_var myCase = myContextMap[GetCurrentStudyID()]._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
@@ -252,12 +245,14 @@ void HOMARD_Gen_i::SetEtatIter(const char* nomIter, const bool EtatCalcul)
   };
 
   int number = myIteration->GetNumber() ;
+  const char* icone ;
   if ( number == 0 )
-      PublishInStudyAttr(aStudyBuilder, aIterSO, NULL , NULL, "iter0.png", NULL) ;
+    icone = "iter0.png" ;
   else if (EtatCalcul)
-      PublishInStudyAttr(aStudyBuilder, aIterSO, NULL, NULL, "iter_calculee.png", NULL) ;
+    icone = "iter_calculee.png" ;
   else
-      PublishInStudyAttr(aStudyBuilder, aIterSO, NULL, NULL, "iter_non_calculee.png", NULL) ;
+    icone = "iter_non_calculee.png" ;
+  PublishInStudyAttr(aStudyBuilder, aIterSO, NULL , NULL, icone, NULL) ;
 
   aStudyBuilder->CommitCommand();
 
@@ -404,15 +399,7 @@ void HOMARD_Gen_i::InvalideIter(const char* nomIter)
 void HOMARD_Gen_i::AssociateHypoZone(const char* ZoneName, const char* nomHypothesis)
 {
   MESSAGE ( " AssociateHypoZone, ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
-
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return ;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
   ASSERT(!CORBA::is_nil(myHypo));
@@ -432,21 +419,14 @@ void HOMARD_Gen_i::AssociateHypoZone(const char* ZoneName, const char* nomHypoth
 
   myZone->AddHypo(nomHypothesis);
   myHypo->AddZone(ZoneName);
+  MESSAGE ( "Fin de AssociateHypoZone");
 };
 
 //=====================================================================================
 void HOMARD_Gen_i::DissociateHypoZone(const char* ZoneName, const char* nomHypothesis)
 {
   MESSAGE ( " DissociateHypoZone, ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
-
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return ;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
   ASSERT(!CORBA::is_nil(myHypo));
@@ -486,14 +466,7 @@ void HOMARD_Gen_i::DissociateHypoZone(const char* ZoneName, const char* nomHypot
 void HOMARD_Gen_i::AssociateIterIter(const char* nomIterParent, const char* nomIter)
 {
   MESSAGE ( "AssociateIterIter, nomIter       = " << nomIter << " nomIterParent = " << nomIterParent);
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return ;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Iteration_var myIterationParent = myContextMap[GetCurrentStudyID()]._mesIterations[nomIterParent];
   ASSERT(!CORBA::is_nil(myIterationParent));
@@ -508,15 +481,7 @@ void HOMARD_Gen_i::AssociateIterIter(const char* nomIterParent, const char* nomI
 void HOMARD_Gen_i::AssociateIterHypo(const char* nomIter, const char* nomHypo)
 {
   MESSAGE("AssociateIterHypo, nomHypo = " << nomHypo << " nomIter = " << nomIter);
-
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return ;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypo];
   ASSERT(!CORBA::is_nil(myHypo));
@@ -554,17 +519,10 @@ CORBA::Boolean HOMARD_Gen_i::VerifieDir(const char* nomDir)
 }
 
 //=============================================================================
-HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* MeshName, const char* FileName)
+HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* MeshName, const char* MeshFile)
 {
   MESSAGE ( "CreateCase, nomCas   = " << nomCas << "MeshName = " << MeshName );
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesCas).find(nomCas)!=(myContextMap[GetCurrentStudyID()]._mesCas).end())
   {
@@ -582,7 +540,7 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
   myContextMap[GetCurrentStudyID()]._mesCas[nomCas] = myCase;
 
 
-  std::vector<double> LesExtremes =GetBoundingBoxInMedFile(FileName);
+  std::vector<double> LesExtremes =GetBoundingBoxInMedFile(MeshFile);
   HOMARD::extrema_var aSeq = new HOMARD::extrema();
   if (LesExtremes.size()!=10) { return false; }
   aSeq->length(10);
@@ -590,7 +548,7 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
        aSeq[i]=LesExtremes[i];
   myCase->SetBoundingBox(aSeq);
 
-  std::set<std::string> LesGroupes  =GetListeGroupesInMedFile(FileName);
+  std::set<std::string> LesGroupes  =GetListeGroupesInMedFile(MeshFile);
   HOMARD::ListGroupType_var aSeqGroupe = new HOMARD::ListGroupType;
   aSeqGroupe->length(LesGroupes.size());
   std::set<std::string>::const_iterator it;
@@ -618,14 +576,14 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
 
   anIter->SetDirName(DirName.str().c_str());
   anIter->SetName(nomIter.c_str());
-  anIter->SetMeshFile(FileName);
+  anIter->SetMeshFile(MeshFile);
   anIter->SetMeshName(MeshName);
   anIter->SetNumber(0);
 
   AssociateCaseIter (nomCas,nomIter.c_str(),"IterationHomard");
   SetEtatIter(nomIter.c_str(),true);
 //
-  PublishResultInSmesh(FileName, 0);
+  PublishResultInSmesh(MeshFile, 0);
 
   return HOMARD::HOMARD_Cas::_duplicate(myCase);
 }
@@ -633,14 +591,7 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
 //=============================================================================
 HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::GetCas(const char* nomCas)
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
   HOMARD::HOMARD_Cas_var myCase = myContextMap[GetCurrentStudyID()]._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
   {
@@ -656,14 +607,7 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::GetCas(const char* nomCas)
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::GetZone(const char* ZoneName)
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
   HOMARD::HOMARD_Zone_var myZone = myContextMap[GetCurrentStudyID()]._mesZones[ZoneName];
   ASSERT(!CORBA::is_nil(myZone));
   return HOMARD::HOMARD_Zone::_duplicate(myZone);
@@ -672,15 +616,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::GetZone(const char* ZoneName)
 //=============================================================================
 HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::GetHypothesis(const char* nomHypothesis)
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
-
+  IsValidStudy () ;
   HOMARD::HOMARD_Hypothesis_var myHypothesis = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
   ASSERT(!CORBA::is_nil(myHypothesis));
   return HOMARD::HOMARD_Hypothesis::_duplicate(myHypothesis);
@@ -689,14 +625,7 @@ HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::GetHypothesis(const char* nomHypothe
 //=============================================================================
 HOMARD::HOMARD_Iteration_ptr  HOMARD_Gen_i::GetIteration(const char* nomIteration)
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
   HOMARD::HOMARD_Iteration_var myIteration = myContextMap[GetCurrentStudyID()]._mesIterations[nomIteration];
   ASSERT(!CORBA::is_nil(myIteration));
   return HOMARD::HOMARD_Iteration::_duplicate(myIteration);
@@ -704,14 +633,7 @@ HOMARD::HOMARD_Iteration_ptr  HOMARD_Gen_i::GetIteration(const char* nomIteratio
 //=============================================================================
 HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::GetBoundary(const char* nomBoundary)
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Boundary_var myBoundary = myContextMap[GetCurrentStudyID()]._mesBoundarys[nomBoundary];
   ASSERT(!CORBA::is_nil(myBoundary));
@@ -722,14 +644,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::GetBoundary(const char* nomBoundary)
 HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypothesis)
 {
   MESSAGE ( "CreateHypothesis, nomHypothesis  = " << nomHypothesis );
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesHypotheses).find(nomHypothesis) != (myContextMap[GetCurrentStudyID()]._mesHypotheses).end())
   {
@@ -754,14 +669,7 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* nomIterat
 //============================================================================================================
 {
   MESSAGE ("CreateIteration, nomIteration  = " << nomIteration << "nomIterParent = " << nomIterParent);
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Iteration_var myIterationParent = myContextMap[GetCurrentStudyID()]._mesIterations[nomIterParent];
   if (CORBA::is_nil(myIterationParent))
@@ -825,10 +733,10 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* nomIterat
 // cas le plus frequent.
 // Si on a plusieurs branches, donc des iterations a meme niveau d'adaptation, utiliser
 // le nombre d'iterations du cas permet d'eviter les collisions.
-   std::stringstream FileName;
+   std::stringstream MeshFile;
    const char* nomDir = myCase->GetDirName();
-   FileName << nomDir << "/maill." << iaux.str() << ".med";
-   myIteration->SetMeshFile(FileName.str().c_str());
+   MeshFile << nomDir << "/maill." << iaux.str() << ".med";
+   myIteration->SetMeshFile(MeshFile.str().c_str());
 
 // Association avec le cas et l'iteration precedente
    std::string label = "IterationHomard_" + std::string(nomIterParent);
@@ -842,15 +750,8 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* nomIterat
 //=============================================================================
 HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundary(const char* BoundaryName, CORBA::Long BoundaryType)
 {
-  MESSAGE ("BoundaryName  = " << BoundaryName << ", BoundaryType = " << BoundaryType);
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE ("CreateBoundary, BoundaryName  = " << BoundaryName << ", BoundaryType = " << BoundaryType);
+  IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesBoundarys).find(BoundaryName)!=(myContextMap[GetCurrentStudyID()]._mesBoundarys).end())
   {
@@ -870,24 +771,48 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundary(const char* BoundaryNam
   SALOMEDS::SObject_var aSO;
   SALOMEDS::SObject_var aResultSO=PublishInStudy(myCurrentStudy, aSO, myBoundary, BoundaryName);
 
-// Limites par defaut pour initialiser en cas de lancement par python
+  return HOMARD::HOMARD_Boundary::_duplicate(myBoundary);
+}
+//=============================================================================
+HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryDi(const char* BoundaryName, const char* MeshName, const char* MeshFile)
+{
+  MESSAGE ("CreateBoundaryDi, BoundaryName  = " << BoundaryName << "MeshName = " << MeshName );
+  HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 0);
+  myBoundary->SetMeshFile( MeshFile ) ;
+  myBoundary->SetMeshName( MeshName ) ;
 
   return HOMARD::HOMARD_Boundary::_duplicate(myBoundary);
+}
+//=============================================================================
+HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryCylinder(const char* BoundaryName,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Xaxis, double Yaxis, double Zaxis,
+                                      double Rayon)
+{
+  MESSAGE ("CreateBoundaryCylinder, BoundaryName  = " << BoundaryName ) ;
+  HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 1) ;
+  myBoundary->SetCylinder( Xcentre, Ycentre, Zcentre, Xaxis, Yaxis, Zaxis, Rayon ) ;
+
+  return HOMARD::HOMARD_Boundary::_duplicate(myBoundary) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundarySphere(const char* BoundaryName,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Rayon)
+{
+  MESSAGE ("CreateBoundarySphere, BoundaryName  = " << BoundaryName ) ;
+  HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 2) ;
+  myBoundary->SetSphere( Xcentre, Ycentre, Zcentre, Rayon ) ;
+
+  return HOMARD::HOMARD_Boundary::_duplicate(myBoundary) ;
 }
 
 
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZone(const char* ZoneName, CORBA::Long ZoneType)
 {
-  MESSAGE ("ZoneName  = " << ZoneName << ", ZoneType = " << ZoneType);
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE ("CreateZone, ZoneName  = " << ZoneName << ", ZoneType = " << ZoneType);
+  IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesZones).find(ZoneName)!=(myContextMap[GetCurrentStudyID()]._mesZones).end())
   {
@@ -909,19 +834,161 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZone(const char* ZoneName, CORBA::Lo
 
   return HOMARD::HOMARD_Zone::_duplicate(myZone);
 }
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
+                                      double Xmini, double Xmaxi,
+                                      double Ymini, double Ymaxi,
+                                      double Zmini, double Zmaxi)
+{
+  MESSAGE ("CreateZoneBox, ZoneName  = " << ZoneName ) ;
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 2) ;
+  myZone->SetBox ( Xmini, Xmaxi, Ymini, Ymaxi, Zmini, Zmaxi) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneSphere(const char* ZoneName,
+                                      double Xcentre, double Ycentre, double Zcentre, double Rayon)
+{
+  MESSAGE ("CreateZoneSphere, ZoneName  = " << ZoneName ) ;
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 4) ;
+  myZone->SetSphere( Xcentre, Ycentre, Zcentre, Rayon ) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneCylinder(const char* ZoneName,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Xaxe, double Yaxe, double Zaxe,
+                                      double Rayon, double Haut)
+{
+  MESSAGE ("CreateZoneCylinder, ZoneName  = " << ZoneName ) ;
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 5) ;
+  myZone->SetCylinder( Xcentre, Ycentre, Zcentre, Xaxe, Yaxe, Zaxe, Rayon, Haut ) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZonePipe(const char* ZoneName,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Xaxe, double Yaxe, double Zaxe,
+                                      double Rayon, double Haut, double Rayonint)
+{
+  MESSAGE ("CreateZonePipe, ZoneName  = " << ZoneName ) ;
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 7) ;
+  myZone->SetPipe( Xcentre, Ycentre, Zcentre, Xaxe, Yaxe, Zaxe, Rayon, Haut, Rayonint ) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox2D(const char* ZoneName,
+                                      double Umini, double Umaxi,
+                                      double Vmini, double Vmaxi,
+                                      CORBA::Long Orient)
+{
+  MESSAGE ("CreateZoneBox2D, ZoneName  = " << ZoneName ) ;
+//   MESSAGE ("Umini = " << Umini << ", Umaxi =" << Umaxi ) ;
+//   MESSAGE ("Vmini = " << Vmini << ", Vmaxi =" << Vmaxi ) ;
+//   MESSAGE ("Orient = " << Orient ) ;
+
+  double Xmini, Xmaxi ;
+  double Ymini, Ymaxi ;
+  double Zmini, Zmaxi ;
+  if ( Orient == 1 )
+  { Xmini = Umini ;
+    Xmaxi = Umaxi ;
+    Ymini = Vmini ;
+    Ymaxi = Vmaxi ;
+    Zmini = 0. ;
+    Zmaxi = 0. ; }
+  else if ( Orient == 2 )
+  { Xmini = 0. ;
+    Xmaxi = 0. ;
+    Ymini = Umini ;
+    Ymaxi = Umaxi ;
+    Zmini = Vmini ;
+    Zmaxi = Vmaxi ; }
+  else if ( Orient == 3 )
+  { Xmini = Vmini ;
+    Xmaxi = Vmaxi ;
+    Ymini = 0. ;
+    Ymaxi = 0. ;
+    Zmini = Umini ;
+    Zmaxi = Umaxi ; }
+  else { ASSERT( Orient >= 1 and Orient <= 3 ) ; }
+
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 10+Orient) ;
+  myZone->SetBox ( Xmini, Xmaxi, Ymini, Ymaxi, Zmini, Zmaxi) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDisk(const char* ZoneName,
+                                      double Ucentre, double Vcentre,
+                                      double Rayon,
+                                      CORBA::Long Orient)
+{
+  MESSAGE ("CreateZoneDisk, ZoneName  = " << ZoneName ) ;
+  double Xcentre ;
+  double Ycentre ;
+  double Zcentre ;
+  if ( Orient == 1 )
+  { Xcentre = Ucentre ;
+    Ycentre = Vcentre ;
+    Zcentre = 0. ; }
+  else if ( Orient == 2 )
+  { Xcentre = 0. ;
+    Ycentre = Ucentre ;
+    Zcentre = Vcentre ; }
+  else if ( Orient == 3 )
+  { Xcentre = Vcentre ;
+    Ycentre = 0. ;
+    Zcentre = Ucentre ; }
+  else { ASSERT( Orient >= 1 and Orient <= 3 ) ; }
+
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 30+Orient) ;
+  myZone->SetCylinder( Xcentre, Ycentre, Zcentre, 0., 0., 1., Rayon, 1. ) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+//=============================================================================
+HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneName,
+                                      double Ucentre, double Vcentre,
+                                      double Rayon, double Rayonint,
+                                      CORBA::Long Orient)
+{
+  MESSAGE ("CreateZoneDiskWithHole, ZoneName  = " << ZoneName ) ;
+  double Xcentre ;
+  double Ycentre ;
+  double Zcentre ;
+  if ( Orient == 1 )
+  { Xcentre = Ucentre ;
+    Ycentre = Vcentre ;
+    Zcentre = 0. ; }
+  else if ( Orient == 2 )
+  { Xcentre = 0. ;
+    Ycentre = Ucentre ;
+    Zcentre = Vcentre ; }
+  else if ( Orient == 3 )
+  { Xcentre = Vcentre ;
+    Ycentre = 0. ;
+    Zcentre = Ucentre ; }
+  else { ASSERT( Orient >= 1 and Orient <= 3 ) ; }
+
+  HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 60+Orient) ;
+  myZone->SetPipe( Xcentre, Ycentre, Zcentre, 0., 0., 1., Rayon, 1., Rayonint ) ;
+
+  return HOMARD::HOMARD_Zone::_duplicate(myZone) ;
+}
+
+
+
 
 //=============================================================================
 CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatMenage)
 {
   MESSAGE ( "Compute, calcul de " << nomIteration );
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  IsValidStudy () ;
 
   HOMARD::HOMARD_Iteration_var myIteration = myContextMap[GetCurrentStudyID()]._mesIterations[nomIteration];
   ASSERT(!CORBA::is_nil(myIteration));
@@ -943,7 +1010,6 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
   {
       SALOME::ExceptionStruct es;
       es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
       es.text= "This iteration  has no associated hypothese";
       throw SALOME::SALOME_Exception(es);
       return 0;
@@ -1163,16 +1229,24 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
 
       int ZoneType = myZone->GetZoneType();
       MESSAGE ( "... ZoneType = " << ZoneType);
-      if (ZoneType == 2) // Cas d un parallelepipede
+      HOMARD::double_array* zone = myZone->GetCoords();
+      if ( ZoneType == 2 or ( ZoneType>=11 and ZoneType <=13 ) ) // Cas d un parallelepipede ou d'un rectangle
       {
-        HOMARD::double_array* zone = myZone->GetBox();
-        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5]);
+        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], 0., 0., 0.);
       }
-      else if (ZoneType == 4) // Cas d une sphere
+      else if ( ZoneType == 4 ) // Cas d une sphere
       {
-        HOMARD::double_array* zone = myZone->GetSphere();
-        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], 0., 0.);
+        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], 0., 0., 0., 0., 0.);
       }
+      else if ( ZoneType == 5 or ( ZoneType>=31 and ZoneType <=33 ) ) // Cas d un cylindre ou d'un disque
+      {
+        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], (*zone)[6], (*zone)[7], 0.);
+      }
+      else if ( ZoneType == 7 or ( ZoneType>=61 and ZoneType <=63 ) ) // Cas d un tuyau ou disque perce
+      {
+        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], (*zone)[6], (*zone)[7], (*zone)[8]);
+      }
+      else { ASSERT("ZoneType est incorrect." == 0) ; }
     }
   }
   // E.3. Ajout des informations liees aux champs eventuels
@@ -1201,11 +1275,14 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
     double ThreshR = aInfosHypo->ThreshR;
     int TypeThC = aInfosHypo->TypeThC;
     double ThreshC = aInfosHypo->ThreshC;
+//  Saut entre mailles ou non ?
+    int UsField = aInfosHypo->UsField;
+    MESSAGE( ". UsField = " << UsField );
 //  L'usage des composantes
     int UsCmpI = aInfosHypo->UsCmpI;
     MESSAGE( ". UsCmpI = " << UsCmpI );
 //
-    myDriver->TexteField(FieldName, FieldFile, TimeStep, Rank, TypeThR, ThreshR, TypeThC, ThreshC, UsCmpI);
+    myDriver->TexteField(FieldName, FieldFile, TimeStep, Rank, TypeThR, ThreshR, TypeThC, ThreshC, UsField, UsCmpI);
 //
 //  Les composantes
     HOMARD::listeComposantsHypo* mescompo = myHypo->GetListComp();
@@ -1268,19 +1345,20 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
         myDriver->TexteBoundaryDi( MeshName, MeshFile);
         BoundaryOption = BoundaryOption*2 ;
       }
-      else if (BoundaryType == 1) // Cas d un cylindre
+      else // Cas d une frontiere analytique
       {
         NumBoundaryAnalytical++ ;
-        HOMARD::double_array* coor = myBoundary->GetCylinder();
-        myDriver->TexteBoundaryAn(BoundaryName, NumBoundaryAnalytical, BoundaryType, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], (*coor)[4], (*coor)[5], (*coor)[6]);
-        BoundaryOption = BoundaryOption*3 ;
-      }
-      else if (BoundaryType == 2) // Cas d une sphere
-      {
-        NumBoundaryAnalytical++ ;
-        HOMARD::double_array* coor = myBoundary->GetSphere();
-        myDriver->TexteBoundaryAn(BoundaryName, NumBoundaryAnalytical, BoundaryType, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], 0., 0., 0.);
-        BoundaryOption = BoundaryOption*3 ;
+        HOMARD::double_array* coor = myBoundary->GetCoords();
+        if (BoundaryType == 1) // Cas d un cylindre
+        {
+          myDriver->TexteBoundaryAn(BoundaryName, NumBoundaryAnalytical, BoundaryType, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], (*coor)[4], (*coor)[5], (*coor)[6]);
+          BoundaryOption = BoundaryOption*3 ;
+        }
+        else if (BoundaryType == 2) // Cas d une sphere
+        {
+          myDriver->TexteBoundaryAn(BoundaryName, NumBoundaryAnalytical, BoundaryType, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], 0., 0., 0.);
+          BoundaryOption = BoundaryOption*3 ;
+        }
       }
 // Memorisation du traitement
       ListeBoundaryTraitees.push_back( BoundaryName );
@@ -1308,39 +1386,6 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
       myDriver->TexteBoundaryAnGr ( BoundaryName, NumBoundaryAnalytical, GroupName ) ;
     }
   }
-/*  for (int NumBoundary = 0; NumBoundary< numberOfitems; NumBoundary=NumBoundary+2)
-  {
-    std::string BoundaryName = std::string((*ListBoundaryGroupType)[NumBoundary]);
-    MESSAGE ( "... BoundaryName = " << BoundaryName);
-    HOMARD::HOMARD_Boundary_var myBoundary = myContextMap[GetCurrentStudyID()]._mesBoundarys[BoundaryName];
-    ASSERT(!CORBA::is_nil(myBoundary));
-    std::string GroupName = std::string((*ListBoundaryGroupType)[NumBoundary+1]);
-    MESSAGE ( "... GroupName = " << GroupName);
-
-    int BoundaryType = myBoundary->GetBoundaryType();
-    MESSAGE ( "... BoundaryType = " << BoundaryType );
-    if (BoundaryType == 0) // Cas d une frontiere discrete
-    {
-      const char* MeshName = myBoundary->GetMeshName() ;
-      const char* MeshFile = myBoundary->GetMeshFile() ;
-      myDriver->TexteBoundaryDi( MeshName, MeshFile, GroupName);
-      BoundaryOption = BoundaryOption*2 ;
-    }
-    else if (BoundaryType == 1) // Cas d un cylindre
-    {
-      NumBoundaryAnalytical++ ;
-      HOMARD::double_array* coor = myBoundary->GetCylinder();
-      myDriver->TexteBoundaryAn(NumBoundaryAnalytical, BoundaryType, GroupName, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], (*coor)[4], (*coor)[5], (*coor)[6]);
-      BoundaryOption = BoundaryOption*3 ;
-    }
-    else if (BoundaryType == 2) // Cas d une sphere
-    {
-      NumBoundaryAnalytical++ ;
-      HOMARD::double_array* coor = myBoundary->GetSphere();
-      myDriver->TexteBoundaryAn(NumBoundaryAnalytical, BoundaryType, GroupName, (*coor)[0], (*coor)[1], (*coor)[2], (*coor)[3], 0., 0., 0.);
-      BoundaryOption = BoundaryOption*3 ;
-    }
-  }*/
   myDriver->TexteBoundaryOption(BoundaryOption);
 
   // E.6. Ajout des informations liees a l'eventuelle interpolation des champs
@@ -1376,6 +1421,15 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
         myDriver->TexteFieldInterpName(NumeChamp, nomChamp);
       }
     }
+  }
+  // E.7. Ajout des options avancees
+  int NivMax = myCase->GetNivMax();
+  MESSAGE ( ". NivMax = " << NivMax );
+  if ( NivMax > 0 )
+  {
+    double DiamMin = myCase->GetDiamMin();
+    MESSAGE ( ". DiamMin = " << DiamMin );
+    myDriver->TexteAdvanced(NivMax, DiamMin);
   }
 
   // F. Ecriture du texte dans le fichier
@@ -1484,27 +1538,27 @@ SALOMEDS::SObject_ptr HOMARD_Gen_i::PublishInStudy(SALOMEDS::Study_ptr theStudy,
 // Controle de la non publication d'un objet de meme nom
    if ((!aHypo->_is_nil()) or (!aZone->_is_nil()) or (!aBoundary->_is_nil()))
     {
-         SALOMEDS::Study::ListOfSObject_var listSO = theStudy->FindObjectByName(theName, ComponentDataType());
-         if (listSO->length() >= 1)
-         {
-             MESSAGE("This name "<<theName<<" is already used "<<listSO->length()<<" time(s)");
-             std::cerr <<"This name "<<theName<<" is already used "<<listSO->length()<<" time(s)" << std::endl;
-             aResultSO = listSO[0];
-             return aResultSO._retn();
-         }
+      SALOMEDS::Study::ListOfSObject_var listSO = theStudy->FindObjectByName(theName, ComponentDataType());
+      if (listSO->length() >= 1)
+      {
+          MESSAGE("This name "<<theName<<" is already used "<<listSO->length()<<" time(s)");
+          std::cerr <<"This name "<<theName<<" is already used "<<listSO->length()<<" time(s)" << std::endl;
+          aResultSO = listSO[0];
+          return aResultSO._retn();
+      }
     }
 
   // Caracteristiques de l'etude
-    SALOMEDS::StudyBuilder_var aStudyBuilder = theStudy->NewBuilder();
-    aStudyBuilder->NewCommand();
-     if(!aCase->_is_nil())
-        aResultSO = PublishCaseInStudy(theStudy, aStudyBuilder, aCase, theName);
-     else if(!aHypo->_is_nil())
-        aResultSO = PublishHypotheseInStudy(theStudy, aStudyBuilder, aHypo, theName);
-     else if(!aZone->_is_nil())
-        aResultSO = PublishZoneInStudy(theStudy, aStudyBuilder, aZone, theName);
-     else if(!aBoundary->_is_nil())
-        aResultSO = PublishBoundaryInStudy(theStudy, aStudyBuilder, aBoundary, theName);
+  SALOMEDS::StudyBuilder_var aStudyBuilder = theStudy->NewBuilder();
+  aStudyBuilder->NewCommand();
+  if(!aCase->_is_nil())
+    aResultSO = PublishCaseInStudy(theStudy, aStudyBuilder, aCase, theName);
+  else if(!aHypo->_is_nil())
+    aResultSO = PublishHypotheseInStudy(theStudy, aStudyBuilder, aHypo, theName);
+  else if(!aZone->_is_nil())
+    aResultSO = PublishZoneInStudy(theStudy, aStudyBuilder, aZone, theName);
+  else if(!aBoundary->_is_nil())
+    aResultSO = PublishBoundaryInStudy(theStudy, aStudyBuilder, aBoundary, theName);
 
     aStudyBuilder->CommitCommand();
   return aResultSO._retn();
@@ -1574,24 +1628,59 @@ SALOMEDS::SObject_ptr HOMARD_Gen_i::PublishZoneInStudy(SALOMEDS::Study_ptr theSt
   SALOMEDS::SObject_var aSOZone;
   if (!theFatherHomard->FindSubObject(100, aSOZone))
   {
+    MESSAGE("Ajout de la categorie des zones");
     aSOZone = aStudyBuilder->NewObjectToTag(theFatherHomard, 100);
     PublishInStudyAttr(aStudyBuilder, aSOZone, "Zones", "ZoneList", "zone_icone_2.png", NULL ) ;
   }
+  else { MESSAGE("La categorie des zones existe deja."); }
 
   aResultSO = aStudyBuilder->NewObject(aSOZone);
+  const char* icone ;
   switch (ZoneType)
   {
-    case 2 :
-    { PublishInStudyAttr(aStudyBuilder, aResultSO, theName, "ZoneHomard",
-      "boxdxyz_2.png", _orb->object_to_string(theObject) ) ;
-      break;
+    case 11 :
+    { }
+    case 12 :
+    { }
+    case 13 :
+    { icone = "boxdxy_2.png" ;
+      break ;
     }
+    case 2 :
+    { icone = "boxdxyz_2.png" ;
+      break ;
+    }
+    case 31 :
+    { }
+    case 32 :
+    { }
+    case 33 :
+    { icone = "disk_2.png" ;
+      break ;
+     }
     case 4 :
-    { PublishInStudyAttr(aStudyBuilder, aResultSO, theName, "ZoneHomard",
-     "spherepoint_2.png", _orb->object_to_string(theObject) ) ;
-      break;
+    { icone = "spherepoint_2.png" ;
+      break ;
+    }
+    case 5 :
+    { icone = "cylinderpointvector_2.png" ;
+      break ;
+    }
+    case 61 :
+    { }
+    case 62 :
+    { }
+    case 63 :
+    { icone = "diskwithhole_2.png" ;
+      break ;
+     }
+    case 7 :
+    { icone = "pipe_2.png" ;
+      break ;
     }
   }
+  PublishInStudyAttr(aStudyBuilder, aResultSO, theName, "ZoneHomard", icone, _orb->object_to_string(theObject) ) ;
+
   return aResultSO._retn();
 }
 //=============================================================================
@@ -1618,30 +1707,36 @@ SALOMEDS::SObject_ptr HOMARD_Gen_i::PublishBoundaryInStudy(SALOMEDS::Study_ptr t
   SALOMEDS::SObject_var aSOBoundary;
   if (!theFatherHomard->FindSubObject(101, aSOBoundary))
   {
+    MESSAGE("Ajout de la categorie des boundarys");
     aSOBoundary = aStudyBuilder->NewObjectToTag(theFatherHomard, 101);
     PublishInStudyAttr(aStudyBuilder, aSOBoundary, "Boundaries", "BoundList", "zone_icone_2.png", NULL ) ;
   }
+  else { MESSAGE("La categorie des boundarys existe deja."); }
 
   aResultSO = aStudyBuilder->NewObject(aSOBoundary);
   CORBA::Long BoundaryType = myBoundary->GetBoundaryType();
+//   MESSAGE("BoundaryType : "<<BoundaryType);
+  const char* icone ;
+  const char* value ;
   switch (BoundaryType)
   {
     case 0 :
-    { PublishInStudyAttr(aStudyBuilder, aResultSO, theName, "BoundaryDiHomard", "mesh_tree_mesh.png",
-                          _orb->object_to_string(theObject));
+    { value = "BoundaryDiHomard" ;
+      icone = "mesh_tree_mesh.png" ;
       break;
     }
     case 1 :
-    { PublishInStudyAttr(aStudyBuilder, aResultSO, theName, "BoundaryAnHomard", "cylinderpointvector_2.png",
-                          _orb->object_to_string(theObject));
+    { value = "BoundaryAnHomard" ;
+      icone = "cylinderpointvector_2.png" ;
       break;
     }
     case 2 :
-    { PublishInStudyAttr(aStudyBuilder, aResultSO, theName, "BoundaryAnHomard", "spherepoint_2.png",
-                          _orb->object_to_string(theObject));
+    { value = "BoundaryAnHomard" ;
+      icone = "spherepoint_2.png" ;
       break;
     }
   }
+  PublishInStudyAttr(aStudyBuilder, aResultSO, theName, value, icone, _orb->object_to_string(theObject));
   return aResultSO._retn();
 }
 
@@ -1665,9 +1760,11 @@ SALOMEDS::SObject_ptr HOMARD_Gen_i::PublishHypotheseInStudy(SALOMEDS::Study_ptr 
   SALOMEDS::SObject_var aSOHypothese;
   if (!theFatherHomard->FindSubObject(0, aSOHypothese))
   {
+    MESSAGE("Ajout de la categorie des hypotheses");
     aSOHypothese = aStudyBuilder->NewObjectToTag(theFatherHomard, 0);
     PublishInStudyAttr(aStudyBuilder, aSOHypothese, "Hypothesis", "HypoList","hypotheses.png", NULL);
   }
+  else { MESSAGE("La categorie des hypotheses existe deja."); }
 
 // Creation du resultat dans l'etude
   aResultSO = aStudyBuilder->NewObject(aSOHypothese);
@@ -1717,14 +1814,8 @@ void HOMARD_Gen_i::PublishInStudyAttr(SALOMEDS::StudyBuilder_var aStudyBuilder,
 //=============================================================================
 HOMARD::listeCases* HOMARD_Gen_i::GetAllCases()
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE("GetAllCases");
+  IsValidStudy () ;
 
   HOMARD::listeCases_var ret = new HOMARD::listeCases;
   ret->length(myContextMap[GetCurrentStudyID()]._mesCas.size());
@@ -1742,14 +1833,8 @@ HOMARD::listeCases* HOMARD_Gen_i::GetAllCases()
 //=============================================================================
 HOMARD::listeHypotheses* HOMARD_Gen_i::GetAllHypotheses()
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE("GetAllHypotheses");
+  IsValidStudy () ;
 
   HOMARD::listeHypotheses_var ret = new HOMARD::listeHypotheses;
   ret->length(myContextMap[GetCurrentStudyID()]._mesHypotheses.size());
@@ -1767,14 +1852,8 @@ HOMARD::listeHypotheses* HOMARD_Gen_i::GetAllHypotheses()
 //=============================================================================
 HOMARD::listeZones* HOMARD_Gen_i::GetAllZones()
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE("GetAllZones");
+  IsValidStudy () ;
 
   HOMARD::listeZones_var ret = new HOMARD::listeZones;
   ret->length(myContextMap[GetCurrentStudyID()]._mesZones.size());
@@ -1792,14 +1871,8 @@ HOMARD::listeZones* HOMARD_Gen_i::GetAllZones()
 //=============================================================================
 HOMARD::listeIterations* HOMARD_Gen_i::GetAllIterations()
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE("GetAllIterations");
+  IsValidStudy () ;
 
   HOMARD::listeIterations_var ret = new HOMARD::listeIterations;
   ret->length(myContextMap[GetCurrentStudyID()]._mesIterations.size());
@@ -1816,14 +1889,8 @@ HOMARD::listeIterations* HOMARD_Gen_i::GetAllIterations()
 //=============================================================================
 HOMARD::listeBoundarys* HOMARD_Gen_i::GetAllBoundarys()
 {
-  if (CORBA::is_nil(myCurrentStudy))
-  {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
-      es.text = "Invalid Study Context ";
-      throw SALOME::SALOME_Exception(es);
-      return 0;
-  };
+  MESSAGE("GetAllBoundarys");
+  IsValidStudy () ;
 
   HOMARD::listeBoundarys_var ret = new HOMARD::listeBoundarys;
   ret->length(myContextMap[GetCurrentStudyID()]._mesBoundarys.size());
@@ -1906,7 +1973,7 @@ void HOMARD_Gen_i::PublishResultInSmesh(const char* NomFich, CORBA::Long IconeTy
   SMESH::mesh_array* mesMaillages=aSmeshEngine->CreateMeshesFromMED(NomFich, theStatus);
   for (int i = 0; i < mesMaillages->length();  i++)
   {
-    MESSAGE( ". Mise a jour des attributs");
+    MESSAGE( ". Mise a jour des attributs du maillage");
     SMESH::SMESH_Mesh_var monMaillage= (*mesMaillages)[i];
     SALOMEDS::SObject_var aSO=SALOMEDS::SObject::_narrow(myCurrentStudy->FindObjectIOR(_orb->object_to_string(monMaillage)));
     SALOMEDS::StudyBuilder_var aStudyBuilder = myCurrentStudy->NewBuilder();
@@ -1917,10 +1984,10 @@ void HOMARD_Gen_i::PublishResultInSmesh(const char* NomFich, CORBA::Long IconeTy
     SALOMEDS::AttributePixMap_var anAttr2 = SALOMEDS::AttributePixMap::_narrow(aPixMap);
 //  IconeType = 0 : fichier issu d'une importation
 //  IconeType = 1 : fichier issu d'une execution HOMARD
-    if ( IconeType == 0 )
-    { anAttr2->SetPixMap( "mesh_tree_importedmesh.png" ); }
-    else
-    { anAttr2->SetPixMap( "mesh_tree_mesh.png" ); }
+    const char* icone ;
+    if ( IconeType == 0 ) { icone = "mesh_tree_importedmesh.png" ; }
+    else                  { icone = "mesh_tree_mesh.png" ; }
+    anAttr2->SetPixMap( icone );
   }
 
 }
@@ -2021,6 +2088,20 @@ void HOMARD_Gen_i::PublishFileUnderIteration(const char* NomIter, const char* No
   aStudyBuilder->CommitCommand();
 }
 
+//=====================================================================================
+void HOMARD_Gen_i::IsValidStudy( )
+//=====================================================================================
+{
+  MESSAGE( "IsValidStudy" );
+  if (CORBA::is_nil(myCurrentStudy))
+  {
+    SALOME::ExceptionStruct es;
+    es.type = SALOME::BAD_PARAM;
+    es.text = "Invalid Study Context";
+    throw SALOME::SALOME_Exception(es);
+  };
+  return ;
+}
 
 //===========================================================================
 //
@@ -2030,8 +2111,8 @@ void HOMARD_Gen_i::PublishFileUnderIteration(const char* NomIter, const char* No
 
 //===========================================================================
 SALOMEDS::TMPFile* HOMARD_Gen_i::Save(SALOMEDS::SComponent_ptr theComponent,
-				       const char* theURL,
-				       bool isMultiFile)
+                                      const char* theURL,
+                                      bool isMultiFile)
 {
   MESSAGE (" Save pour theURL = "<< theURL);
   SALOMEDS::TMPFile_var aStreamFile;
@@ -2121,22 +2202,26 @@ SALOMEDS::TMPFile* HOMARD_Gen_i::Save(SALOMEDS::SComponent_ptr theComponent,
     }
   }
   // -> close file
+  MESSAGE ("close file");
   f.close();
 
-  // put temporary files  to the stream
+  // put temporary files to the stream
+  MESSAGE ("put temporary files to the stream");
   aStreamFile = SALOMEDS_Tool::PutFilesToStream(tmpDir.c_str(), aFileSeq.in(), isMultiFile);
 
   // remove temporary files
+  MESSAGE ("remove temporary files");
   if (!isMultiFile) SALOMEDS_Tool::RemoveTemporaryFiles(tmpDir.c_str(), aFileSeq.in(), true);
 
   // return data stream
+  MESSAGE ("return data stream");
   return aStreamFile._retn();
 };
 
 //===========================================================================
 SALOMEDS::TMPFile* HOMARD_Gen_i::SaveASCII(SALOMEDS::SComponent_ptr theComponent,
-					    const char* theURL,
-					    bool isMultiFile)
+                                           const char* theURL,
+                                           bool isMultiFile)
 {
   // No specific ASCII persistence
   SALOMEDS::TMPFile_var aStreamFile = Save(theComponent, theURL, isMultiFile);
@@ -2195,6 +2280,7 @@ CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
     std::string bounSignature = HOMARD::GetSignature(HOMARD::Boundary);
     if (line.substr(0, caseSignature.size()) == caseSignature) {
       // re-create case
+      MESSAGE (" Recreation du cas" );
       HOMARD::HOMARD_Cas_var aCase = newCase();
       PortableServer::ServantBase_var aServant = GetServant(aCase);
       HOMARD_Cas_i* aCaseServant = dynamic_cast<HOMARD_Cas_i*>(aServant.in());
@@ -2204,6 +2290,7 @@ CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
       }
     }
     else if (line.substr(0, zoneSignature.size()) == zoneSignature) {
+      MESSAGE (" Recreation de la zone" );
       // re-create zone
       HOMARD::HOMARD_Zone_var aZone = newZone();
       PortableServer::ServantBase_var aServant = GetServant(aZone);
@@ -2215,6 +2302,7 @@ CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
     }
     else if (line.substr(0, iterSignature.size()) == iterSignature) {
       // re-create iteration
+      MESSAGE (" Recreation de l iteration" );
       HOMARD::HOMARD_Iteration_var aIter = newIteration();
       PortableServer::ServantBase_var aServant = GetServant(aIter);
       HOMARD_Iteration_i* aIterServant = dynamic_cast<HOMARD_Iteration_i*>(aServant.in());
@@ -2225,6 +2313,7 @@ CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
     }
     else if (line.substr(0, hypoSignature.size()) == hypoSignature) {
       // re-create hypothesis
+      MESSAGE (" Recreation de l hypothese" );
       HOMARD::HOMARD_Hypothesis_var aHypo = newHypothesis();
       PortableServer::ServantBase_var aServant = GetServant(aHypo);
       HOMARD_Hypothesis_i* aHypoServant = dynamic_cast<HOMARD_Hypothesis_i*>(aServant.in());
@@ -2235,6 +2324,7 @@ CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
     }
     else if (line.substr(0, bounSignature.size()) == bounSignature) {
       // re-create boundary
+      MESSAGE (" Recreation de la frontiere" );
       HOMARD::HOMARD_Boundary_var aBoundary = newBoundary();
       PortableServer::ServantBase_var aServant = GetServant(aBoundary);
       HOMARD_Boundary_i* aBoundaryServant = dynamic_cast<HOMARD_Boundary_i*>(aServant.in());
@@ -2573,14 +2663,14 @@ Engines::TMPFile* HOMARD_Gen_i::DumpPython(CORBA::Object_ptr theStudy,
     std::string dumpIter = dumpCorbaIter.in();
     aScript+=dumpIter;
    }
-   
+
     if( isMultiFile )
       aScript += "\n\tpass";
     aScript += "\n";
 
     if( !isMultiFile ) // remove unnecessary tabulation
       aScript = RemoveTabulation( aScript );
-    
+
    const size_t aLen = strlen(aScript.c_str());
    char* aBuffer = new char[aLen+1];
    strcpy(aBuffer, aScript.c_str());

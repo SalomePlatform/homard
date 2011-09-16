@@ -35,11 +35,12 @@ public:
   void        CreeFichier();
   void        TexteMaillage( const std::string NomMesh, const std::string MeshFile, int apres );
   void        TexteConfRaffDera( int ConfType, int TypeAdap, int TypeRaff, int TypeDera );
-  void        TexteZone( int NumeZone, int ZoneType, double x0, double x1, double x2, double x3, double x4, double x5 );
+  void        TexteZone( int NumeZone, int ZoneType, double x0, double x1, double x2, double x3, double x4, double x5, double x6, double x7, double x8 );
   void        TexteGroup( const std::string GroupName );
   void        TexteField( const std::string FieldName, const std::string FieldFile,
                           int TimeStep, int Rank,
-                          int TypeThR, double ThreshR, int TypeThC, double ThreshC, int UsCmpI );
+                          int TypeThR, double ThreshR, int TypeThC, double ThreshC,
+                          int UsField, int UsCmpI );
   void        TexteCompo( int NumeComp, const std::string NomCompo);
 
   void        TexteBoundaryOption( int BoundaryOption );
@@ -51,6 +52,7 @@ public:
   void        TexteFieldInterp( int TypeFieldInterp, const std::string FieldFile, const std::string MeshFile,
                                 int TimeStep, int Rank );
   void        TexteFieldInterpName( int NumeChamp, const std::string FieldName);
+  void        TexteAdvanced( int NivMax, double DiamMin);
   void        CloseFichier();
   //
   int         ExecuteHomard();

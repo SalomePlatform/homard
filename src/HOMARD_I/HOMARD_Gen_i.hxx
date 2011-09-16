@@ -60,8 +60,45 @@ public:
                                                    const char* MeshName, const char* FileName);
   HOMARD::HOMARD_Hypothesis_ptr   CreateHypothesis(const char* nomHypothesis);
   HOMARD::HOMARD_Iteration_ptr    CreateIteration (const char* nomIter, const char* nomIterParent);
-  HOMARD::HOMARD_Zone_ptr         CreateZone      (const char* nomZone, CORBA::Long typeZone);
-  HOMARD::HOMARD_Boundary_ptr     CreateBoundary  (const char* nomBoundary, CORBA::Long typeBoundary);
+
+  HOMARD::HOMARD_Zone_ptr         CreateZone (const char* nomZone, CORBA::Long typeZone);
+  HOMARD::HOMARD_Zone_ptr         CreateZoneBox (const char* nomZone,
+                                      double Xmini, double Xmaxi,
+                                      double Ymini, double Ymaxi,
+                                      double Zmini, double Zmaxi);
+  HOMARD::HOMARD_Zone_ptr         CreateZoneSphere (const char* nomZone,
+                                      double Xcentre, double Ycentre, double Zcentre, double Rayon);
+  HOMARD::HOMARD_Zone_ptr         CreateZoneCylinder (const char* nomZone,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Xaxe, double Yaxe, double Zaxe,
+                                      double Rayon, double Haut);
+  HOMARD::HOMARD_Zone_ptr         CreateZonePipe (const char* nomZone,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Xaxe, double Yaxe, double Zaxe,
+                                      double Rayon, double Haut, double Rayonint);
+  HOMARD::HOMARD_Zone_ptr         CreateZoneBox2D (const char* nomZone,
+                                      double Umini, double Umaxi,
+                                      double Vmini, double Vmaxi,
+                                      CORBA::Long Orient);
+  HOMARD::HOMARD_Zone_ptr         CreateZoneDisk (const char* nomZone,
+                                      double Ucentre, double Vcentre,
+                                      double Rayon,
+                                      CORBA::Long Orient);
+  HOMARD::HOMARD_Zone_ptr         CreateZoneDiskWithHole (const char* nomZone,
+                                      double Ucentre, double Vcentre,
+                                      double Rayon, double Rayonint,
+                                      CORBA::Long Orient);
+
+  HOMARD::HOMARD_Boundary_ptr     CreateBoundary (const char* nomBoundary, CORBA::Long typeBoundary);
+  HOMARD::HOMARD_Boundary_ptr     CreateBoundaryDi (const char* nomBoundary,
+                                                    const char* MeshName, const char* FileName);
+  HOMARD::HOMARD_Boundary_ptr     CreateBoundaryCylinder (const char* nomBoundary,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Xaxis, double Yaxis, double Zaxis,
+                                      double Rayon);
+  HOMARD::HOMARD_Boundary_ptr     CreateBoundarySphere (const char* nomBoundary,
+                                      double Xcentre, double Ycentre, double Zcentre,
+                                      double Rayon);
 
   HOMARD::HOMARD_Cas_ptr          GetCas        (const char* nomCas);
   HOMARD::HOMARD_Zone_ptr         GetZone       (const char* nomZone);
@@ -98,6 +135,8 @@ public:
   void                            DeleteResultInSmesh(const char* NomFich, const char* MeshName);
   void                            PublishFileUnderIteration(const char* NomIter, const char* NomFich,
                                                             const char* Commentaire);
+
+  void                            IsValidStudy();
 
   // ---------------------------------------------------------------
   // next functions are inherited from SALOMEDS::Driver interface

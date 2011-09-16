@@ -40,11 +40,15 @@ public:
 protected :
     void SetBox();
     void SetSphere();
+    void SetCylinder();
+    void SetPipe();
     bool CreateOrUpdateZone();
     void InitValEdit();
     void InitValZoneLimit();
     void InitValZoneBox();
     void InitValZoneSphere();
+    void InitValZoneCylinder();
+    void InitValZonePipe();
 
 public slots:
 

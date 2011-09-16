@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>597</width>
-    <height>850</height>
+    <width>599</width>
+    <height>925</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -30,10 +30,10 @@
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item row="13" column="0" colspan="2" >
-    <widget class="QGroupBox" name="GroupButtons" >
+   <item row="14" column="0" >
+    <widget class="QGroupBox" name="GBAdvancedOptions" >
      <property name="title" >
-      <string/>
+      <string>Advanced options</string>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
@@ -42,42 +42,65 @@
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item row="0" column="0" >
-       <widget class="QPushButton" name="buttonOk" >
-        <property name="text" >
-         <string>OK</string>
+      <item row="0" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
         </property>
-        <property name="autoDefault" >
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="TLMinimalDiameter" >
+        <property name="sizePolicy" >
+         <sizepolicy>
+          <hsizetype>0</hsizetype>
+          <vsizetype>0</vsizetype>
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text" >
+         <string>Minimal diameter</string>
+        </property>
+        <property name="wordWrap" >
          <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4" >
+       <widget class="QSpinBox" name="spinBoxNivMax" >
+        <property name="value" >
+         <number>99</number>
         </property>
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QPushButton" name="buttonApply" >
-        <property name="text" >
-         <string>Apply</string>
-        </property>
-        <property name="autoDefault" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QPushButton" name="buttonCancel" >
-        <property name="text" >
-         <string>Cancel</string>
-        </property>
-        <property name="autoDefault" >
-         <bool>false</bool>
+       <widget class="QDoubleSpinBox" name="doubleSpinBoxDiamMin" >
+        <property name="decimals" >
+         <number>5</number>
         </property>
        </widget>
       </item>
       <item row="0" column="3" >
-       <widget class="QPushButton" name="buttonHelp" >
-        <property name="text" >
-         <string>Help</string>
+       <widget class="QLabel" name="TLMaximalLevel" >
+        <property name="sizePolicy" >
+         <sizepolicy>
+          <hsizetype>0</hsizetype>
+          <vsizetype>0</vsizetype>
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="autoDefault" >
+        <property name="text" >
+         <string>Maximal level</string>
+        </property>
+        <property name="wordWrap" >
          <bool>false</bool>
         </property>
        </widget>
@@ -90,57 +113,19 @@
      <property name="minimumSize" >
       <size>
        <width>548</width>
-       <height>300</height>
+       <height>200</height>
       </size>
      </property>
      <property name="title" >
       <string>Analytical boundary</string>
      </property>
-     <widget class="QWidget" name="layoutWidget" >
-      <property name="geometry" >
-       <rect>
-        <x>410</x>
-        <y>20</y>
-        <width>120</width>
-        <height>110</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="PBBoundaryAnNew" >
-         <property name="text" >
-          <string>New</string>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="PBBoundaryAnHelp" >
-         <property name="text" >
-          <string>Help</string>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QTableWidget" name="TWBoundary" >
       <property name="geometry" >
        <rect>
         <x>4</x>
         <y>20</y>
         <width>371</width>
-        <height>270</height>
+        <height>161</height>
        </rect>
       </property>
       <property name="editTriggers" >
@@ -161,7 +146,220 @@
        </property>
       </column>
      </widget>
+     <widget class="QWidget" name="layoutWidget" >
+      <property name="geometry" >
+       <rect>
+        <x>430</x>
+        <y>40</y>
+        <width>77</width>
+        <height>95</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="1" column="0" >
+        <widget class="QPushButton" name="PBBoundaryAnEdit" >
+         <property name="text" >
+          <string>Edit</string>
+         </property>
+         <property name="autoDefault" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QPushButton" name="PBBoundaryAnNew" >
+         <property name="text" >
+          <string>New</string>
+         </property>
+         <property name="autoDefault" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QPushButton" name="PBBoundaryAnHelp" >
+         <property name="text" >
+          <string>Help</string>
+         </property>
+         <property name="autoDefault" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
+   </item>
+   <item row="13" column="0" >
+    <widget class="QCheckBox" name="CBAdvanced" >
+     <property name="text" >
+      <string>Advanced options</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="0" >
+    <widget class="QGroupBox" name="GBBoundaryD" >
+     <property name="sizePolicy" >
+      <sizepolicy>
+       <hsizetype>0</hsizetype>
+       <vsizetype>0</vsizetype>
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title" >
+      <string>Discrete boundary</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="0" column="3" >
+       <widget class="QPushButton" name="PBBoundaryDiEdit" >
+        <property name="text" >
+         <string>Edit</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QPushButton" name="PBBoundaryDiNew" >
+        <property name="text" >
+         <string>New</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QComboBox" name="CBBoundaryDi" >
+        <property name="currentIndex" >
+         <number>-1</number>
+        </property>
+        <property name="sizeAdjustPolicy" >
+         <enum>QComboBox::AdjustToContents</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>13</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4" >
+       <widget class="QPushButton" name="PBBoundaryDiHelp" >
+        <property name="text" >
+         <string>Help</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="15" column="0" >
+    <widget class="QGroupBox" name="GroupButtons" >
+     <property name="title" >
+      <string/>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="0" column="3" >
+       <widget class="QPushButton" name="buttonHelp" >
+        <property name="text" >
+         <string>Help</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QPushButton" name="buttonCancel" >
+        <property name="text" >
+         <string>Cancel</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QPushButton" name="buttonApply" >
+        <property name="text" >
+         <string>Apply</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QPushButton" name="buttonOk" >
+        <property name="text" >
+         <string>OK</string>
+        </property>
+        <property name="autoDefault" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="9" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="CBBoundaryD" >
+       <property name="text" >
+        <string>Discrete boundary</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="CBBoundaryA" >
+       <property name="text" >
+        <string>Analytical boundary</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="0" column="0" colspan="2" >
     <layout class="QHBoxLayout" >
@@ -371,30 +569,6 @@
      </property>
     </spacer>
    </item>
-   <item row="9" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
-      <number>6</number>
-     </property>
-     <item>
-      <widget class="QCheckBox" name="CBBoundaryD" >
-       <property name="text" >
-        <string>Discrete boundary</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="CBBoundaryA" >
-       <property name="text" >
-        <string>Analytical boundary</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
    <item row="10" column="0" >
     <spacer>
      <property name="orientation" >
@@ -420,85 +594,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="11" column="0" >
-    <widget class="QGroupBox" name="GBBoundaryD" >
-     <property name="sizePolicy" >
-      <sizepolicy>
-       <hsizetype>0</hsizetype>
-       <vsizetype>0</vsizetype>
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title" >
-      <string>Discrete boundary</string>
-     </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="0" column="4" >
-       <widget class="QPushButton" name="PBBoundaryDiHelp" >
-        <property name="text" >
-         <string>Help</string>
-        </property>
-        <property name="autoDefault" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" >
-       <widget class="QPushButton" name="PBBoundaryDiNew" >
-        <property name="text" >
-         <string>New</string>
-        </property>
-        <property name="autoDefault" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QPushButton" name="PBBoundaryDiEdit" >
-        <property name="text" >
-         <string>Edit</string>
-        </property>
-        <property name="autoDefault" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType" >
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>13</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QComboBox" name="CBBoundaryDi" >
-        <property name="currentIndex" >
-         <number>-1</number>
-        </property>
-        <property name="sizeAdjustPolicy" >
-         <enum>QComboBox::AdjustToContents</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
    </item>
   </layout>
  </widget>

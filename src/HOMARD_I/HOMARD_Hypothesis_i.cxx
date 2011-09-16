@@ -178,6 +178,7 @@ HOMARD::InfosHypo* HOMARD_Hypothesis_i::GetField()
   aInfosHypo->ThreshR    = CORBA::Double( myHomardHypothesis->GetThreshR() );
   aInfosHypo->TypeThC    = CORBA::Long( myHomardHypothesis->GetUnRefThrType() );
   aInfosHypo->ThreshC    = CORBA::Double( myHomardHypothesis->GetThreshC() );
+  aInfosHypo->UsField    = CORBA::Long( myHomardHypothesis->GetUseField() );
   aInfosHypo->UsCmpI     = CORBA::Long( myHomardHypothesis->GetUseCompI() );
   return aInfosHypo;
 }
@@ -263,7 +264,7 @@ void HOMARD_Hypothesis_i::AddComp( const char* NomComposant )
 //=============================================================================
 void HOMARD_Hypothesis_i::SupprComp()
 {
-  ASSERT( myHomardHypothesis );  
+  ASSERT( myHomardHypothesis );
   myHomardHypothesis->SupprComp();
 }
 

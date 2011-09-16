@@ -51,19 +51,19 @@ class SalomeApp_Module;
 class LightApp_SelectionMgr;
 
 namespace HOMARD_UTILS {
-  
+
   _PTR(Study)
   GetCStudy(const SalomeApp_Study* theStudy);
   SUIT_Study* GetActiveStudy();
   _PTR(Study) GetActiveStudyDocument();
 
   void updateObjBrowser();
-  
+
   const SALOME_ListIO& selectedIO();    // Function returns a list of SALOME_InteractiveObject's from
                                         // selection manager in GUI
 
   int   IObjectCount() ;                // Function returns the number of selected objects
-  
+
   Handle(SALOME_InteractiveObject) firstIObject() ;
                                         // Function returns the first selected object in the list
                                         // of selected objects
@@ -83,15 +83,8 @@ namespace HOMARD_UTILS {
   bool isFileSummary(_PTR(SObject)  MonObj);
   bool isObject(_PTR(SObject)  MonObj, QString TypeObject, int option );
 
-  QString ChercheFileDansSelection();
-  QStringList ChercheDansDir (QString direct, QString base, int numIter);
-  void RangeSousTag          (int Tag,QString FileName, int TagFichier, QString Comment,QString FileDir);
-
   void PushOnHelp(QString monFichierAide);
 
-  QString Transforme(int num);
-
-  void AddNewRoot(int Tag, QString Racine);
   extern SALOME_ListIO mySelected;
 }
 

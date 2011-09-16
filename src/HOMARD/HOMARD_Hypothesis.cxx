@@ -36,7 +36,7 @@ HOMARD_Hypothesis::HOMARD_Hypothesis():
   _Field(""),
   _TypeThR(0), _ThreshR(0),
   _TypeThC(0), _ThreshC(0),
-  _UsCmpI(0),  _TypeFieldInterp(0)
+  _UsField(0), _UsCmpI(0),  _TypeFieldInterp(0)
 {
   MESSAGE("HOMARD_Hypothesis");
 }
@@ -88,7 +88,7 @@ std::string HOMARD_Hypothesis::GetName() const
 std::string HOMARD_Hypothesis::GetDumpPython() const
 {
   std::ostringstream aScript;
-  aScript << "\n# Creation of the hypothesis " << _NomHypo << "\n" ; 
+  aScript << "\n# Creation of the hypothesis " << _NomHypo << "\n" ;
   aScript << "\t" << _NomHypo << " = homard.CreateHypothesis('" << _NomHypo << "')\n";
   aScript << "\t" << _NomHypo << ".SetAdapRefinUnRef(" << _TypeAdap << ", " << _TypeRaff << ", " << _TypeDera << ")\n";
 
@@ -104,9 +104,10 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
   if ( _TypeAdap == 1 )
   {
     aScript << "\t" << _NomHypo << ".SetField('" << _Field << "')\n";
+    aScript << "\t" << _NomHypo << ".SetUseField(" << _UsField << ")\n";
     aScript << "\t" << _NomHypo << ".SetUseComp(" << _UsCmpI << ")\n";
     std::list<std::string>::const_iterator it_comp = _ListComposant.begin();
-    while(it_comp != _ListComposant.end()) 
+    while(it_comp != _ListComposant.end())
     {
       aScript << "\t" << _NomHypo << ".AddComp('" << *it_comp << "')\n";
       it_comp++;
@@ -225,7 +226,7 @@ void HOMARD_Hypothesis::SetUseComp( int UsCmpI )
 void HOMARD_Hypothesis::SetUseField( int UsField )
 {
   ASSERT(!((UsField < 0) or (UsField > 1 )));
-  MESSAGE( "SetUseField a programmer ");
+  _UsField = UsField;
 }
 
 //=============================================================================
@@ -236,28 +237,16 @@ std::string HOMARD_Hypothesis::GetFieldName() const
 {
   return _Field;
 }
-
-//=============================================================================
-/*!
-*/
 //=============================================================================
 int HOMARD_Hypothesis::GetRefinThrType() const
 {
   return _TypeThR;
 }
-
-//=============================================================================
-/*!
-*/
 //=============================================================================
 double HOMARD_Hypothesis::GetThreshR() const
 {
   return _ThreshR;
 }
-
-//=============================================================================
-/*!
-*/
 //=============================================================================
 int HOMARD_Hypothesis::GetUnRefThrType() const
 {
@@ -265,16 +254,15 @@ int HOMARD_Hypothesis::GetUnRefThrType() const
 }
 
 //=============================================================================
-/*!
-*/
-//=============================================================================
 double HOMARD_Hypothesis::GetThreshC() const
 {
   return _ThreshC;
 }
 //=============================================================================
-/*!
-*/
+int HOMARD_Hypothesis::GetUseField() const
+{
+  return _UsField;
+}
 //=============================================================================
 int HOMARD_Hypothesis::GetUseCompI() const
 {
@@ -357,7 +345,7 @@ void HOMARD_Hypothesis::SetGroups( const std::list<std::string>& ListGroup )
 {
   _ListGroupSelected.clear();
   std::list<std::string>::const_iterator it = ListGroup.begin();
-  while(it != ListGroup.end()) 
+  while(it != ListGroup.end())
     _ListGroupSelected.push_back((*it++));
 }
 //=============================================================================

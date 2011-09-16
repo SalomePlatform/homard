@@ -33,7 +33,7 @@
 
 class MonCreateIteration;
 class MonCreateHypothesis : public QDialog, public Ui_CreateHypothesis
-{ 
+{
     Q_OBJECT
 
 public:
@@ -64,6 +64,7 @@ protected :
     int _TypeThC;
     double _ThreshC;
 
+    int _UsField;
     int _UsCmpI;
     int _TypeFieldInterp;
 
@@ -107,6 +108,7 @@ public slots:
     virtual void SetCNo();
     virtual void SetUCL2();
     virtual void SetUCInf();
+    virtual void SetUseField();
     virtual void PushZoneNew();
     virtual void PushZoneEdit();
     virtual void PushZoneDelete();
