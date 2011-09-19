@@ -34,7 +34,7 @@ SUBDIRS = idl adm_local resources src doc tests
 
 DIST_SUBDIRS = idl adm_local resources src doc tests
 
-DISTCLEANFILES = a.out aclocal.m4 configure
+DISTCLEANFILES = a.out aclocal.m4 configure hack_libtool
 
 salomeinclude_DATA = HOMARD_version.h
 
