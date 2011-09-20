@@ -20,7 +20,6 @@ include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
 
 dist_salomeres_DATA =   \
-	$(top_builddir)/resources/SalomeApp.xml \
 	boxdxyz.png \
 	boxdxyz_2.png \
 	cas_calcule.png \
@@ -58,4 +57,4 @@ dist_salomeres_DATA =   \
 	zones.png
 
 # VSR: little trick to avoid putting if HOMARDCatalog.xml to the distribution archive
-nodist_salomeres_SCRIPTS = HOMARDCatalog.xml
+nodist_salomeres_SCRIPTS = HOMARDCatalog.xml SalomeApp.xml
