@@ -557,6 +557,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
      aSeqGroupe[i++]=(*it).c_str();
   myCase->SetGroups(aSeqGroupe);
 
+// Valeurs par defaut des filtrages
+  myCase->SetNivMax(-1);
+  myCase->SetDiamMin(-1.0);
+
 // Recherche d'un nom pour l'iteration 0. Par defaut, on prend le nom
 // du maillage du cas. Si ce nom existe deja, on incremente avec 0, 1, 2, etc.
   int monNum=0;

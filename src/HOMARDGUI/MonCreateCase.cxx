@@ -283,11 +283,11 @@ bool MonCreateCase::PushOnApply()
   {
 // Enregistrement du niveau maximal
     _NivMax = spinBoxNivMax->value() ;
+    aCase->SetNivMax(_NivMax);
 // Enregistrement du diametre minimal
     _DiamMin = doubleSpinBoxDiamMin->value() ;
+    aCase->SetDiamMin(_DiamMin);
   }
-  aCase->SetNivMax(_NivMax);
-  aCase->SetDiamMin(_DiamMin);
 
   HOMARD_UTILS::updateObjBrowser();
   return true;

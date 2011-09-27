@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateHypothesis.ui'
 **
-** Created: Fri Sep 2 15:33:39 2011
+** Created: Thu Sep 15 09:15:39 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -340,7 +340,8 @@ public:
     SpinBox_RAbs->setObjectName(QString::fromUtf8("SpinBox_RAbs"));
     SpinBox_RAbs->setEnabled(false);
     SpinBox_RAbs->setDecimals(8);
-    SpinBox_RAbs->setMaximum(100);
+    SpinBox_RAbs->setMaximum(1e+12);
+    SpinBox_RAbs->setMinimum(-1e+12);
     SpinBox_RAbs->setSingleStep(0.1);
 
     gridLayout4->addWidget(SpinBox_RAbs, 2, 1, 1, 1);
@@ -398,7 +399,8 @@ public:
     SpinBox_CAbs->setObjectName(QString::fromUtf8("SpinBox_CAbs"));
     SpinBox_CAbs->setEnabled(false);
     SpinBox_CAbs->setDecimals(8);
-    SpinBox_CAbs->setMaximum(100);
+    SpinBox_CAbs->setMaximum(1e+12);
+    SpinBox_CAbs->setMinimum(-1e+12);
     SpinBox_CAbs->setSingleStep(0.1);
 
     gridLayout5->addWidget(SpinBox_CAbs, 2, 1, 1, 1);

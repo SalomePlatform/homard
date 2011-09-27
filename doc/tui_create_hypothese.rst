@@ -187,6 +187,7 @@ Le filtrage par les groupes
 |     Retourne la liste des groupes utilisés pour le filtrage   |
 +---------------------------------------------------------------+
 
+
 Exemple
 """""""
 La création de l'objet hypo_1 se fait ainsi : ::
@@ -199,7 +200,9 @@ La création de l'objet hypo_1 se fait ainsi : ::
     hypo_1.SetRefinThr(1, 80.)
 
 
-
 Saisie graphique correspondante
 """""""""""""""""""""""""""""""
 Consulter :ref:`gui_create_hypothese`
+
+.. warning::
+  En mode graphique, si on édite une hypothèse et que l'on modifie une de ses caractéristiques, par exemple le seuil de raffinement, toutes les itérations qui ont été calculées précédemment avec cette hypothèse sont invalidées. En mode python, cela n'est plus vrai : les itérations restent telles quelles.

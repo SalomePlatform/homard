@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2011
 Test test_3
 """
-__revision__ = "V1.0"
+__revision__ = "V1.1"
 
 ######################################################################################
 Test_Name = "test_3"
@@ -55,25 +55,19 @@ Copyright EDF-R&D 2010
 # Creation of the boundaries
 # ==========================
 # Creation of the discrete boundary
-  Boundary_1 = homard.CreateBoundary('courbes', 0)
-  Boundary_1.SetMeshFile(os.path.join(Rep_Test, Test_Name + '.fr.med'))
-  Boundary_1.SetMeshName('COURBES')
+  Boundary_1 = homard.CreateBoundaryDi('courbes', 'COURBES', os.path.join(Rep_Test, Test_Name + '.fr.med'))
 #
 # Creation of the external cylinder
-  Boundary_2 = homard.CreateBoundary('cyl_ext', 1)
-  Boundary_2.SetCylinder(50.0, 25., -25., 1., 0., 0., 100.)
+  Boundary_2 = homard.CreateBoundaryCylinder('cyl_ext', 50.0, 25., -25., 1., 0., 0., 100.)
 #
 # Creation of the internal cylinder
-  Boundary_3 = homard.CreateBoundary('cyl_int', 1)
-  Boundary_3.SetCylinder(50.0, 25., -25., 1., 0., 0., 50.)
+  Boundary_3 = homard.CreateBoundaryCylinder('cyl_int', 50.0, 25., -25., 1., 0., 0., 50.)
 #
 # Creation of the first sphere
-  Boundary_4 = homard.CreateBoundary('sphere_1', 2)
-  Boundary_4.SetSphere(50.0, 25., -25., 100.)
+  Boundary_4 = homard.CreateBoundarySphere('sphere_1', 50.0, 25., -25., 100.)
 #
 # Creation of the second sphere
-  Boundary_5 = homard.CreateBoundary('sphere_2', 2)
-  Boundary_5.SetSphere(450.0, 25., -25., 100.)
+  Boundary_5 = homard.CreateBoundarySphere('sphere_2', 450.0, 25., -25., 100.)
 #
 # Creation of the hypotheses
 # ==========================

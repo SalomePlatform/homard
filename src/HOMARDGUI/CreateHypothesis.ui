@@ -422,7 +422,10 @@
               <number>8</number>
              </property>
              <property name="maximum" >
-              <double>100.000000000000000</double>
+              <double>1000000000000.000000000000000</double>
+             </property>
+             <property name="minimum" >
+              <double>-1000000000000.000000000000000</double>
              </property>
              <property name="singleStep" >
               <double>0.100000000000000</double>
@@ -525,7 +528,10 @@
               <number>8</number>
              </property>
              <property name="maximum" >
-              <double>100.000000000000000</double>
+              <double>1000000000000.000000000000000</double>
+             </property>
+             <property name="minimum" >
+              <double>-1000000000000.000000000000000</double>
              </property>
              <property name="singleStep" >
               <double>0.100000000000000</double>

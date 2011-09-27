@@ -46,15 +46,13 @@ module HOMARD
                                                            raises (SALOME::SALOME_Exception);
     HOMARD_Iteration  CreateIteration(in string nomIter, in string nomIterParent )
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZone(in string nomZone, in long typeZone)
-                                                           raises (SALOME::SALOME_Exception);
     HOMARD_Zone       CreateZoneBox (in string nomZone,
                                      in double Xmini, in double Xmaxi,
                                      in double Ymini, in double Ymaxi,
                                      in double Zmini, in double Zmaxi)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneSphere (in string nomZone, 
-                                        in double Xcentre, in double Ycentre, in double Zcentre, 
+    HOMARD_Zone       CreateZoneSphere (in string nomZone,
+                                        in double Xcentre, in double Ycentre, in double Zcentre,
                                         in double Rayon)
                                                            raises (SALOME::SALOME_Exception);
     HOMARD_Zone       CreateZoneCylinder (in string nomZone,
@@ -80,8 +78,6 @@ module HOMARD
                                               in double Ucentre, in double Vcentre,
                                               in double Rayon, in double Rayonint,
                                               in long Orient)
-                                                           raises (SALOME::SALOME_Exception);
-    HOMARD_Boundary   CreateBoundary(in string nomBoundary, in long typeBoundary)
                                                            raises (SALOME::SALOME_Exception);
     HOMARD_Boundary   CreateBoundaryDi (in string nomBoundary, in string MeshName, in string FileName);
     HOMARD_Boundary   CreateBoundaryCylinder (in string nomBoundary,

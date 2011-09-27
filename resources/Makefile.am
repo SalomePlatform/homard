@@ -20,6 +20,9 @@ include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
 
 dist_salomeres_DATA =   \
+	$(top_builddir)/resources/SalomeApp.xml \
+	boxdxy.png \
+	boxdxy_2.png \
 	boxdxyz.png \
 	boxdxyz_2.png \
 	cas_calcule.png \
@@ -27,6 +30,10 @@ dist_salomeres_DATA =   \
 	cylinderpointvector.png \
 	cylinderpointvector_2.png \
 	delete.png \
+	disk.png \
+	disk_2.png \
+	diskwithhole.png \
+	diskwithhole_2.png \
 	HOMARD.png \
 	HOMARD_2.png \
 	hypotheses.png \
@@ -42,6 +49,8 @@ dist_salomeres_DATA =   \
 	mesh_tree_mesh.png \
 	mesh_tree_importedmesh.png \
 	mesh_whatis.png \
+	pipe.png \
+	pipe_2.png \
 	spherepoint.png \
 	spherepoint_2.png \
 	texte.png \
@@ -57,4 +66,4 @@ dist_salomeres_DATA =   \
 	zones.png
 
 # VSR: little trick to avoid putting if HOMARDCatalog.xml to the distribution archive
-nodist_salomeres_SCRIPTS = HOMARDCatalog.xml SalomeApp.xml
+nodist_salomeres_SCRIPTS = HOMARDCatalog.xml

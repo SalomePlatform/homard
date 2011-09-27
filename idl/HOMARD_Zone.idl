@@ -36,21 +36,20 @@ module HOMARD
     void     SetZoneType (in long ZoneType)                raises (SALOME::SALOME_Exception);
     long     GetZoneType()                                 raises (SALOME::SALOME_Exception);
 
-    void     SetBox    (in double Xmini, in double Xmaxi, in double Ymini, 
+    void     SetBox    (in double Xmini, in double Xmaxi, in double Ymini,
                         in double Ymaxi, in double Zmini, in double Zmaxi)
                                                            raises (SALOME::SALOME_Exception);
-    double_array GetCoords()                               raises (SALOME::SALOME_Exception);
     void     SetSphere (in double Xcentre, in double Ycentre, in double Zcentre, in double rayon)
                                                            raises (SALOME::SALOME_Exception);
-    void     SetCylinder (in double Xcentre, in double Ycentre, in double Zcentre, 
-                          in double Xaxis, in double Yaxis, in double Zaxis, 
+    void     SetCylinder (in double Xcentre, in double Ycentre, in double Zcentre,
+                          in double Xaxis, in double Yaxis, in double Zaxis,
                           in double Rayon, in double Haut)
                                                            raises (SALOME::SALOME_Exception);
     void     SetPipe( in double Xcentre, in double Ycentre, in double ZCentre,
                       in double Xaxis, in double Yaxis, in double Zaxis,
                       in double Rayon, in double Haut, in double Rayonint )
                                                            raises (SALOME::SALOME_Exception);
-//    double_array GetSphere()                               raises (SALOME::SALOME_Exception);
+    double_array GetCoords()                               raises (SALOME::SALOME_Exception);
     void     SetLimit (in double Xincr, in double Yincr, in double Zincr)
                                                            raises (SALOME::SALOME_Exception);
     double_array GetLimit()                                raises (SALOME::SALOME_Exception);

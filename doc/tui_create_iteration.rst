@@ -112,7 +112,7 @@ Informations sur le champ
 +---------------------------------------------------------------+
 | .. module:: SetTimeStepRank                                   |
 |                                                               |
-| **SetTimeStepRank(fTimeStep, Rank)**                          |
+| **SetTimeStepRank(TimeStep, Rank)**                           |
 |                                                               |
 |     - ``TimeStep`` : l'instant où est pris le champ           |
 |     - ``Rank`` : le numéro d'ordre où est pris le champ       |

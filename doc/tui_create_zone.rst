@@ -152,5 +152,8 @@ Saisie graphique correspondante
 """""""""""""""""""""""""""""""
 Consulter :ref:`gui_create_zone`
 
+.. warning::
+  En mode graphique, si on édite une zone et que l'on modifie une des dimensions, toutes les itérations qui ont été calculées précédemment avec cette zone sont invalidées. En mode python, cela n'est plus vrai : les itérations restent telles quelles.
+
 
 

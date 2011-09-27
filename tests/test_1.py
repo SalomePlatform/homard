@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2010
 Test test_1
 """
-__revision__ = "V1.2"
+__revision__ = "V1.3"
 
 ######################################################################################
 Test_Name = "test_1"
@@ -55,12 +55,10 @@ Copyright EDF-R&D 2010
 # Creation of the zones
 # =====================
 # Creation of the box Zone_1
-  Zone_1 = homard.CreateZone('Zone_1', 2)
-  Zone_1.SetBox(-0.01, 1.01, -0.01, 0.4, -0.01, 0.6)
+  Zone_1 = homard.CreateZoneBox('Zone_1', -0.01, 1.01, -0.01, 0.4, -0.01, 0.6)
 
 # Creation of the sphere Zone_2
-  Zone_2 = homard.CreateZone('Zone_2', 4)
-  Zone_2.SetSphere(0.5, 0.6, 0.7, 0.75)
+  Zone_2 = homard.CreateZoneSphere('Zone_2', 0.5, 0.6, 0.7, 0.75)
 #
 # Creation of the hypotheses
 # ==========================

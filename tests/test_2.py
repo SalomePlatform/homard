@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2010
 Test test_2
 """
-__revision__ = "V1.2"
+__revision__ = "V1.3"
 
 ######################################################################################
 Test_Name = "test_2"
@@ -55,9 +55,7 @@ Copyright EDF-R&D 2010
 # Creation of the boundaries
 # ==========================
 # Creation of the discrete boundary Boundary_1
-  Boundary_1 = homard.CreateBoundary('internal_boundary', 0)
-  Boundary_1.SetMeshFile(os.path.join(Rep_Test, Test_Name + '.fr.med'))
-  Boundary_1.SetMeshName('plaque')
+  Boundary_1 = homard.CreateBoundaryDi('internal_boundary', 'plaque', os.path.join(Rep_Test, Test_Name + '.fr.med'))
 #
 # Creation of the hypotheses
 # ==========================

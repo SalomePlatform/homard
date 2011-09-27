@@ -39,7 +39,7 @@ Pour créer ou utiliser une hypothèse d'adaptation basée sur un champ exprimé sur
 .. image:: images/create_iteration_2.png
    :align: center
 
-Dans le cas où des pas de temps ont été définis, une solution simple consiste à traiter les champs au dernier pas de temps enregistré dans le fichier. Si on veut définir un autre pas de temps, on coche le bouton "*Pas de temps choisi*" ; les valeurs de 'Pas de temps' et de 'Numéro d'ordre' sont celles correspondant à la convention MED (time step / rank).
+Dans le cas où des pas de temps ont été définis, une solution simple consiste à traiter les champs au dernier pas de temps enregistré dans le fichier. Si on veut définir un autre pas de temps, on coche le bouton "*Pas de temps choisi*". Les valeurs de 'Pas de temps' et de 'Numéro d'ordre' sont celles correspondant à la convention MED (time step / rank). Ces valeurs dépendent de la logique qui a été retenue par le logiciel qui a écrit le fichier. Souvent ces deux valeurs sont identiques mais il arrive que l'on disjoigne les pas de temps et les intervalles d'archivage.
 
 .. image:: images/create_iteration_3.png
    :align: center

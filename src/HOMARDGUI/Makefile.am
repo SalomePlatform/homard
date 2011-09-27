@@ -24,7 +24,6 @@
 include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
 salomeinclude_HEADERS =       \
-	HomardConfigFile.hxx  \
 	MonCreateBoundaryAn.h \
 	CreateBoundaryAn.h    \
 	MonEditBoundaryAn.h   \
@@ -48,7 +47,6 @@ salomeinclude_HEADERS =       \
 	MonEditIteration.h    \
 	HOMARDGUI.h           \
 	HOMARDGUI_Utils.h     \
-	HomardDlg.h           \
 	EditFile.h            \
 	MonEditFile.h         \
 	HomardQtCommun.h
@@ -60,7 +58,6 @@ lib_LTLIBRARIES = libHOMARD.la
 dist_libHOMARD_la_SOURCES =     \
 	HOMARDGUI.cxx           \
 	HOMARDGUI_Utils.cxx     \
-	HomardConfigFile.cxx    \
 	MonCreateBoundaryAn.cxx \
 	MonEditBoundaryAn.cxx \
 	MonCreateBoundaryDi.cxx \
