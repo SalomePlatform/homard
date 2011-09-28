@@ -164,7 +164,7 @@ void MonEditCase::InitValEdit()
       int nbcol = TWBoundary->columnCount();
       int nbrow = TWBoundary->rowCount();
       for ( int i = 0; i < nbrow; i++ )
-      { for ( int j = 0; j < nbcol; j++ ) TWBoundary->item( i, j )->setFlags( !Qt::ItemIsEnabled ); }
+      { for ( int j = 0; j < nbcol; j++ ) TWBoundary->item( i, j )->setFlags( Qt::ItemIsSelectable ); }
 //    on met un nom blanc au coin
       QTableWidgetItem *__colItem = new QTableWidgetItem();
       __colItem->setText(QApplication::translate("CreateCase", "", 0, QApplication::UnicodeUTF8));
