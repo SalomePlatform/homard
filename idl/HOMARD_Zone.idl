@@ -20,14 +20,16 @@
 #ifndef _HOMARD_Zone_IDL
 #define _HOMARD_Zone_IDL
 
+#include "SALOME_Component.idl"
 #include "SALOME_Exception.idl"
+#include "SALOMEDS.idl"
 
 module HOMARD
 {
   typedef sequence<double    > double_array ;
   typedef sequence<string    > listeHypo ;
 
-  interface HOMARD_Zone
+  interface HOMARD_Zone : Engines::EngineComponent
   {
 
     void     SetName (in string NomZone)                   raises (SALOME::SALOME_Exception);

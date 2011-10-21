@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2010
 Test test_1
 """
-__revision__ = "V1.3"
+__revision__ = "V1.4"
 
 ######################################################################################
 Test_Name = "test_1"
@@ -94,7 +94,7 @@ Copyright EDF-R&D 2010
   I1.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.00.med'))
   I1.SetTimeStepRank(1, 1)
   homard.AssociateIterHypo('I1', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
-  result1 = homard.Compute('I1', 1)
+  result1 = I1.Compute(1)
 
 # Creation of the iteration I2
   I2 = homard.CreateIteration('I2', 'I1')
@@ -103,14 +103,14 @@ Copyright EDF-R&D 2010
   I2.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.01.med'))
   I2.SetTimeStepRank(1, 1)
   homard.AssociateIterHypo('I2', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
-  result2 = homard.Compute('I2', 1)
+  result2 = I2.Compute(1)
 
 # Creation of the iteration I3
   I3 = homard.CreateIteration('I3', 'I2')
   I3.SetMeshName('M3')
   I3.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.03.med'))
   homard.AssociateIterHypo('I3', 'Zones_1_et_2')
-  result3 = homard.Compute('I3', 1)
+  result3 = I3.Compute(1)
   return result1*result2*result3
 
 ######################################################################################

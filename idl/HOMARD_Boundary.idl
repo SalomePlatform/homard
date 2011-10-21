@@ -20,14 +20,17 @@
 #ifndef _HOMARD_Boundary_IDL
 #define _HOMARD_Boundary_IDL
 
+#include "SALOME_Component.idl"
 #include "SALOME_Exception.idl"
+#include "SALOMEDS.idl"
+
 #include "HOMARD_Cas.idl"
 #include "HOMARD_Zone.idl"
 
 
 module HOMARD
 {
-  interface HOMARD_Boundary
+  interface HOMARD_Boundary : Engines::EngineComponent
   {
 
     void     SetName (in string NomBoundary)               raises (SALOME::SALOME_Exception);

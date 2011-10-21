@@ -71,7 +71,7 @@ Méthodes de la classe boundary
 
 Exemple
 """""""
-Création d'une frontière discrète, d'une frontière sphérique, puis d'une frontière cylindrique : ::
+Création d'une frontière discrète, d'une frontière sphèrique, puis d'une frontière cylindrique : ::
 
     inter = homard.CreateBoundaryDi("INTERSECTION", 'PIQUAGE', dircase+'/tutorial_4.fr.med')
     fron_1 = homard.CreateBoundarySphere("FRON_1", 12.3, 3.4, .56, 6.5)

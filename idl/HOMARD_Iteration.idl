@@ -20,13 +20,15 @@
 #ifndef _HOMARD_ITERATION_IDL
 #define _HOMARD_ITERATION_IDL
 
+#include "SALOME_Component.idl"
 #include "SALOME_Exception.idl"
+#include "SALOMEDS.idl"
 
 module HOMARD
 {
   typedef sequence<string> listeIterFilles ;
 
-  interface HOMARD_Iteration
+  interface HOMARD_Iteration : Engines::EngineComponent
   {
     void     SetName(in string NomIter)                    raises (SALOME::SALOME_Exception);
     string   GetName()                                     raises (SALOME::SALOME_Exception);
@@ -68,7 +70,7 @@ module HOMARD
     void     SetMessFile(in string MessFile)               raises (SALOME::SALOME_Exception);
     string   GetMessFile()                                 raises (SALOME::SALOME_Exception);
 
-    boolean  Compute()                                     raises (SALOME::SALOME_Exception);
+    boolean  Compute(in long etatMenage)                   raises (SALOME::SALOME_Exception);
 
     string   GetDumpPython()                               raises (SALOME::SALOME_Exception);
   };

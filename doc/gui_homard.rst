@@ -40,5 +40,5 @@ Les deux fichiers de texte, Liste.n.vers.(n+1) et apad.n.vers.(n+1).bilan, sont 
 
 Méthodes python correspondantes
 """""""""""""""""""""""""""""""
-Consulter :ref:`tui_homard`
+Consulter :ref:`tui_create_iteration`
 

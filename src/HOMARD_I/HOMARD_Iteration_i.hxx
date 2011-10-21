@@ -24,17 +24,24 @@
 #include CORBA_SERVER_HEADER(HOMARD_Gen)
 #include CORBA_SERVER_HEADER(HOMARD_Iteration)
 
+#include "SALOME_Component_i.hxx"
+#include "SALOME_NamingService.hxx"
+#include "Utils_CorbaException.hxx"
+
 #include <string>
 
 class HOMARD_Iteration;
 
-class HOMARD_Iteration_i: public virtual POA_HOMARD::HOMARD_Iteration,
-			  public virtual PortableServer::ServantBase
-{ 
+class HOMARD_Iteration_i:
+  public virtual Engines_Component_i,
+  public virtual POA_HOMARD::HOMARD_Iteration,
+  public virtual PortableServer::ServantBase
+{
 public:
-  HOMARD_Iteration_i( CORBA::ORB_ptr orb, HOMARD::HOMARD_Gen_var gen_i );
+  HOMARD_Iteration_i( CORBA::ORB_ptr orb,
+                      HOMARD::HOMARD_Gen_var gen_i );
   HOMARD_Iteration_i();
-  
+
   virtual ~HOMARD_Iteration_i();
 
   void                   SetName( const char* NomIteration );
@@ -77,7 +84,7 @@ public:
   void                   SetHypoName( const char* NomHypo );
   char*                  GetHypoName();
 
-  CORBA::Boolean         Compute();
+  CORBA::Boolean         Compute(CORBA::Long etatMenage);
 
   std::string            Dump() const;
   bool                   Restore( const std::string& stream );

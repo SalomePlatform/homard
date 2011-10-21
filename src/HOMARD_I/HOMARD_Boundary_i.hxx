@@ -24,12 +24,18 @@
 #include CORBA_SERVER_HEADER(HOMARD_Gen)
 #include CORBA_SERVER_HEADER(HOMARD_Boundary)
 
+#include "SALOME_Component_i.hxx"
+#include "SALOME_NamingService.hxx"
+#include "Utils_CorbaException.hxx"
+
 #include <string>
 
 class HOMARD_Boundary;
 
-class HOMARD_Boundary_i: public virtual POA_HOMARD::HOMARD_Boundary,
-                         public virtual PortableServer::ServantBase
+class HOMARD_Boundary_i:
+  public virtual Engines_Component_i,
+  public virtual POA_HOMARD::HOMARD_Boundary,
+  public virtual PortableServer::ServantBase
 {
 public:
   HOMARD_Boundary_i( CORBA::ORB_ptr orb, HOMARD::HOMARD_Gen_var gen_i );

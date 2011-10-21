@@ -44,11 +44,11 @@ class HOMARD_Gen_i:
   public virtual POA_HOMARD::HOMARD_Gen
 {
 public:
-  HOMARD_Gen_i(CORBA::ORB_ptr orb,
-		PortableServer::POA_ptr poa,
-		PortableServer::ObjectId* contId,
-		const char* instanceName,
-		const char* interfaceName);
+  HOMARD_Gen_i( CORBA::ORB_ptr orb,
+                PortableServer::POA_ptr poa,
+                PortableServer::ObjectId* contId,
+                const char* instanceName,
+                const char* interfaceName );
   virtual ~HOMARD_Gen_i();
 
 

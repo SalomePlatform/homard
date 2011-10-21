@@ -200,11 +200,12 @@ int HOMARD_Hypothesis::GetUnRefType() const
 void HOMARD_Hypothesis::SetField( const char* FieldName )
 {
   _Field = std::string( FieldName );
-  MESSAGE( "dans SetField, FieldName : " << FieldName );
+  MESSAGE( "SetField : FieldName = " << FieldName );
 }
 //=============================================================================
 void HOMARD_Hypothesis::SetRefinThr( int TypeThR, double ThreshR )
 {
+  MESSAGE( "SetRefinThr : TypeThR = " << TypeThR << ", ThreshR = " << ThreshR );
   ASSERT(!(( TypeThR < 0) or (TypeThR > 3 )));
   _TypeThR = TypeThR;
   _ThreshR = ThreshR;

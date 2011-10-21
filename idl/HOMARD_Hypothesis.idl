@@ -20,7 +20,10 @@
 #ifndef _HOMARD_HYPOTHESIS_IDL
 #define _HOMARD_HYPOTHESIS_IDL
 
+#include "SALOME_Component.idl"
 #include "SALOME_Exception.idl"
+#include "SALOMEDS.idl"
+
 #include "HOMARD_Cas.idl"
 
 module HOMARD
@@ -30,7 +33,7 @@ module HOMARD
   typedef sequence<string> listeComposantsHypo ;
   typedef sequence<long>   listeTypes;
   typedef sequence<string> listFieldInterpHypo;
- 
+
   struct InfosHypo
   {
       string FieldName;
@@ -42,7 +45,7 @@ module HOMARD
       double ThreshC;
   };
 
-  interface HOMARD_Hypothesis
+  interface HOMARD_Hypothesis : Engines::EngineComponent
   {
 
     void     SetName(in string NomHypothesis)              raises (SALOME::SALOME_Exception);

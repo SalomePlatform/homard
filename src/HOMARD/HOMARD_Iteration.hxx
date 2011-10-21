@@ -34,8 +34,6 @@ public:
   HOMARD_Iteration();
   ~HOMARD_Iteration();
 
-  bool                          Compute();
-
   void                          SetName( const char* NomIter );
   std::string                   GetName() const;
   std::string                   GetDumpPython() const;

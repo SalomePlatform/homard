@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2011
 Test test_3
 """
-__revision__ = "V1.1"
+__revision__ = "V1.2"
 
 ######################################################################################
 Test_Name = "test_3"
@@ -94,14 +94,14 @@ Copyright EDF-R&D 2010
   Iter_1.SetMeshName('MOYEU_1')
   Iter_1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
   homard.AssociateIterHypo('Iter_1', 'Hypo')
-  result1 = homard.Compute('Iter_1', 1)
+  result1 = Iter_1.Compute(1)
 
 # Creation of the iteration Iter_2
   Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
   Iter_2.SetMeshName('MOYEU_2')
   Iter_2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
   homard.AssociateIterHypo('Iter_2', 'Hypo')
-  result2 = homard.Compute('Iter_2', 1)
+  result2 = Iter_2.Compute(1)
 
   return result1*result2
 

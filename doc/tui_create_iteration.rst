@@ -42,6 +42,21 @@ Généralités
 
 +---------------------------------------------------------------+
 +---------------------------------------------------------------+
+| .. index:: single: Compute                                    |
+|                                                               |
+| **Compute(option)**                                           |
+|     Calcule le maillage correspondant à l'itération           |
+|                                                               |
+|     - ``option`` : un entier précisant ce qui se passe quand  |
+|       des fichiers de résultats existent déjà                 |
+|                                                               |
+|         * 0 : arrêt en erreur                                 |
+|         * 1 : écrasement des anciens fichiers                 |
+|                                                               |
+|     Retourne un entier :                                      |
+|         * 0 : adaptation réussie                              |
+|         * autre valeur : problème                             |
++---------------------------------------------------------------+
 | .. module:: GetName                                           |
 |                                                               |
 | **GetName()**                                                 |
@@ -145,15 +160,17 @@ Pour la création de la première itération, il faut récupérer le nom qui a été do
     iter_1.SetMeshName("maill_01")
     iter_1.SetMeshFile("/local00/M.01.med")
     homard.AssociateIterHypo(iter_name, "HypoField")
+    codret = iter_1.Compute(1)
 
 Pour la création d'une itération suivante, on donnera le nom de l'itération parent de laquelle on part. ::
 
     iter_name = "Iteration_2"
-    iter_1 = homard.CreateIteration(iter_name, "Iteration_1")
-    iter_1.SetField(field_file, 0, 0)
-    iter_1.SetMeshName("maill_02")
-    iter_1.SetMeshFile("/local00/M.02.med")
+    iter_2 = homard.CreateIteration(iter_name, "Iteration_1")
+    iter_2.SetField(field_file, 0, 0)
+    iter_2.SetMeshName("maill_02")
+    iter_2.SetMeshFile("/local00/M.02.med")
     homard.AssociateIterHypo(iter_name, "HypoField")
+    codret = iter_2.Compute(1)
 
 
 Saisie graphique correspondante

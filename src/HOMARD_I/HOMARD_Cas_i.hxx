@@ -24,12 +24,18 @@
 #include CORBA_SERVER_HEADER(HOMARD_Gen)
 #include CORBA_SERVER_HEADER(HOMARD_Cas)
 
+#include "SALOME_Component_i.hxx"
+#include "SALOME_NamingService.hxx"
+#include "Utils_CorbaException.hxx"
+
 #include <string>
 
 class HOMARD_Cas;
 
-class HOMARD_Cas_i: public virtual POA_HOMARD::HOMARD_Cas,
-		    public virtual PortableServer::ServantBase
+class HOMARD_Cas_i:
+  public virtual Engines_Component_i,
+  public virtual POA_HOMARD::HOMARD_Cas,
+  public virtual PortableServer::ServantBase
 {
 public:
   HOMARD_Cas_i( CORBA::ORB_ptr orb, HOMARD::HOMARD_Gen_var gen_i );

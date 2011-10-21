@@ -24,7 +24,7 @@
 Exemple de couplage HOMARD-Salome
 Copyright EDF-R&D 1996, 2010
 """
-__revision__ = "V1.1"
+__revision__ = "V1.2"
 #
 # ==================================
 # Repertoire a personnaliser
@@ -77,7 +77,7 @@ Iter_1 = homard.CreateIteration('Iter_1', Case_1.GetIter0Name())
 Iter_1.SetMeshName('COEUR_2D_01')
 Iter_1.SetMeshFile(dircase+'/maill.01.med')
 homard.AssociateIterHypo('Iter_1', 'Hypo_1')
-codret = homard.Compute('Iter_1', 1)
+codret = Iter_1.Compute(1)
 #
 # Iteration "Iter_2"
 # ==================
@@ -85,7 +85,7 @@ Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
 Iter_2.SetMeshName('COEUR_2D_02')
 Iter_2.SetMeshFile(dircase+'/maill.02.med')
 homard.AssociateIterHypo('Iter_2', 'Hypo_2')
-result = homard.Compute('Iter_2', 1)
+codret = Iter_2.Compute(1)
 
 
 if salome.sg.hasDesktop():

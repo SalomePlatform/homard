@@ -22,17 +22,20 @@ include $(top_srcdir)/adm_local/unix/make_common_starter.am
 
 dist_salomeres_DATA =   \
      test_1.pdf \
+     test_1.en.pdf \
      test_1.py \
      test_1.00.med \
      test_1.01.med \
      test_1.02.med \
      test_1.apad.03.bilan \
      test_2.pdf \
+     test_2.en.pdf \
      test_2.py \
      test_2.00.med \
      test_2.fr.med \
      test_2.apad.03.bilan \
      test_3.pdf \
+     test_3.en.pdf \
      test_3.py \
      test_3.00.med \
      test_3.fr.med \
@@ -40,8 +43,11 @@ dist_salomeres_DATA =   \
 
 EXTRA_DIST += \
      test_1.odt \
+     test_1.en.odt \
      test_1.png \
      test_2.odt \
+     test_2.en.odt \
      test_2.png \
      test_3.odt \
+     test_3.en.odt \
      test_3.png

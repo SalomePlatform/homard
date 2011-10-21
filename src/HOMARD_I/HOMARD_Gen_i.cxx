@@ -73,14 +73,14 @@ std::string RemoveTabulation( std::string theScript )
  *  standard constructor
  */
 //=============================================================================
-HOMARD_Gen_i::HOMARD_Gen_i(CORBA::ORB_ptr orb,
-			   PortableServer::POA_ptr poa,
-			   PortableServer::ObjectId * contId,
-			   const char *instanceName,
-			   const char *interfaceName) :
-  Engines_Component_i(orb, poa, contId, instanceName, interfaceName)
+HOMARD_Gen_i::HOMARD_Gen_i( CORBA::ORB_ptr orb,
+                            PortableServer::POA_ptr poa,
+                            PortableServer::ObjectId * contId,
+                            const char *instanceName,
+                            const char *interfaceName) :
+Engines_Component_i(orb, poa, contId, instanceName, interfaceName)
 {
-  MESSAGE("activate object");
+  MESSAGE("constructor");
   _thisObj = this;
   _id = _poa->activate_object(_thisObj);
 
@@ -172,7 +172,7 @@ int HOMARD_Gen_i::GetCurrentStudyID()
 //=============================================================================
 void HOMARD_Gen_i::AssociateCaseIter(const char* nomCas, const char* nomIter, const char* labelIter)
 {
-  MESSAGE( "AssociateCaseIter " << nomCas << " ," << nomIter << ","  << labelIter );
+  MESSAGE( "AssociateCaseIter : " << nomCas << " ," << nomIter << ","  << labelIter );
   IsValidStudy () ;
 
   HOMARD::HOMARD_Cas_var myCase = myContextMap[GetCurrentStudyID()]._mesCas[nomCas];
@@ -220,7 +220,7 @@ void HOMARD_Gen_i::AssociateCaseIter(const char* nomCas, const char* nomIter, co
 void HOMARD_Gen_i::SetEtatIter(const char* nomIter, const bool EtatCalcul)
 //=====================================================================================
 {
-  MESSAGE( "SetEtatIter, nomIter  = " << nomIter << " etat " << EtatCalcul );
+  MESSAGE( "SetEtatIter : nomIter  = " << nomIter << " etat " << EtatCalcul );
   HOMARD::HOMARD_Iteration_var myIteration = myContextMap[GetCurrentStudyID()]._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
   {
@@ -261,7 +261,7 @@ void HOMARD_Gen_i::SetEtatIter(const char* nomIter, const bool EtatCalcul)
 void HOMARD_Gen_i::InvalideBoundary(const char* BoundaryName)
 //=====================================================================================
 {
-  MESSAGE( "InvalideBoundary, BoundaryName    = " << BoundaryName  );
+  MESSAGE( "InvalideBoundary : BoundaryName    = " << BoundaryName  );
   HOMARD::HOMARD_Boundary_var myBoundary = myContextMap[GetCurrentStudyID()]._mesBoundarys[BoundaryName];
   if (CORBA::is_nil(myBoundary))
   {
@@ -288,7 +288,7 @@ void HOMARD_Gen_i::InvalideBoundary(const char* BoundaryName)
 void HOMARD_Gen_i::InvalideZone(const char* ZoneName)
 //=====================================================================================
 {
-  MESSAGE( "InvalideZone, ZoneName    = " << ZoneName  );
+  MESSAGE( "InvalideZone : ZoneName    = " << ZoneName  );
   HOMARD::HOMARD_Zone_var myZone = myContextMap[GetCurrentStudyID()]._mesZones[ZoneName];
   if (CORBA::is_nil(myZone))
   {
@@ -310,7 +310,7 @@ void HOMARD_Gen_i::InvalideZone(const char* ZoneName)
 void HOMARD_Gen_i::InvalideHypo(const char* nomHypo)
 //=====================================================================================
 {
-  MESSAGE( "InvalideHypo, nomHypo    = " << nomHypo  );
+  MESSAGE( "InvalideHypo : nomHypo    = " << nomHypo  );
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypo];
   if (CORBA::is_nil(myHypo))
   {
@@ -334,7 +334,7 @@ void HOMARD_Gen_i::InvalideHypo(const char* nomHypo)
 void HOMARD_Gen_i::InvalideIter(const char* nomIter)
 //=====================================================================================
 {
-  MESSAGE("InvalideIter, nomIter    = " << nomIter);
+  MESSAGE("InvalideIter : nomIter    = " << nomIter);
   SetEtatIter(nomIter,false);
   HOMARD::HOMARD_Iteration_var myIteration = myContextMap[GetCurrentStudyID()]._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
@@ -398,7 +398,7 @@ void HOMARD_Gen_i::InvalideIter(const char* nomIter)
 //=====================================================================================
 void HOMARD_Gen_i::AssociateHypoZone(const char* ZoneName, const char* nomHypothesis)
 {
-  MESSAGE ( " AssociateHypoZone, ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
+  MESSAGE ( "AssociateHypoZone : ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
   IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
@@ -425,7 +425,7 @@ void HOMARD_Gen_i::AssociateHypoZone(const char* ZoneName, const char* nomHypoth
 //=====================================================================================
 void HOMARD_Gen_i::DissociateHypoZone(const char* ZoneName, const char* nomHypothesis)
 {
-  MESSAGE ( " DissociateHypoZone, ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
+  MESSAGE ( "DissociateHypoZone : ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
   IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
@@ -465,7 +465,7 @@ void HOMARD_Gen_i::DissociateHypoZone(const char* ZoneName, const char* nomHypot
 //=============================================================================
 void HOMARD_Gen_i::AssociateIterIter(const char* nomIterParent, const char* nomIter)
 {
-  MESSAGE ( "AssociateIterIter, nomIter       = " << nomIter << " nomIterParent = " << nomIterParent);
+  MESSAGE ( "AssociateIterIter : nomIter       = " << nomIter << " nomIterParent = " << nomIterParent);
   IsValidStudy () ;
 
   HOMARD::HOMARD_Iteration_var myIterationParent = myContextMap[GetCurrentStudyID()]._mesIterations[nomIterParent];
@@ -480,7 +480,7 @@ void HOMARD_Gen_i::AssociateIterIter(const char* nomIterParent, const char* nomI
 //===================================================================================
 void HOMARD_Gen_i::AssociateIterHypo(const char* nomIter, const char* nomHypo)
 {
-  MESSAGE("AssociateIterHypo, nomHypo = " << nomHypo << " nomIter = " << nomIter);
+  MESSAGE("AssociateIterHypo : nomHypo = " << nomHypo << " nomIter = " << nomIter);
   IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypo];
@@ -521,7 +521,7 @@ CORBA::Boolean HOMARD_Gen_i::VerifieDir(const char* nomDir)
 //=============================================================================
 HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* MeshName, const char* MeshFile)
 {
-  MESSAGE ( "CreateCase, nomCas   = " << nomCas << "MeshName = " << MeshName );
+  MESSAGE ( "CreateCase : nomCas = " << nomCas << ", MeshName = " << MeshName << ", MeshFile = " << MeshFile );
   IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesCas).find(nomCas)!=(myContextMap[GetCurrentStudyID()]._mesCas).end())
@@ -620,7 +620,9 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::GetZone(const char* ZoneName)
 //=============================================================================
 HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::GetHypothesis(const char* nomHypothesis)
 {
+  MESSAGE ( "GetHypothesis : nomHypothesis = " << nomHypothesis );
   IsValidStudy () ;
+  MESSAGE ( "GetHypothesis : GetCurrentStudyID() = " << GetCurrentStudyID() );
   HOMARD::HOMARD_Hypothesis_var myHypothesis = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
   ASSERT(!CORBA::is_nil(myHypothesis));
   return HOMARD::HOMARD_Hypothesis::_duplicate(myHypothesis);
@@ -647,7 +649,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::GetBoundary(const char* nomBoundary)
 //=============================================================================
 HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypothesis)
 {
-  MESSAGE ( "CreateHypothesis, nomHypothesis  = " << nomHypothesis );
+  MESSAGE ( "CreateHypothesis : nomHypothesis  = " << nomHypothesis );
   IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesHypotheses).find(nomHypothesis) != (myContextMap[GetCurrentStudyID()]._mesHypotheses).end())
@@ -672,7 +674,7 @@ HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypo
 HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* nomIteration, const char* nomIterParent)
 //============================================================================================================
 {
-  MESSAGE ("CreateIteration, nomIteration  = " << nomIteration << "nomIterParent = " << nomIterParent);
+  MESSAGE ("CreateIteration : nomIteration  = " << nomIteration << "nomIterParent = " << nomIterParent);
   IsValidStudy () ;
 
   HOMARD::HOMARD_Iteration_var myIterationParent = myContextMap[GetCurrentStudyID()]._mesIterations[nomIterParent];
@@ -686,7 +688,7 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* nomIterat
   };
 
   const char* nomCas = GetCaseName(nomIterParent);
-  MESSAGE ("CreateIteration, nomCas = " << nomCas);
+  MESSAGE ("CreateIteration : nomCas = " << nomCas);
   HOMARD::HOMARD_Cas_var myCase = myContextMap[GetCurrentStudyID()]._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
   {
@@ -754,7 +756,7 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* nomIterat
 //=============================================================================
 HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundary(const char* BoundaryName, CORBA::Long BoundaryType)
 {
-  MESSAGE ("CreateBoundary, BoundaryName  = " << BoundaryName << ", BoundaryType = " << BoundaryType);
+  MESSAGE ("CreateBoundary : BoundaryName  = " << BoundaryName << ", BoundaryType = " << BoundaryType);
   IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesBoundarys).find(BoundaryName)!=(myContextMap[GetCurrentStudyID()]._mesBoundarys).end())
@@ -780,7 +782,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundary(const char* BoundaryNam
 //=============================================================================
 HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryDi(const char* BoundaryName, const char* MeshName, const char* MeshFile)
 {
-  MESSAGE ("CreateBoundaryDi, BoundaryName  = " << BoundaryName << "MeshName = " << MeshName );
+  MESSAGE ("CreateBoundaryDi : BoundaryName  = " << BoundaryName << "MeshName = " << MeshName );
   HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 0);
   myBoundary->SetMeshFile( MeshFile ) ;
   myBoundary->SetMeshName( MeshName ) ;
@@ -793,7 +795,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryCylinder(const char* Bou
                                       double Xaxis, double Yaxis, double Zaxis,
                                       double Rayon)
 {
-  MESSAGE ("CreateBoundaryCylinder, BoundaryName  = " << BoundaryName ) ;
+  MESSAGE ("CreateBoundaryCylinder : BoundaryName  = " << BoundaryName ) ;
   HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 1) ;
   myBoundary->SetCylinder( Xcentre, Ycentre, Zcentre, Xaxis, Yaxis, Zaxis, Rayon ) ;
 
@@ -804,7 +806,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundarySphere(const char* Bound
                                       double Xcentre, double Ycentre, double Zcentre,
                                       double Rayon)
 {
-  MESSAGE ("CreateBoundarySphere, BoundaryName  = " << BoundaryName ) ;
+  MESSAGE ("CreateBoundarySphere : BoundaryName  = " << BoundaryName ) ;
   HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 2) ;
   myBoundary->SetSphere( Xcentre, Ycentre, Zcentre, Rayon ) ;
 
@@ -815,7 +817,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundarySphere(const char* Bound
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZone(const char* ZoneName, CORBA::Long ZoneType)
 {
-  MESSAGE ("CreateZone, ZoneName  = " << ZoneName << ", ZoneType = " << ZoneType);
+  MESSAGE ("CreateZone : ZoneName  = " << ZoneName << ", ZoneType = " << ZoneType);
   IsValidStudy () ;
 
   if ((myContextMap[GetCurrentStudyID()]._mesZones).find(ZoneName)!=(myContextMap[GetCurrentStudyID()]._mesZones).end())
@@ -844,7 +846,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
                                       double Ymini, double Ymaxi,
                                       double Zmini, double Zmaxi)
 {
-  MESSAGE ("CreateZoneBox, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZoneBox : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 2) ;
   myZone->SetBox ( Xmini, Xmaxi, Ymini, Ymaxi, Zmini, Zmaxi) ;
 
@@ -854,7 +856,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneSphere(const char* ZoneName,
                                       double Xcentre, double Ycentre, double Zcentre, double Rayon)
 {
-  MESSAGE ("CreateZoneSphere, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZoneSphere : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 4) ;
   myZone->SetSphere( Xcentre, Ycentre, Zcentre, Rayon ) ;
 
@@ -866,7 +868,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneCylinder(const char* ZoneName,
                                       double Xaxe, double Yaxe, double Zaxe,
                                       double Rayon, double Haut)
 {
-  MESSAGE ("CreateZoneCylinder, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZoneCylinder : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 5) ;
   myZone->SetCylinder( Xcentre, Ycentre, Zcentre, Xaxe, Yaxe, Zaxe, Rayon, Haut ) ;
 
@@ -878,7 +880,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZonePipe(const char* ZoneName,
                                       double Xaxe, double Yaxe, double Zaxe,
                                       double Rayon, double Haut, double Rayonint)
 {
-  MESSAGE ("CreateZonePipe, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZonePipe : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 7) ;
   myZone->SetPipe( Xcentre, Ycentre, Zcentre, Xaxe, Yaxe, Zaxe, Rayon, Haut, Rayonint ) ;
 
@@ -890,7 +892,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox2D(const char* ZoneName,
                                       double Vmini, double Vmaxi,
                                       CORBA::Long Orient)
 {
-  MESSAGE ("CreateZoneBox2D, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZoneBox2D : ZoneName  = " << ZoneName ) ;
 //   MESSAGE ("Umini = " << Umini << ", Umaxi =" << Umaxi ) ;
 //   MESSAGE ("Vmini = " << Vmini << ", Vmaxi =" << Vmaxi ) ;
 //   MESSAGE ("Orient = " << Orient ) ;
@@ -932,7 +934,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDisk(const char* ZoneName,
                                       double Rayon,
                                       CORBA::Long Orient)
 {
-  MESSAGE ("CreateZoneDisk, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZoneDisk : ZoneName  = " << ZoneName ) ;
   double Xcentre ;
   double Ycentre ;
   double Zcentre ;
@@ -961,7 +963,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneNam
                                       double Rayon, double Rayonint,
                                       CORBA::Long Orient)
 {
-  MESSAGE ("CreateZoneDiskWithHole, ZoneName  = " << ZoneName ) ;
+  MESSAGE ("CreateZoneDiskWithHole : ZoneName  = " << ZoneName ) ;
   double Xcentre ;
   double Ycentre ;
   double Zcentre ;
@@ -991,7 +993,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneNam
 //=============================================================================
 CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatMenage)
 {
-  MESSAGE ( "Compute, calcul de " << nomIteration );
+  MESSAGE ( "Compute : calcul de " << nomIteration );
   IsValidStudy () ;
 
   HOMARD::HOMARD_Iteration_var myIteration = myContextMap[GetCurrentStudyID()]._mesIterations[nomIteration];
@@ -1014,13 +1016,12 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
   {
       SALOME::ExceptionStruct es;
       es.type = SALOME::BAD_PARAM;
-      es.text= "This iteration  has no associated hypothese";
+      es.text= "This iteration does not have any associated hypothesis.";
       throw SALOME::SALOME_Exception(es);
       return 0;
   }
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypo];
   ASSERT(!CORBA::is_nil(myHypo));
-
 
 
   // A.4. L'iteration parent

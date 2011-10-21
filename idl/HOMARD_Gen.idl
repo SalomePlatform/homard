@@ -40,92 +40,114 @@ module HOMARD
 
   interface HOMARD_Gen : Engines::EngineComponent, SALOMEDS::Driver
   {
-    HOMARD_Cas        CreateCase(in string nomCas, in string MeshName, in string FileName )
+//
+// A. Les methodes qui suivent sont celles que l'on retrouvera dans
+//    le fichier resources/HOMARDCatalog.xml.in pour definir le composant HOMARD dans YACS
+//    A priori, ce sont les seules sont l'utilisateur doit connaitre l'existence.
+//
+// A.1. Les creations
+//
+    HOMARD_Cas        CreateCase(in string CaseName, in string MeshName, in string FileName )
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Hypothesis CreateHypothesis(in string nomHypothesis )
+    HOMARD_Hypothesis CreateHypothesis(in string HypoName )
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Iteration  CreateIteration(in string nomIter, in string nomIterParent )
+    HOMARD_Iteration  CreateIteration(in string IterName, in string PreviousIterName )
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneBox (in string nomZone,
+    HOMARD_Zone       CreateZoneBox (in string ZoneName,
                                      in double Xmini, in double Xmaxi,
                                      in double Ymini, in double Ymaxi,
                                      in double Zmini, in double Zmaxi)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneSphere (in string nomZone,
+    HOMARD_Zone       CreateZoneSphere (in string ZoneName,
                                         in double Xcentre, in double Ycentre, in double Zcentre,
-                                        in double Rayon)
+                                        in double Radius)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneCylinder (in string nomZone,
+    HOMARD_Zone       CreateZoneCylinder (in string ZoneName,
                                           in double Xcentre, in double Ycentre, in double Zcentre,
-                                          in double Xaxe, in double Yaxe, in double Zaxe,
-                                          in double Rayon, in double Haut)
+                                          in double Xaxis, in double Yaxis, in double Zaxis,
+                                          in double Radius, in double Height)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZonePipe (in string nomZone,
+    HOMARD_Zone       CreateZonePipe (in string ZoneName,
                                       in double Xcentre, in double Ycentre, in double Zcentre,
-                                      in double Xaxe, in double Yaxe, in double Zaxe,
-                                      in double Rayon, in double Haut, in double Rayonint)
+                                      in double Xaxis, in double Yaxis, in double Zaxis,
+                                      in double Radius, in double Height, in double InternalRadius)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneBox2D (in string nomZone,
+    HOMARD_Zone       CreateZoneBox2D (in string ZoneName,
                                        in double Umini, in double Umaxi,
                                        in double Vmini, in double Vmaxi,
                                        in long Orient)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneDisk (in string nomZone,
+    HOMARD_Zone       CreateZoneDisk (in string ZoneName,
                                       in double Ucentre, in double Vcentre,
-                                      in double Rayon, in long Orient)
+                                      in double Radius, in long Orient)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       CreateZoneDiskWithHole (in string nomZone,
+    HOMARD_Zone       CreateZoneDiskWithHole (in string ZoneName,
                                               in double Ucentre, in double Vcentre,
-                                              in double Rayon, in double Rayonint,
+                                              in double Radius, in double InternalRadius,
                                               in long Orient)
                                                            raises (SALOME::SALOME_Exception);
-    HOMARD_Boundary   CreateBoundaryDi (in string nomBoundary, in string MeshName, in string FileName);
-    HOMARD_Boundary   CreateBoundaryCylinder (in string nomBoundary,
+    HOMARD_Boundary   CreateBoundaryDi (in string BounName, in string MeshName, in string FileName)
+                                                           raises (SALOME::SALOME_Exception);
+    HOMARD_Boundary   CreateBoundaryCylinder (in string BounName,
                                       in double Xcentre, in double Ycentre, in double Zcentre,
                                       in double Xaxis, in double Yaxis, in double Zaxis,
-                                      in double Rayon);
-    HOMARD_Boundary   CreateBoundarySphere (in string nomBoundary,
+                                      in double Radius)
+                                                           raises (SALOME::SALOME_Exception);
+    HOMARD_Boundary   CreateBoundarySphere (in string BounName,
                                       in double Xcentre, in double Ycentre, in double Zcentre,
-                                      in double Rayon);
-    void AssociateIterIter(in string nomIterParent, in string nomIter)
+                                      in double Radius)
                                                            raises (SALOME::SALOME_Exception);
-    void AssociateIterHypo(in string nomIter, in string nomHypothesis)
+//
+// A.2. Les associations
+//
+    void AssociateIterHypo(in string IterName, in string HypoName)
                                                            raises (SALOME::SALOME_Exception);
-    void AssociateHypoZone(in string nomZone, in string nomHypothesis)
+    void AssociateHypoZone(in string ZoneName, in string HypoName)
                                                            raises (SALOME::SALOME_Exception);
-    void DissociateHypoZone(in string nomZone, in string nomHypothesis)
-                                                           raises (SALOME::SALOME_Exception);
-
-    void InvalideBoundary (in string nomBoundary)          raises (SALOME::SALOME_Exception);
-    void InvalideZone (in string nomZone)                  raises (SALOME::SALOME_Exception);
-    void InvalideHypo (in string nomHypo)                  raises (SALOME::SALOME_Exception);
-    void InvalideIter (in string nomIter)                  raises (SALOME::SALOME_Exception);
-
-    boolean  Compute (in string nomIter, in long etatMenage)
-                                                           raises (SALOME::SALOME_Exception);
-
-    boolean  VerifieDir (in string nomIter)                raises (SALOME::SALOME_Exception);
-
-    string  GetCaseName(in string nomIter)                 raises (SALOME::SALOME_Exception);
-
-    void  PublishFileUnderIteration(in string NomIter, in string NomFich, in string Commentaire)
-                                                           raises (SALOME::SALOME_Exception);
-    void  PublishResultInSmesh(in string NomFich, in long IconeType)
-                                                           raises (SALOME::SALOME_Exception);
-    HOMARD_Cas        GetCas(in string nomCas)             raises (SALOME::SALOME_Exception);
-    HOMARD_Boundary   GetBoundary(in string nomBoundary)   raises (SALOME::SALOME_Exception);
-    HOMARD_Zone       GetZone(in string nomZone)           raises (SALOME::SALOME_Exception);
-    HOMARD_Hypothesis GetHypothesis(in string nomHypo)     raises (SALOME::SALOME_Exception);
-    HOMARD_Iteration  GetIteration(in string nomIter)      raises (SALOME::SALOME_Exception);
-
+//
+// A.3. Les informations
+//
+    string            GetCaseName(in string IterName)      raises (SALOME::SALOME_Exception);
+    HOMARD_Cas        GetCas(in string CaseName)           raises (SALOME::SALOME_Exception);
+    HOMARD_Boundary   GetBoundary(in string BounName)      raises (SALOME::SALOME_Exception);
+    HOMARD_Zone       GetZone(in string ZoneName)          raises (SALOME::SALOME_Exception);
+    HOMARD_Hypothesis GetHypothesis(in string HypoName)    raises (SALOME::SALOME_Exception);
+    HOMARD_Iteration  GetIteration(in string IterName)     raises (SALOME::SALOME_Exception);
     listeCases      GetAllCases()                          raises (SALOME::SALOME_Exception);
     listeBoundarys  GetAllBoundarys()                      raises (SALOME::SALOME_Exception);
     listeHypotheses GetAllHypotheses()                     raises (SALOME::SALOME_Exception);
     listeZones      GetAllZones()                          raises (SALOME::SALOME_Exception);
     listeIterations GetAllIterations()                     raises (SALOME::SALOME_Exception);
-
+//
+// A.4. L'etude
+//
     void     SetCurrentStudy(in SALOMEDS::Study theStudy)  raises (SALOME::SALOME_Exception);
+//
+// B. Les methodes qui suivent n'apparaissent pas dans le composant HOMARD dans YACS
+//    L'utilisateur ne devrait pas les connaitre (ni s'en servir, a fortiori)
+//
+    void AssociateIterIter(in string PreviousIterName, in string IterName)
+                                                           raises (SALOME::SALOME_Exception);
+    void DissociateHypoZone(in string ZoneName, in string HypoName)
+                                                           raises (SALOME::SALOME_Exception);
+
+    void InvalideBoundary (in string BounName)             raises (SALOME::SALOME_Exception);
+    void InvalideZone (in string ZoneName)                 raises (SALOME::SALOME_Exception);
+    void InvalideHypo (in string HypoName)                 raises (SALOME::SALOME_Exception);
+    void InvalideIter (in string IterName)                 raises (SALOME::SALOME_Exception);
+
+    boolean  Compute (in string IterName, in long etatMenage)
+                                                           raises (SALOME::SALOME_Exception);
+
+    boolean  VerifieDir (in string IterName)               raises (SALOME::SALOME_Exception);
+
+    void  PublishFileUnderIteration(in string NomIter, in string NomFich, in string Commentaire)
+                                                           raises (SALOME::SALOME_Exception);
+    void  PublishResultInSmesh(in string NomFich, in long IconeType)
+                                                           raises (SALOME::SALOME_Exception);
+
     SALOMEDS::Study GetCurrentStudy()                      raises (SALOME::SALOME_Exception);
+    long     GetCurrentStudyID()                           raises (SALOME::SALOME_Exception);
   };
 };
 

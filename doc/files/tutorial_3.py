@@ -24,7 +24,7 @@
 Exemple de couplage HOMARD-Salome
 Copyright EDF-R&D 1996, 2010
 """
-__revision__ = "V1.2"
+__revision__ = "V1.3"
 #
 # ==================================
 # Repertoire a personnaliser
@@ -95,7 +95,7 @@ Iter_1.SetMeshFile(dircase+'/maill.01.med')
 Iter_1.SetFieldFile(dircase+'/tutorial_3.00.med')
 Iter_1.SetTimeStepRank( 1, 1)
 homard.AssociateIterHypo('Iter_1', 'Hypo_0vers1')
-codret = homard.Compute('Iter_1', 1)
+codret = Iter_1.Compute(1)
 #
 # Iteration "Iter_2"
 # ==================
@@ -105,7 +105,7 @@ Iter_2.SetMeshFile(dircase+'/maill.02.med')
 Iter_2.SetFieldFile(dircase+'/tutorial_3.01.med')
 Iter_2.SetTimeStepRank(1, 1)
 homard.AssociateIterHypo('Iter_2', 'Hypo_1vers2')
-codret = homard.Compute('Iter_2', 1)
+codret = Iter_2.Compute(1)
 #
 # Iteration "Iter_2_bis"
 # ======================
@@ -115,7 +115,7 @@ Iter_2_bis.SetMeshFile(dircase+'/maill.02.bis.med')
 Iter_2_bis.SetFieldFile(dircase+'/tutorial_3.01.med')
 Iter_2_bis.SetTimeStepRank(1, 1)
 homard.AssociateIterHypo('Iter_2_bis', 'Hypo_1vers2_bis')
-codret = homard.Compute('Iter_2_bis', 1)
+codret = Iter_2_bis.Compute(1)
 #
 if salome.sg.hasDesktop():
   salome.sg.updateObjBrowser(1)

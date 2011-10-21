@@ -22,6 +22,8 @@
 #include "HOMARD_Iteration.hxx"
 #include "HOMARD_DriverTools.hxx"
 
+#include "SALOMEDS_Tool.hxx"
+
 #include "utilities.h"
 
 //=============================================================================
@@ -41,9 +43,9 @@ HOMARD_Iteration_i::HOMARD_Iteration_i()
  */
 //=============================================================================
 HOMARD_Iteration_i::HOMARD_Iteration_i( CORBA::ORB_ptr orb,
-					HOMARD::HOMARD_Gen_var engine )
+                                        HOMARD::HOMARD_Gen_var engine )
 {
-  MESSAGE( "HOMARD_Iteration_i" );
+  MESSAGE("constructor");
   _gen_i = engine;
   _orb = orb;
   myHomardIteration = new ::HOMARD_Iteration();
@@ -82,8 +84,6 @@ char* HOMARD_Iteration_i::GetDumpPython()
   ASSERT( myHomardIteration );
   return CORBA::string_dup( myHomardIteration->GetDumpPython().c_str() );
 }
-
-//=============================================================================
 
 //=============================================================================
 void HOMARD_Iteration_i::SetEtat( CORBA::Boolean Etat )
@@ -166,10 +166,17 @@ void HOMARD_Iteration_i::AddIteration( const char* NomIter )
 }
 
 //=============================================================================
-CORBA::Boolean  HOMARD_Iteration_i::Compute()
+CORBA::Boolean  HOMARD_Iteration_i::Compute(CORBA::Long etatMenage)
 {
+  MESSAGE ( "Compute : calcul d'une iteration" );
   ASSERT( myHomardIteration );
-  return  CORBA::Boolean( myHomardIteration->Compute() );
+//
+// Nom de l'iteration
+  char* IterName = GetName() ;
+  MESSAGE ( ". IterName = " << IterName );
+// B. Calcul : on passe par la methode sur l'objet HOMARD
+// Il serait plus elegant de tout faire ici, mais il est complexe de paser tout le contexte
+  return _gen_i->Compute(IterName, etatMenage) ;
 }
 
 //=============================================================================

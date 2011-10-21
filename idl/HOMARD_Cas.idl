@@ -20,7 +20,9 @@
 #ifndef _HOMARD_CAS_IDL
 #define _HOMARD_CAS_IDL
 
+#include "SALOME_Component.idl"
 #include "SALOME_Exception.idl"
+#include "SALOMEDS.idl"
 
 module HOMARD
 {
@@ -29,7 +31,7 @@ module HOMARD
  typedef sequence<string> ListBoundaryGroupType ;
 
 
- interface HOMARD_Cas
+ interface HOMARD_Cas : Engines::EngineComponent
   {
 
     void     SetName(in string NomCas)                     raises (SALOME::SALOME_Exception);

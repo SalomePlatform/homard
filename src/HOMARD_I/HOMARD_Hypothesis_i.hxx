@@ -24,12 +24,18 @@
 #include CORBA_SERVER_HEADER(HOMARD_Gen)
 #include CORBA_SERVER_HEADER(HOMARD_Hypothesis)
 
+#include "SALOME_Component_i.hxx"
+#include "SALOME_NamingService.hxx"
+#include "Utils_CorbaException.hxx"
+
 #include <string>
 
 class HOMARD_Hypothesis;
 
-class HOMARD_Hypothesis_i: public virtual POA_HOMARD::HOMARD_Hypothesis,
-			   public virtual PortableServer::ServantBase
+class HOMARD_Hypothesis_i:
+  public virtual Engines_Component_i,
+  public virtual POA_HOMARD::HOMARD_Hypothesis,
+  public virtual PortableServer::ServantBase
 {
 public:
   HOMARD_Hypothesis_i( CORBA::ORB_ptr orb, HOMARD::HOMARD_Gen_var gen_i );
