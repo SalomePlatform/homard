@@ -163,7 +163,7 @@ SALOMEDS::Study_ptr HOMARD_Gen_i::GetCurrentStudy()
 }
 
 //=============================================================================
-int HOMARD_Gen_i::GetCurrentStudyID()
+CORBA::Long HOMARD_Gen_i::GetCurrentStudyID()
 //=============================================================================
 {
   return myCurrentStudy->_is_nil() ? -1 : myCurrentStudy->StudyId();
@@ -217,7 +217,7 @@ void HOMARD_Gen_i::AssociateCaseIter(const char* nomCas, const char* nomIter, co
 }
 
 //=====================================================================================
-void HOMARD_Gen_i::SetEtatIter(const char* nomIter, const bool EtatCalcul)
+void HOMARD_Gen_i::SetEtatIter(const char* nomIter, const CORBA::Boolean EtatCalcul)
 //=====================================================================================
 {
   MESSAGE( "SetEtatIter : nomIter  = " << nomIter << " etat " << EtatCalcul );
@@ -791,9 +791,9 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryDi(const char* BoundaryN
 }
 //=============================================================================
 HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryCylinder(const char* BoundaryName,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Xaxis, double Yaxis, double Zaxis,
-                                      double Rayon)
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Xaxis, CORBA::Double Yaxis, CORBA::Double Zaxis,
+                                      CORBA::Double Rayon)
 {
   MESSAGE ("CreateBoundaryCylinder : BoundaryName  = " << BoundaryName ) ;
   HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 1) ;
@@ -803,8 +803,8 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryCylinder(const char* Bou
 }
 //=============================================================================
 HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundarySphere(const char* BoundaryName,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Rayon)
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Rayon)
 {
   MESSAGE ("CreateBoundarySphere : BoundaryName  = " << BoundaryName ) ;
   HOMARD::HOMARD_Boundary_var myBoundary = CreateBoundary(BoundaryName, 2) ;
@@ -842,9 +842,9 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZone(const char* ZoneName, CORBA::Lo
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
-                                      double Xmini, double Xmaxi,
-                                      double Ymini, double Ymaxi,
-                                      double Zmini, double Zmaxi)
+                                      CORBA::Double Xmini, CORBA::Double Xmaxi,
+                                      CORBA::Double Ymini, CORBA::Double Ymaxi,
+                                      CORBA::Double Zmini, CORBA::Double Zmaxi)
 {
   MESSAGE ("CreateZoneBox : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 2) ;
@@ -854,7 +854,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneSphere(const char* ZoneName,
-                                      double Xcentre, double Ycentre, double Zcentre, double Rayon)
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre, CORBA::Double Rayon)
 {
   MESSAGE ("CreateZoneSphere : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 4) ;
@@ -864,9 +864,9 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneSphere(const char* ZoneName,
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneCylinder(const char* ZoneName,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Xaxe, double Yaxe, double Zaxe,
-                                      double Rayon, double Haut)
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Xaxe, CORBA::Double Yaxe, CORBA::Double Zaxe,
+                                      CORBA::Double Rayon, CORBA::Double Haut)
 {
   MESSAGE ("CreateZoneCylinder : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 5) ;
@@ -876,9 +876,9 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneCylinder(const char* ZoneName,
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZonePipe(const char* ZoneName,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Xaxe, double Yaxe, double Zaxe,
-                                      double Rayon, double Haut, double Rayonint)
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Xaxe, CORBA::Double Yaxe, CORBA::Double Zaxe,
+                                      CORBA::Double Rayon, CORBA::Double Haut, CORBA::Double Rayonint)
 {
   MESSAGE ("CreateZonePipe : ZoneName  = " << ZoneName ) ;
   HOMARD::HOMARD_Zone_var myZone = CreateZone(ZoneName, 7) ;
@@ -888,8 +888,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZonePipe(const char* ZoneName,
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox2D(const char* ZoneName,
-                                      double Umini, double Umaxi,
-                                      double Vmini, double Vmaxi,
+                                      CORBA::Double Umini, CORBA::Double Umaxi,
+                                      CORBA::Double Vmini, CORBA::Double Vmaxi,
                                       CORBA::Long Orient)
 {
   MESSAGE ("CreateZoneBox2D : ZoneName  = " << ZoneName ) ;
@@ -930,8 +930,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox2D(const char* ZoneName,
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDisk(const char* ZoneName,
-                                      double Ucentre, double Vcentre,
-                                      double Rayon,
+                                      CORBA::Double Ucentre, CORBA::Double Vcentre,
+                                      CORBA::Double Rayon,
                                       CORBA::Long Orient)
 {
   MESSAGE ("CreateZoneDisk : ZoneName  = " << ZoneName ) ;
@@ -959,8 +959,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDisk(const char* ZoneName,
 }
 //=============================================================================
 HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneName,
-                                      double Ucentre, double Vcentre,
-                                      double Rayon, double Rayonint,
+                                      CORBA::Double Ucentre, CORBA::Double Vcentre,
+                                      CORBA::Double Rayon, CORBA::Double Rayonint,
                                       CORBA::Long Orient)
 {
   MESSAGE ("CreateZoneDiskWithHole : ZoneName  = " << ZoneName ) ;
@@ -2117,7 +2117,7 @@ void HOMARD_Gen_i::IsValidStudy( )
 //===========================================================================
 SALOMEDS::TMPFile* HOMARD_Gen_i::Save(SALOMEDS::SComponent_ptr theComponent,
                                       const char* theURL,
-                                      bool isMultiFile)
+                                      CORBA::Boolean isMultiFile)
 {
   MESSAGE (" Save pour theURL = "<< theURL);
   SALOMEDS::TMPFile_var aStreamFile;
@@ -2226,7 +2226,7 @@ SALOMEDS::TMPFile* HOMARD_Gen_i::Save(SALOMEDS::SComponent_ptr theComponent,
 //===========================================================================
 SALOMEDS::TMPFile* HOMARD_Gen_i::SaveASCII(SALOMEDS::SComponent_ptr theComponent,
                                            const char* theURL,
-                                           bool isMultiFile)
+                                           CORBA::Boolean isMultiFile)
 {
   // No specific ASCII persistence
   SALOMEDS::TMPFile_var aStreamFile = Save(theComponent, theURL, isMultiFile);
@@ -2237,7 +2237,7 @@ SALOMEDS::TMPFile* HOMARD_Gen_i::SaveASCII(SALOMEDS::SComponent_ptr theComponent
 CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
 				   const SALOMEDS::TMPFile& theStream,
 				   const char* theURL,
-				   bool isMultiFile)
+				   CORBA::Boolean isMultiFile)
 {
   MESSAGE (" Load pour theURL = "<< theURL);
   SALOMEDS::Study_var aStudy = theComponent->GetStudy();
@@ -2355,7 +2355,7 @@ CORBA::Boolean HOMARD_Gen_i::Load(SALOMEDS::SComponent_ptr theComponent,
 CORBA::Boolean HOMARD_Gen_i::LoadASCII(SALOMEDS::SComponent_ptr theComponent,
 					const SALOMEDS::TMPFile& theStream,
 					const char* theURL,
-					bool isMultiFile)
+					CORBA::Boolean isMultiFile)
 {
   // No specific ASCII persistence
   return Load(theComponent, theStream, theURL, isMultiFile);
@@ -2430,7 +2430,7 @@ char* HOMARD_Gen_i::LocalPersistentIDToIOR(SALOMEDS::SObject_ptr theSObject,
 };
 
 //===========================================================================
-bool HOMARD_Gen_i::CanPublishInStudy(CORBA::Object_ptr theIOR)
+CORBA::Boolean HOMARD_Gen_i::CanPublishInStudy(CORBA::Object_ptr theIOR)
 {
   if(CORBA::is_nil(myCurrentStudy))
     return false;

@@ -54,7 +54,7 @@ public:
 
   SALOMEDS::Study_ptr             GetCurrentStudy();
   void                            SetCurrentStudy(SALOMEDS::Study_ptr theStudy);
-  int                             GetCurrentStudyID();
+  CORBA::Long                     GetCurrentStudyID();
 
   HOMARD::HOMARD_Cas_ptr          CreateCase      (const char* nomCas,
                                                    const char* MeshName, const char* FileName);
@@ -63,42 +63,42 @@ public:
 
   HOMARD::HOMARD_Zone_ptr         CreateZone (const char* nomZone, CORBA::Long typeZone);
   HOMARD::HOMARD_Zone_ptr         CreateZoneBox (const char* nomZone,
-                                      double Xmini, double Xmaxi,
-                                      double Ymini, double Ymaxi,
-                                      double Zmini, double Zmaxi);
+                                      CORBA::Double Xmini, CORBA::Double Xmaxi,
+                                      CORBA::Double Ymini, CORBA::Double Ymaxi,
+                                      CORBA::Double Zmini, CORBA::Double Zmaxi);
   HOMARD::HOMARD_Zone_ptr         CreateZoneSphere (const char* nomZone,
-                                      double Xcentre, double Ycentre, double Zcentre, double Rayon);
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre, CORBA::Double Rayon);
   HOMARD::HOMARD_Zone_ptr         CreateZoneCylinder (const char* nomZone,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Xaxe, double Yaxe, double Zaxe,
-                                      double Rayon, double Haut);
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Xaxe, CORBA::Double Yaxe, CORBA::Double Zaxe,
+                                      CORBA::Double Rayon, CORBA::Double Haut);
   HOMARD::HOMARD_Zone_ptr         CreateZonePipe (const char* nomZone,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Xaxe, double Yaxe, double Zaxe,
-                                      double Rayon, double Haut, double Rayonint);
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Xaxe, CORBA::Double Yaxe, CORBA::Double Zaxe,
+                                      CORBA::Double Rayon, CORBA::Double Haut, CORBA::Double Rayonint);
   HOMARD::HOMARD_Zone_ptr         CreateZoneBox2D (const char* nomZone,
-                                      double Umini, double Umaxi,
-                                      double Vmini, double Vmaxi,
+                                      CORBA::Double Umini, CORBA::Double Umaxi,
+                                      CORBA::Double Vmini, CORBA::Double Vmaxi,
                                       CORBA::Long Orient);
   HOMARD::HOMARD_Zone_ptr         CreateZoneDisk (const char* nomZone,
-                                      double Ucentre, double Vcentre,
-                                      double Rayon,
+                                      CORBA::Double Ucentre, CORBA::Double Vcentre,
+                                      CORBA::Double Rayon,
                                       CORBA::Long Orient);
   HOMARD::HOMARD_Zone_ptr         CreateZoneDiskWithHole (const char* nomZone,
-                                      double Ucentre, double Vcentre,
-                                      double Rayon, double Rayonint,
+                                      CORBA::Double Ucentre, CORBA::Double Vcentre,
+                                      CORBA::Double Rayon, CORBA::Double Rayonint,
                                       CORBA::Long Orient);
 
   HOMARD::HOMARD_Boundary_ptr     CreateBoundary (const char* nomBoundary, CORBA::Long typeBoundary);
   HOMARD::HOMARD_Boundary_ptr     CreateBoundaryDi (const char* nomBoundary,
                                                     const char* MeshName, const char* FileName);
   HOMARD::HOMARD_Boundary_ptr     CreateBoundaryCylinder (const char* nomBoundary,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Xaxis, double Yaxis, double Zaxis,
-                                      double Rayon);
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Xaxis, CORBA::Double Yaxis, CORBA::Double Zaxis,
+                                      CORBA::Double Rayon);
   HOMARD::HOMARD_Boundary_ptr     CreateBoundarySphere (const char* nomBoundary,
-                                      double Xcentre, double Ycentre, double Zcentre,
-                                      double Rayon);
+                                      CORBA::Double Xcentre, CORBA::Double Ycentre, CORBA::Double Zcentre,
+                                      CORBA::Double Rayon);
 
   HOMARD::HOMARD_Cas_ptr          GetCas        (const char* nomCas);
   HOMARD::HOMARD_Zone_ptr         GetZone       (const char* nomZone);
@@ -118,7 +118,7 @@ public:
   void                            InvalideHypo(const char* nomHypo);
   void                            InvalideIter(const char* nomIter);
 
-  void                            SetEtatIter(const char* nomIter,const bool EtatCalcul);
+  void                            SetEtatIter(const char* nomIter,const CORBA::Boolean EtatCalcul);
 
   HOMARD::listeCases*             GetAllCases();
   HOMARD::listeHypotheses*        GetAllHypotheses();
@@ -145,21 +145,21 @@ public:
   // --> Persistence
   virtual SALOMEDS::TMPFile*      Save(SALOMEDS::SComponent_ptr theComponent,
 					const char* theURL,
-					bool isMultiFile);
+					CORBA::Boolean isMultiFile);
 
   virtual SALOMEDS::TMPFile*      SaveASCII(SALOMEDS::SComponent_ptr theComponent,
 					     const char* theURL,
-					     bool isMultiFile);
+					     CORBA::Boolean isMultiFile);
 
-  virtual bool                    Load(SALOMEDS::SComponent_ptr theComponent,
+  virtual CORBA::Boolean          Load(SALOMEDS::SComponent_ptr theComponent,
 					const SALOMEDS::TMPFile& theStream,
 					const char* theURL,
-					bool isMultiFile);
+					CORBA::Boolean isMultiFile);
 
-  virtual bool                    LoadASCII(SALOMEDS::SComponent_ptr theComponent,
+  virtual CORBA::Boolean          LoadASCII(SALOMEDS::SComponent_ptr theComponent,
 					     const SALOMEDS::TMPFile& theStream,
 					     const char* theURL,
-					     bool isMultiFile);
+					     CORBA::Boolean isMultiFile);
 
   virtual void                    Close(SALOMEDS::SComponent_ptr IORSComponent);
 
@@ -176,7 +176,7 @@ public:
 							  CORBA::Boolean isASCII);
 
   // --> Data publishing
-  virtual bool                    CanPublishInStudy(CORBA::Object_ptr theIOR);
+  virtual CORBA::Boolean          CanPublishInStudy(CORBA::Object_ptr theIOR);
 
   virtual SALOMEDS::SObject_ptr   PublishInStudy(SALOMEDS::Study_ptr theStudy,
                                                  SALOMEDS::SObject_ptr theSObject,
