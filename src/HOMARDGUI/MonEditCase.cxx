@@ -179,19 +179,6 @@ void MonEditCase::InitValEdit()
       PBBoundaryDiNew->setVisible(0);
       PBBoundaryDiHelp->setVisible(0); }
   }
-// Les options avancees (non modifiables)
-  CBAdvanced->setVisible(0) ;
-  int NivMax = aCase->GetNivMax();
-  double DiamMin = aCase->GetDiamMin();
-  if ( NivMax > 0 )
-  { GBAdvancedOptions->setVisible(1);
-    spinBoxNivMax->setValue(NivMax);
-    spinBoxNivMax->setDisabled(true);
-    doubleSpinBoxDiamMin->setValue(DiamMin);
-    doubleSpinBoxDiamMin->setDisabled(true);
-  }
-  else
-  { GBAdvancedOptions->setVisible(0); }
 //
   adjustSize();
 }

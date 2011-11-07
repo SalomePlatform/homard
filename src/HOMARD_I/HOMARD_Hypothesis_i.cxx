@@ -359,6 +359,30 @@ HOMARD::listFieldInterpHypo* HOMARD_Hypothesis_i::GetListFieldInterp()
   }
   return aResult._retn();
 }
+//=============================================================================
+void HOMARD_Hypothesis_i::SetNivMax( CORBA::Long NivMax )
+{
+  ASSERT( myHomardHypothesis );
+  myHomardHypothesis->SetNivMax( NivMax );
+}
+//=============================================================================
+CORBA::Long HOMARD_Hypothesis_i::GetNivMax()
+{
+  ASSERT( myHomardHypothesis );
+  return myHomardHypothesis->GetNivMax();
+}
+//=============================================================================
+void HOMARD_Hypothesis_i::SetDiamMin( CORBA::Double DiamMin )
+{
+  ASSERT( myHomardHypothesis );
+  myHomardHypothesis->SetDiamMin( DiamMin );
+}
+//=============================================================================
+CORBA::Double HOMARD_Hypothesis_i::GetDiamMin()
+{
+  ASSERT( myHomardHypothesis );
+  return myHomardHypothesis->GetDiamMin();
+}
 
 //=============================================================================
 std::string HOMARD_Hypothesis_i::Dump() const

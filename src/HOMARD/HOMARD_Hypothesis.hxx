@@ -83,7 +83,11 @@ public:
   void                          SupprFieldInterp();
   const std::list<std::string>& GetListFieldInterp() const;
 
+  void                          SetNivMax( int NivMax );
+  const int                     GetNivMax() const;
 
+  void                          SetDiamMin( double DiamMin );
+  const double                  GetDiamMin() const;
 
 
 private:
@@ -107,6 +111,8 @@ private:
   int                           _TypeFieldInterp; // 0 pour aucune interpolation,
                                                   // 1 pour interpolation de tous les champs,
                                                   // 2 pour une liste
+  int                           _NivMax;
+  double                        _DiamMin;
 
   std::list<std::string>        _ListIter;
   std::list<std::string>        _ListZone;

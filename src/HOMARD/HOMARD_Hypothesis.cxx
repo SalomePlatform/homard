@@ -139,6 +139,13 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
       it_champ++;
     }
   }
+  if ( _NivMax > 0 )
+  {
+    aScript << "\t" <<_NomHypo << ".SetNivMax(";
+    aScript << _NivMax << ")\n";
+    aScript << "\t" <<_NomHypo << ".SetDiamMin(";
+    aScript << _DiamMin << ")\n";
+  }
 
   return aScript.str();
 }
@@ -390,4 +397,31 @@ const std::list<std::string>& HOMARD_Hypothesis::GetListFieldInterp() const
 {
   return _ListFieldInterp;
 }
-
+//=============================================================================
+void HOMARD_Hypothesis::SetNivMax( int NivMax )
+//=============================================================================
+{
+  _NivMax = NivMax;
+}
+//=============================================================================
+const int HOMARD_Hypothesis::GetNivMax() const
+//=============================================================================
+{
+  return _NivMax;
+}
+//=============================================================================
+void HOMARD_Hypothesis::SetDiamMin( double DiamMin )
+//=============================================================================
+{
+  _DiamMin = DiamMin;
+  if ( _NivMax < 0 )
+  {
+    _NivMax = 99 ;
+  }
+}
+//=============================================================================
+const double HOMARD_Hypothesis::GetDiamMin() const
+//=============================================================================
+{
+  return _DiamMin;
+}

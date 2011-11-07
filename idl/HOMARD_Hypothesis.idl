@@ -94,6 +94,12 @@ module HOMARD
     void       SupprFieldInterp()                          raises (SALOME::SALOME_Exception);
     listFieldInterpHypo GetListFieldInterp()               raises (SALOME::SALOME_Exception);
 
+    void     SetNivMax(in long NivMax)                     raises (SALOME::SALOME_Exception);
+    long     GetNivMax()                                   raises (SALOME::SALOME_Exception);
+
+    void     SetDiamMin(in double DiamMin)                 raises (SALOME::SALOME_Exception);
+    double   GetDiamMin()                                  raises (SALOME::SALOME_Exception);
+
     string   GetDumpPython()                               raises (SALOME::SALOME_Exception);
 
   };

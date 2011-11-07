@@ -106,6 +106,21 @@ Si on veut choisir les champs à interpoler, il faut les cocher dans la liste de 
    :align: center
 
 
+Les options avancées
+""""""""""""""""""""
+Si la case "Options avancées" n'est pas cochée, aucune contrainte supplémentaire n'est définie.
+
+Si la case est cochée, on définira les options avancées qui portent sur la finesse maximale de maillage que l'on ne veut pas dépasser. Deux directives sont possibles, séparément ou ensemble.
+
+On peut imposer une taille de maille minimale : une maille dont le diamètre est inférieur à cette limite ne sera plus découpée. Par défaut, on propose un diamètre minimal nul, ce qui revient à ne rien imposer.
+
+On peut imposer un niveau de raffinement maximal. Par défaut, le maximum est à 99, ce qui équivaut en général à ne rien imposer.
+
+.. image:: images/create_hypothese_av_1.png
+   :align: center
+
+.. index:: single: arbre d'étude
+
 L'arbre d'étude
 """""""""""""""
 .. index:: single: arbre d'étude

@@ -68,6 +68,9 @@ protected :
     int _UsCmpI;
     int _TypeFieldInterp;
 
+    int _NivMax;
+    double _DiamMin;
+
     HOMARD::HOMARD_Gen_var _myHomardGen;
     HOMARD::HOMARD_Hypothesis_var _aHypothesis;
 
@@ -116,6 +119,9 @@ public slots:
     virtual void SetFieldNo();
     virtual void SetFieldAll();
     virtual void SetFieldChosen();
+
+    virtual void SetAdvanced();
+
     virtual void PushOnOK();
     virtual bool PushOnApply();
     virtual void PushOnHelp();

@@ -48,7 +48,9 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
     _aTypeAdap(-2), _aTypeRaff(1), _aTypeDera(0),
     _TypeThR(3), _ThreshR(0),
     _TypeThC(0), _ThreshC(0),
-    _UsField(0), _UsCmpI(0), _TypeFieldInterp(0)
+    _UsField(0), _UsCmpI(0), _TypeFieldInterp(0),
+    _NivMax(-1),
+    _DiamMin(-1.)
 {
       MESSAGE("Constructeur") ;
       _myHomardGen=HOMARD::HOMARD_Gen::_duplicate(myHomardGen);
@@ -66,6 +68,7 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
         SetUniforme();
       }
       SetFieldNo();
+      GBAdvancedOptions->setVisible(0);
 }
 
 // ------------------------------------------------------------------------
@@ -83,6 +86,7 @@ void MonCreateHypothesis::InitConnect()
     connect( RBZone,       SIGNAL(clicked()), this, SLOT(SetZone()));
     connect( RBUniRaff,    SIGNAL(clicked()), this, SLOT(SetUniRaff()));
     connect( RBUniDera,    SIGNAL(clicked()), this, SLOT(SetUniDera()));
+
     connect( CBFieldName,  SIGNAL(activated(int)), this, SLOT( SetFieldName()));
     connect( RBRPE,        SIGNAL(clicked()), this, SLOT(SetRPE()));
     connect( RBRRel,       SIGNAL(clicked()), this, SLOT(SetRRel()));
@@ -99,9 +103,13 @@ void MonCreateHypothesis::InitConnect()
     connect( PBZoneEdit,   SIGNAL(pressed()), this, SLOT(PushZoneEdit()) );
     connect( PBZoneDelete, SIGNAL(pressed()), this, SLOT(PushZoneDelete()) );
     connect( CBGroupe,     SIGNAL(stateChanged(int)), this, SLOT(SetFiltrage()));
+
     connect( RBFieldNo,    SIGNAL(clicked()), this, SLOT(SetFieldNo()));
     connect( RBFieldAll,   SIGNAL(clicked()), this, SLOT(SetFieldAll()));
     connect( RBFieldChosen,SIGNAL(clicked()), this, SLOT(SetFieldChosen()));
+
+    connect( CBAdvanced,   SIGNAL(stateChanged(int)), this, SLOT(SetAdvanced()));
+
     connect( buttonOk,     SIGNAL(pressed()), this, SLOT( PushOnOK()));
     connect( buttonApply,  SIGNAL(pressed()), this, SLOT( PushOnApply()));
     connect( buttonCancel, SIGNAL(pressed()), this, SLOT(close()));
@@ -152,6 +160,17 @@ bool MonCreateHypothesis::PushOnApply()
   AssocieComposants();
   AssocieLesGroupes();
   AssocieFieldInterp();
+
+// Options avancees
+  if (CBAdvanced->isChecked())
+  {
+// Enregistrement du niveau maximal
+    _NivMax = spinBoxNivMax->value() ;
+    _aHypothesis->SetNivMax(_NivMax);
+// Enregistrement du diametre minimal
+    _DiamMin = doubleSpinBoxDiamMin->value() ;
+    _aHypothesis->SetDiamMin(_DiamMin);
+  }
 
   HOMARD_UTILS::updateObjBrowser();
   return true;
@@ -738,4 +757,16 @@ void MonCreateHypothesis::SetFieldChosen()
 
   _TypeFieldInterp = 2 ;
    adjustSize();
+}
+// ------------------------------------------------------------------------
+void MonCreateHypothesis::SetAdvanced()
+// ------------------------------------------------------------------------
+{
+  MESSAGE("Debut de SetAdvanced ");
+  if (CBAdvanced->isChecked()) { GBAdvancedOptions->setVisible(1); }
+  else
+  { GBAdvancedOptions->setVisible(0);
+    _NivMax = -1 ;
+    _DiamMin = -1. ; }
+  adjustSize();
 }

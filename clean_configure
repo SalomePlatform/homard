@@ -25,11 +25,5 @@ find . -name "*.pyc" -print -exec rm {} \;
 
 # Files created by libtoolize and automake
 ( cd adm_local/unix/config_files && rm -f config.* depcomp install-sh l*.m4 ltmain.sh missing py-compile install-sh missing depcomp py-compile )
-find bin -name Makefile.in | xargs rm -f
-find doc -name Makefile.in | xargs rm -f
-find idl -name Makefile.in | xargs rm -f
-find resources -name Makefile.in | xargs rm -f
-find tests -name Makefile.in | xargs rm -f
-find src -name Makefile.in | xargs rm -f
-rm -f Makefile.in
+find . -name Makefile.in | xargs rm -f
 rm -f COPYING INSTALL

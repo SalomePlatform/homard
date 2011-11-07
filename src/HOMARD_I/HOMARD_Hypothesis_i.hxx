@@ -85,6 +85,11 @@ public:
   void                         SupprFieldInterp();
   HOMARD::listFieldInterpHypo* GetListFieldInterp();
 
+  void                         SetNivMax( CORBA::Long NivMax );
+  CORBA::Long                  GetNivMax();
+
+  void                         SetDiamMin( CORBA::Double DiamMin );
+  CORBA::Double                GetDiamMin();
 
   std::string                  Dump() const;
   bool                         Restore( const std::string& stream );

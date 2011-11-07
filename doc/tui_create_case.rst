@@ -91,28 +91,6 @@ Méthodes de la classe cas
 |     - ``group`` : nom d'un groupe de faces placées sur la     |
 |       frontière                                               |
 +---------------------------------------------------------------+
-| .. module:: SetNivMax                                         |
-|                                                               |
-| **SetNivMax(nivmax)**                                         |
-|                                                               |
-|     - ``nivmax`` : niveau de raffinement à ne pas dépasser    |
-+---------------------------------------------------------------+
-| .. module:: GetNivMax                                         |
-|                                                               |
-| **GetNivMax()**                                               |
-|     Retourne le niveau maximal de raffinement                 |
-+---------------------------------------------------------------+
-| .. module:: SetDiamMin                                        |
-|                                                               |
-| **SetDiamMin(diammin)**                                       |
-|                                                               |
-|     - ``diammin`` : diamètre minimal voulu pour une maille    |
-+---------------------------------------------------------------+
-| .. module:: GetDiamMin                                        |
-|                                                               |
-| **GetDiamMin()**                                              |
-|     Retourne le diamètre minimal voulu                        |
-+---------------------------------------------------------------+
 
 
 Exemple
