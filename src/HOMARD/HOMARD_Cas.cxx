@@ -53,7 +53,7 @@ void HOMARD_Cas::SetDirName( const char* NomDir )
      {
        _NomDir = std::string( NomDir );
      }
-    else 
+    else
     {
        // GERALD -- QMESSAGE BOX
        // std::cerr << "Pb pour entrer dans le repertoire :  "<<NomDir << std::endl;
@@ -102,13 +102,7 @@ std::string HOMARD_Cas::GetDumpPython() const
     aScript << *it << "')\n";
     it++;
   }
-  if ( _NivMax > 0 )
-  {
-    aScript << "\t" <<_NomCas << ".SetNivMax(";
-    aScript << _NivMax << ")\n";
-    aScript << "\t" <<_NomCas << ".SetDiamMin(";
-    aScript << _DiamMin << ")\n";
-  }
+
   return aScript.str();
 }
 //=============================================================================
@@ -153,7 +147,7 @@ const int HOMARD_Cas::GetConfType() const
   return _ConfType;
 }
 //=============================================================================
-int HOMARD_Cas::GetNumber() 
+int HOMARD_Cas::GetNumber()
 //=============================================================================
 
 {
@@ -230,28 +224,3 @@ void HOMARD_Cas::SupprBoundaryGroup()
 {
   _ListBoundaryGroup.clear();
 }
-//=============================================================================
-void HOMARD_Cas::SetNivMax( int NivMax )
-//=============================================================================
-{
-  _NivMax = NivMax;
-}
-//=============================================================================
-const int HOMARD_Cas::GetNivMax() const
-//=============================================================================
-{
-  return _NivMax;
-}
-//=============================================================================
-void HOMARD_Cas::SetDiamMin( double DiamMin )
-//=============================================================================
-{
-  _DiamMin = DiamMin;
-}
-//=============================================================================
-const double HOMARD_Cas::GetDiamMin() const
-//=============================================================================
-{
-  return _DiamMin;
-}
-

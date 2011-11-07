@@ -43,9 +43,7 @@ MonCreateCase::MonCreateCase(QWidget* parent, bool modal, HOMARD::HOMARD_Gen_var
  */
     :
     Ui_CreateCase(),
-    _aCaseName(""),_aDirName(""), _ConfType(1),
-    _NivMax(-1),
-    _DiamMin(-1.)
+    _aCaseName(""),_aDirName(""), _ConfType(1)
     {
       _myHomardGen=HOMARD::HOMARD_Gen::_duplicate(myHomardGen);
       setupUi(this);
@@ -56,7 +54,6 @@ MonCreateCase::MonCreateCase(QWidget* parent, bool modal, HOMARD::HOMARD_Gen_var
       GBBoundaryA->setVisible(0);
       GBBoundaryD->setVisible(0);
       GBTypeNoConf->setVisible(0);
-      GBAdvancedOptions->setVisible(0);
       adjustSize();
     }
 
@@ -87,8 +84,6 @@ void MonCreateCase::InitConnect()
     connect( PBBoundaryAnNew,  SIGNAL(pressed()), this, SLOT(PushBoundaryAnNew()));
     connect( PBBoundaryAnEdit, SIGNAL(pressed()), this, SLOT(PushBoundaryAnEdit()) );
     connect( PBBoundaryAnHelp, SIGNAL(pressed()), this, SLOT(PushBoundaryAnHelp()) );
-
-    connect( CBAdvanced,      SIGNAL(stateChanged(int)), this, SLOT(SetAdvanced()));
 
     connect( buttonOk,       SIGNAL(pressed()), this, SLOT(PushOnOK()));
     connect( buttonApply,    SIGNAL(pressed()), this, SLOT(PushOnApply()));
@@ -277,16 +272,6 @@ bool MonCreateCase::PushOnApply()
         }
       }
     }
-  }
-// Options avancees
-  if (CBAdvanced->isChecked())
-  {
-// Enregistrement du niveau maximal
-    _NivMax = spinBoxNivMax->value() ;
-    aCase->SetNivMax(_NivMax);
-// Enregistrement du diametre minimal
-    _DiamMin = doubleSpinBoxDiamMin->value() ;
-    aCase->SetDiamMin(_DiamMin);
   }
 
   HOMARD_UTILS::updateObjBrowser();
@@ -513,16 +498,4 @@ void MonCreateCase::CaseNameChanged()
        LEFileName->setReadOnly(false);
        PushFichier->show();
     }
-}
-// ------------------------------------------------------------------------
-void MonCreateCase::SetAdvanced()
-// ------------------------------------------------------------------------
-{
-  MESSAGE("Debut de SetAdvanced ");
-  if (CBAdvanced->isChecked()) { GBAdvancedOptions->setVisible(1); }
-  else
-  { GBAdvancedOptions->setVisible(0);
-    _NivMax = -1 ;
-    _DiamMin = -1. ; }
-  adjustSize();
 }

@@ -52,12 +52,6 @@ public:
   void                   SetConfType( CORBA::Long ConfType );
   CORBA::Long            GetConfType();
 
-  void                   SetNivMax( CORBA::Long NivMax );
-  CORBA::Long            GetNivMax();
-
-  void                   SetDiamMin( CORBA::Double DiamMin );
-  CORBA::Double          GetDiamMin();
-
   void                   AddIteration( const char* NomIteration );
   char*                  GetIter0Name();
 

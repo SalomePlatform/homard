@@ -66,39 +66,53 @@ void MonEditHypothesis::InitGroupes()
 void MonEditHypothesis::InitValEdit()
 // ------------------------------
 {
-      MESSAGE("Debut de InitValEdit");
-      LEHypothesisName->setText(_aHypothesisName);
-      LEHypothesisName->setReadOnly(true);
-      HOMARD::listeTypes_var ListTypes (_aHypothesis->GetAdapRefinUnRef());
-      ASSERT( ListTypes->length()==3) ;
-      _aTypeAdap = ListTypes[0];
-      _aTypeRaff = ListTypes[1];
-      _aTypeDera = ListTypes[2];
+  MESSAGE("Debut de InitValEdit");
+  LEHypothesisName->setText(_aHypothesisName);
+  LEHypothesisName->setReadOnly(true);
+  HOMARD::listeTypes_var ListTypes (_aHypothesis->GetAdapRefinUnRef());
+  ASSERT( ListTypes->length()==3) ;
+  _aTypeAdap = ListTypes[0];
+  _aTypeRaff = ListTypes[1];
+  _aTypeDera = ListTypes[2];
 
-      if (_aTypeAdap == -1) InitAdaptUniforme();
-      if (_aTypeAdap ==  0) InitAdaptZone();
-      if (_aTypeAdap ==  1) InitAdaptChamps();
+  if (_aTypeAdap == -1) InitAdaptUniforme();
+  if (_aTypeAdap ==  0) InitAdaptZone();
+  if (_aTypeAdap ==  1) InitAdaptChamps();
 
-      RBUniDera->setDisabled(true);
-      RBUniRaff->setDisabled(true);
+  RBUniDera->setDisabled(true);
+  RBUniRaff->setDisabled(true);
 
-      InitFieldInterp();
+  InitFieldInterp();
 
-      if (_aTypeAdap == 1 or _TypeFieldInterp >= 1 )
-      {
-        if (_aFieldFile == QString("")) { GBFieldFile->setVisible(0); }
-        else
-        {
-          GBFieldFile->setVisible(1);
-          LEFieldFile->setText(_aFieldFile);
-          LEFieldFile->setReadOnly(1);
-        }
-      }
-      else
-      {
-        GBFieldFile->setVisible(0);
-      }
-      adjustSize();
+  if (_aTypeAdap == 1 or _TypeFieldInterp >= 1 )
+  {
+    if (_aFieldFile == QString("")) { GBFieldFile->setVisible(0); }
+    else
+    {
+      GBFieldFile->setVisible(1);
+      LEFieldFile->setText(_aFieldFile);
+      LEFieldFile->setReadOnly(1);
+    }
+  }
+  else
+  {
+    GBFieldFile->setVisible(0);
+  }
+// Les options avancees (non modifiables)
+  CBAdvanced->setVisible(0) ;
+  int NivMax = _aHypothesis->GetNivMax();
+  double DiamMin = _aHypothesis->GetDiamMin();
+  if ( NivMax > 0 )
+  { GBAdvancedOptions->setVisible(1);
+    spinBoxNivMax->setValue(NivMax);
+    spinBoxNivMax->setDisabled(true);
+    doubleSpinBoxDiamMin->setValue(DiamMin);
+    doubleSpinBoxDiamMin->setDisabled(true);
+  }
+  else
+  { GBAdvancedOptions->setVisible(0); }
+//
+  adjustSize();
 }
 // ----------------------------------------
 void MonEditHypothesis::InitAdaptUniforme()

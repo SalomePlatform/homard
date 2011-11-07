@@ -130,9 +130,6 @@ namespace HOMARD
     for ( it = ListString.begin(); it != ListString.end(); ++it )
          os << separator() << *it;
 
-    os << separator() << cas.GetNivMax();
-    os << separator() << cas.GetDiamMin();
-
 //    MESSAGE( ". Fin avec "<<os.str());
     return os.str();
   }
@@ -226,6 +223,9 @@ namespace HOMARD
     os << separator() << ListString.size();
     for ( it = ListString.begin(); it != ListString.end(); ++it )
           os << separator() << *it;
+
+    os << separator() << hypothesis.GetNivMax();
+    os << separator() << hypothesis.GetDiamMin();
 
 //    MESSAGE( ". Fin avec "<<os.str());
     return os.str();
@@ -382,14 +382,6 @@ namespace HOMARD
       if ( !ok ) return false;
       cas.AddBoundaryGroup( chunk.c_str(), chunkNext.c_str() );
     }
-
-    chunk = getNextChunk( stream, start, ok );
-    if ( !ok ) return false;
-    cas.SetNivMax( atoi( chunk.c_str() ) );
-
-    chunk = getNextChunk( stream, start, ok );
-    if ( !ok ) return false;
-    cas.SetDiamMin( strtod( chunk.c_str(), 0 ) );
 
     return true;
   }
@@ -574,6 +566,15 @@ namespace HOMARD
       if ( !ok ) return false;
       hypothesis.AddFieldInterp( chunk.c_str() );
     }
+
+    chunk = getNextChunk( stream, start, ok );
+    if ( !ok ) return false;
+    hypothesis.SetNivMax( atoi( chunk.c_str() ) );
+
+    chunk = getNextChunk( stream, start, ok );
+    if ( !ok ) return false;
+    hypothesis.SetDiamMin( strtod( chunk.c_str(), 0 ) );
+
     return true;
   }
 

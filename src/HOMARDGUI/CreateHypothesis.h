@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateHypothesis.ui'
 **
-** Created: Thu Sep 15 09:15:39 2011
+** Created: Fri Oct 28 11:27:29 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -26,6 +26,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSpacerItem>
+#include <QtGui/QSpinBox>
 #include <QtGui/QTableWidget>
 #include <QtGui/QVBoxLayout>
 
@@ -98,8 +99,16 @@ public:
     QRadioButton *RBFieldChosen;
     QTableWidget *TWField;
     QCheckBox *CBGroupe;
-    QGroupBox *GBButtons;
+    QCheckBox *CBAdvanced;
+    QGroupBox *GBAdvancedOptions;
     QGridLayout *gridLayout9;
+    QSpacerItem *spacerItem3;
+    QLabel *TLMinimalDiameter;
+    QSpinBox *spinBoxNivMax;
+    QDoubleSpinBox *doubleSpinBoxDiamMin;
+    QLabel *TLMaximalLevel;
+    QGroupBox *GBButtons;
+    QGridLayout *gridLayout10;
     QPushButton *buttonOk;
     QPushButton *buttonApply;
     QPushButton *buttonCancel;
@@ -520,34 +529,86 @@ public:
 
     gridLayout->addWidget(CBGroupe, 7, 0, 1, 2);
 
-    GBButtons = new QGroupBox(CreateHypothesis);
-    GBButtons->setObjectName(QString::fromUtf8("GBButtons"));
-    gridLayout9 = new QGridLayout(GBButtons);
+    CBAdvanced = new QCheckBox(CreateHypothesis);
+    CBAdvanced->setObjectName(QString::fromUtf8("CBAdvanced"));
+
+    gridLayout->addWidget(CBAdvanced, 8, 0, 1, 1);
+
+    GBAdvancedOptions = new QGroupBox(CreateHypothesis);
+    GBAdvancedOptions->setObjectName(QString::fromUtf8("GBAdvancedOptions"));
+    gridLayout9 = new QGridLayout(GBAdvancedOptions);
     gridLayout9->setSpacing(6);
     gridLayout9->setMargin(9);
     gridLayout9->setObjectName(QString::fromUtf8("gridLayout9"));
+    spacerItem3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    gridLayout9->addItem(spacerItem3, 0, 2, 1, 1);
+
+    TLMinimalDiameter = new QLabel(GBAdvancedOptions);
+    TLMinimalDiameter->setObjectName(QString::fromUtf8("TLMinimalDiameter"));
+    QSizePolicy sizePolicy5(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
+    sizePolicy5.setHorizontalStretch(0);
+    sizePolicy5.setVerticalStretch(0);
+    sizePolicy5.setHeightForWidth(TLMinimalDiameter->sizePolicy().hasHeightForWidth());
+    TLMinimalDiameter->setSizePolicy(sizePolicy5);
+    TLMinimalDiameter->setWordWrap(false);
+
+    gridLayout9->addWidget(TLMinimalDiameter, 0, 0, 1, 1);
+
+    spinBoxNivMax = new QSpinBox(GBAdvancedOptions);
+    spinBoxNivMax->setObjectName(QString::fromUtf8("spinBoxNivMax"));
+    spinBoxNivMax->setValue(99);
+
+    gridLayout9->addWidget(spinBoxNivMax, 0, 4, 1, 1);
+
+    doubleSpinBoxDiamMin = new QDoubleSpinBox(GBAdvancedOptions);
+    doubleSpinBoxDiamMin->setObjectName(QString::fromUtf8("doubleSpinBoxDiamMin"));
+    doubleSpinBoxDiamMin->setDecimals(5);
+
+    gridLayout9->addWidget(doubleSpinBoxDiamMin, 0, 1, 1, 1);
+
+    TLMaximalLevel = new QLabel(GBAdvancedOptions);
+    TLMaximalLevel->setObjectName(QString::fromUtf8("TLMaximalLevel"));
+    QSizePolicy sizePolicy6(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
+    sizePolicy6.setHorizontalStretch(0);
+    sizePolicy6.setVerticalStretch(0);
+    sizePolicy6.setHeightForWidth(TLMaximalLevel->sizePolicy().hasHeightForWidth());
+    TLMaximalLevel->setSizePolicy(sizePolicy6);
+    TLMaximalLevel->setWordWrap(false);
+
+    gridLayout9->addWidget(TLMaximalLevel, 0, 3, 1, 1);
+
+
+    gridLayout->addWidget(GBAdvancedOptions, 9, 0, 1, 1);
+
+    GBButtons = new QGroupBox(CreateHypothesis);
+    GBButtons->setObjectName(QString::fromUtf8("GBButtons"));
+    gridLayout10 = new QGridLayout(GBButtons);
+    gridLayout10->setSpacing(6);
+    gridLayout10->setMargin(9);
+    gridLayout10->setObjectName(QString::fromUtf8("gridLayout10"));
     buttonOk = new QPushButton(GBButtons);
     buttonOk->setObjectName(QString::fromUtf8("buttonOk"));
 
-    gridLayout9->addWidget(buttonOk, 0, 0, 1, 1);
+    gridLayout10->addWidget(buttonOk, 0, 0, 1, 1);
 
     buttonApply = new QPushButton(GBButtons);
     buttonApply->setObjectName(QString::fromUtf8("buttonApply"));
 
-    gridLayout9->addWidget(buttonApply, 0, 1, 1, 1);
+    gridLayout10->addWidget(buttonApply, 0, 1, 1, 1);
 
     buttonCancel = new QPushButton(GBButtons);
     buttonCancel->setObjectName(QString::fromUtf8("buttonCancel"));
 
-    gridLayout9->addWidget(buttonCancel, 0, 2, 1, 1);
+    gridLayout10->addWidget(buttonCancel, 0, 2, 1, 1);
 
     buttonHelp = new QPushButton(GBButtons);
     buttonHelp->setObjectName(QString::fromUtf8("buttonHelp"));
 
-    gridLayout9->addWidget(buttonHelp, 0, 3, 1, 1);
+    gridLayout10->addWidget(buttonHelp, 0, 3, 1, 1);
 
 
-    gridLayout->addWidget(GBButtons, 8, 0, 1, 2);
+    gridLayout->addWidget(GBButtons, 10, 0, 1, 2);
 
 
     retranslateUi(CreateHypothesis);
@@ -631,6 +692,10 @@ public:
     __colItem5->setText(QApplication::translate("CreateHypothesis", "Field Name", 0, QApplication::UnicodeUTF8));
     TWField->setHorizontalHeaderItem(1, __colItem5);
     CBGroupe->setText(QApplication::translate("CreateHypothesis", "Filtering with groups", 0, QApplication::UnicodeUTF8));
+    CBAdvanced->setText(QApplication::translate("CreateHypothesis", "Advanced options", 0, QApplication::UnicodeUTF8));
+    GBAdvancedOptions->setTitle(QApplication::translate("CreateHypothesis", "Advanced options", 0, QApplication::UnicodeUTF8));
+    TLMinimalDiameter->setText(QApplication::translate("CreateHypothesis", "Minimal diameter", 0, QApplication::UnicodeUTF8));
+    TLMaximalLevel->setText(QApplication::translate("CreateHypothesis", "Maximal level", 0, QApplication::UnicodeUTF8));
     GBButtons->setTitle(QString());
     buttonOk->setText(QApplication::translate("CreateHypothesis", "OK", 0, QApplication::UnicodeUTF8));
     buttonApply->setText(QApplication::translate("CreateHypothesis", "Apply", 0, QApplication::UnicodeUTF8));

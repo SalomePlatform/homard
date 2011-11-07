@@ -187,6 +187,34 @@ Le filtrage par les groupes
 |     Retourne la liste des groupes utilisés pour le filtrage   |
 +---------------------------------------------------------------+
 
+Les options avancéess
+^^^^^^^^^^^^^^^^^^^^^
+
++---------------------------------------------------------------+
++---------------------------------------------------------------+
+| .. module:: SetNivMax                                         |
+|                                                               |
+| **SetNivMax(nivmax)**                                         |
+|                                                               |
+|     - ``nivmax`` : niveau de raffinement à ne pas dépasser    |
++---------------------------------------------------------------+
+| .. module:: GetNivMax                                         |
+|                                                               |
+| **GetNivMax()**                                               |
+|     Retourne le niveau maximal de raffinement                 |
++---------------------------------------------------------------+
+| .. module:: SetDiamMin                                        |
+|                                                               |
+| **SetDiamMin(diammin)**                                       |
+|                                                               |
+|     - ``diammin`` : diamètre minimal voulu pour une maille    |
++---------------------------------------------------------------+
+| .. module:: GetDiamMin                                        |
+|                                                               |
+| **GetDiamMin()**                                              |
+|     Retourne le diamètre minimal voulu                        |
++---------------------------------------------------------------+
+
 
 Exemple
 """""""

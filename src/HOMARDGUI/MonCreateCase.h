@@ -46,9 +46,6 @@ protected :
     QString _aDirName;
 
     int _ConfType;
-    int _NivMax;
-    double _DiamMin;
-
 
     HOMARD::HOMARD_Cas_var aCase ;
     HOMARD::HOMARD_Gen_var _myHomardGen;
@@ -75,8 +72,6 @@ public slots:
     virtual void PushBoundaryAnNew();
     virtual void PushBoundaryAnEdit();
     virtual void PushBoundaryAnHelp();
-
-    virtual void SetAdvanced();
 
     virtual void PushOnOK();
     virtual bool PushOnApply();

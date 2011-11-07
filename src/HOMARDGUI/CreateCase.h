@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateCase.ui'
 **
-** Created: Mon Sep 12 15:31:56 2011
+** Created: Fri Oct 28 11:27:32 2011
 **      by: Qt User Interface Compiler version 4.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -17,7 +17,6 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
 #include <QtGui/QDialog>
-#include <QtGui/QDoubleSpinBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
@@ -26,7 +25,6 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSpacerItem>
-#include <QtGui/QSpinBox>
 #include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 
@@ -34,30 +32,22 @@ class Ui_CreateCase
 {
 public:
     QGridLayout *gridLayout;
-    QGroupBox *GBAdvancedOptions;
-    QGridLayout *gridLayout1;
-    QSpacerItem *spacerItem;
-    QLabel *TLMinimalDiameter;
-    QSpinBox *spinBoxNivMax;
-    QDoubleSpinBox *doubleSpinBoxDiamMin;
-    QLabel *TLMaximalLevel;
     QGroupBox *GBBoundaryA;
     QTableWidget *TWBoundary;
     QWidget *layoutWidget;
-    QGridLayout *gridLayout2;
+    QGridLayout *gridLayout1;
     QPushButton *PBBoundaryAnEdit;
     QPushButton *PBBoundaryAnNew;
     QPushButton *PBBoundaryAnHelp;
-    QCheckBox *CBAdvanced;
     QGroupBox *GBBoundaryD;
-    QGridLayout *gridLayout3;
+    QGridLayout *gridLayout2;
     QPushButton *PBBoundaryDiEdit;
     QPushButton *PBBoundaryDiNew;
     QComboBox *CBBoundaryDi;
-    QSpacerItem *spacerItem1;
+    QSpacerItem *spacerItem;
     QPushButton *PBBoundaryDiHelp;
     QGroupBox *GroupButtons;
-    QGridLayout *gridLayout4;
+    QGridLayout *gridLayout3;
     QPushButton *buttonHelp;
     QPushButton *buttonCancel;
     QPushButton *buttonApply;
@@ -76,20 +66,20 @@ public:
     QLabel *Mesh_2;
     QPushButton *PushFichier;
     QLineEdit *LEFileName;
-    QSpacerItem *spacerItem2;
+    QSpacerItem *spacerItem1;
     QGroupBox *GBTypeConf;
     QHBoxLayout *hboxLayout4;
     QRadioButton *RBConforme;
     QRadioButton *RBNonConforme;
-    QSpacerItem *spacerItem3;
+    QSpacerItem *spacerItem2;
     QGroupBox *GBTypeNoConf;
     QHBoxLayout *hboxLayout5;
     QRadioButton *RB1NpM;
     QRadioButton *RB1NpA;
     QRadioButton *RBQuelconque;
+    QSpacerItem *spacerItem3;
     QSpacerItem *spacerItem4;
     QSpacerItem *spacerItem5;
-    QSpacerItem *spacerItem6;
 
     void setupUi(QDialog *CreateCase)
     {
@@ -104,53 +94,6 @@ public:
     gridLayout->setSpacing(6);
     gridLayout->setMargin(9);
     gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-    GBAdvancedOptions = new QGroupBox(CreateCase);
-    GBAdvancedOptions->setObjectName(QString::fromUtf8("GBAdvancedOptions"));
-    gridLayout1 = new QGridLayout(GBAdvancedOptions);
-    gridLayout1->setSpacing(6);
-    gridLayout1->setMargin(9);
-    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
-    spacerItem = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-    gridLayout1->addItem(spacerItem, 0, 2, 1, 1);
-
-    TLMinimalDiameter = new QLabel(GBAdvancedOptions);
-    TLMinimalDiameter->setObjectName(QString::fromUtf8("TLMinimalDiameter"));
-    QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
-    sizePolicy1.setHorizontalStretch(0);
-    sizePolicy1.setVerticalStretch(0);
-    sizePolicy1.setHeightForWidth(TLMinimalDiameter->sizePolicy().hasHeightForWidth());
-    TLMinimalDiameter->setSizePolicy(sizePolicy1);
-    TLMinimalDiameter->setWordWrap(false);
-
-    gridLayout1->addWidget(TLMinimalDiameter, 0, 0, 1, 1);
-
-    spinBoxNivMax = new QSpinBox(GBAdvancedOptions);
-    spinBoxNivMax->setObjectName(QString::fromUtf8("spinBoxNivMax"));
-    spinBoxNivMax->setValue(99);
-
-    gridLayout1->addWidget(spinBoxNivMax, 0, 4, 1, 1);
-
-    doubleSpinBoxDiamMin = new QDoubleSpinBox(GBAdvancedOptions);
-    doubleSpinBoxDiamMin->setObjectName(QString::fromUtf8("doubleSpinBoxDiamMin"));
-    doubleSpinBoxDiamMin->setDecimals(5);
-
-    gridLayout1->addWidget(doubleSpinBoxDiamMin, 0, 1, 1, 1);
-
-    TLMaximalLevel = new QLabel(GBAdvancedOptions);
-    TLMaximalLevel->setObjectName(QString::fromUtf8("TLMaximalLevel"));
-    QSizePolicy sizePolicy2(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
-    sizePolicy2.setHorizontalStretch(0);
-    sizePolicy2.setVerticalStretch(0);
-    sizePolicy2.setHeightForWidth(TLMaximalLevel->sizePolicy().hasHeightForWidth());
-    TLMaximalLevel->setSizePolicy(sizePolicy2);
-    TLMaximalLevel->setWordWrap(false);
-
-    gridLayout1->addWidget(TLMaximalLevel, 0, 3, 1, 1);
-
-
-    gridLayout->addWidget(GBAdvancedOptions, 14, 0, 1, 1);
-
     GBBoundaryA = new QGroupBox(CreateCase);
     GBBoundaryA->setObjectName(QString::fromUtf8("GBBoundaryA"));
     GBBoundaryA->setMinimumSize(QSize(548, 200));
@@ -164,110 +107,105 @@ public:
     layoutWidget = new QWidget(GBBoundaryA);
     layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
     layoutWidget->setGeometry(QRect(430, 40, 77, 95));
-    gridLayout2 = new QGridLayout(layoutWidget);
-    gridLayout2->setSpacing(6);
-    gridLayout2->setMargin(0);
-    gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
+    gridLayout1 = new QGridLayout(layoutWidget);
+    gridLayout1->setSpacing(6);
+    gridLayout1->setMargin(0);
+    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
     PBBoundaryAnEdit = new QPushButton(layoutWidget);
     PBBoundaryAnEdit->setObjectName(QString::fromUtf8("PBBoundaryAnEdit"));
     PBBoundaryAnEdit->setAutoDefault(false);
 
-    gridLayout2->addWidget(PBBoundaryAnEdit, 1, 0, 1, 1);
+    gridLayout1->addWidget(PBBoundaryAnEdit, 1, 0, 1, 1);
 
     PBBoundaryAnNew = new QPushButton(layoutWidget);
     PBBoundaryAnNew->setObjectName(QString::fromUtf8("PBBoundaryAnNew"));
     PBBoundaryAnNew->setAutoDefault(false);
 
-    gridLayout2->addWidget(PBBoundaryAnNew, 0, 0, 1, 1);
+    gridLayout1->addWidget(PBBoundaryAnNew, 0, 0, 1, 1);
 
     PBBoundaryAnHelp = new QPushButton(layoutWidget);
     PBBoundaryAnHelp->setObjectName(QString::fromUtf8("PBBoundaryAnHelp"));
     PBBoundaryAnHelp->setAutoDefault(false);
 
-    gridLayout2->addWidget(PBBoundaryAnHelp, 2, 0, 1, 1);
+    gridLayout1->addWidget(PBBoundaryAnHelp, 2, 0, 1, 1);
 
 
     gridLayout->addWidget(GBBoundaryA, 12, 0, 1, 2);
 
-    CBAdvanced = new QCheckBox(CreateCase);
-    CBAdvanced->setObjectName(QString::fromUtf8("CBAdvanced"));
-
-    gridLayout->addWidget(CBAdvanced, 13, 0, 1, 1);
-
     GBBoundaryD = new QGroupBox(CreateCase);
     GBBoundaryD->setObjectName(QString::fromUtf8("GBBoundaryD"));
-    QSizePolicy sizePolicy3(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
-    sizePolicy3.setHorizontalStretch(0);
-    sizePolicy3.setVerticalStretch(0);
-    sizePolicy3.setHeightForWidth(GBBoundaryD->sizePolicy().hasHeightForWidth());
-    GBBoundaryD->setSizePolicy(sizePolicy3);
-    gridLayout3 = new QGridLayout(GBBoundaryD);
-    gridLayout3->setSpacing(6);
-    gridLayout3->setMargin(9);
-    gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
+    QSizePolicy sizePolicy1(static_cast<QSizePolicy::Policy>(0), static_cast<QSizePolicy::Policy>(0));
+    sizePolicy1.setHorizontalStretch(0);
+    sizePolicy1.setVerticalStretch(0);
+    sizePolicy1.setHeightForWidth(GBBoundaryD->sizePolicy().hasHeightForWidth());
+    GBBoundaryD->setSizePolicy(sizePolicy1);
+    gridLayout2 = new QGridLayout(GBBoundaryD);
+    gridLayout2->setSpacing(6);
+    gridLayout2->setMargin(9);
+    gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
     PBBoundaryDiEdit = new QPushButton(GBBoundaryD);
     PBBoundaryDiEdit->setObjectName(QString::fromUtf8("PBBoundaryDiEdit"));
     PBBoundaryDiEdit->setAutoDefault(false);
 
-    gridLayout3->addWidget(PBBoundaryDiEdit, 0, 3, 1, 1);
+    gridLayout2->addWidget(PBBoundaryDiEdit, 0, 3, 1, 1);
 
     PBBoundaryDiNew = new QPushButton(GBBoundaryD);
     PBBoundaryDiNew->setObjectName(QString::fromUtf8("PBBoundaryDiNew"));
     PBBoundaryDiNew->setAutoDefault(false);
 
-    gridLayout3->addWidget(PBBoundaryDiNew, 0, 2, 1, 1);
+    gridLayout2->addWidget(PBBoundaryDiNew, 0, 2, 1, 1);
 
     CBBoundaryDi = new QComboBox(GBBoundaryD);
     CBBoundaryDi->setObjectName(QString::fromUtf8("CBBoundaryDi"));
     CBBoundaryDi->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
-    gridLayout3->addWidget(CBBoundaryDi, 0, 0, 1, 1);
+    gridLayout2->addWidget(CBBoundaryDi, 0, 0, 1, 1);
 
-    spacerItem1 = new QSpacerItem(40, 13, QSizePolicy::Fixed, QSizePolicy::Minimum);
+    spacerItem = new QSpacerItem(40, 13, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-    gridLayout3->addItem(spacerItem1, 0, 1, 1, 1);
+    gridLayout2->addItem(spacerItem, 0, 1, 1, 1);
 
     PBBoundaryDiHelp = new QPushButton(GBBoundaryD);
     PBBoundaryDiHelp->setObjectName(QString::fromUtf8("PBBoundaryDiHelp"));
     PBBoundaryDiHelp->setAutoDefault(false);
 
-    gridLayout3->addWidget(PBBoundaryDiHelp, 0, 4, 1, 1);
+    gridLayout2->addWidget(PBBoundaryDiHelp, 0, 4, 1, 1);
 
 
     gridLayout->addWidget(GBBoundaryD, 11, 0, 1, 1);
 
     GroupButtons = new QGroupBox(CreateCase);
     GroupButtons->setObjectName(QString::fromUtf8("GroupButtons"));
-    gridLayout4 = new QGridLayout(GroupButtons);
-    gridLayout4->setSpacing(6);
-    gridLayout4->setMargin(9);
-    gridLayout4->setObjectName(QString::fromUtf8("gridLayout4"));
+    gridLayout3 = new QGridLayout(GroupButtons);
+    gridLayout3->setSpacing(6);
+    gridLayout3->setMargin(9);
+    gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
     buttonHelp = new QPushButton(GroupButtons);
     buttonHelp->setObjectName(QString::fromUtf8("buttonHelp"));
     buttonHelp->setAutoDefault(false);
 
-    gridLayout4->addWidget(buttonHelp, 0, 3, 1, 1);
+    gridLayout3->addWidget(buttonHelp, 0, 3, 1, 1);
 
     buttonCancel = new QPushButton(GroupButtons);
     buttonCancel->setObjectName(QString::fromUtf8("buttonCancel"));
     buttonCancel->setAutoDefault(false);
 
-    gridLayout4->addWidget(buttonCancel, 0, 2, 1, 1);
+    gridLayout3->addWidget(buttonCancel, 0, 2, 1, 1);
 
     buttonApply = new QPushButton(GroupButtons);
     buttonApply->setObjectName(QString::fromUtf8("buttonApply"));
     buttonApply->setAutoDefault(false);
 
-    gridLayout4->addWidget(buttonApply, 0, 1, 1, 1);
+    gridLayout3->addWidget(buttonApply, 0, 1, 1, 1);
 
     buttonOk = new QPushButton(GroupButtons);
     buttonOk->setObjectName(QString::fromUtf8("buttonOk"));
     buttonOk->setAutoDefault(false);
 
-    gridLayout4->addWidget(buttonOk, 0, 0, 1, 1);
+    gridLayout3->addWidget(buttonOk, 0, 0, 1, 1);
 
 
-    gridLayout->addWidget(GroupButtons, 15, 0, 1, 1);
+    gridLayout->addWidget(GroupButtons, 13, 0, 1, 1);
 
     hboxLayout = new QHBoxLayout();
     hboxLayout->setSpacing(6);
@@ -352,9 +290,9 @@ public:
 
     gridLayout->addLayout(hboxLayout3, 3, 0, 1, 2);
 
-    spacerItem2 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem1 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem2, 4, 0, 1, 1);
+    gridLayout->addItem(spacerItem1, 4, 0, 1, 1);
 
     GBTypeConf = new QGroupBox(CreateCase);
     GBTypeConf->setObjectName(QString::fromUtf8("GBTypeConf"));
@@ -376,9 +314,9 @@ public:
 
     gridLayout->addWidget(GBTypeConf, 5, 0, 1, 2);
 
-    spacerItem3 = new QSpacerItem(20, 1, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem2 = new QSpacerItem(20, 1, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem3, 6, 0, 1, 1);
+    gridLayout->addItem(spacerItem2, 6, 0, 1, 1);
 
     GBTypeNoConf = new QGroupBox(CreateCase);
     GBTypeNoConf->setObjectName(QString::fromUtf8("GBTypeNoConf"));
@@ -404,22 +342,22 @@ public:
 
     gridLayout->addWidget(GBTypeNoConf, 7, 0, 1, 2);
 
-    spacerItem4 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem3 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem4, 8, 0, 1, 1);
+    gridLayout->addItem(spacerItem3, 8, 0, 1, 1);
 
-    spacerItem5 = new QSpacerItem(20, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem4 = new QSpacerItem(20, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem5, 10, 0, 1, 1);
+    gridLayout->addItem(spacerItem4, 10, 0, 1, 1);
 
-    spacerItem6 = new QSpacerItem(20, 18, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    spacerItem5 = new QSpacerItem(20, 18, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem6, 2, 1, 1, 1);
+    gridLayout->addItem(spacerItem5, 2, 1, 1, 1);
 
 
     retranslateUi(CreateCase);
 
-    QSize size(599, 925);
+    QSize size(601, 843);
     size = size.expandedTo(CreateCase->minimumSizeHint());
     CreateCase->resize(size);
 
@@ -433,9 +371,6 @@ public:
     void retranslateUi(QDialog *CreateCase)
     {
     CreateCase->setWindowTitle(QApplication::translate("CreateCase", "Create a case", 0, QApplication::UnicodeUTF8));
-    GBAdvancedOptions->setTitle(QApplication::translate("CreateCase", "Advanced options", 0, QApplication::UnicodeUTF8));
-    TLMinimalDiameter->setText(QApplication::translate("CreateCase", "Minimal diameter", 0, QApplication::UnicodeUTF8));
-    TLMaximalLevel->setText(QApplication::translate("CreateCase", "Maximal level", 0, QApplication::UnicodeUTF8));
     GBBoundaryA->setTitle(QApplication::translate("CreateCase", "Analytical boundary", 0, QApplication::UnicodeUTF8));
     if (TWBoundary->columnCount() < 1)
         TWBoundary->setColumnCount(1);
@@ -446,7 +381,6 @@ public:
     PBBoundaryAnEdit->setText(QApplication::translate("CreateCase", "Edit", 0, QApplication::UnicodeUTF8));
     PBBoundaryAnNew->setText(QApplication::translate("CreateCase", "New", 0, QApplication::UnicodeUTF8));
     PBBoundaryAnHelp->setText(QApplication::translate("CreateCase", "Help", 0, QApplication::UnicodeUTF8));
-    CBAdvanced->setText(QApplication::translate("CreateCase", "Advanced options", 0, QApplication::UnicodeUTF8));
     GBBoundaryD->setTitle(QApplication::translate("CreateCase", "Discrete boundary", 0, QApplication::UnicodeUTF8));
     PBBoundaryDiEdit->setText(QApplication::translate("CreateCase", "Edit", 0, QApplication::UnicodeUTF8));
     PBBoundaryDiNew->setText(QApplication::translate("CreateCase", "New", 0, QApplication::UnicodeUTF8));

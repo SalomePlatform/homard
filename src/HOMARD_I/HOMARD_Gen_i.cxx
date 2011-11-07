@@ -557,10 +557,6 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
      aSeqGroupe[i++]=(*it).c_str();
   myCase->SetGroups(aSeqGroupe);
 
-// Valeurs par defaut des filtrages
-  myCase->SetNivMax(-1);
-  myCase->SetDiamMin(-1.0);
-
 // Recherche d'un nom pour l'iteration 0. Par defaut, on prend le nom
 // du maillage du cas. Si ce nom existe deja, on incremente avec 0, 1, 2, etc.
   int monNum=0;
@@ -666,6 +662,10 @@ HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypo
   myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis] = myHypothesis;
   SALOMEDS::SObject_var aSO;
   PublishInStudy(myCurrentStudy, aSO, myHypothesis, nomHypothesis);
+
+// Valeurs par defaut des filtrages
+  myHypothesis->SetNivMax(-1);
+  myHypothesis->SetDiamMin(-1.0);
 
   return HOMARD::HOMARD_Hypothesis::_duplicate(myHypothesis);
 }
@@ -1056,7 +1056,6 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
   std::string siterp1 = saux1.str() ;
   if (NumeIter < 10) { siterp1 = "0" + siterp1 ; }
 
-  // A.3. Hypothese associee
   // B. Les repertoires
   // B.1. Le repertoire du cas
   const char* nomDir = myCase->GetDirName();
@@ -1428,11 +1427,11 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
     }
   }
   // E.7. Ajout des options avancees
-  int NivMax = myCase->GetNivMax();
+  int NivMax = myHypo->GetNivMax();
   MESSAGE ( ". NivMax = " << NivMax );
   if ( NivMax > 0 )
   {
-    double DiamMin = myCase->GetDiamMin();
+    double DiamMin = myHypo->GetDiamMin();
     MESSAGE ( ". DiamMin = " << DiamMin );
     myDriver->TexteAdvanced(NivMax, DiamMin);
   }
