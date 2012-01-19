@@ -88,18 +88,18 @@ std::string HOMARD_Cas::GetDumpPython() const
 //=============================================================================
 {
   std::ostringstream aScript;
-  aScript << "\t" <<_NomCas << ".SetDirName('";
-  aScript << _NomDir << "')\n";
+  aScript << "\t" <<_NomCas << ".SetDirName(\"";
+  aScript << _NomDir << "\")\n";
   aScript << "\t" <<_NomCas << ".SetConfType(";
   aScript << _ConfType << ")\n";
 // Suivi de frontieres
   std::list<std::string>::const_iterator it = _ListBoundaryGroup.begin();
   while(it != _ListBoundaryGroup.end())
   {
-    aScript << "\t" <<_NomCas << ".AddBoundaryGroup('";
-    aScript << *it << "', '";
+    aScript << "\t" <<_NomCas << ".AddBoundaryGroup(\"";
+    aScript << *it << "\", \"";
     it++;
-    aScript << *it << "')\n";
+    aScript << *it << "\")\n";
     it++;
   }
 

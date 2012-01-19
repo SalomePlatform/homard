@@ -639,7 +639,7 @@ void HomardDriver::TexteBoundaryAn( const std::string NameBoundary, int NumeBoun
   { std::stringstream saux1 ;
     saux1 << NumeBoundary ;
     saux2 = saux1.str() ;
-    saux += "FANom " + saux2 + " '" + NameBoundary + "'\n" ;
+    saux += "FANom " + saux2 + " \"" + NameBoundary + "\"\n" ;
   }
 //
 // Type de frontiere
@@ -735,8 +735,8 @@ void HomardDriver::TexteBoundaryAnGr( const std::string NameBoundary, int NumeBo
   saux2 = saux1.str() ;
   saux = "#\n# Lien Frontiere/Groupe numero " + saux2 + "\n" ;
 //
-  saux += "FGNomFro " + saux2 + " '" + NameBoundary + "'\n" ;
-  saux += "FGNomGro " + saux2 + " '" + GroupName + "'\n" ;
+  saux += "FGNomFro " + saux2 + " \"" + NameBoundary + "\"\n" ;
+  saux += "FGNomGro " + saux2 + " \"" + GroupName + "\"\n" ;
 //
   _Texte += saux + "#\n" ;
 //

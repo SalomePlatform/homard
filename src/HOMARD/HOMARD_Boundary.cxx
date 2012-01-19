@@ -70,22 +70,22 @@ std::string HOMARD_Boundary::GetDumpPython() const
     case 0:
     {
       aScript << "discrete boundary " << _NomBoundary << "\n";
-      aScript << "\t" << _NomBoundary << " = homard.CreateBoundaryDi('" << _NomBoundary << "', ";
-      aScript << "'" << _MeshName << "', ";
-      aScript << "'" << _MeshFile << "')\n";
+      aScript << "\t" << _NomBoundary << " = homard.CreateBoundaryDi(\"" << _NomBoundary << "\", ";
+      aScript << "\"" << _MeshName << "\", ";
+      aScript << "\"" << _MeshFile << "\")\n";
       break ;
     }
     case 1:
     {
       aScript << "cylinder " << _NomBoundary << "\n";
-      aScript << "\t" << _NomBoundary << " = homard.CreateBoundaryCylinder('" << _NomBoundary << "', ";
+      aScript << "\t" << _NomBoundary << " = homard.CreateBoundaryCylinder(\"" << _NomBoundary << "\", ";
       aScript << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Xaxe << ", " << _Yaxe << ", " << _Zaxe << ", " << _rayon << ")\n";
       break ;
     }
     case 2:
     {
       aScript << "sphere" << _NomBoundary << "\n";
-      aScript << "\t" << _NomBoundary << " = homard.CreateBoundarySphere('" << _NomBoundary << "', ";
+      aScript << "\t" << _NomBoundary << " = homard.CreateBoundarySphere(\"" << _NomBoundary << "\", ";
       aScript << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _rayon << ")\n";
       break ;
     }

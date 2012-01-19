@@ -79,58 +79,58 @@ std::string HOMARD_Zone::GetDumpPython() const
   switch (_ZoneType)
   {
     case 11:
-    { aScript << "Box2D( '" << _NomZone << "', " << _Xmin << ", " << _Xmax << ", " << _Ymin << ", " << _Ymax << ", 1 )\n";
+    { aScript << "Box2D( \"" << _NomZone << "\", " << _Xmin << ", " << _Xmax << ", " << _Ymin << ", " << _Ymax << ", 1 )\n";
       break ;
     }
     case 12:
-    { aScript << "Box2D( '" << _NomZone << "', " << _Ymin << ", " << _Ymax << ", " << _Zmin << ", " << _Zmax << ", 2 )\n";
+    { aScript << "Box2D( \"" << _NomZone << "\", " << _Ymin << ", " << _Ymax << ", " << _Zmin << ", " << _Zmax << ", 2 )\n";
       break ;
     }
     case 13:
-    { aScript << "Box2D( '" << _NomZone << "', " << _Zmin << ", " << _Zmax << ", " << _Xmin << ", " << _Xmax << ", 3 )\n";
+    { aScript << "Box2D( \"" << _NomZone << "\", " << _Zmin << ", " << _Zmax << ", " << _Xmin << ", " << _Xmax << ", 3 )\n";
       break ;
     }
     case 2:
-    { aScript << "Box( '"  << _NomZone << "', " << _Xmin << ", " << _Xmax << ", " << _Ymin << ", " << _Ymax << ", " << _Zmin << ", " << _Zmax << ")\n";
+    { aScript << "Box( \""  << _NomZone << "\", " << _Xmin << ", " << _Xmax << ", " << _Ymin << ", " << _Ymax << ", " << _Zmin << ", " << _Zmax << ")\n";
       break ;
     }
 
     case 4:
-    { aScript << "Sphere( '" << _NomZone << "', " << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Rayon << ")\n";
+    { aScript << "Sphere( \"" << _NomZone << "\", " << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Rayon << ")\n";
       break ;
     }
 
     case 31:
-    { aScript << "Disk( '" << _NomZone << "', " << _Xcentre << ", " << _Ycentre << ", " << _Rayon << ", 1 )\n";
+    { aScript << "Disk( \"" << _NomZone << "\", " << _Xcentre << ", " << _Ycentre << ", " << _Rayon << ", 1 )\n";
       break ;
     }
     case 32:
-    { aScript << "Disk( '" << _NomZone << "', " << _Ycentre << ", " << _Zcentre << ", " << _Rayon << ", 2 )\n";
+    { aScript << "Disk( \"" << _NomZone << "\", " << _Ycentre << ", " << _Zcentre << ", " << _Rayon << ", 2 )\n";
       break ;
     }
     case 33:
-    { aScript << "Disk( '" << _NomZone << "', " << _Zcentre << ", " << _Xcentre << ", " << _Rayon << ", 3 )\n";
+    { aScript << "Disk( \"" << _NomZone << "\", " << _Zcentre << ", " << _Xcentre << ", " << _Rayon << ", 3 )\n";
       break ;
     }
     case 5:
-    { aScript << "Cylinder( '" << _NomZone << "', " << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Xaxe << ", " << _Yaxe << ", " << _Zaxe << ", " << _Rayon << ", " << _Haut << ")\n";
+    { aScript << "Cylinder( \"" << _NomZone << "\", " << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Xaxe << ", " << _Yaxe << ", " << _Zaxe << ", " << _Rayon << ", " << _Haut << ")\n";
       break ;
     }
 
     case 61:
-    { aScript << "DiskWithHole( '" << _NomZone << "', " << _Xcentre << ", " << _Ycentre << ", " << _Rayon << ", " << _Rayonint << ", 1 )\n";
+    { aScript << "DiskWithHole( \"" << _NomZone << "\", " << _Xcentre << ", " << _Ycentre << ", " << _Rayon << ", " << _Rayonint << ", 1 )\n";
       break ;
     }
     case 62:
-    { aScript << "DiskWithHole( '" << _NomZone << "', " << _Ycentre << ", " << _Zcentre << ", " << _Rayon << ", " << _Rayonint << ", 2 )\n";
+    { aScript << "DiskWithHole( \"" << _NomZone << "\", " << _Ycentre << ", " << _Zcentre << ", " << _Rayon << ", " << _Rayonint << ", 2 )\n";
       break ;
     }
     case 63:
-    { aScript << "DiskWithHole( '" << _NomZone << "', " << _Zcentre << ", " << _Xcentre << ", " << _Rayon << ", " << _Rayonint << ", 3 )\n";
+    { aScript << "DiskWithHole( \"" << _NomZone << "\", " << _Zcentre << ", " << _Xcentre << ", " << _Rayon << ", " << _Rayonint << ", 3 )\n";
       break ;
     }
     case 7:
-    { aScript << "Pipe( '" << _NomZone << "', " << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Xaxe << ", " << _Yaxe << ", " << _Zaxe << ", " << _Rayon << ", " << _Haut << ", " << _Rayonint << ")\n";
+    { aScript << "Pipe( \"" << _NomZone << "\", " << _Xcentre << ", " << _Ycentre << ", " << _Zcentre << ", " << _Xaxe << ", " << _Yaxe << ", " << _Zaxe << ", " << _Rayon << ", " << _Haut << ", " << _Rayonint << ")\n";
       break ;
     }
   }

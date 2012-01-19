@@ -82,31 +82,31 @@ std::string HOMARD_Iteration::GetDumpPython() const
   aScript << "\n# Creation of the iteration " << _NomIter << "\n";
   if( _NumIter == 1 )
   {
-       aScript << "\t" << _NomIter << " = homard.CreateIteration('";
-       aScript <<  _NomIter << "', "<<  _NomCas << ".GetIter0Name() )\n";
+       aScript << "\t" << _NomIter << " = homard.CreateIteration(\"";
+       aScript <<  _NomIter << "\", "<<  _NomCas << ".GetIter0Name() )\n";
   }
    else
   {
-       aScript << "\t" << _NomIter << " = homard.CreateIteration('";
-       aScript <<  _NomIter << "', '" << _IterParent << "')\n";
+       aScript << "\t" << _NomIter << " = homard.CreateIteration(\"";
+       aScript <<  _NomIter << "\", \"" << _IterParent << "\")\n";
   }
 // Le nom du maillage produit
-  aScript << "\t" << _NomIter << ".SetMeshName('" << _NomMesh << "')\n" ;
+  aScript << "\t" << _NomIter << ".SetMeshName(\"" << _NomMesh << "\")\n" ;
 // Le fichier du maillage produit
-  aScript << "\t" << _NomIter << ".SetMeshFile('" << _MeshFile << "')\n";
+  aScript << "\t" << _NomIter << ".SetMeshFile(\"" << _MeshFile << "\")\n";
   if (_FieldFile != "") {
-    aScript << "\t" << _NomIter << ".SetFieldFile('" << _FieldFile << "')\n";
-    aScript << "\t" << _NomIter << ".SetTimeStepRank(" << _Rank << ", " << _TimeStep << ")\n";
+    aScript << "\t" << _NomIter << ".SetFieldFile(\"" << _FieldFile << "\")\n";
+    aScript << "\t" << _NomIter << ".SetTimeStepRank(" << _TimeStep << ", " << _Rank << ")\n";
   }
 
-  aScript << "\thomard.AssociateIterHypo('" <<_NomIter << "', '" << _NomHypo << "')\n";
+  aScript << "\thomard.AssociateIterHypo(\"" <<_NomIter << "\", \"" << _NomHypo << "\")\n";
   if (_Etat == true)
   {
-     aScript << "\tresult = homard.Compute('" <<_NomIter << "', 1)\n";
+     aScript << "\tresult = homard.Compute(\"" <<_NomIter << "\", 1)\n";
   }
   else
   {
-     aScript << "\t# result = homard.Compute('" <<_NomIter << "', 1)\n";
+     aScript << "\t# result = homard.Compute(\"" <<_NomIter << "\", 1)\n";
   }
 
   return aScript.str();

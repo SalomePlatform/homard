@@ -89,27 +89,27 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
 {
   std::ostringstream aScript;
   aScript << "\n# Creation of the hypothesis " << _NomHypo << "\n" ;
-  aScript << "\t" << _NomHypo << " = homard.CreateHypothesis('" << _NomHypo << "')\n";
+  aScript << "\t" << _NomHypo << " = homard.CreateHypothesis(\"" << _NomHypo << "\")\n";
   aScript << "\t" << _NomHypo << ".SetAdapRefinUnRef(" << _TypeAdap << ", " << _TypeRaff << ", " << _TypeDera << ")\n";
 
 // Raffinement selon des zones geometriques
   std::list<std::string>::const_iterator it = _ListZone.begin();
   while(it != _ListZone.end())
   {
-      aScript << "\thomard.AssociateHypoZone('"<< *it << "', '" <<_NomHypo << "')\n";
+      aScript << "\thomard.AssociateHypoZone(\""<< *it << "\", \"" <<_NomHypo << "\")\n";
       it++;
   }
 
 // Raffinement selon un champ
   if ( _TypeAdap == 1 )
   {
-    aScript << "\t" << _NomHypo << ".SetField('" << _Field << "')\n";
+    aScript << "\t" << _NomHypo << ".SetField(\"" << _Field << "\")\n";
     aScript << "\t" << _NomHypo << ".SetUseField(" << _UsField << ")\n";
     aScript << "\t" << _NomHypo << ".SetUseComp(" << _UsCmpI << ")\n";
     std::list<std::string>::const_iterator it_comp = _ListComposant.begin();
     while(it_comp != _ListComposant.end())
     {
-      aScript << "\t" << _NomHypo << ".AddComp('" << *it_comp << "')\n";
+      aScript << "\t" << _NomHypo << ".AddComp(\"" << *it_comp << "\")\n";
       it_comp++;
     }
     if ( _TypeRaff == 1 )
@@ -126,7 +126,7 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
 
 // Filtrage du raffinement par des groupes
    for ( it=_ListGroupSelected.begin(); it!=_ListGroupSelected.end();it++)
-       aScript << "\t" << _NomHypo << ".AddGroup('"  << (*it) <<  "')\n" ;
+       aScript << "\t" << _NomHypo << ".AddGroup(\""  << (*it) <<  "\")\n" ;
 
 // Interpolation champ
   aScript << "\t" << _NomHypo << ".SetTypeFieldInterp(" << _TypeFieldInterp << ")\n";
@@ -135,7 +135,7 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
     std::list<std::string>::const_iterator it_champ = _ListFieldInterp.begin();
     while(it_champ != _ListFieldInterp.end())
     {
-      aScript << "\t" << _NomHypo << ".AddFieldInterp('" << *it_champ << "')\n";
+      aScript << "\t" << _NomHypo << ".AddFieldInterp(\"" << *it_champ << "\")\n";
       it_champ++;
     }
   }
