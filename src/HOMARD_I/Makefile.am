@@ -54,7 +54,7 @@ libHOMARDEngine_la_CPPFLAGS = 		      \
 	$(CORBA_CXXFLAGS) 		      \
 	$(CORBA_INCLUDES)		      \
 	$(KERNEL_CXXFLAGS)		      \
-	$(MED2_INCLUDES)		      \
+	$(MED3_INCLUDES)		      \
 	$(SMESH_CXXFLAGS) 		      \
 	$(GEOM_CXXFLAGS) 		      \
 	-I$(srcdir)/../HOMARD 		      \
@@ -70,7 +70,7 @@ libHOMARDEngine_la_LDFLAGS  =            \
 	../../idl/libSalomeIDLHOMARD.la  \
 	../HOMARD/libHOMARDImpl.la       \
 	$(KERNEL_LDFLAGS)                \
-	$(MED2_LIBS)                     \
+	$(MED3_LIBS)                     \
 	-lSalomeContainer                \
 	-lSalomeNS                       \
 	-lRegistry                       \

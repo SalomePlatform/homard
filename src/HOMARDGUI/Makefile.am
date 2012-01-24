@@ -100,7 +100,7 @@ libHOMARD_la_CPPFLAGS =          \
 	$(QT_INCLUDES)           \
 	$(CAS_CPPFLAGS)          \
 	$(PYTHON_INCLUDES)       \
-	$(MED2_INCLUDES)         \
+	$(MED3_INCLUDES)         \
 	$(HDF5_INCLUDES)         \
 	$(BOOST_CPPFLAGS)        \
 	$(CORBA_CXXFLAGS)        \
@@ -119,7 +119,7 @@ libHOMARD_la_LDFLAGS  =                 \
 	../../idl/libSalomeIDLHOMARD.la \
 	../HOMARD_I/libHOMARDEngine.la  \
 	$(KERNEL_LDFLAGS)               \
-	$(MED2_LIBS)                    \
+	$(MED3_LIBS)                    \
         -lSalomeLifeCycleCORBA          \
 	$(GUI_LDFLAGS)                  \
 	-lSalomeApp                     \
