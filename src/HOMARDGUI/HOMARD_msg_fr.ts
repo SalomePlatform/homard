@@ -420,10 +420,6 @@
         <translation>Il faut choisir au moins une zone.</translation>
     </message>
     <message>
-        <source>HOM_HYPO_COMP</source>
-        <translation>Il faut choisir au moins une composante.</translation>
-    </message>
-    <message>
         <source>HOM_HYPO_NORM_L2</source>
         <translation>Norme L2</translation>
     </message>
@@ -438,6 +434,10 @@
     <message>
         <source>HOM_HYPO_NORM_REL</source>
         <translation>Relatif</translation>
+    </message>
+    <message>
+        <source>HOM_HYPO_COMP</source>
+        <translation>Il faut choisir au moins une composante.</translation>
     </message>
     <message>
         <source>HOM_HYPO_EDIT_WINDOW_TITLE</source>
