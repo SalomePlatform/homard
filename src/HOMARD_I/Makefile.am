@@ -79,4 +79,5 @@ libHOMARDEngine_la_LDFLAGS  =            \
 	-lTOOLSDS                        \
 	-lSalomeGenericObj               \
         $(SMESH_LDFLAGS)                 \
+	-lSalomeIDLSMESH                 \
         -lSMESHClient
