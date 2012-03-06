@@ -130,6 +130,8 @@ namespace HOMARD
     for ( it = ListString.begin(); it != ListString.end(); ++it )
          os << separator() << *it;
 
+    os << separator() << cas.GetPyram();
+
 //    MESSAGE( ". Fin avec "<<os.str());
     return os.str();
   }
@@ -382,6 +384,10 @@ namespace HOMARD
       if ( !ok ) return false;
       cas.AddBoundaryGroup( chunk.c_str(), chunkNext.c_str() );
     }
+
+    chunk = getNextChunk( stream, start, ok );
+    if ( !ok ) return false;
+    cas.SetPyram( atoi( chunk.c_str() ) );
 
     return true;
   }

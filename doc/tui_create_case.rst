@@ -56,10 +56,10 @@ Méthodes de la classe cas
 |                                                               |
 |     - ``conf_type`` : entier précisant le mode de conformité  |
 |                                                               |
-|         1. conforme                                           |
-|         2. non conforme avec 1 noeud par maille               |
-|         3. non conforme avec 1 noeud par arete de maille      |
-|         4. non conforme quelconque                            |
+|         * 1 : conforme                                        |
+|         * 2 : non conforme avec 1 noeud par maille            |
+|         * 3 : non conforme avec 1 noeud par arete de maille   |
+|         * 4 : non conforme quelconque                         |
 +---------------------------------------------------------------+
 | .. module:: GetConfType                                       |
 |                                                               |
@@ -90,6 +90,28 @@ Méthodes de la classe cas
 |                                                               |
 |     - ``group`` : nom d'un groupe de faces placées sur la     |
 |       frontière                                               |
++---------------------------------------------------------------+
+
+Les options avancées
+^^^^^^^^^^^^^^^^^^^^
+
++---------------------------------------------------------------+
++---------------------------------------------------------------+
+| .. module:: SetPyram                                          |
+|                                                               |
+| **SetPyram(option)**                                          |
+|                                                               |
+|     - ``option`` : entier précisant le statut des pyramides   |
+|       éventuellement présentes dans le maillage initial       |
+|                                                               |
+|         * 0 : pyramides refusées (défaut)                     |
+|         * 1 : pyramides autorisées                            |
++---------------------------------------------------------------+
+| .. module:: GetPyram                                          |
+|                                                               |
+| **GetPyram()**                                                |
+|     Retourne le statut accordé aux pyramides éventuellement   |
+|     présentes dans le maillage initial                        |
 +---------------------------------------------------------------+
 
 

@@ -585,6 +585,9 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase(const char* nomCas, const char* 
 //
   PublishResultInSmesh(MeshFile, 0);
 
+// Valeurs par defaut des filtrages
+  myCase->SetPyram(0);
+
   return HOMARD::HOMARD_Cas::_duplicate(myCase);
 }
 
@@ -601,6 +604,7 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::GetCas(const char* nomCas)
       throw SALOME::SALOME_Exception(es);
       return 0;
   };
+
   return HOMARD::HOMARD_Cas::_duplicate(myCase);
 }
 
@@ -991,7 +995,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneNam
 
 
 //=============================================================================
-CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatMenage)
+CORBA::Long HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatMenage)
 {
   MESSAGE ( "Compute : calcul de " << nomIteration );
   IsValidStudy () ;
@@ -1007,7 +1011,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
       es.type = SALOME::BAD_PARAM;
       es.text = "This iteration is the first of the case and cannot be computed.";
       throw SALOME::SALOME_Exception(es);
-      return 0;
+      return 1;
   };
 
 // on verifie qu il y a une hypothese (erreur improbable);
@@ -1018,7 +1022,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
       es.type = SALOME::BAD_PARAM;
       es.text= "This iteration does not have any associated hypothesis.";
       throw SALOME::SALOME_Exception(es);
-      return 0;
+      return 2;
   }
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypo];
   ASSERT(!CORBA::is_nil(myHypo));
@@ -1038,7 +1042,12 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
       throw SALOME::SALOME_Exception(es);
       return 0;
       */
-      Compute(nomIterationParent, etatMenage);
+      int codret = Compute(nomIterationParent, etatMenage);
+      if (codret != 0)
+      {
+        // GERALD -- QMESSAGE BOX
+        ASSERT("Pb au calcul de l'iteration precedente" == 0);
+      }
   };
 
   const char* nomCas = myIteration->GetCaseName();
@@ -1119,7 +1128,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
           std::string text = "Directory : " + DirCompute.str() + "is not empty";
           es.text = CORBA::string_dup(text.c_str());
           throw SALOME::SALOME_Exception(es);
-          return false;
+          return 3;
        }
     }
   }
@@ -1176,7 +1185,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
           std::string text = "MeshFile : " + std::string(MeshFile) + " already exists ";
           es.text = CORBA::string_dup(text.c_str());
           throw SALOME::SALOME_Exception(es);
-          return false;
+          return 4;
      }
      else
      {
@@ -1189,7 +1198,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
           std::string text = "PB with meshfile destruction ";
           es.text = CORBA::string_dup(text.c_str());
           throw SALOME::SALOME_Exception(es);
-          return false;
+          return 5;
          }
       }
   }
@@ -1427,14 +1436,13 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
     }
   }
   // E.7. Ajout des options avancees
+  int Pyram = myCase->GetPyram();
+  MESSAGE ( ". Pyram = " << Pyram );
   int NivMax = myHypo->GetNivMax();
   MESSAGE ( ". NivMax = " << NivMax );
-  if ( NivMax > 0 )
-  {
-    double DiamMin = myHypo->GetDiamMin();
-    MESSAGE ( ". DiamMin = " << DiamMin );
-    myDriver->TexteAdvanced(NivMax, DiamMin);
-  }
+  double DiamMin = myHypo->GetDiamMin() ;
+  MESSAGE ( ". DiamMin = " << DiamMin );
+  myDriver->TexteAdvanced(Pyram, NivMax, DiamMin);
 
   // F. Ecriture du texte dans le fichier
   if (codret == 0)
@@ -1444,11 +1452,12 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
 
 // G. Execution
 //
-  int codretexec = 1 ;
+  int codretexec = 12 ;
   if (codret == 0)
   {
     codretexec = myDriver->ExecuteHomard();
 //
+    MESSAGE ( "Erreur en executant HOMARD : " << codretexec );
     if (codretexec == 0)
     {
       SetEtatIter(nomIteration,true);
@@ -1509,8 +1518,7 @@ CORBA::Boolean HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatM
     delete myDriver;
   }
   //
-  if (codret == 0) { return true; }
-  else { return false; }
+  return codretexec ;
 }
 
 //===========================================================================

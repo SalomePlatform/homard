@@ -102,11 +102,11 @@ std::string HOMARD_Iteration::GetDumpPython() const
   aScript << "\thomard.AssociateIterHypo(\"" <<_NomIter << "\", \"" << _NomHypo << "\")\n";
   if (_Etat == true)
   {
-     aScript << "\tresult = homard.Compute(\"" <<_NomIter << "\", 1)\n";
+     aScript << "\tcodret = homard.Compute(\"" <<_NomIter << "\", 1)\n";
   }
   else
   {
-     aScript << "\t# result = homard.Compute(\"" <<_NomIter << "\", 1)\n";
+     aScript << "\t#codret = homard.Compute(\"" <<_NomIter << "\", 1)\n";
   }
 
   return aScript.str();

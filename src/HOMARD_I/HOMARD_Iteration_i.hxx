@@ -84,7 +84,7 @@ public:
   void                   SetHypoName( const char* NomHypo );
   char*                  GetHypoName();
 
-  CORBA::Boolean         Compute(CORBA::Long etatMenage);
+  CORBA::Long            Compute(CORBA::Long etatMenage);
 
   std::string            Dump() const;
   bool                   Restore( const std::string& stream );

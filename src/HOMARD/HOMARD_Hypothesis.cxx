@@ -143,6 +143,9 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
   {
     aScript << "\t" <<_NomHypo << ".SetNivMax(";
     aScript << _NivMax << ")\n";
+  }
+  if ( _DiamMin > 0 )
+  {
     aScript << "\t" <<_NomHypo << ".SetDiamMin(";
     aScript << _DiamMin << ")\n";
   }
@@ -414,10 +417,10 @@ void HOMARD_Hypothesis::SetDiamMin( double DiamMin )
 //=============================================================================
 {
   _DiamMin = DiamMin;
-  if ( _NivMax < 0 )
+/*  if ( _NivMax < 0 )
   {
     _NivMax = 99 ;
-  }
+  }*/
 }
 //=============================================================================
 const double HOMARD_Hypothesis::GetDiamMin() const

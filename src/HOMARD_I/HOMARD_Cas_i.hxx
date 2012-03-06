@@ -65,6 +65,9 @@ public:
   HOMARD::ListBoundaryGroupType*  GetBoundaryGroup();
   void                   AddBoundaryGroup( const char* Boundary, const char* Group);
 
+  void                   SetPyram( CORBA::Long Pyram );
+  CORBA::Long            GetPyram();
+
   std::string            Dump() const;
   bool                   Restore( const std::string& stream );
 

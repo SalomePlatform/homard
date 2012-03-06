@@ -67,6 +67,9 @@ public:
   const std::list<std::string>& GetBoundaryGroup() const;
   void                          SupprBoundaryGroup();
 
+  void                          SetPyram( int Pyram );
+  const int                     GetPyram() const;
+
 private:
   std::string                   _NomCas;
   std::string                   _NomDir;
@@ -75,6 +78,8 @@ private:
   std::vector<double>           _Boite;         // cf HomardQTCommun pour structure du vecteur
   std::list<std::string>        _ListGroup;
   std::list<std::string>        _ListBoundaryGroup;
+
+  int                           _Pyram;
 
   typedef std::string           IterName;
   typedef std::list<IterName>   IterNames;

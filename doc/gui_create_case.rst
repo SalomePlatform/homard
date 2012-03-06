@@ -47,7 +47,7 @@ Le maillage initial doit se trouver dans un fichier au format MED. Classiquement
 
 Le type de conformité
 """""""""""""""""""""
-Les itérations qui seront définies pour ce cas devront respecter le même comportement vis-à-vis de la conformité.
+Les itérations qui seront calculées pour ce cas devront toutes respecter le même comportement vis-à-vis de la conformité.
 
 L'option par défaut, 'conforme', implique que les maillages produits par HOMARD seront conformes au sens des éléments finis. C'est le choix classique de la plupart des logiciels de simulation par éléments finis.
 
@@ -78,6 +78,26 @@ On cochera le ou les boutons voulus :
 
 La définition des frontières est décrite dans :ref:`gui_create_boundary`.
 
+.. index:: single: pyramide
+
+Les options avancées
+""""""""""""""""""""
+Par défaut, aucune option avancée n'est active.
+
+Néanmoins, on peut définir une oprion avancée :
+
+.. image:: images/create_case_7.png
+   :align: center
+
+Par défaut, HOMARD sait traiter des maillages en 2 ou 3 dimensions et comportant les mailles suivantes :
+   - mailles-points
+   - segments
+   - triangles
+   - quadrangles
+   - tétraèdres
+   - hexaèdres
+   - prismes
+Si le maillage initial comporte des pyramides, il y a arrêt en erreur. Toutefois, si on est certain que les raffinements ultérieurs ne toucheront aucune des arêtes des pyramides, on cochera la case "Pyramides autorisées". Les adaptations se dérouleront normalement et les pyramides seront restituées telles quelles dans le maillage final.
 
 L'arbre d'étude
 """""""""""""""

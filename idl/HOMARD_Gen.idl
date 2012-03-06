@@ -136,7 +136,7 @@ module HOMARD
     void InvalideHypo (in string HypoName)                 raises (SALOME::SALOME_Exception);
     void InvalideIter (in string IterName)                 raises (SALOME::SALOME_Exception);
 
-    boolean  Compute (in string IterName, in long etatMenage)
+    long  Compute (in string IterName, in long etatMenage)
                                                            raises (SALOME::SALOME_Exception);
 
     boolean  VerifieDir (in string IterName)               raises (SALOME::SALOME_Exception);

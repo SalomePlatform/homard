@@ -54,13 +54,13 @@ Généralités
 |                                                               |
 |     - ``Refin`` : entier précisant si le raffinement est actif|
 |                                                               |
-|         0. inactif                                            |
-|         1. actif                                              |
+|         * 0 : inactif                                         |
+|         * 1 : actif                                           |
 |                                                               |
 |     - ``UnRef`` : entier précisant si déraffinement est actif |
 |                                                               |
-|         0. inactif                                            |
-|         1. actif                                              |
+|         * 0 : inactif                                         |
+|         * 1 : actif                                           |
 |                                                               |
 +---------------------------------------------------------------+
 | .. module:: GetAdapType                                       |
@@ -101,8 +101,8 @@ Le champ et les seuils
 |                                                               |
 |     - ``use_field`` : entier précisant l'usage du champ       |
 |                                                               |
-|         0. valeur par élément (défaut)                        |
-|         1. saut entre un élément et ses voisins               |
+|        * 0 : valeur par élément (défaut)                      |
+|        * 1 : saut entre un élément et ses voisins             |
 +---------------------------------------------------------------+
 | .. module:: SetRefinThr                                       |
 |                                                               |
@@ -111,9 +111,9 @@ Le champ et les seuils
 |     - ``type_thres`` : entier précisant le type de seuil en   |
 |       raffinement                                             |
 |                                                               |
-|         1. valeur absolue                                     |
-|         2. valeur relative en %                               |
-|         3. fraction des mailles en %                          |
+|        * 1 : valeur absolue                                   |
+|        * 2 : valeur relative en %                             |
+|        * 3 : fraction des mailles en %                        |
 |                                                               |
 |     - ``threshold`` : valeur du seuil                         |
 +---------------------------------------------------------------+
@@ -129,9 +129,9 @@ Le champ et les seuils
 |     - ``type_thres`` : entier précisant le type de seuil en   |
 |       déraffinement                                           |
 |                                                               |
-|         1. valeur absolue                                     |
-|         2. valeur relative en %                               |
-|         3. fraction des mailles en %                          |
+|        * 1 : valeur absolue                                   |
+|        * 2 : valeur relative en %                             |
+|        * 3 : fraction des mailles en %                        |
 |                                                               |
 |     - ``threshold`` : valeur du seuil                         |
 +---------------------------------------------------------------+
@@ -160,9 +160,9 @@ Les composantes du champ
 |                                                               |
 |     - ``use_comp`` : entier précisant l'usage des composantes |
 |                                                               |
-|         0. norme L2 (défaut)                                  |
-|         1. norme infinie                                      |
-|         2. valeur relative, uniquement si une seule composante|
+|        * 0 : norme L2 (défaut)                                |
+|        * 1 : norme infinie                                    |
+|        * 2 : valeur relative, si une seule composante         |
 +---------------------------------------------------------------+
 | .. module:: GetListComp                                       |
 |                                                               |
@@ -187,8 +187,8 @@ Le filtrage par les groupes
 |     Retourne la liste des groupes utilisés pour le filtrage   |
 +---------------------------------------------------------------+
 
-Les options avancéess
-^^^^^^^^^^^^^^^^^^^^^
+Les options avancées
+^^^^^^^^^^^^^^^^^^^^
 
 +---------------------------------------------------------------+
 +---------------------------------------------------------------+

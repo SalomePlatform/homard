@@ -102,6 +102,11 @@ std::string HOMARD_Cas::GetDumpPython() const
     aScript << *it << "\")\n";
     it++;
   }
+  if ( _Pyram > 0 )
+  {
+    aScript << "\t" <<_NomCas << ".SetPyram(";
+    aScript << _Pyram << ")\n";
+  }
 
   return aScript.str();
 }
@@ -223,4 +228,18 @@ void HOMARD_Cas::SupprBoundaryGroup()
 //=============================================================================
 {
   _ListBoundaryGroup.clear();
+}
+//=============================================================================
+void HOMARD_Cas::SetPyram( int Pyram )
+//=============================================================================
+{
+  MESSAGE ("SetPyram, Pyram = " << Pyram );
+  _Pyram = Pyram;
+}
+//=============================================================================
+const int HOMARD_Cas::GetPyram() const
+//=============================================================================
+{
+  MESSAGE ("GetPyram, Pyram = " << _Pyram );
+  return _Pyram;
 }

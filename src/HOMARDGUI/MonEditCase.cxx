@@ -54,7 +54,7 @@ MonEditCase::~MonEditCase()
 void MonEditCase::InitValEdit()
 // ------------------------------
 {
-  MESSAGE("Debut de MonEditCase::InitValEdit");
+  MESSAGE("InitValEdit");
   LECaseName->setText(_aCaseName);
   LECaseName->setReadOnly(true);
 
@@ -180,6 +180,21 @@ void MonEditCase::InitValEdit()
       PBBoundaryDiHelp->setVisible(0); }
   }
 //
+// Les options avancees (non modifiables)
+  CBAdvanced->setVisible(0) ;
+  CBAdvanced->setEnabled(false) ;
+  int Pyram = aCase->GetPyram();
+  MESSAGE("Pyram "<<Pyram);
+  if ( Pyram > 0 )
+  { GBAdvancedOptions->setVisible(1);
+    CBPyramid->setChecked(true);
+    CBPyramid->setEnabled(false);
+  }
+  else
+  { GBAdvancedOptions->setVisible(0);
+    CBPyramid->setChecked(false);
+ }
+//
   adjustSize();
 }
 
@@ -188,5 +203,4 @@ bool MonEditCase::PushOnApply()
 // -------------------------------------
 {
   return true ;
-
 };

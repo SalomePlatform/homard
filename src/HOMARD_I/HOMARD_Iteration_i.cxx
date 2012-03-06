@@ -166,7 +166,7 @@ void HOMARD_Iteration_i::AddIteration( const char* NomIter )
 }
 
 //=============================================================================
-CORBA::Boolean  HOMARD_Iteration_i::Compute(CORBA::Long etatMenage)
+CORBA::Long  HOMARD_Iteration_i::Compute(CORBA::Long etatMenage)
 {
   MESSAGE ( "Compute : calcul d'une iteration" );
   ASSERT( myHomardIteration );

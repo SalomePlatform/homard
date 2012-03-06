@@ -102,12 +102,20 @@ void MonEditHypothesis::InitValEdit()
   CBAdvanced->setVisible(0) ;
   int NivMax = _aHypothesis->GetNivMax();
   double DiamMin = _aHypothesis->GetDiamMin();
-  if ( NivMax > 0 )
+  if ( NivMax > 0 or DiamMin > 0 )
   { GBAdvancedOptions->setVisible(1);
-    spinBoxNivMax->setValue(NivMax);
-    spinBoxNivMax->setDisabled(true);
-    doubleSpinBoxDiamMin->setValue(DiamMin);
-    doubleSpinBoxDiamMin->setDisabled(true);
+    if ( NivMax > 0 )
+    { spinBoxNivMax->setValue(NivMax);
+      spinBoxNivMax->setDisabled(true); }
+    else
+    { TLMaximalLevel->setVisible(0);
+      spinBoxNivMax->setVisible(0); }
+    if ( DiamMin > 0 )
+    { doubleSpinBoxDiamMin->setValue(DiamMin);
+      doubleSpinBoxDiamMin->setDisabled(true); }
+    else
+    { TLMinimalDiameter->setVisible(0);
+      doubleSpinBoxDiamMin->setVisible(0); }
   }
   else
   { GBAdvancedOptions->setVisible(0); }

@@ -65,7 +65,11 @@ Généralités
 | .. module:: GetNumber                                         |
 |                                                               |
 | **GetNumber()**                                               |
-|     Retourne le numéro de l'itération                         |
+|     Retourne le numéro de l'itération.                        |
+|                                                               |
+|     L'itération 0 est celle associée au maillage initial.     |
+|     Ensuite, une itération de numéro N est issue de           |
+|     l'adaptation d'une itération de numéro N-1.               |
 +---------------------------------------------------------------+
 | .. module:: GetIterParent                                     |
 |                                                               |

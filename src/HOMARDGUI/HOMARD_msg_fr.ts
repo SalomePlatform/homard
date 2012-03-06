@@ -340,6 +340,10 @@
         <translation>Options avancées</translation>
     </message>
     <message>
+        <source>Authorized pyramids</source>
+        <translation>Pyramides autorisées</translation>
+    </message>
+    <message>
         <source>Minimal diameter</source>
         <translation>Diamètre minimal</translation>
     </message>

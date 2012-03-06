@@ -128,7 +128,7 @@ public:
 
   char*                           GetCaseName(const char* nomIteration);
 
-  CORBA::Boolean                  Compute(const char* nomIteration, CORBA::Long etatMenage);
+  CORBA::Long                     Compute(const char* nomIteration, CORBA::Long etatMenage);
   CORBA::Boolean                  VerifieDir(const char* nomDir);
 
   void                            PublishResultInSmesh(const char* NomFich, CORBA::Long IconeType);

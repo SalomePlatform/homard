@@ -60,6 +60,9 @@ module HOMARD
     void     AddBoundaryGroup(in string NomBoundary, in string Group)
                                                            raises (SALOME::SALOME_Exception);
 
+    void     SetPyram(in long Pyram)                       raises (SALOME::SALOME_Exception);
+    long     GetPyram()                                    raises (SALOME::SALOME_Exception);
+
   };
 };
 #endif
