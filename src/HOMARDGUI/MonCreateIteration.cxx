@@ -173,7 +173,7 @@ bool MonCreateIteration::PushOnApply()
     int rank = SpinBox_Rank->value();
     int step = SpinBox_TimeStep->value();
     aIter->SetFieldFile(CORBA::string_dup(FieldFile.toStdString().c_str()));
-    aIter->SetTimeStepRank(rank,step);
+    aIter->SetTimeStepRank(step,rank);
   }
   _myHomardGen->AssociateIterHypo (IterName, monHypoName.toStdString().c_str());
   aIter->SetMeshName(CORBA::string_dup(aMeshName_np1.toStdString().c_str()));
