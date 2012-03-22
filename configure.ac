@@ -33,6 +33,8 @@ SHORT_VERSION=`echo $VERSION | awk -F. '{printf("%d.%d",$1,$2)}'`
 AC_SUBST(SHORT_VERSION)
 XVERSION=`echo $VERSION | awk -F. '{printf("0x%02x%02x%02x",$1,$2,$3)}'`
 AC_SUBST(XVERSION)
+VERSION_DEV=1
+AC_SUBST(VERSION_DEV)
 
 # set up MODULE_NAME variable for dynamic construction of directories (resources, etc.)
 MODULE_NAME=homard
@@ -400,6 +402,8 @@ AC_OUTPUT([ \
 	adm_local/Makefile \
 	adm_local/unix/Makefile \
 	adm_local/unix/config_files/Makefile \
+	bin/Makefile \
+	bin/VERSION \
 	doc/Makefile \
 	doc/conf.py \
         HOMARD_version.h \
