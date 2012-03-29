@@ -23,10 +23,14 @@ Méthodes de la classe homard
 +---------------------------------------------------------------+
 | .. module:: AssociateHypoZone                                 |
 |                                                               |
-| **AssociateHypoZone(hypo_name, zone_name)**                   |
+| **AssociateHypoZone(hypo_name, zone_name, type_use)**         |
 |                                                               |
 |     - ``hypo_name`` : le nom de l'hypothèse                   |
 |     - ``zone_name`` : le nom de la zone à associer            |
+|     - ``type_use``  : entier précisant l'usage de la zone     |
+|                                                               |
+|         * 1 : raffinement                                     |
+|         * -1 : déraffinement                                  |
 +---------------------------------------------------------------+
 
 Méthodes de la classe hypothese

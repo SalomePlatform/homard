@@ -62,17 +62,17 @@ HomardDriver::~HomardDriver()
 ////=============================================================================
 void HomardDriver::TexteInit( const std::string DirCompute, const std::string DirComputePa, const std::string MessFile )
 {
-  MESSAGE("TexteInit, MessFile ="<<MessFile);
+  MESSAGE("TexteInit, MessFile ="<<MessFile<<", DirCompute ="<<DirCompute<<", DirComputePa ="<<DirComputePa);
 //
   _Texte  = "Action   homa\n" ;
   _Texte += "CCAssoci med\n" ;
   _Texte += "ModeHOMA 1\n" ;
   _Texte += "NumeIter " + _siter + "\n" ;
-  _Texte += "ListeStd " + MessFile + "\n" ;
+  _Texte += "ListeStd \"" + MessFile + "\"\n" ;
   _Texte += "# Maillages HOMARD \n" ;
-  _Texte += "HOMaiN__ Mai" + _siter   + " " + DirComputePa + "/maill." + _siter   + ".hom.med\n" ;
-  _Texte += "HOMaiNP1 Mai" + _siterp1 + " " + DirCompute   + "/maill." + _siterp1 + ".hom.med\n" ;
-  _Texte += "RepeTrav " + DirCompute + "\n" ;
+  _Texte += "HOMaiN__ Mai" + _siter   + " \"" + DirComputePa + "/maill." + _siter   + ".hom.med\"\n" ;
+  _Texte += "HOMaiNP1 Mai" + _siterp1 + " \"" + DirCompute   + "/maill." + _siterp1 + ".hom.med\"\n" ;
+  _Texte += "RepeTrav \"" + DirCompute + "\"\n" ;
 //
 }
 
@@ -86,7 +86,7 @@ void HomardDriver::TexteMaillage( const std::string NomMesh, const std::string M
 
   _Texte += "# Maillages Med " + saux + "\n" ;
   _Texte += "CCNoMN" + saux + " \"" + NomMesh  + "\"\n" ;
-  _Texte += "CCMaiN" + saux + " " + MeshFile + "\n" ;
+  _Texte += "CCMaiN" + saux + " \"" + MeshFile + "\"\n" ;
 }
 
 ////=============================================================================
@@ -175,20 +175,27 @@ void HomardDriver::TexteCompo( int NumeComp, const std::string NompCompo)
 }
 
 ////=============================================================================
-void HomardDriver::TexteZone( int NumeZone, int ZoneType, double x0, double x1, double x2, double x3, double x4, double x5, double x6, double x7, double x8 )
+void HomardDriver::TexteZone( int NumeZone, int ZoneType, int TypeUse, double x0, double x1, double x2, double x3, double x4, double x5, double x6, double x7, double x8 )
 {
-  MESSAGE("TexteZone, NumeZone = "<<NumeZone<<", ZoneType = "<<ZoneType);
+  MESSAGE("TexteZone, NumeZone = "<<NumeZone<<", ZoneType = "<<ZoneType<<", TypeUse = "<<TypeUse);
   MESSAGE("TexteZone, coor = "<< x0<<","<<x1<< ","<< x2<< ","<< x3<<","<<x4<<","<<x5<<","<<x6<<","<<x7<<","<<x8);
 //
   std::string saux, saux2 ;
 //
 // Type de zones
+// On convertit le type de zone au sens du module HOMARD dans Salome, ZoneType, dans le
+// type au sens de l'executable HOMARD, ZoneTypeHOMARD
+// Attention a mettre le bon signe a ZoneTypeHOMARD :
+//    >0 signifie que l'on raffinera les mailles contenues dans la zone,
+//    <0 signifie que l'on deraffinera
 //
   int ZoneTypeHOMARD ;
   if ( ZoneType >= 11 and ZoneType <= 13 ) { ZoneTypeHOMARD = 1 ; }
   else if ( ZoneType >= 31 and ZoneType <= 33 ) { ZoneTypeHOMARD = 3 ; }
   else if ( ZoneType >= 61 and ZoneType <= 63 ) { ZoneTypeHOMARD = 6 ; }
   else { ZoneTypeHOMARD = ZoneType ; }
+//
+  if ( TypeUse < 0 ) { ZoneTypeHOMARD = -ZoneTypeHOMARD ; }
 //
   std::stringstream saux1 ;
   saux1 << NumeZone ;
@@ -498,7 +505,7 @@ void HomardDriver::TexteField( const std::string FieldName, const std::string Fi
 //
 //
   _Texte += "# Champ d'indicateurs\n" ;
-  _Texte += "CCIndica " + FieldFile  + "\n" ;
+  _Texte += "CCIndica \"" + FieldFile  + "\"\n" ;
   _Texte += "CCNoChaI \"" + FieldName  + "\"\n" ;
 
 // Cas ou on prend le dernier pas de temps
@@ -579,7 +586,7 @@ void HomardDriver::TexteGroup( const std::string GroupName )
 {
   MESSAGE("TexteGroup, GroupName = "<<GroupName);
 //
-  _Texte += "CCGroAda " + GroupName  + "\n" ;
+  _Texte += "CCGroAda \"" + GroupName  + "\"\n" ;
 //
 }
 ////=============================================================================
@@ -601,8 +608,8 @@ void HomardDriver::TexteBoundaryDi(  const std::string MeshName, const std::stri
   MESSAGE("TexteBoundaryDi, MeshName  = "<<MeshName);
   MESSAGE("TexteBoundaryDi, MeshFile  = "<<MeshFile);
 //
-  _Texte += "CCNoMFro " + MeshName + "\n" ;
-  _Texte += "CCFronti " + MeshFile + "\n" ;
+  _Texte += "CCNoMFro \"" + MeshName + "\"\n" ;
+  _Texte += "CCFronti \"" + MeshFile + "\"\n" ;
 //
 }
 ////=============================================================================
@@ -610,7 +617,7 @@ void HomardDriver::TexteBoundaryDiGr(  const std::string GroupName )
 {
   MESSAGE("TexteBoundaryDiGr, GroupName  = "<<GroupName);
 //
-  _Texte += "CCGroFro " + GroupName + "\n" ;
+  _Texte += "CCGroFro \"" + GroupName + "\"\n" ;
 //
 }
 ////=============================================================================
@@ -751,8 +758,8 @@ void HomardDriver::TexteFieldInterp( int TypeFieldInterp, const std::string Fiel
 // Type d'interpolation
 //
   _Texte += "# Interpolations des champs\n" ;
-  _Texte += "CCSolN__ " + FieldFile  + "\n" ;
-  _Texte += "CCSolNP1 " + MeshFile  + "\n" ;
+  _Texte += "CCSolN__ \"" + FieldFile + "\"\n" ;
+  _Texte += "CCSolNP1 \"" + MeshFile  + "\"\n" ;
   if ( TypeFieldInterp == 1 )
   {
     _Texte += "CCChaTou oui\n" ;
@@ -790,15 +797,15 @@ void HomardDriver::TexteFieldInterpName( int NumeChamp, const std::string FieldN
   }
 }
 ////=============================================================================
-void HomardDriver::TexteAdvanced( int Pyram, int NivMax, double DiamMin )
+void HomardDriver::TexteAdvanced( int Pyram, int NivMax, double DiamMin, int AdapInit )
 {
-  MESSAGE("TexteAdvanced, Pyram ="<<Pyram<<", NivMax ="<<NivMax<<", DiamMin ="<<DiamMin);
+  MESSAGE("TexteAdvanced, Pyram ="<<Pyram<<", NivMax ="<<NivMax<<", DiamMin ="<<DiamMin<<", AdapInit ="<<AdapInit);
   std::string saux ;
 
   if ( Pyram > 0 )
   {
     _Texte += "# Autorisation de pyramides dans le maillage initial\n" ;
-    { _Texte += "TypeElem ignore_pyra\n" ; }
+    _Texte += "TypeElem ignore_pyra\n" ;
   }
   if ( NivMax > 0 )
   {
@@ -816,6 +823,19 @@ void HomardDriver::TexteAdvanced( int Pyram, int NivMax, double DiamMin )
       saux1 << DiamMin ;
       std::string saux2 = saux1.str() ;
       _Texte += "DiametMi " + saux2  + "\n" ;
+    }
+  }
+  if ( AdapInit != 0 )
+  {
+    if ( AdapInit > 0 )
+    { _Texte += "# Raffinement" ; }
+    else
+    { _Texte += "# Deraffinement" ; }
+    _Texte += " des regions sans indicateur\n" ;
+    { std::stringstream saux1 ;
+      saux1 << AdapInit ;
+      std::string saux2 = saux1.str() ;
+      _Texte += "AdapInit " + saux2 + "\n" ;
     }
   }
 }

@@ -348,6 +348,10 @@
         <translation>Diamètre minimal</translation>
     </message>
     <message>
+        <source>Initialization of adaptation</source>
+        <translation>Initialisation de l&apos;adaptation</translation>
+    </message>
+    <message>
         <source>Maximal level</source>
         <translation>Niveau maximal</translation>
     </message>
@@ -424,6 +428,10 @@
         <translation>Il faut choisir au moins une zone.</translation>
     </message>
     <message>
+        <source>HOM_HYPO_ZONE_3</source>
+        <translation>Raffinement ou déraffinement, mais pas les deux.</translation>
+    </message>
+    <message>
         <source>HOM_HYPO_NORM_L2</source>
         <translation>Norme L2</translation>
     </message>
@@ -474,6 +482,10 @@
     <message>
         <source>Refinement</source>
         <translation>Raffinement</translation>
+    </message>
+    <message>
+        <source>Nothing</source>
+        <translation>Rien</translation>
     </message>
     <message>
         <source>File of the fields</source>

@@ -138,7 +138,6 @@ std::string HOMARD_Zone::GetDumpPython() const
   return aScript.str() ;
 }
 
-
 //=============================================================================
 void HOMARD_Zone::SetZoneType( int ZoneType )
 {

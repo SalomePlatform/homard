@@ -211,10 +211,10 @@ void HOMARD_Hypothesis_i::AddIteration( const char* NomIteration )
 }
 
 //=============================================================================
-void  HOMARD_Hypothesis_i::AddZone( const char* NomZone )
+void  HOMARD_Hypothesis_i::AddZone( const char* NomZone, CORBA::Long TypeUse )
 {
   ASSERT( myHomardHypothesis );
-  myHomardHypothesis->AddZone( NomZone );
+  myHomardHypothesis->AddZone( NomZone, TypeUse );
 }
 //=============================================================================
 void  HOMARD_Hypothesis_i::SupprZone      (const char * NomZone)
@@ -382,6 +382,18 @@ CORBA::Double HOMARD_Hypothesis_i::GetDiamMin()
 {
   ASSERT( myHomardHypothesis );
   return myHomardHypothesis->GetDiamMin();
+}
+//=============================================================================
+void HOMARD_Hypothesis_i::SetAdapInit( CORBA::Long AdapInit )
+{
+  ASSERT( myHomardHypothesis );
+  myHomardHypothesis->SetAdapInit( AdapInit );
+}
+//=============================================================================
+CORBA::Long HOMARD_Hypothesis_i::GetAdapInit()
+{
+  ASSERT( myHomardHypothesis );
+  return myHomardHypothesis->GetAdapInit();
 }
 
 //=============================================================================

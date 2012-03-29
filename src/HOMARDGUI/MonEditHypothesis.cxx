@@ -26,14 +26,12 @@ using namespace std;
 #include "HOMARDGUI_Utils.h"
 #include "HomardQtCommun.h"
 #include <utilities.h>
-
-
-// -------------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 MonEditHypothesis::MonEditHypothesis( MonCreateIteration* parent, bool modal,
                                       HOMARD::HOMARD_Gen_var myHomardGen,
                                       QString aHypothesisName,
                                       QString caseName,  QString aFieldFile ):
-// -------------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 /* Constructs a MonEditHypothesis
     herite de MonCreateHypothesis
 */
@@ -102,7 +100,8 @@ void MonEditHypothesis::InitValEdit()
   CBAdvanced->setVisible(0) ;
   int NivMax = _aHypothesis->GetNivMax();
   double DiamMin = _aHypothesis->GetDiamMin();
-  if ( NivMax > 0 or DiamMin > 0 )
+  int AdapInit = _aHypothesis->GetAdapInit();
+  if ( NivMax > 0 or DiamMin > 0 or AdapInit != 0 )
   { GBAdvancedOptions->setVisible(1);
     if ( NivMax > 0 )
     { spinBoxNivMax->setValue(NivMax);
@@ -116,6 +115,19 @@ void MonEditHypothesis::InitValEdit()
     else
     { TLMinimalDiameter->setVisible(0);
       doubleSpinBoxDiamMin->setVisible(0); }
+    if ( AdapInit != 0 )
+    {
+      if ( AdapInit > 0 )
+      { RBAIR->setChecked(true); }
+      else
+      { RBAID->setChecked(true); }
+      RBAIN->setEnabled(false);
+      RBAIR->setEnabled(false);
+      RBAID->setEnabled(false);
+    }
+    else
+    { GBAdapInit->setVisible(0) ;
+    }
   }
   else
   { GBAdvancedOptions->setVisible(0); }
@@ -157,8 +169,7 @@ void MonEditHypothesis::InitAdaptZone()
 // -------------------------------------
 // Affichage des informations pour une adaptation selon des zones :
 {
-// . Liste des zones
-
+    MESSAGE ("Debut de InitAdaptZone");
 //  Choix des options generales
     GBUniform->setVisible(0);
     GBFieldManagement->setVisible(0);
@@ -174,25 +185,38 @@ void MonEditHypothesis::InitAdaptZone()
     HOMARD::listeZonesHypo_var mesZonesAvant = _aHypothesis->GetZones();
     for (int i=0; i<mesZonesAvant->length(); i++)
     {
-        for ( int j =0 ; j < TWZone->rowCount(); j++)
+    MESSAGE ("i"<<i<<", zone :"<<string(mesZonesAvant[i])<<", type :"<<string(mesZonesAvant[i+1]));
+      for ( int j =0 ; j < TWZone->rowCount(); j++)
+      {
+    MESSAGE (". j"<<j<<", zone :"<<TWZone->item(j,2)->text().toStdString());
+        if ( TWZone->item(j,2)->text().toStdString() == string(mesZonesAvant[i]) )
         {
-            if (TWZone->item(j,1)->text().toStdString() == string(mesZonesAvant[i]))
-            {
-               TWZone->item( j,0 )->setCheckState( Qt::Checked );
-               break;
-            }
+    MESSAGE ("OK avec "<<string(mesZonesAvant[i]));
+          if ( string(mesZonesAvant[i+1]) == "1" )
+          {
+    MESSAGE ("... RAFF");
+            TWZone->item( j,0 )->setCheckState( Qt::Checked );
+            TWZone->item( j,1 )->setCheckState( Qt::Unchecked ); }
+          else
+          {
+    MESSAGE ("... DERA");
+            TWZone->item( j,0 )->setCheckState( Qt::Unchecked );
+            TWZone->item( j,1 )->setCheckState( Qt::Checked ); }
+          break;
         }
+      }
+      i += 1 ;
     }
 //
 //  Inactivation des choix
     for ( int j =0 ; j < TWZone->rowCount(); j++)
     {
-        TWZone->item( j, 0 )->setFlags(0);
+      TWZone->item( j, 0 )->setFlags(0);
+      TWZone->item( j, 1 )->setFlags(0);
     }
     PBZoneNew->setVisible(0);
 //
 }
-
 // -------------------------------------
 void MonEditHypothesis::InitAdaptChamps()
 // -------------------------------------

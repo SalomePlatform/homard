@@ -66,7 +66,7 @@ public:
   HOMARD::InfosHypo*           GetField();
 
   void                         AddIteration( const char* NomIteration );
-  void                         AddZone( const char* NomZone );
+  void                         AddZone( const char* NomZone, CORBA::Long TypeUse );
   void                         SupprZone( const char* NomZone );
   void                         AddComp( const char* NomComposant );
   void                         SupprComp();
@@ -87,9 +87,10 @@ public:
 
   void                         SetNivMax( CORBA::Long NivMax );
   CORBA::Long                  GetNivMax();
-
   void                         SetDiamMin( CORBA::Double DiamMin );
   CORBA::Double                GetDiamMin();
+  void                         SetAdapInit( CORBA::Long AdapInit );
+  CORBA::Long                  GetAdapInit();
 
   std::string                  Dump() const;
   bool                         Restore( const std::string& stream );

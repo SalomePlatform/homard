@@ -50,7 +50,8 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
     _TypeThC(0), _ThreshC(0),
     _UsField(0), _UsCmpI(0), _TypeFieldInterp(0),
     _NivMax(-1),
-    _DiamMin(-1.)
+    _DiamMin(-1.),
+    _AdapInit(0)
 {
       MESSAGE("Constructeur") ;
       _myHomardGen=HOMARD::HOMARD_Gen::_duplicate(myHomardGen);
@@ -109,6 +110,9 @@ void MonCreateHypothesis::InitConnect()
     connect( RBFieldChosen,SIGNAL(clicked()), this, SLOT(SetFieldChosen()));
 
     connect( CBAdvanced,   SIGNAL(stateChanged(int)), this, SLOT(SetAdvanced()));
+    connect( RBAIN,        SIGNAL(clicked()), this, SLOT(SetAIN()));
+    connect( RBAIR,        SIGNAL(clicked()), this, SLOT(SetAIR()));
+    connect( RBAID,        SIGNAL(clicked()), this, SLOT(SetAID()));
 
     connect( buttonOk,     SIGNAL(pressed()), this, SLOT( PushOnOK()));
     connect( buttonApply,  SIGNAL(pressed()), this, SLOT( PushOnApply()));
@@ -131,7 +135,7 @@ bool MonCreateHypothesis::PushOnApply()
     return false;
   }
 
-  if (VerifieZone()     == false)  return false;
+  if (VerifieZone()      == false)  return false;
   if (VerifieComposant() == false)  return false;
 
 // Creation de l'objet CORBA si ce n'est pas deja fait sous le meme nom
@@ -170,6 +174,8 @@ bool MonCreateHypothesis::PushOnApply()
 // Enregistrement du diametre minimal
     _DiamMin = doubleSpinBoxDiamMin->value() ;
     _aHypothesis->SetDiamMin(_DiamMin);
+// Enregistrement de l'intialisation de l'adaptation
+    _aHypothesis->SetAdapInit(_AdapInit);
   }
 
   HOMARD_UTILS::updateObjBrowser();
@@ -288,7 +294,7 @@ void MonCreateHypothesis::PushZoneEdit()
   MESSAGE("Debut de MonCreateHypothesis::PushZoneEdit")
   int colonne = TWZone->currentColumn();
   QTableWidgetItem * monItem = TWZone->currentItem();
-  if (colonne !=1  or monItem == NULL)
+  if (colonne !=2  or monItem == NULL)
   {
     QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                               QObject::tr("HOM_HYPO_ZONE_1") );
@@ -311,10 +317,12 @@ void MonCreateHypothesis::PushZoneDelete()
 // ------------------------------------------------------------------------
 void MonCreateHypothesis::GetAllZones()
 // ------------------------------------------------------------------------
-// Recuperation de toutes les zones enregistrees dans l'arbre d'etude et affichage
+// Recuperation de toutes les zones enregistrees dans l'arbre d'etude
+// et affichage dans le tableau
+// Par defaut, aucune n'est selectionnee
 {
-  MESSAGE("GetAllZones") ;
-  HOMARD::listeZones_var  mesZones = _myHomardGen->GetAllZones();
+  MESSAGE("Debut de GetAllZones") ;
+  HOMARD::listeZones_var mesZones = _myHomardGen->GetAllZones();
   int nbrow=TWZone->rowCount();
   for ( int row=0; row< nbrow; row++)
   {
@@ -325,62 +333,104 @@ void MonCreateHypothesis::GetAllZones()
   for (int i=0; i<mesZones->length(); i++)
   {
     TWZone->insertRow(row);
+//
     TWZone->setItem( row, 0, new QTableWidgetItem( QString ("") ) );
     TWZone->item( row, 0 )->setFlags( 0 );
     TWZone->item( row, 0 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
     TWZone->item( row, 0 )->setCheckState( Qt::Unchecked );
-    TWZone->setItem( row, 1, new QTableWidgetItem(QString(mesZones[i]).trimmed()));
-    TWZone->item( row, 1 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
-    row=row+1;
+//
+    TWZone->setItem( row, 1, new QTableWidgetItem( QString ("") ) );
+    TWZone->item( row, 1 )->setFlags( 0 );
+    TWZone->item( row, 1 )->setFlags( Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
+    TWZone->item( row, 1 )->setCheckState( Qt::Unchecked );
+//
+    TWZone->setItem( row, 2, new QTableWidgetItem(QString(mesZones[i]).trimmed()));
+    TWZone->item( row, 2 )->setFlags(Qt::ItemIsEnabled |Qt::ItemIsSelectable );
+//
+    row += 1;
   }
   TWZone->resizeColumnsToContents();
   TWZone->resizeRowsToContents();
   TWZone->clearSelection();
 }
-
 // ------------------------------------------------------------------------
-void MonCreateHypothesis::addZone(QString newZone)
+void MonCreateHypothesis::addZoneinTWZone(QString newZone)
 // ------------------------------------------------------------------------
 {
-  MESSAGE("addZone") ;
+  MESSAGE("Debut de addZoneinTWZone") ;
   int row = TWZone->rowCount() ;
+// Par defaut, on suppose qu'une nouvelle zone est destinee au raffinement
   TWZone->setRowCount( row+1 );
-  TWZone->setItem( row, 0, new QTableWidgetItem( 0 ) );
+//
+  TWZone->setItem( row, 0, new QTableWidgetItem( QString ("") ) );
   TWZone->item( row, 0 )->setFlags( Qt::ItemIsEditable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
   TWZone->item( row, 0 )->setCheckState( Qt::Checked );
-  TWZone->setItem( row, 1, new QTableWidgetItem( newZone ) );
-  TWZone->scrollToItem( TWZone->item( row, 1 ) );
+//
+  TWZone->setItem( row, 1, new QTableWidgetItem( QString ("") ) );
+  TWZone->item( row, 1 )->setFlags( Qt::ItemIsEditable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled  );
+  TWZone->item( row, 1 )->setCheckState( Qt::Unchecked );
+//
+  TWZone->setItem( row, 2, new QTableWidgetItem( newZone ) );
+  TWZone->scrollToItem( TWZone->item( row, 2 ) );
+//
   TWZone->resizeRowsToContents();
   TWZone->resizeColumnToContents(1);
   TWZone->clearSelection();
-  TWZone->item( row, 1 )->setFlags( Qt::ItemIsEnabled |Qt::ItemIsSelectable );
+//
+  TWZone->item( row, 2 )->setFlags( Qt::ItemIsEnabled |Qt::ItemIsSelectable );
 }
-
 // ------------------------------------------------------------------------
 QStringList MonCreateHypothesis::GetZonesChecked()
 // ------------------------------------------------------------------------
 // Retourne les zones enregistrees
 {
+  MESSAGE("Debut de GetZonesChecked") ;
   QStringList ListeZone ;
+// On ne peut pas avoir selectionne les deux options
+  int Pbm = 0 ;
   for ( int row=0; row< TWZone->rowCount(); row++)
   {
-      if ( TWZone->item( row, 0 )->checkState() ==  Qt::Checked )
-          ListeZone.insert(0, QString(TWZone->item(row, 1)->text()) ) ;
+    if ( ( TWZone->item( row, 0 )->checkState() == Qt::Checked ) and ( TWZone->item( row, 1 )->checkState() == Qt::Checked ) )
+    {
+      QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
+                                QObject::tr("HOM_HYPO_ZONE_3") );
+      Pbm = 1 ;
+    }
   }
-  return ListeZone ;
+// Si tout va bien, on affecte
+// Attention, on insere en tete, donc on commence d'inserer le type, psui le nom de la zone
+  if ( Pbm == 0 )
+  {
+    QString Raff =  "1" ;
+    QString Dera = "-1" ;
+    for ( int row=0; row< TWZone->rowCount(); row++)
+    {
+//     MESSAGE ("row "<<row<<", zone : "<<TWZone->item(row, 2)->text().toStdString());
+//  En raffinement :
+      if ( TWZone->item(row,0)->checkState() == Qt::Checked )
+      { ListeZone.insert(0, Raff) ;
+        ListeZone.insert(0, QString(TWZone->item(row, 2)->text()) ) ; }
+//  En deraffinement :
+      if ( TWZone->item(row,1)->checkState() == Qt::Checked )
+      { ListeZone.insert(0, Dera) ;
+        ListeZone.insert(0, QString(TWZone->item(row, 2)->text()) ) ; }
+    }
+  MESSAGE("Fin de GetZonesChecked ; longueur de ListeZone : "<<ListeZone.count()) ;
+  }
+//
+return ListeZone ;
 }
-
 // ------------------------------------------------------------------------
 QStringList MonCreateHypothesis::GetListCompChecked()
 // ------------------------------------------------------------------------
 // Retourne les composantes retenues
 {
-  MESSAGE( "Dans MonCreateHypothesis::GetListCompChecked" );
+  MESSAGE( "Debut de GetListCompChecked" );
   QStringList ListeComposant ;
 
   ListeComposant.clear();
   for ( int row=0; row< TWCMP->rowCount(); row++)
-      if ( TWCMP->item( row, 0 )->checkState() ==  Qt::Checked )
+      if ( TWCMP->item( row, 0 )->checkState() == Qt::Checked )
           ListeComposant.insert(0, QString(TWCMP->item(row, 1)->text()) ) ;
   // Choix du texte des radio-boutons selon 1 ou plusieurs composantes
   if ( ListeComposant.count() < 2 )
@@ -400,7 +450,7 @@ void MonCreateHypothesis::AssocieFieldInterp()
 {
   if ( _TypeFieldInterp != 2 ) return;
   for ( int row=0; row< TWField->rowCount(); row++)
-      if ( TWField->item( row, 0 )->checkState() ==  Qt::Checked )
+      if ( TWField->item( row, 0 )->checkState() == Qt::Checked )
       { _aHypothesis->AddFieldInterp(TWField->item(row, 1)->text().toStdString().c_str()); }
 }
 // ------------------------------------------------------------------------
@@ -436,7 +486,7 @@ void MonCreateHypothesis::InitFields()
 void MonCreateHypothesis::SetFieldName()
 // -------------------------------------------
 {
-  MESSAGE("MonCreateHypothesis::SetFieldName");
+  MESSAGE("Debut de SetFieldName");
   _aFieldName=CBFieldName->currentText();
   if (QString(_aFieldFile) == QString("") or QString(_aFieldName) == QString("") ) { return; }
 
@@ -604,13 +654,16 @@ bool MonCreateHypothesis::VerifieZone()
 // ------------------------------------------------------------------------
 {
   if ( _aTypeAdap != 0 ) return true;
+  MESSAGE("Debut de VerifieZone") ;
   _aListeZone = GetZonesChecked() ;
+  MESSAGE(". Longueur de _aListeZone : "<<_aListeZone.count()) ;
   if (_aListeZone.count() == 0)
   {
     QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                               QObject::tr("HOM_HYPO_ZONE_2") );
      return false;
   }
+  MESSAGE("Fin de VerifieZone") ;
   return true;
 }
 // ------------------------------------------------------------------------
@@ -632,10 +685,19 @@ bool MonCreateHypothesis::VerifieComposant()
 void MonCreateHypothesis::AssocieLesZones()
 // ------------------------------------------------------------------------
 {
+  MESSAGE( "Debut de AssocieLesZones" );
   if ( _aTypeAdap != 0 ) return;
   _aListeZone = GetZonesChecked() ;
+  MESSAGE(". Longueur de _aListeZone : "<<_aListeZone.count()) ;
+  QString Raff =  "1" ;
+  int TypeUse ;
   for ( int i=0 ; i< _aListeZone.count() ; i++ )
-      { _myHomardGen->AssociateHypoZone(_aListeZone[i].toStdString().c_str(),_aHypothesisName.toStdString().c_str()); }
+  { if ( _aListeZone[i+1] == Raff ) { TypeUse =  1 ; }
+    else                            { TypeUse = -1 ; }
+   _myHomardGen->AssociateHypoZone(_aHypothesisName.toStdString().c_str(), _aListeZone[i].toStdString().c_str(), TypeUse);
+    i += 1 ;
+  }
+  MESSAGE( "Fin de AssocieLesZones" );
 };
 // ------------------------------------------------------------------------
 void MonCreateHypothesis::AssocieComposants()
@@ -763,10 +825,41 @@ void MonCreateHypothesis::SetAdvanced()
 // ------------------------------------------------------------------------
 {
   MESSAGE("Debut de SetAdvanced ");
-  if (CBAdvanced->isChecked()) { GBAdvancedOptions->setVisible(1); }
+  if (CBAdvanced->isChecked())
+  { GBAdvancedOptions->setVisible(1);
+    if (_aFieldFile != QString(""))
+    { GBAdapInit->setVisible(1) ;
+    }
+    else
+    { GBAdapInit->setVisible(0) ;
+    }
+  }
   else
   { GBAdvancedOptions->setVisible(0);
     _NivMax = -1 ;
-    _DiamMin = -1. ; }
+    _DiamMin = -1. ;
+    _AdapInit = 0 ;
+  }
   adjustSize();
+}
+// ------------------------------------------------------------------------
+void MonCreateHypothesis::SetAIN()
+// ------------------------------------------------------------------------
+{
+  MESSAGE("Debut de SetAIN ");
+  _AdapInit = 0 ;
+}
+// ------------------------------------------------------------------------
+void MonCreateHypothesis::SetAIR()
+// ------------------------------------------------------------------------
+{
+  MESSAGE("Debut de SetAIR ");
+  _AdapInit = 1 ;
+}
+// ------------------------------------------------------------------------
+void MonCreateHypothesis::SetAID()
+// ------------------------------------------------------------------------
+{
+  MESSAGE("Debut de SetAID ");
+  _AdapInit = -1 ;
 }

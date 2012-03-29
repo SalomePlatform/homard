@@ -102,7 +102,7 @@ module HOMARD
 //
     void AssociateIterHypo(in string IterName, in string HypoName)
                                                            raises (SALOME::SALOME_Exception);
-    void AssociateHypoZone(in string ZoneName, in string HypoName)
+    void AssociateHypoZone(in string HypoName, in string ZoneName, in long TypeUse)
                                                            raises (SALOME::SALOME_Exception);
 //
 // A.3. Les informations

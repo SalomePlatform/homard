@@ -41,7 +41,7 @@ public:
                          QString aHypotheseName, QString caseName, QString aFieldFile);
     ~MonCreateHypothesis();
 
-    virtual void addZone(QString newZone);
+    virtual void addZoneinTWZone(QString newZone);
     virtual void setGroups(QStringList listGroup);
 
 protected :
@@ -70,6 +70,7 @@ protected :
 
     int _NivMax;
     double _DiamMin;
+    int _AdapInit;
 
     HOMARD::HOMARD_Gen_var _myHomardGen;
     HOMARD::HOMARD_Hypothesis_var _aHypothesis;
@@ -121,6 +122,9 @@ public slots:
     virtual void SetFieldChosen();
 
     virtual void SetAdvanced();
+    virtual void SetAIN();
+    virtual void SetAIR();
+    virtual void SetAID();
 
     virtual void PushOnOK();
     virtual bool PushOnApply();

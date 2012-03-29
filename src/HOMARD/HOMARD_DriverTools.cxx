@@ -473,7 +473,7 @@ namespace HOMARD
   bool Restore( HOMARD_Hypothesis& hypothesis, const std::string& stream )
   {
     std::string::size_type start = 0;
-    std::string chunk;
+    std::string chunk, chunkNext;
     bool ok;
 
     chunk = getNextChunk( stream, start, ok );
@@ -543,7 +543,11 @@ namespace HOMARD
     for ( int i = 0; i < size; i++ ) {
       chunk = getNextChunk( stream, start, ok );
       if ( !ok ) return false;
-      hypothesis.AddZone( chunk.c_str() );
+      i++;
+      chunkNext = getNextChunk( stream, start, ok );
+      int typeuse = atoi( chunkNext.c_str() );
+      if ( !ok ) return false;
+      hypothesis.AddZone( chunk.c_str(), typeuse );
     }
 
     chunk = getNextChunk( stream, start, ok );

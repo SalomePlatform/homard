@@ -557,7 +557,7 @@ bool MonCreateZone:: CreateOrUpdateZone()
         break;
         }
     }
-    _parent->addZone(_aZoneName) ;
+    _parent->addZoneinTWZone(_aZoneName) ;
   }
 // Mise en place des attributs
   aZone->SetLimit(_Xincr, _Yincr, _Zincr) ;

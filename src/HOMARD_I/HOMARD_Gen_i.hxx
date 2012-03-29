@@ -110,7 +110,7 @@ public:
                                                     const char* labelIter);
   void                            AssociateIterIter(const char* nomIterParent, const char* nomIter);
   void                            AssociateIterHypo(const char* nomIter, const char* nomHypothesis);
-  void                            AssociateHypoZone(const char* nomZone, const char* nomHypothesis);
+  void                            AssociateHypoZone(const char* nomHypothesis, const char* nomZone, CORBA::Long TypeUse);
   void                            DissociateHypoZone(const char* nomZone, const char* nomHypothesis);
 
   void                            InvalideBoundary(const char* nomBoundary);

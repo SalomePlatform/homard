@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2010
 Test test_1
 """
-__revision__ = "V1.4"
+__revision__ = "V1.5"
 
 ######################################################################################
 Test_Name = "test_1"
@@ -75,8 +75,8 @@ Copyright EDF-R&D 2010
 # Creation of the hypothesis Zones_1_et_2
   Zones_1_et_2 = homard.CreateHypothesis('Zones_1_et_2')
   Zones_1_et_2.SetAdapRefinUnRef(0, 1, 0)
-  homard.AssociateHypoZone('Zone_1', 'Zones_1_et_2')
-  homard.AssociateHypoZone('Zone_2', 'Zones_1_et_2')
+  homard.AssociateHypoZone('Zones_1_et_2', 'Zone_1', 1)
+  homard.AssociateHypoZone('Zones_1_et_2', 'Zone_2', 1)
 #
 # Creation of the cases
 # =====================

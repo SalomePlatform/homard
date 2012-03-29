@@ -396,9 +396,9 @@ void HOMARD_Gen_i::InvalideIter(const char* nomIter)
 }
 //
 //=====================================================================================
-void HOMARD_Gen_i::AssociateHypoZone(const char* ZoneName, const char* nomHypothesis)
+void HOMARD_Gen_i::AssociateHypoZone(const char* nomHypothesis, const char* ZoneName, CORBA::Long TypeUse)
 {
-  MESSAGE ( "AssociateHypoZone : ZoneName= " << ZoneName << ", nomHypo = " << nomHypothesis);
+  MESSAGE ( "AssociateHypoZone : nomHypo = " << nomHypothesis << ", ZoneName= " << ZoneName << ", TypeUse = " << TypeUse);
   IsValidStudy () ;
 
   HOMARD::HOMARD_Hypothesis_var myHypo = myContextMap[GetCurrentStudyID()]._mesHypotheses[nomHypothesis];
@@ -418,7 +418,7 @@ void HOMARD_Gen_i::AssociateHypoZone(const char* ZoneName, const char* nomHypoth
   aStudyBuilder->CommitCommand();
 
   myZone->AddHypo(nomHypothesis);
-  myHypo->AddZone(ZoneName);
+  myHypo->AddZone(ZoneName, TypeUse);
   MESSAGE ( "Fin de AssociateHypoZone");
 };
 
@@ -667,9 +667,10 @@ HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypo
   SALOMEDS::SObject_var aSO;
   PublishInStudy(myCurrentStudy, aSO, myHypothesis, nomHypothesis);
 
-// Valeurs par defaut des filtrages
+// Valeurs par defaut des options avancees
   myHypothesis->SetNivMax(-1);
   myHypothesis->SetDiamMin(-1.0);
+  myHypothesis->SetAdapInit(0);
 
   return HOMARD::HOMARD_Hypothesis::_duplicate(myHypothesis);
 }
@@ -1231,35 +1232,40 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatMena
   if (TypeAdap == 0)
   {
     HOMARD::listeZonesHypo* ListZone = myHypo->GetZones();
-    int numberOfZones = ListZone->length();
+    int numberOfZonesx2 = ListZone->length();
+    int NumZone ;
 
-    for (int NumZone = 0; NumZone< numberOfZones; NumZone++)
+    for (int iaux = 0; iaux< numberOfZonesx2; iaux++)
     {
-      std::string ZoneName = std::string((*ListZone)[NumZone]);
+      std::string ZoneName = std::string((*ListZone)[iaux]);
       MESSAGE ( "... ZoneName = " << ZoneName);
       HOMARD::HOMARD_Zone_var myZone = myContextMap[GetCurrentStudyID()]._mesZones[ZoneName];
       ASSERT(!CORBA::is_nil(myZone));
 
       int ZoneType = myZone->GetZoneType();
-      MESSAGE ( "... ZoneType = " << ZoneType);
+      std::string TypeUsestr = std::string((*ListZone)[iaux+1]);
+      int TypeUse = atoi( TypeUsestr.c_str() );
+      MESSAGE ( "... ZoneType = " << ZoneType << ", TypeUse = "<<TypeUse);
+      NumZone = iaux/2 + 1 ;
       HOMARD::double_array* zone = myZone->GetCoords();
       if ( ZoneType == 2 or ( ZoneType>=11 and ZoneType <=13 ) ) // Cas d un parallelepipede ou d'un rectangle
       {
-        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], 0., 0., 0.);
+        myDriver->TexteZone(NumZone, ZoneType, TypeUse, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], 0., 0., 0.);
       }
       else if ( ZoneType == 4 ) // Cas d une sphere
       {
-        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], 0., 0., 0., 0., 0.);
+        myDriver->TexteZone(NumZone, ZoneType, TypeUse, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], 0., 0., 0., 0., 0.);
       }
       else if ( ZoneType == 5 or ( ZoneType>=31 and ZoneType <=33 ) ) // Cas d un cylindre ou d'un disque
       {
-        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], (*zone)[6], (*zone)[7], 0.);
+        myDriver->TexteZone(NumZone, ZoneType, TypeUse, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], (*zone)[6], (*zone)[7], 0.);
       }
       else if ( ZoneType == 7 or ( ZoneType>=61 and ZoneType <=63 ) ) // Cas d un tuyau ou disque perce
       {
-        myDriver->TexteZone(NumZone+1, ZoneType, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], (*zone)[6], (*zone)[7], (*zone)[8]);
+        myDriver->TexteZone(NumZone, ZoneType, TypeUse, (*zone)[0], (*zone)[1], (*zone)[2], (*zone)[3], (*zone)[4], (*zone)[5], (*zone)[6], (*zone)[7], (*zone)[8]);
       }
       else { ASSERT("ZoneType est incorrect." == 0) ; }
+      iaux += 1 ;
     }
   }
   // E.3. Ajout des informations liees aux champs eventuels
@@ -1442,7 +1448,9 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* nomIteration, CORBA::Long etatMena
   MESSAGE ( ". NivMax = " << NivMax );
   double DiamMin = myHypo->GetDiamMin() ;
   MESSAGE ( ". DiamMin = " << DiamMin );
-  myDriver->TexteAdvanced(Pyram, NivMax, DiamMin);
+  int AdapInit = myHypo->GetAdapInit();
+  MESSAGE ( ". AdapInit = " << AdapInit );
+  myDriver->TexteAdvanced(Pyram, NivMax, DiamMin, AdapInit);
 
   // F. Ecriture du texte dans le fichier
   if (codret == 0)

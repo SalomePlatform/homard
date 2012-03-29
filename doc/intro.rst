@@ -3,6 +3,8 @@ Introduction
 ============
 Le logiciel HOMARD est destiné à adapter les maillages dans le cadre des codes de calculs par éléments ou volumes finis. Ce logiciel, réalisé par EDF R&D, procède par raffinement et déraffinement des maillages bidimensionnels ou tridimensionnels. Il est conçu pour être utilisé indépendamment du code de calcul auquel il est couplé.
 
+Raffiner le maillage signifie découper des mailles désignées selon des indications founies par l'utilisateur. Déraffiner le maillage signifie revenir en arrière sur des découpages précédemment réalisés : ainsi, en aucun cas HOMARD ne peut simplifier un maillage existant qui aura été créé trop fin. Le déraffinement prend toute son importance dans les calculs quand la zone d'intérêt se déplace au cours du calcul pour ne plus tenir compte de raffinements précédemment réalisés et qui deviennent inutiles. On en trouvera une illustration au bas de cette page.
+
 HOMARD sait traiter des maillages en 2 ou 3 dimensions et comportant les mailles suivantes :
    - mailles-points
    - segments
@@ -15,7 +17,7 @@ HOMARD sait traiter des maillages en 2 ou 3 dimensions et comportant les mailles
 Ces mailles peuvent être présentes simultanément. Par exemple, HOMARD saura adapter un maillage comportant des triangles et des quadrangles.
 Les noeuds acceptés sont évidemment les noeuds qui sont les sommets des mailles, ce qui correspond à la description classique « en degré 1 » . Si les éléments sont décrits « en degré 2 », les noeuds complémentaires sont gérés. En revanche, il ne peut pas y avoir cohabitation de mailles décrites en degré 1 et d'autres décrites en degré 2. Enfin, HOMARD sait prendre en compte des noeuds isolés, qui n'appartiendraient à aucune définition de mailles : ils ressortiront tels quels du processus d'adaptation.
 
-Le cas des pyramides est à part. HOMARD produit des pyramides pour assurer la conformité du raffinement de maillages formés d'hexaèdres ou de prismes. En revanche, HOMARD n'adapte pas un maillage qui contiendrait des pyramides au départ, sauf cas particuliers (voir :ref:`gui_create_case`).
+Le cas des pyramides est à part. Pour un maillage comportant des hexaèdres ou des prismes, la mise en conformité du maillage issu du raffinement crée des pyramides pour assurer la liaison entre deux régions de niveaux de raffinement différents. Ces pyramides sont gérées comme toutes les mailles de transition et ne sont pas redécoupées par la suite. En revanche, si le maillage initial contient des pyramides, HOMARD ne saura pas l'adapter et émettra un message d'erreur. Dans certains cas particuliers, on pourra néanmoins traiter un tel maillage, comme il est décrit dans la rubrique 'Options avancées' de :ref:`gui_create_case`).
 
 Plusieurs motivations apparaissent pour adapter un maillage :
 
@@ -43,18 +45,39 @@ Des variantes de ce schéma de base sont possibles. Si aucun calcul d'erreur n'es
 Quelques illustrations de maillage adaptés
 ==========================================
 
-.. image:: images/intro_3.png
-   :align: center
++---------------------------------------------------------------+
++---------------------------------------------------------------+
+|                                                               |
+| .. image:: images/intro_3.png                                 |
+|    :align: center                                             |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+| .. image:: images/intro_4.png                                 |
+|    :align: center                                             |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+| .. image:: images/intro_5.png                                 |
+|    :align: center                                             |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+| .. image:: images/intro_6.png                                 |
+|    :align: center                                             |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+| .. image:: images/intro_7.png                                 |
+|    :align: center                                             |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+| .. image:: images/intro_8.gif                                 |
+|    :align: center                                             |
+|                                                               |
++---------------------------------------------------------------+
 
-.. image:: images/intro_4.png
-   :align: center
 
-.. image:: images/intro_5.png
-   :align: center
 
-.. image:: images/intro_6.png
-   :align: center
-
-.. image:: images/intro_7.png
-   :align: center
 

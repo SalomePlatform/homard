@@ -77,7 +77,7 @@ module HOMARD
     void       SupprComp()                                 raises (SALOME::SALOME_Exception);
     listeComposantsHypo GetListComp()                      raises (SALOME::SALOME_Exception);
 
-    void       AddZone(in string NomZone)                  raises (SALOME::SALOME_Exception);
+    void       AddZone(in string NomZone, in long TypeUse) raises (SALOME::SALOME_Exception);
     void       SupprZone(in string NomZone)                raises (SALOME::SALOME_Exception);
     listeZonesHypo GetZones()                              raises (SALOME::SALOME_Exception);
 
@@ -99,6 +99,9 @@ module HOMARD
 
     void     SetDiamMin(in double DiamMin)                 raises (SALOME::SALOME_Exception);
     double   GetDiamMin()                                  raises (SALOME::SALOME_Exception);
+
+    void     SetAdapInit(in long AdapInit)                 raises (SALOME::SALOME_Exception);
+    long     GetAdapInit()                                 raises (SALOME::SALOME_Exception);
 
     string   GetDumpPython()                               raises (SALOME::SALOME_Exception);
 

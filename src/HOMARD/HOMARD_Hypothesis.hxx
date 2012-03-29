@@ -68,7 +68,7 @@ public:
   void                          SupprIterations();
   const std::list<std::string>& GetIterations() const;
 
-  void                          AddZone( const char* NomZone );
+  void                          AddZone( const char* NomZone, int TypeUse );
   void                          SupprZone( const char* NomZone );
   void                          SupprZones();
   const std::list<std::string>& GetZones() const;
@@ -85,9 +85,10 @@ public:
 
   void                          SetNivMax( int NivMax );
   const int                     GetNivMax() const;
-
   void                          SetDiamMin( double DiamMin );
   const double                  GetDiamMin() const;
+  void                          SetAdapInit( int AdapInit );
+  const int                     GetAdapInit() const;
 
 
 private:
@@ -113,6 +114,7 @@ private:
                                                   // 2 pour une liste
   int                           _NivMax;
   double                        _DiamMin;
+  int                           _AdapInit;
 
   std::list<std::string>        _ListIter;
   std::list<std::string>        _ListZone;

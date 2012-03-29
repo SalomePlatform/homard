@@ -260,6 +260,10 @@
         <translation>At least, one zone must be selected.</translation>
     </message>
     <message>
+        <source>HOM_HYPO_ZONE_3</source>
+        <translation>Either refinement or coarsening, but not both.</translation>
+    </message>
+    <message>
         <source>HOM_HYPO_NORM_L2</source>
         <translation>L2 norm</translation>
     </message>

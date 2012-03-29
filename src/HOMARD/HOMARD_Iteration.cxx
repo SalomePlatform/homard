@@ -96,7 +96,9 @@ std::string HOMARD_Iteration::GetDumpPython() const
   aScript << "\t" << _NomIter << ".SetMeshFile(\"" << _MeshFile << "\")\n";
   if (_FieldFile != "") {
     aScript << "\t" << _NomIter << ".SetFieldFile(\"" << _FieldFile << "\")\n";
-    aScript << "\t" << _NomIter << ".SetTimeStepRank(" << _TimeStep << ", " << _Rank << ")\n";
+    aScript << "\tTimeStep = " << _TimeStep << "\n";
+    aScript << "\tRank = " << _Rank << "\n";
+    aScript << "\t" << _NomIter << ".SetTimeStepRank( TimeStep, Rank )\n";
   }
 
   aScript << "\thomard.AssociateIterHypo(\"" <<_NomIter << "\", \"" << _NomHypo << "\")\n";

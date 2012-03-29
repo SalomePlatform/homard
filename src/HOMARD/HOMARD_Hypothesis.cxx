@@ -94,9 +94,14 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
 
 // Raffinement selon des zones geometriques
   std::list<std::string>::const_iterator it = _ListZone.begin();
+  int TypeUse ;
   while(it != _ListZone.end())
   {
-      aScript << "\thomard.AssociateHypoZone(\""<< *it << "\", \"" <<_NomHypo << "\")\n";
+      aScript << "\thomard.AssociateHypoZone(\""<< _NomHypo << "\", \"" << *it;
+      it++;
+      if ( *it == "1" ) { TypeUse =  1 ; }
+      else              { TypeUse = -1 ; }
+      aScript << "\", " << TypeUse << ")\n";
       it++;
   }
 
@@ -141,13 +146,18 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
   }
   if ( _NivMax > 0 )
   {
-    aScript << "\t" <<_NomHypo << ".SetNivMax(";
-    aScript << _NivMax << ")\n";
+    aScript << "\tNivMax = " << _NivMax << "\n";
+    aScript << "\t" <<_NomHypo << ".SetNivMax(NivMax)\n";
   }
   if ( _DiamMin > 0 )
   {
-    aScript << "\t" <<_NomHypo << ".SetDiamMin(";
-    aScript << _DiamMin << ")\n";
+    aScript << "\tDiamMin = " << _DiamMin << "\n";
+    aScript << "\t" <<_NomHypo << ".SetDiamMin(DiamMin)\n";
+  }
+  if ( _AdapInit != 0 )
+  {
+    aScript << "\tAdapInit = " << _AdapInit << "\n";
+    aScript << "\t" <<_NomHypo << ".SetAdapInit(AdapInit)\n";
   }
 
   return aScript.str();
@@ -301,9 +311,13 @@ const std::list<std::string>& HOMARD_Hypothesis::GetIterations() const
 /*!
 */
 //=============================================================================
-void HOMARD_Hypothesis::AddZone( const char* NomZone )
+void HOMARD_Hypothesis::AddZone( const char* NomZone, int TypeUse )
 {
   _ListZone.push_back( std::string( NomZone ) );
+  std::stringstream saux1 ;
+  saux1 << TypeUse ;
+  std::string saux2 = saux1.str() ;
+  _ListZone.push_back( saux2 );
 }
 //=============================================================================
 void HOMARD_Hypothesis::SupprZone( const char* NomZone )
@@ -413,14 +427,22 @@ const int HOMARD_Hypothesis::GetNivMax() const
   return _NivMax;
 }
 //=============================================================================
+void HOMARD_Hypothesis::SetAdapInit( int AdapInit )
+//=============================================================================
+{
+  _AdapInit = AdapInit;
+}
+//=============================================================================
+const int HOMARD_Hypothesis::GetAdapInit() const
+//=============================================================================
+{
+  return _AdapInit;
+}
+//=============================================================================
 void HOMARD_Hypothesis::SetDiamMin( double DiamMin )
 //=============================================================================
 {
   _DiamMin = DiamMin;
-/*  if ( _NivMax < 0 )
-  {
-    _NivMax = 99 ;
-  }*/
 }
 //=============================================================================
 const double HOMARD_Hypothesis::GetDiamMin() const

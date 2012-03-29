@@ -66,7 +66,7 @@ Au démarrage, il faut créer une première zone par activation du bouton "*Nouveau
 .. image:: images/create_hypothese_zo_1.png
    :align: center
 
-Lorsque des zones ont déjà été créées, la liste apparaît dans la fenêtre, ce qui permet de sélectionner les zones voulues.
+Lorsque des zones ont déjà été créées, la liste apparaît dans la fenêtre, ce qui permet de sélectionner les zones voulues. On doit alors préciser si une zone est utilisée pour raffiner toutes les mailles dont une arête est contenue dans la zone, ou si la zone est utilisée pour déraffiner les mailles intérieures à la zone. Si aucun choix n'est fait, la zone est ignorée dans cette hypothèse.
 
 .. image:: images/create_hypothese_zo_2.png
    :align: center
@@ -109,12 +109,12 @@ Si on veut choisir les champs à interpoler, il faut les cocher dans la liste de 
 Les options avancées
 """"""""""""""""""""
 Si la case "Options avancées" n'est pas cochée, aucune contrainte supplémentaire n'est définie.
+Si la case est cochée, on définira les options avancées.
 
-Si la case est cochée, on définira les options avancées qui portent sur la finesse maximale de maillage que l'on ne veut pas dépasser. Deux directives sont possibles, séparément ou ensemble.
+Une première série d'options portent sur la finesse maximale de maillage que l'on ne veut pas dépasser. Deux directives sont possibles, séparément ou ensemble. On peut imposer une taille de maille minimale : une maille dont le diamètre est inférieur à cette limite ne sera plus découpée. Par défaut, on propose un diamètre minimal nul, ce qui revient à ne rien imposer. On peut imposer un niveau de raffinement maximal. Par défaut, le maximum est à 99, ce qui équivaut en général à ne rien imposer.
 
-On peut imposer une taille de maille minimale : une maille dont le diamètre est inférieur à cette limite ne sera plus découpée. Par défaut, on propose un diamètre minimal nul, ce qui revient à ne rien imposer.
+La seconde série d'options n'a d'intérêt que dans le cas où l'adaptation est piloté par un champ et que ce champ n'est pas défini partout dans le maillage. Cela arrive par exemple quand on construit un champ basé sur une distance dans un plan alors que le domaine est 3D : le champ ne sera pas défini sur les noeuds hors du plan. Pour de tels champs, cette option permet de préciser le comportement que l'on souhaite dans les régions où le champ n'est pas défini. Par défaut, il ne se passe rien : les mailles sont gardées telles quelles. On peut choisir les deux autres variantes : raffiner, toutes les mailles seront a priori coupées, ou déraffiner, toutes les mailles seront candidates au déraffinement.
 
-On peut imposer un niveau de raffinement maximal. Par défaut, le maximum est à 99, ce qui équivaut en général à ne rien imposer.
 
 .. image:: images/create_hypothese_av_1.png
    :align: center
