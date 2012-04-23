@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2011
 Test test_3
 """
-__revision__ = "V1.2"
+__revision__ = "V1.3"
 
 ######################################################################################
 Test_Name = "test_3"
@@ -50,6 +50,10 @@ def homard_exec(theStudy):
 Python script for HOMARD
 Copyright EDF-R&D 2010
   """
+  error = 0
+#
+  while not error :
+#
   homard.SetCurrentStudy(theStudy)
 #
 # Creation of the boundaries
@@ -94,16 +98,24 @@ Copyright EDF-R&D 2010
   Iter_1.SetMeshName('MOYEU_1')
   Iter_1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
   homard.AssociateIterHypo('Iter_1', 'Hypo')
-  result1 = Iter_1.Compute(1)
+    error = Iter_1.Compute(1)
+    if error :
+      error = 1
+      break
 
 # Creation of the iteration Iter_2
   Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
   Iter_2.SetMeshName('MOYEU_2')
   Iter_2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
   homard.AssociateIterHypo('Iter_2', 'Hypo')
-  result2 = Iter_2.Compute(1)
-
-  return result1*result2
+    error = Iter_2.Compute(1)
+    if error :
+      error = 2
+      break
+#
+    break
+#
+  return error
 
 ######################################################################################
 
@@ -112,11 +124,11 @@ homard = salome.lcc.FindOrLoadComponent('FactoryServer', 'HOMARD')
 # Exec of HOMARD-SALOME
 #
 try :
-  result=homard_exec(salome.myStudy)
-  if (result != True):
-      raise Exception('Pb in homard_exec')
+  error_main = homard_exec(salome.myStudy)
+  if error_main :
+    raise Exception('Pb in homard_exec at iteration %d' %error_main )
 except :
-  raise Exception('Pb in homard_exec')
+  raise Exception('Pb in homard_exec at iteration %d' %error_main )
   sys.exit(1)
 #
 # Test of the result

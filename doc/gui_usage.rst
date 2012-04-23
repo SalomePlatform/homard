@@ -1,3 +1,5 @@
+.. _gui_usage:
+
 Mode d'emploi pour l'interface graphique
 ========================================
 .. index:: single: cas

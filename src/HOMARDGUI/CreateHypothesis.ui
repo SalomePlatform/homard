@@ -26,13 +26,6 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="0">
-    <widget class="QLabel" name="Name">
-     <property name="text">
-      <string>Name</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="1">
     <widget class="QLineEdit" name="LEHypothesisName">
      <property name="minimumSize">
@@ -554,7 +547,7 @@
      <property name="title">
       <string>Zone management</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
        <widget class="QTableWidget" name="TWZone">
         <property name="minimumSize">
@@ -800,7 +793,7 @@
       <item row="2" column="0" colspan="2">
        <widget class="QGroupBox" name="GBAdapInit">
         <property name="title">
-         <string>Intialization of adaptation</string>
+         <string>Initialization of adaptation</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
@@ -874,6 +867,13 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="Name">
+     <property name="text">
+      <string>Name</string>
+     </property>
     </widget>
    </item>
   </layout>
