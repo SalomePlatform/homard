@@ -53,81 +53,81 @@ Copyright EDF-R&D 2010
   error = 0
 #
   while not error :
-#
-  homard.SetCurrentStudy(theStudy)
-#
-# Creation of the zones
-# =====================
-# Creation of the box Zone_1
-  Zone_1 = homard.CreateZoneBox('Zone_1', -0.01, 1.01, -0.01, 0.4, -0.01, 0.6)
+  #
+    homard.SetCurrentStudy(theStudy)
+  #
+  # Creation of the zones
+  # =====================
+  # Creation of the box Zone_1
+    Zone_1 = homard.CreateZoneBox('Zone_1', -0.01, 1.01, -0.01, 0.4, -0.01, 0.6)
 
-# Creation of the sphere Zone_2
-  Zone_2 = homard.CreateZoneSphere('Zone_2', 0.5, 0.6, 0.7, 0.75)
-#
-# Creation of the hypotheses
-# ==========================
-# Creation of the hypothesis a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM = homard.CreateHypothesis('a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetAdapRefinUnRef(1, 1, 0)
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetField('RESU____ERRE_ELEM_SIGM__________')
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetUseComp(0)
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddComp('ERREST')
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetRefinThr(3, 10.1)
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetTypeFieldInterp(2)
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddFieldInterp('RESU____DEPL____________________')
-  a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddFieldInterp('RESU____ERRE_ELEM_SIGM__________')
-# Creation of the hypothesis Zones_1_et_2
-  Zones_1_et_2 = homard.CreateHypothesis('Zones_1_et_2')
-  Zones_1_et_2.SetAdapRefinUnRef(0, 1, 0)
-  homard.AssociateHypoZone('Zones_1_et_2', 'Zone_1', 1)
-  homard.AssociateHypoZone('Zones_1_et_2', 'Zone_2', 1)
-#
-# Creation of the cases
-# =====================
-  # Creation of the case zzzz121b
-  Case_1 = homard.CreateCase('zzzz121b', 'MAILL', os.path.join(Rep_Test, Test_Name + '.00.med'))
-  Case_1.SetDirName(Rep_Test_Resu)
-  Case_1.SetConfType(1)
-#
-# Creation of the iterations
-# ==========================
-# Creation of the iteration I1
-  I1 = homard.CreateIteration('I1', Case_1.GetIter0Name() )
-  I1.SetMeshName('M1')
-  I1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
-  I1.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.00.med'))
-  I1.SetTimeStepRank(1, 1)
-  homard.AssociateIterHypo('I1', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
+  # Creation of the sphere Zone_2
+    Zone_2 = homard.CreateZoneSphere('Zone_2', 0.5, 0.6, 0.7, 0.75)
+  #
+  # Creation of the hypotheses
+  # ==========================
+  # Creation of the hypothesis a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM = homard.CreateHypothesis('a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetAdapRefinUnRef(1, 1, 0)
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetField('RESU____ERRE_ELEM_SIGM__________')
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetUseComp(0)
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddComp('ERREST')
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetRefinThr(3, 10.1)
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.SetTypeFieldInterp(2)
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddFieldInterp('RESU____DEPL____________________')
+    a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM.AddFieldInterp('RESU____ERRE_ELEM_SIGM__________')
+  # Creation of the hypothesis Zones_1_et_2
+    Zones_1_et_2 = homard.CreateHypothesis('Zones_1_et_2')
+    Zones_1_et_2.SetAdapRefinUnRef(0, 1, 0)
+    homard.AssociateHypoZone('Zones_1_et_2', 'Zone_1', 1)
+    homard.AssociateHypoZone('Zones_1_et_2', 'Zone_2', 1)
+  #
+  # Creation of the cases
+  # =====================
+    # Creation of the case zzzz121b
+    Case_1 = homard.CreateCase('zzzz121b', 'MAILL', os.path.join(Rep_Test, Test_Name + '.00.med'))
+    Case_1.SetDirName(Rep_Test_Resu)
+    Case_1.SetConfType(1)
+  #
+  # Creation of the iterations
+  # ==========================
+  # Creation of the iteration I1
+    I1 = homard.CreateIteration('I1', Case_1.GetIter0Name() )
+    I1.SetMeshName('M1')
+    I1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
+    I1.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.00.med'))
+    I1.SetTimeStepRank(1, 1)
+    homard.AssociateIterHypo('I1', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
     error = I1.Compute(1)
     if error :
       error = 1
       break
 
-# Creation of the iteration I2
-  I2 = homard.CreateIteration('I2', 'I1')
-  I2.SetMeshName('M2')
-  I2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
-  I2.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.01.med'))
-  I2.SetTimeStepRank(1, 1)
-  homard.AssociateIterHypo('I2', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
+  # Creation of the iteration I2
+    I2 = homard.CreateIteration('I2', 'I1')
+    I2.SetMeshName('M2')
+    I2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
+    I2.SetFieldFile(os.path.join(Rep_Test, Test_Name + '.01.med'))
+    I2.SetTimeStepRank(1, 1)
+    homard.AssociateIterHypo('I2', 'a10_1pc_de_mailles_a_raffiner_sur_ERRE_ELEM_SIGM')
     error = I2.Compute(1)
     if error :
       error = 2
       break
 
-# Creation of the iteration I3
-  I3 = homard.CreateIteration('I3', 'I2')
-  I3.SetMeshName('M3')
-  I3.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.03.med'))
-  homard.AssociateIterHypo('I3', 'Zones_1_et_2')
+  # Creation of the iteration I3
+    I3 = homard.CreateIteration('I3', 'I2')
+    I3.SetMeshName('M3')
+    I3.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.03.med'))
+    homard.AssociateIterHypo('I3', 'Zones_1_et_2')
     error = I3.Compute(1)
     if error :
       error = 3
       break
-#
+  #
     break
-#
-  return error
+  #
+    return error
 
 ######################################################################################
 

@@ -54,60 +54,60 @@ Copyright EDF-R&D 2010
 #
   while not error :
 #
-  homard.SetCurrentStudy(theStudy)
+    homard.SetCurrentStudy(theStudy)
 #
 # Creation of the boundaries
 # ==========================
 # Creation of the discrete boundary
-  Boundary_1 = homard.CreateBoundaryDi('courbes', 'COURBES', os.path.join(Rep_Test, Test_Name + '.fr.med'))
+    Boundary_1 = homard.CreateBoundaryDi('courbes', 'COURBES', os.path.join(Rep_Test, Test_Name + '.fr.med'))
 #
 # Creation of the external cylinder
-  Boundary_2 = homard.CreateBoundaryCylinder('cyl_ext', 50.0, 25., -25., 1., 0., 0., 100.)
+    Boundary_2 = homard.CreateBoundaryCylinder('cyl_ext', 50.0, 25., -25., 1., 0., 0., 100.)
 #
 # Creation of the internal cylinder
-  Boundary_3 = homard.CreateBoundaryCylinder('cyl_int', 50.0, 25., -25., 1., 0., 0., 50.)
+    Boundary_3 = homard.CreateBoundaryCylinder('cyl_int', 50.0, 25., -25., 1., 0., 0., 50.)
 #
 # Creation of the first sphere
-  Boundary_4 = homard.CreateBoundarySphere('sphere_1', 50.0, 25., -25., 100.)
+    Boundary_4 = homard.CreateBoundarySphere('sphere_1', 50.0, 25., -25., 100.)
 #
 # Creation of the second sphere
-  Boundary_5 = homard.CreateBoundarySphere('sphere_2', 450.0, 25., -25., 100.)
+    Boundary_5 = homard.CreateBoundarySphere('sphere_2', 450.0, 25., -25., 100.)
 #
 # Creation of the hypotheses
 # ==========================
 # Uniform refinement
-  Hypo = homard.CreateHypothesis('Hypo')
-  Hypo.SetAdapRefinUnRef(-1, 1, 0)
+    Hypo = homard.CreateHypothesis('Hypo')
+    Hypo.SetAdapRefinUnRef(-1, 1, 0)
 #
 # Creation of the cases
 # =====================
 # Creation of the case Case_1
-  Case_1 = homard.CreateCase('Case_1', 'MOYEU', os.path.join(Rep_Test, Test_Name + '.00.med'))
-  Case_1.SetDirName(Rep_Test_Resu)
-  Case_1.SetConfType(1)
-  Case_1.AddBoundaryGroup('courbes', '')
-  Case_1.AddBoundaryGroup('cyl_ext', 'EXT')
-  Case_1.AddBoundaryGroup('cyl_int', 'INT')
-  Case_1.AddBoundaryGroup('sphere_1', 'END_1')
-  Case_1.AddBoundaryGroup('sphere_2', 'END_2')
+    Case_1 = homard.CreateCase('Case_1', 'MOYEU', os.path.join(Rep_Test, Test_Name + '.00.med'))
+    Case_1.SetDirName(Rep_Test_Resu)
+    Case_1.SetConfType(1)
+    Case_1.AddBoundaryGroup('courbes', '')
+    Case_1.AddBoundaryGroup('cyl_ext', 'EXT')
+    Case_1.AddBoundaryGroup('cyl_int', 'INT')
+    Case_1.AddBoundaryGroup('sphere_1', 'END_1')
+    Case_1.AddBoundaryGroup('sphere_2', 'END_2')
 #
 # Creation of the iterations
 # ==========================
 # Creation of the iteration Iter_1
-  Iter_1 = homard.CreateIteration('Iter_1', Case_1.GetIter0Name() )
-  Iter_1.SetMeshName('MOYEU_1')
-  Iter_1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
-  homard.AssociateIterHypo('Iter_1', 'Hypo')
+    Iter_1 = homard.CreateIteration('Iter_1', Case_1.GetIter0Name() )
+    Iter_1.SetMeshName('MOYEU_1')
+    Iter_1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
+    homard.AssociateIterHypo('Iter_1', 'Hypo')
     error = Iter_1.Compute(1)
     if error :
       error = 1
       break
 
 # Creation of the iteration Iter_2
-  Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
-  Iter_2.SetMeshName('MOYEU_2')
-  Iter_2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
-  homard.AssociateIterHypo('Iter_2', 'Hypo')
+    Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
+    Iter_2.SetMeshName('MOYEU_2')
+    Iter_2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
+    homard.AssociateIterHypo('Iter_2', 'Hypo')
     error = Iter_2.Compute(1)
     if error :
       error = 2
@@ -128,7 +128,8 @@ try :
   if error_main :
     raise Exception('Pb in homard_exec at iteration %d' %error_main )
 except :
-  raise Exception('Pb in homard_exec at iteration %d' %error_main )
+  if error_main :
+    raise Exception('Pb in homard_exec at iteration %d' %error_main )
   sys.exit(1)
 #
 # Test of the result
