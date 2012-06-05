@@ -189,23 +189,23 @@
     </message>
     <message>
         <source>HOM_SELECT_OBJECT_1</source>
-        <translation>Selectionner un objet.</translation>
+        <translation>Sélectionner un objet.</translation>
     </message>
     <message>
         <source>HOM_SELECT_OBJECT_2</source>
-        <translation>Selectionner un seul objet.</translation>
+        <translation>Sélectionner un seul objet.</translation>
     </message>
     <message>
         <source>HOM_SELECT_OBJECT_3</source>
-        <translation>Selectionner un objet de type %1.</translation>
+        <translation>Sélectionner un objet de type %1.</translation>
     </message>
     <message>
         <source>HOM_SELECT_FILE_1</source>
-        <translation>Selectionner un fichier.</translation>
+        <translation>Sélectionner un fichier.</translation>
     </message>
     <message>
         <source>HOM_SELECT_FILE_2</source>
-        <translation>Selectionner un seul fichier.</translation>
+        <translation>Sélectionner un seul fichier.</translation>
     </message>
     <message>
         <source>HOM_MED_FILE_1</source>
@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>HOM_SELECT_STUDY</source>
-        <translation>Selectionner une étude avec un fichier MED associé\n ou sélectionner un fichier MED.</translation>
+        <translation>Sélectionner une étude avec un fichier MED associé\n ou sélectionner un fichier MED.</translation>
     </message>
     <message>
         <source>Create a case</source>
@@ -285,7 +285,7 @@
     </message>
     <message>
         <source>HOM_ITER_FIELD_FILE</source>
-        <translation>Avec cette hypothese, il faut fournir le fichier du champ.</translation>
+        <translation>Avec cette hypothèse, il faut fournir le fichier du champ.</translation>
     </message>
     <message>
         <source>HOM_ITER_STARTING_POINT_0</source>

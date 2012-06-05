@@ -1,5 +1,5 @@
 # -*- coding: iso-8859-1 -*-
-# Copyright (C) 2011  CEA/DEN, EDF R&D
+# Copyright (C) 2011-2012  CEA/DEN, EDF R&D
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ Python script for HOMARD
 Copyright EDF-R&D 2010
 Test test_2
 """
-__revision__ = "V1.4"
+__revision__ = "V1.5"
 
 ######################################################################################
 Test_Name = "test_2"
@@ -50,57 +50,73 @@ def homard_exec(theStudy):
 Python script for HOMARD
 Copyright EDF-R&D 2010
   """
-  homard.SetCurrentStudy(theStudy)
+  error = 0
 #
-# Creation of the boundaries
-# ==========================
-# Creation of the discrete boundary Boundary_1
-  Boundary_1 = homard.CreateBoundaryDi('internal_boundary', 'plaque', os.path.join(Rep_Test, Test_Name + '.fr.med'))
-#
-# Creation of the hypotheses
-# ==========================
-# Creation of the hypothesis Hypo_1
-  Hypo_1 = homard.CreateHypothesis('Hypo_1')
-  Hypo_1.SetAdapRefinUnRef(-1, 1, 0)
-  Hypo_1.AddGroup('EG')
-  Hypo_1.AddGroup('BANDE')
+  while not error :
+  #
+    homard.SetCurrentStudy(theStudy)
+  #
+  # Creation of the boundaries
+  # ==========================
+  # Creation of the discrete boundary Boundary_1
+    Boundary_1 = homard.CreateBoundaryDi('internal_boundary', 'plaque', os.path.join(Rep_Test, Test_Name + '.fr.med'))
+  #
+  # Creation of the hypotheses
+  # ==========================
+  # Creation of the hypothesis Hypo_1
+    Hypo_1 = homard.CreateHypothesis('Hypo_1')
+    Hypo_1.SetAdapRefinUnRef(-1, 1, 0)
+    Hypo_1.AddGroup('EG')
+    Hypo_1.AddGroup('BANDE')
 
-# Creation of the hypothesis Hypo_2
-  Hypo_2 = homard.CreateHypothesis('Hypo_2')
-  Hypo_2.SetAdapRefinUnRef(-1, 1, 0)
-  Hypo_2.AddGroup('M_D')
-#
-# Creation of the cases
-# =====================
-  # Creation of the case Case_1
-  Case_1 = homard.CreateCase('Case_1', 'PLAQUE_0', os.path.join(Rep_Test, Test_Name + '.00.med'))
-  Case_1.SetDirName(Rep_Test_Resu)
-  Case_1.SetConfType(1)
-  Case_1.AddBoundaryGroup('internal_boundary', '')
-#
-# Creation of the iterations
-# ==========================
-# Creation of the iteration Iter_1
-  Iter_1 = homard.CreateIteration('Iter_1', Case_1.GetIter0Name() )
-  Iter_1.SetMeshName('PLAQUE_1')
-  Iter_1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
-  homard.AssociateIterHypo('Iter_1', 'Hypo_1')
-  result1 = Iter_1.Compute(1)
+  # Creation of the hypothesis Hypo_2
+    Hypo_2 = homard.CreateHypothesis('Hypo_2')
+    Hypo_2.SetAdapRefinUnRef(-1, 1, 0)
+    Hypo_2.AddGroup('M_D')
+  #
+  # Creation of the cases
+  # =====================
+    # Creation of the case Case_1
+    Case_1 = homard.CreateCase('Case_1', 'PLAQUE_0', os.path.join(Rep_Test, Test_Name + '.00.med'))
+    Case_1.SetDirName(Rep_Test_Resu)
+    Case_1.SetConfType(1)
+    Case_1.AddBoundaryGroup('internal_boundary', '')
+  #
+  # Creation of the iterations
+  # ==========================
+  # Creation of the iteration Iter_1
+    Iter_1 = homard.CreateIteration('Iter_1', Case_1.GetIter0Name() )
+    Iter_1.SetMeshName('PLAQUE_1')
+    Iter_1.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.01.med'))
+    homard.AssociateIterHypo('Iter_1', 'Hypo_1')
+    error = Iter_1.Compute(1)
+    if error :
+      error = 1
+      break
 
-# Creation of the iteration Iter_2
-  Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
-  Iter_2.SetMeshName('PLAQUE_2')
-  Iter_2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
-  homard.AssociateIterHypo('Iter_2', 'Hypo_1')
-  result2 = Iter_2.Compute(1)
+  # Creation of the iteration Iter_2
+    Iter_2 = homard.CreateIteration('Iter_2', 'Iter_1')
+    Iter_2.SetMeshName('PLAQUE_2')
+    Iter_2.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.02.med'))
+    homard.AssociateIterHypo('Iter_2', 'Hypo_1')
+    error = Iter_2.Compute(1)
+    if error :
+      error = 2
+      break
 
-# Creation of the iteration Iter_3
-  Iter_3 = homard.CreateIteration('Iter_3', 'Iter_2')
-  Iter_3.SetMeshName('PLAQUE_3')
-  Iter_3.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.03.med'))
-  homard.AssociateIterHypo('Iter_3', 'Hypo_2')
-  result3 = Iter_3.Compute(1)
-  return result1*result2*result3
+  # Creation of the iteration Iter_3
+    Iter_3 = homard.CreateIteration('Iter_3', 'Iter_2')
+    Iter_3.SetMeshName('PLAQUE_3')
+    Iter_3.SetMeshFile(os.path.join(Rep_Test_Resu, 'maill.03.med'))
+    homard.AssociateIterHypo('Iter_3', 'Hypo_2')
+    error = Iter_3.Compute(1)
+    if error :
+      error = 3
+      break
+  #
+    break
+  #
+    return error
 
 ######################################################################################
 
@@ -109,11 +125,11 @@ homard = salome.lcc.FindOrLoadComponent('FactoryServer', 'HOMARD')
 # Exec of HOMARD-SALOME
 #
 try :
-  result=homard_exec(salome.myStudy)
-  if (result != True):
-      raise Exception('Pb in homard_exec')
+  error_main = homard_exec(salome.myStudy)
+  if error_main :
+    raise Exception('Pb in homard_exec at iteration %d' %error_main )
 except :
-  raise Exception('Pb in homard_exec')
+  raise Exception('Pb in homard_exec at iteration %d' %error_main )
   sys.exit(1)
 #
 # Test of the result

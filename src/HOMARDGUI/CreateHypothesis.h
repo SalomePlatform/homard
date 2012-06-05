@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'CreateHypothesis.ui'
 **
-** Created: Thu Mar 22 13:46:51 2012
+** Created: Wed Apr 11 11:35:26 2012
 **      by: Qt User Interface Compiler version 4.6.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -37,7 +37,6 @@ class Ui_CreateHypothesis
 {
 public:
     QGridLayout *gridLayout_3;
-    QLabel *Name;
     QLineEdit *LEHypothesisName;
     QGroupBox *GBTypeAdaptation;
     QHBoxLayout *hboxLayout;
@@ -86,7 +85,7 @@ public:
     QDoubleSpinBox *SpinBox_CAbs;
     QRadioButton *RBCNo;
     QGroupBox *GBAreaManagement;
-    QGridLayout *gridLayout5;
+    QGridLayout *gridLayout_4;
     QTableWidget *TWZone;
     QSpacerItem *horizontalSpacer;
     QVBoxLayout *vboxLayout1;
@@ -96,8 +95,8 @@ public:
     QPushButton *PBZoneDelete;
     QSpacerItem *spacerItem2;
     QGroupBox *GBField;
+    QGridLayout *gridLayout5;
     QGridLayout *gridLayout6;
-    QGridLayout *gridLayout7;
     QRadioButton *RBFieldNo;
     QRadioButton *RBFieldAll;
     QRadioButton *RBFieldChosen;
@@ -116,11 +115,12 @@ public:
     QRadioButton *RBAIR;
     QRadioButton *RBAID;
     QGroupBox *GBButtons;
-    QGridLayout *gridLayout8;
+    QGridLayout *gridLayout7;
     QPushButton *buttonOk;
     QPushButton *buttonApply;
     QPushButton *buttonCancel;
     QPushButton *buttonHelp;
+    QLabel *Name;
 
     void setupUi(QDialog *CreateHypothesis)
     {
@@ -136,11 +136,6 @@ public:
         CreateHypothesis->setSizeGripEnabled(true);
         gridLayout_3 = new QGridLayout(CreateHypothesis);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        Name = new QLabel(CreateHypothesis);
-        Name->setObjectName(QString::fromUtf8("Name"));
-
-        gridLayout_3->addWidget(Name, 0, 0, 1, 1);
-
         LEHypothesisName = new QLineEdit(CreateHypothesis);
         LEHypothesisName->setObjectName(QString::fromUtf8("LEHypothesisName"));
         LEHypothesisName->setMinimumSize(QSize(382, 31));
@@ -476,8 +471,8 @@ public:
         GBAreaManagement->setObjectName(QString::fromUtf8("GBAreaManagement"));
         sizePolicy.setHeightForWidth(GBAreaManagement->sizePolicy().hasHeightForWidth());
         GBAreaManagement->setSizePolicy(sizePolicy);
-        gridLayout5 = new QGridLayout(GBAreaManagement);
-        gridLayout5->setObjectName(QString::fromUtf8("gridLayout5"));
+        gridLayout_4 = new QGridLayout(GBAreaManagement);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         TWZone = new QTableWidget(GBAreaManagement);
         if (TWZone->columnCount() < 3)
             TWZone->setColumnCount(3);
@@ -494,11 +489,11 @@ public:
         TWZone->setRowCount(0);
         TWZone->setColumnCount(3);
 
-        gridLayout5->addWidget(TWZone, 0, 0, 1, 1);
+        gridLayout_4->addWidget(TWZone, 0, 0, 1, 1);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout5->addItem(horizontalSpacer, 0, 1, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer, 0, 1, 1, 1);
 
         vboxLayout1 = new QVBoxLayout();
 #ifndef Q_OS_MAC
@@ -537,49 +532,49 @@ public:
         vboxLayout1->addItem(spacerItem2);
 
 
-        gridLayout5->addLayout(vboxLayout1, 0, 2, 1, 1);
+        gridLayout_4->addLayout(vboxLayout1, 0, 2, 1, 1);
 
 
         gridLayout_3->addWidget(GBAreaManagement, 5, 0, 1, 2);
 
         GBField = new QGroupBox(CreateHypothesis);
         GBField->setObjectName(QString::fromUtf8("GBField"));
-        gridLayout6 = new QGridLayout(GBField);
+        gridLayout5 = new QGridLayout(GBField);
+#ifndef Q_OS_MAC
+        gridLayout5->setSpacing(6);
+#endif
+#ifndef Q_OS_MAC
+        gridLayout5->setContentsMargins(9, 9, 9, 9);
+#endif
+        gridLayout5->setObjectName(QString::fromUtf8("gridLayout5"));
+        gridLayout6 = new QGridLayout();
 #ifndef Q_OS_MAC
         gridLayout6->setSpacing(6);
 #endif
 #ifndef Q_OS_MAC
-        gridLayout6->setContentsMargins(9, 9, 9, 9);
+        gridLayout6->setContentsMargins(0, 0, 0, 0);
 #endif
         gridLayout6->setObjectName(QString::fromUtf8("gridLayout6"));
-        gridLayout7 = new QGridLayout();
-#ifndef Q_OS_MAC
-        gridLayout7->setSpacing(6);
-#endif
-#ifndef Q_OS_MAC
-        gridLayout7->setContentsMargins(0, 0, 0, 0);
-#endif
-        gridLayout7->setObjectName(QString::fromUtf8("gridLayout7"));
         RBFieldNo = new QRadioButton(GBField);
         RBFieldNo->setObjectName(QString::fromUtf8("RBFieldNo"));
         RBFieldNo->setChecked(true);
 
-        gridLayout7->addWidget(RBFieldNo, 0, 0, 1, 1);
+        gridLayout6->addWidget(RBFieldNo, 0, 0, 1, 1);
 
         RBFieldAll = new QRadioButton(GBField);
         RBFieldAll->setObjectName(QString::fromUtf8("RBFieldAll"));
         RBFieldAll->setChecked(false);
 
-        gridLayout7->addWidget(RBFieldAll, 0, 1, 1, 1);
+        gridLayout6->addWidget(RBFieldAll, 0, 1, 1, 1);
 
         RBFieldChosen = new QRadioButton(GBField);
         RBFieldChosen->setObjectName(QString::fromUtf8("RBFieldChosen"));
         RBFieldChosen->setChecked(false);
 
-        gridLayout7->addWidget(RBFieldChosen, 0, 2, 1, 1);
+        gridLayout6->addWidget(RBFieldChosen, 0, 2, 1, 1);
 
 
-        gridLayout6->addLayout(gridLayout7, 0, 0, 1, 1);
+        gridLayout5->addLayout(gridLayout6, 0, 0, 1, 1);
 
         TWField = new QTableWidget(GBField);
         if (TWField->columnCount() < 2)
@@ -590,7 +585,7 @@ public:
         TWField->setHorizontalHeaderItem(1, __qtablewidgetitem6);
         TWField->setObjectName(QString::fromUtf8("TWField"));
 
-        gridLayout6->addWidget(TWField, 1, 0, 1, 1);
+        gridLayout5->addWidget(TWField, 1, 0, 1, 1);
 
 
         gridLayout_3->addWidget(GBField, 6, 0, 1, 2);
@@ -665,36 +660,41 @@ public:
 
         GBButtons = new QGroupBox(CreateHypothesis);
         GBButtons->setObjectName(QString::fromUtf8("GBButtons"));
-        gridLayout8 = new QGridLayout(GBButtons);
+        gridLayout7 = new QGridLayout(GBButtons);
 #ifndef Q_OS_MAC
-        gridLayout8->setSpacing(6);
+        gridLayout7->setSpacing(6);
 #endif
 #ifndef Q_OS_MAC
-        gridLayout8->setContentsMargins(9, 9, 9, 9);
+        gridLayout7->setContentsMargins(9, 9, 9, 9);
 #endif
-        gridLayout8->setObjectName(QString::fromUtf8("gridLayout8"));
+        gridLayout7->setObjectName(QString::fromUtf8("gridLayout7"));
         buttonOk = new QPushButton(GBButtons);
         buttonOk->setObjectName(QString::fromUtf8("buttonOk"));
 
-        gridLayout8->addWidget(buttonOk, 0, 0, 1, 1);
+        gridLayout7->addWidget(buttonOk, 0, 0, 1, 1);
 
         buttonApply = new QPushButton(GBButtons);
         buttonApply->setObjectName(QString::fromUtf8("buttonApply"));
 
-        gridLayout8->addWidget(buttonApply, 0, 1, 1, 1);
+        gridLayout7->addWidget(buttonApply, 0, 1, 1, 1);
 
         buttonCancel = new QPushButton(GBButtons);
         buttonCancel->setObjectName(QString::fromUtf8("buttonCancel"));
 
-        gridLayout8->addWidget(buttonCancel, 0, 2, 1, 1);
+        gridLayout7->addWidget(buttonCancel, 0, 2, 1, 1);
 
         buttonHelp = new QPushButton(GBButtons);
         buttonHelp->setObjectName(QString::fromUtf8("buttonHelp"));
 
-        gridLayout8->addWidget(buttonHelp, 0, 3, 1, 1);
+        gridLayout7->addWidget(buttonHelp, 0, 3, 1, 1);
 
 
         gridLayout_3->addWidget(GBButtons, 10, 0, 1, 2);
+
+        Name = new QLabel(CreateHypothesis);
+        Name->setObjectName(QString::fromUtf8("Name"));
+
+        gridLayout_3->addWidget(Name, 0, 0, 1, 1);
 
         LEHypothesisName->raise();
         GBTypeAdaptation->raise();
@@ -717,7 +717,6 @@ public:
     void retranslateUi(QDialog *CreateHypothesis)
     {
         CreateHypothesis->setWindowTitle(QApplication::translate("CreateHypothesis", "Create an hypothesis", 0, QApplication::UnicodeUTF8));
-        Name->setText(QApplication::translate("CreateHypothesis", "Name", 0, QApplication::UnicodeUTF8));
         GBTypeAdaptation->setTitle(QApplication::translate("CreateHypothesis", "Type of adaptation", 0, QApplication::UnicodeUTF8));
         RBUniforme->setText(QApplication::translate("CreateHypothesis", "Uniform", 0, QApplication::UnicodeUTF8));
         RBChamp->setText(QApplication::translate("CreateHypothesis", "Driven by a field", 0, QApplication::UnicodeUTF8));
@@ -773,7 +772,7 @@ public:
         GBAdvancedOptions->setTitle(QApplication::translate("CreateHypothesis", "Advanced options", 0, QApplication::UnicodeUTF8));
         TLMinimalDiameter->setText(QApplication::translate("CreateHypothesis", "Minimal diameter", 0, QApplication::UnicodeUTF8));
         TLMaximalLevel->setText(QApplication::translate("CreateHypothesis", "Maximal level", 0, QApplication::UnicodeUTF8));
-        GBAdapInit->setTitle(QApplication::translate("CreateHypothesis", "Intialization of adaptation", 0, QApplication::UnicodeUTF8));
+        GBAdapInit->setTitle(QApplication::translate("CreateHypothesis", "Initialization of adaptation", 0, QApplication::UnicodeUTF8));
         RBAIN->setText(QApplication::translate("CreateHypothesis", "Nothing", 0, QApplication::UnicodeUTF8));
         RBAIR->setText(QApplication::translate("CreateHypothesis", "Refinement", 0, QApplication::UnicodeUTF8));
         RBAID->setText(QApplication::translate("CreateHypothesis", "Coarsening", 0, QApplication::UnicodeUTF8));
@@ -782,6 +781,7 @@ public:
         buttonApply->setText(QApplication::translate("CreateHypothesis", "Apply", 0, QApplication::UnicodeUTF8));
         buttonCancel->setText(QApplication::translate("CreateHypothesis", "Cancel", 0, QApplication::UnicodeUTF8));
         buttonHelp->setText(QApplication::translate("CreateHypothesis", "Help", 0, QApplication::UnicodeUTF8));
+        Name->setText(QApplication::translate("CreateHypothesis", "Name", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
