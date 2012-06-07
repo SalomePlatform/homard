@@ -26,6 +26,10 @@
 #include "utilities.h"
 #include <iostream>
 
+#ifndef WIN32
+# include <unistd.h>
+#endif
+
 //=============================================================================
 /*!
  *  default constructor:
