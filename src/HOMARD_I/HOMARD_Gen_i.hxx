@@ -220,11 +220,12 @@ private:
   HOMARD::HOMARD_Boundary_ptr     newBoundary();
 
 
-  virtual Engines::TMPFile* DumpPython(CORBA::Object_ptr theStudy,
-                                       CORBA::Boolean isPublished,
-                                       CORBA::Boolean isMultiFile,
-                                       CORBA::Boolean& isValidScript);
-
+  virtual Engines::TMPFile*       DumpPython(CORBA::Object_ptr theStudy,
+					     CORBA::Boolean isPublished,
+					     CORBA::Boolean isMultiFile,
+					     CORBA::Boolean& isValidScript);
+  
+  virtual char*                   getVersion();
 
 private:
   struct StudyContext
