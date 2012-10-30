@@ -119,7 +119,7 @@ libHOMARD_la_LDFLAGS  =                 \
 	../../idl/libSalomeIDLHOMARD.la \
 	../HOMARD_I/libHOMARDEngine.la  \
 	$(KERNEL_LDFLAGS)               \
-	$(MED3_LIBS)                    \
+	$(MED3_LIBS_C_ONLY)             \
         -lSalomeLifeCycleCORBA          \
 	$(GUI_LDFLAGS)                  \
 	-lSalomeApp                     \
