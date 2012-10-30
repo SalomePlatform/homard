@@ -71,7 +71,7 @@ libHOMARDEngine_la_LDFLAGS  =            \
 	../../idl/libSalomeIDLHOMARD.la  \
 	../HOMARD/libHOMARDImpl.la       \
 	$(KERNEL_LDFLAGS)                \
-	$(MED3_LIBS)                     \
+	$(MED3_LIBS_C_ONLY)              \
 	-lSalomeContainer                \
 	-lSalomeNS                       \
 	-lRegistry                       \
@@ -80,5 +80,4 @@ libHOMARDEngine_la_LDFLAGS  =            \
 	-lTOOLSDS                        \
 	-lSalomeGenericObj               \
         $(SMESH_LDFLAGS)                 \
-	-lSalomeIDLSMESH                 \
-        -lSMESHClient
+	-lSalomeIDLSMESH
