@@ -24,6 +24,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZoneBox                                                        |
 |                                                                                  |
 | **CreateZoneBox(zone_name, Xmin, Xmax, Ymin, Ymax, Zmin, Zmax)**                 |
+|     Retourne une instance de la classe ``zone`` de type parallélépipèdique       |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur un parallélépipède             |
 |     - ``Xmin``, ``Xmax`` : coordonnées extrêmes selon X                          |
@@ -33,6 +35,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZoneCylinder                                                   |
 |                                                                                  |
 | **CreateZoneCylinder(zone_name, Xbase, Ybase, Zbase, Xaxe, Yaxe, Zaxe, R, H)**   |
+|     Retourne une instance de la classe ``zone`` de type cylindrique              |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur un cylindre                    |
 |     - ``Xbase``, ``Ybase``, ``Zbase`` : coordonnées d'un point de base           |
@@ -44,6 +48,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZonePipe                                                       |
 |                                                                                  |
 | **CreateZonePipe(zone_name, Xbase, Ybase, Zbase, Xaxe, Yaxe, Zaxe, R, H, Rint)** |
+|     Retourne une instance de la classe ``zone`` de type tuyau                    |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur un tuyau                       |
 |     - ``Xbase``, ``Ybase``, ``Zbase`` : coordonnées d'un point de base           |
@@ -56,6 +62,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZoneSphere                                                     |
 |                                                                                  |
 | **CreateZoneSphere(zone_name, Xcen, Ycen, Zcen, R)**                             |
+|     Retourne une instance de la classe ``zone`` de type sphérique                |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur une sphère                     |
 |     - ``Xcen``, ``Ycen``, ``Zcen`` : coordonnées du centre de la sphère          |
@@ -64,6 +72,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZoneBox2D                                                      |
 |                                                                                  |
 | **CreateZoneBox2D(zone_name, Umin, Umax, Vmin, Vmax, Orient)**                   |
+|     Retourne une instance de la classe ``zone`` de type rectangulaire            |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur un rectangle                   |
 |     - ``Umin``, ``Umax`` : coordonnées extrêmes pour la 1ère dimension           |
@@ -73,6 +83,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZoneDisk                                                       |
 |                                                                                  |
 | **CreateZoneDisk(zone_name, Ucen, Vcen, R, Orient)**                             |
+|     Retourne une instance de la classe ``zone`` de type disque                   |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur un disque plein                |
 |     - ``Ucen``, ``Vcen`` : coordonnées du centre du disque                       |
@@ -82,6 +94,8 @@ Ces méthodes retournent une instance de la classe zone.
 | .. module:: CreateZoneDiskWithHole                                               |
 |                                                                                  |
 | **CreateZoneDiskWithHole(zone_name, Ucen, Vcen, R, Rint, Orient)**               |
+|     Retourne une instance de la classe ``zone`` de type disque troué             |
+|     après sa création                                                            |
 |                                                                                  |
 |     - ``zone_name`` : le nom de la zone basée sur un disque troué                |
 |     - ``Ucen``, ``Vcen`` : coordonnées du centre du disque                       |
@@ -107,6 +121,26 @@ Ces méthodes retournent une instance de la classe zone.
 .. note::
   Les fonctions définissant des zones 2D ne doivent être utilisées que si l'intégralité du
   maillage est 2D, dans un des plans de coordonnées.
+
+
+
+
++---------------------------------------------------------------+
++---------------------------------------------------------------+
+| .. module:: GetZone                                           |
+|                                                               |
+| **GetZone(zone_name)**                                        |
+|     Retourne l'instance de la classe ``zone`` connue par      |
+|     son nom                                                   |
+|                                                               |
+|     - ``zone_name`` : le nom de la zone                       |
++---------------------------------------------------------------+
+| .. module:: GetAllZones                                       |
+|                                                               |
+| **GetAllZones()**                                             |
+|     Retourne la liste des noms de toutes les zones créées     |
+|                                                               |
++---------------------------------------------------------------+
 
 
 Méthodes de la classe zone

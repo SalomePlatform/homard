@@ -356,6 +356,10 @@
         <translation>Niveau maximal</translation>
     </message>
     <message>
+        <source>Output of the level of refinement</source>
+        <translation>Sortie du niveau de raffinement</translation>
+    </message>
+    <message>
         <source>Create an iteration</source>
         <translation>Création d&apos;une itération</translation>
     </message>

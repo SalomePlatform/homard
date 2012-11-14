@@ -89,6 +89,8 @@ public:
   const double                  GetDiamMin() const;
   void                          SetAdapInit( int AdapInit );
   const int                     GetAdapInit() const;
+  void                          SetLevelOutput( int LevelOutput );
+  const int                     GetLevelOutput() const;
 
 
 private:
@@ -115,6 +117,7 @@ private:
   int                           _NivMax;
   double                        _DiamMin;
   int                           _AdapInit;
+  int                           _LevelOutput;
 
   std::list<std::string>        _ListIter;
   std::list<std::string>        _ListZone;

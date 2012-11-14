@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>770</width>
-    <height>1428</height>
+    <height>1453</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -79,6 +79,13 @@
     </widget>
    </item>
    <item row="2" column="0" colspan="2">
+    <widget class="QCheckBox" name="CBGroupe">
+     <property name="text">
+      <string>Filtering with groups</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
     <widget class="QGroupBox" name="GBUniform">
      <property name="title">
       <string>Uniform adaptation</string>
@@ -110,7 +117,7 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item row="4" column="0" colspan="2">
     <widget class="QGroupBox" name="GBFieldFile">
      <property name="title">
       <string/>
@@ -142,7 +149,7 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2">
+   <item row="5" column="0" colspan="2">
     <widget class="QGroupBox" name="GBFieldManagement">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -536,7 +543,7 @@
      </layout>
     </widget>
    </item>
-   <item row="5" column="0" colspan="2">
+   <item row="6" column="0" colspan="2">
     <widget class="QGroupBox" name="GBAreaManagement">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -655,7 +662,7 @@
      </layout>
     </widget>
    </item>
-   <item row="6" column="0" colspan="2">
+   <item row="7" column="0" colspan="2">
     <widget class="QGroupBox" name="GBField">
      <property name="title">
       <string>Field Interpolation</string>
@@ -722,13 +729,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="7" column="0" colspan="2">
-    <widget class="QCheckBox" name="CBGroupe">
-     <property name="text">
-      <string>Filtering with groups</string>
-     </property>
     </widget>
    </item>
    <item row="8" column="0" colspan="2">
@@ -821,6 +821,13 @@
           </widget>
          </item>
         </layout>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="CBLevelOutput">
+        <property name="text">
+         <string>Output of the level of refinement</string>
+        </property>
        </widget>
       </item>
      </layout>

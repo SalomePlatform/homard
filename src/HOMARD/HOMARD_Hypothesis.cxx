@@ -119,13 +119,11 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
     }
     if ( _TypeRaff == 1 )
     {
-      aScript << "\t" << _NomHypo << ".SetRefinThr(" << _TypeThR;
-      aScript << ", " << _ThreshR << ")\n";
+      aScript << "\t" << _NomHypo << ".SetRefinThr(" << _TypeThR << ", " << _ThreshR << ")\n";
     }
     if ( _TypeDera == 1 )
     {
-      aScript << "\t" << _NomHypo << ".SetUnRefThr(" << _TypeThC;
-      aScript << ", " << _ThreshC << ")\n";
+      aScript << "\t" << _NomHypo << ".SetUnRefThr(" << _TypeThC << ", " << _ThreshC << ")\n";
     }
   }
 
@@ -146,18 +144,19 @@ std::string HOMARD_Hypothesis::GetDumpPython() const
   }
   if ( _NivMax > 0 )
   {
-    aScript << "\tNivMax = " << _NivMax << "\n";
-    aScript << "\t" <<_NomHypo << ".SetNivMax(NivMax)\n";
+    aScript << "\t" <<_NomHypo << ".SetNivMax(" << _NivMax << ")\n";
   }
   if ( _DiamMin > 0 )
   {
-    aScript << "\tDiamMin = " << _DiamMin << "\n";
-    aScript << "\t" <<_NomHypo << ".SetDiamMin(DiamMin)\n";
+    aScript << "\t" <<_NomHypo << ".SetDiamMin(" << _DiamMin << ")\n";
   }
   if ( _AdapInit != 0 )
   {
-    aScript << "\tAdapInit = " << _AdapInit << "\n";
-    aScript << "\t" <<_NomHypo << ".SetAdapInit(AdapInit)\n";
+    aScript << "\t" <<_NomHypo << ".SetAdapInit(" << _AdapInit << ")\n";
+  }
+  if ( _LevelOutput != 0 )
+  {
+    aScript << "\t" <<_NomHypo << ".SetLevelOutput(" << _LevelOutput << ")\n";
   }
 
   return aScript.str();
@@ -449,4 +448,16 @@ const double HOMARD_Hypothesis::GetDiamMin() const
 //=============================================================================
 {
   return _DiamMin;
+}
+//=============================================================================
+void HOMARD_Hypothesis::SetLevelOutput( int LevelOutput )
+//=============================================================================
+{
+  _LevelOutput = LevelOutput;
+}
+//=============================================================================
+const int HOMARD_Hypothesis::GetLevelOutput() const
+//=============================================================================
+{
+  return _LevelOutput;
 }

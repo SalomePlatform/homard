@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'CreateHypothesis.ui'
 **
-** Created: Wed Apr 11 11:35:26 2012
+** Created: Wed Nov 14 11:07:43 2012
 **      by: Qt User Interface Compiler version 4.6.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -43,6 +43,7 @@ public:
     QRadioButton *RBUniforme;
     QRadioButton *RBChamp;
     QRadioButton *RBZone;
+    QCheckBox *CBGroupe;
     QGroupBox *GBUniform;
     QGridLayout *gridLayout;
     QRadioButton *RBUniDera;
@@ -101,7 +102,6 @@ public:
     QRadioButton *RBFieldAll;
     QRadioButton *RBFieldChosen;
     QTableWidget *TWField;
-    QCheckBox *CBGroupe;
     QCheckBox *CBAdvanced;
     QGroupBox *GBAdvancedOptions;
     QGridLayout *gridLayout_1;
@@ -114,6 +114,7 @@ public:
     QRadioButton *RBAIN;
     QRadioButton *RBAIR;
     QRadioButton *RBAID;
+    QCheckBox *CBLevelOutput;
     QGroupBox *GBButtons;
     QGridLayout *gridLayout7;
     QPushButton *buttonOk;
@@ -126,7 +127,7 @@ public:
     {
         if (CreateHypothesis->objectName().isEmpty())
             CreateHypothesis->setObjectName(QString::fromUtf8("CreateHypothesis"));
-        CreateHypothesis->resize(770, 1428);
+        CreateHypothesis->resize(770, 1453);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -172,6 +173,11 @@ public:
 
         gridLayout_3->addWidget(GBTypeAdaptation, 1, 0, 1, 2);
 
+        CBGroupe = new QCheckBox(CreateHypothesis);
+        CBGroupe->setObjectName(QString::fromUtf8("CBGroupe"));
+
+        gridLayout_3->addWidget(CBGroupe, 2, 0, 1, 2);
+
         GBUniform = new QGroupBox(CreateHypothesis);
         GBUniform->setObjectName(QString::fromUtf8("GBUniform"));
         gridLayout = new QGridLayout(GBUniform);
@@ -194,7 +200,7 @@ public:
         gridLayout->addWidget(RBUniRaff, 0, 0, 1, 1);
 
 
-        gridLayout_3->addWidget(GBUniform, 2, 0, 1, 2);
+        gridLayout_3->addWidget(GBUniform, 3, 0, 1, 2);
 
         GBFieldFile = new QGroupBox(CreateHypothesis);
         GBFieldFile->setObjectName(QString::fromUtf8("GBFieldFile"));
@@ -218,7 +224,7 @@ public:
         gridLayout1->addWidget(LEFieldFile, 0, 1, 1, 1);
 
 
-        gridLayout_3->addWidget(GBFieldFile, 3, 0, 1, 2);
+        gridLayout_3->addWidget(GBFieldFile, 4, 0, 1, 2);
 
         GBFieldManagement = new QGroupBox(CreateHypothesis);
         GBFieldManagement->setObjectName(QString::fromUtf8("GBFieldManagement"));
@@ -465,7 +471,7 @@ public:
         gridLayout2->addLayout(hboxLayout4, 2, 0, 1, 1);
 
 
-        gridLayout_3->addWidget(GBFieldManagement, 4, 0, 1, 2);
+        gridLayout_3->addWidget(GBFieldManagement, 5, 0, 1, 2);
 
         GBAreaManagement = new QGroupBox(CreateHypothesis);
         GBAreaManagement->setObjectName(QString::fromUtf8("GBAreaManagement"));
@@ -535,7 +541,7 @@ public:
         gridLayout_4->addLayout(vboxLayout1, 0, 2, 1, 1);
 
 
-        gridLayout_3->addWidget(GBAreaManagement, 5, 0, 1, 2);
+        gridLayout_3->addWidget(GBAreaManagement, 6, 0, 1, 2);
 
         GBField = new QGroupBox(CreateHypothesis);
         GBField->setObjectName(QString::fromUtf8("GBField"));
@@ -588,12 +594,7 @@ public:
         gridLayout5->addWidget(TWField, 1, 0, 1, 1);
 
 
-        gridLayout_3->addWidget(GBField, 6, 0, 1, 2);
-
-        CBGroupe = new QCheckBox(CreateHypothesis);
-        CBGroupe->setObjectName(QString::fromUtf8("CBGroupe"));
-
-        gridLayout_3->addWidget(CBGroupe, 7, 0, 1, 2);
+        gridLayout_3->addWidget(GBField, 7, 0, 1, 2);
 
         CBAdvanced = new QCheckBox(CreateHypothesis);
         CBAdvanced->setObjectName(QString::fromUtf8("CBAdvanced"));
@@ -654,6 +655,11 @@ public:
 
 
         gridLayout_1->addWidget(GBAdapInit, 2, 0, 1, 2);
+
+        CBLevelOutput = new QCheckBox(GBAdvancedOptions);
+        CBLevelOutput->setObjectName(QString::fromUtf8("CBLevelOutput"));
+
+        gridLayout_1->addWidget(CBLevelOutput, 3, 0, 1, 1);
 
 
         gridLayout_3->addWidget(GBAdvancedOptions, 9, 0, 1, 2);
@@ -721,6 +727,7 @@ public:
         RBUniforme->setText(QApplication::translate("CreateHypothesis", "Uniform", 0, QApplication::UnicodeUTF8));
         RBChamp->setText(QApplication::translate("CreateHypothesis", "Driven by a field", 0, QApplication::UnicodeUTF8));
         RBZone->setText(QApplication::translate("CreateHypothesis", "With geometrical zones", 0, QApplication::UnicodeUTF8));
+        CBGroupe->setText(QApplication::translate("CreateHypothesis", "Filtering with groups", 0, QApplication::UnicodeUTF8));
         GBUniform->setTitle(QApplication::translate("CreateHypothesis", "Uniform adaptation", 0, QApplication::UnicodeUTF8));
         RBUniDera->setText(QApplication::translate("CreateHypothesis", "Coarsening", 0, QApplication::UnicodeUTF8));
         RBUniRaff->setText(QApplication::translate("CreateHypothesis", "Refinement", 0, QApplication::UnicodeUTF8));
@@ -767,7 +774,6 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("CreateHypothesis", "Selection", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem6 = TWField->horizontalHeaderItem(1);
         ___qtablewidgetitem6->setText(QApplication::translate("CreateHypothesis", "Field Name", 0, QApplication::UnicodeUTF8));
-        CBGroupe->setText(QApplication::translate("CreateHypothesis", "Filtering with groups", 0, QApplication::UnicodeUTF8));
         CBAdvanced->setText(QApplication::translate("CreateHypothesis", "Advanced options", 0, QApplication::UnicodeUTF8));
         GBAdvancedOptions->setTitle(QApplication::translate("CreateHypothesis", "Advanced options", 0, QApplication::UnicodeUTF8));
         TLMinimalDiameter->setText(QApplication::translate("CreateHypothesis", "Minimal diameter", 0, QApplication::UnicodeUTF8));
@@ -776,6 +782,7 @@ public:
         RBAIN->setText(QApplication::translate("CreateHypothesis", "Nothing", 0, QApplication::UnicodeUTF8));
         RBAIR->setText(QApplication::translate("CreateHypothesis", "Refinement", 0, QApplication::UnicodeUTF8));
         RBAID->setText(QApplication::translate("CreateHypothesis", "Coarsening", 0, QApplication::UnicodeUTF8));
+        CBLevelOutput->setText(QApplication::translate("CreateHypothesis", "Output of the level of refinement", 0, QApplication::UnicodeUTF8));
         GBButtons->setTitle(QString());
         buttonOk->setText(QApplication::translate("CreateHypothesis", "OK", 0, QApplication::UnicodeUTF8));
         buttonApply->setText(QApplication::translate("CreateHypothesis", "Apply", 0, QApplication::UnicodeUTF8));

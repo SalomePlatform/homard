@@ -101,7 +101,8 @@ void MonEditHypothesis::InitValEdit()
   int NivMax = _aHypothesis->GetNivMax();
   double DiamMin = _aHypothesis->GetDiamMin();
   int AdapInit = _aHypothesis->GetAdapInit();
-  if ( NivMax > 0 or DiamMin > 0 or AdapInit != 0 )
+  int LevelOutput = _aHypothesis->GetLevelOutput();
+  if ( NivMax > 0 or DiamMin > 0 or AdapInit != 0 or LevelOutput != 0 )
   { GBAdvancedOptions->setVisible(1);
     if ( NivMax > 0 )
     { spinBoxNivMax->setValue(NivMax);
@@ -127,6 +128,14 @@ void MonEditHypothesis::InitValEdit()
     }
     else
     { GBAdapInit->setVisible(0) ;
+    }
+    if ( LevelOutput != 0 )
+    {
+      CBLevelOutput->setChecked(true);
+      CBLevelOutput->setEnabled(false);
+    }
+    else
+    { CBLevelOutput->setVisible(0) ;
     }
   }
   else

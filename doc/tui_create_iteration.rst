@@ -17,7 +17,8 @@ Méthodes de la classe homard
 | .. module:: CreateIteration                                   |
 |                                                               |
 | **CreateIteration(iter_name, iter_parent_name)**              |
-|     Retourne une instance de la classe iteration              |
+|     Retourne une instance de la classe ``iteration`` après    |
+|     sa création                                               |
 |                                                               |
 |     - ``iter_name`` : le nom de l'itération                   |
 |     - ``iter_parent_name`` : le nom de l'itération mère       |
@@ -29,9 +30,24 @@ Méthodes de la classe homard
 | .. module:: AssociateIterHypo                                 |
 |                                                               |
 | **AssociateIterHypo(iter_name, hypo_name)**                   |
+|     Associe une hypothèse à une itération                     |
 |                                                               |
 |     - ``iter_name`` : le nom de l'itération                   |
 |     - ``hypo_name`` : le nom de l'hypothèse à associer        |
++---------------------------------------------------------------+
+| .. module:: GetIteration                                      |
+|                                                               |
+| **GetIteration(iter_name)**                                   |
+|     Retourne l'instance de la classe ``iteration`` connue par |
+|     son nom                                                   |
+|                                                               |
+|     - ``iter_name`` : le nom de l'itération                   |
++---------------------------------------------------------------+
+| .. module:: GetAllIterations                                  |
+|                                                               |
+| **GetAllIterations()**                                        |
+|     Retourne la liste des noms de toutes les itérations créées|
+|                                                               |
 +---------------------------------------------------------------+
 
 Méthodes de la classe iteration
@@ -108,6 +124,7 @@ Informations sur les maillages
 | .. module:: SetMeshFile                                       |
 |                                                               |
 | **SetMeshFile(mesh_file)**                                    |
+|     Définit le fichier du maillage produit                    |
 |                                                               |
 |     - ``mesh_file`` : le nom du fichier qui contiendra        |
 |       le maillage produit                                     |
@@ -126,12 +143,16 @@ Informations sur le champ
 | .. module:: SetFieldFile                                      |
 |                                                               |
 | **SetFieldFile(field_file)**                                  |
+|     Définit le fichier des champs utiles                      |
 |                                                               |
 |     - ``field_file`` : le nom du fichier contenant le champ   |
 +---------------------------------------------------------------+
 | .. module:: SetTimeStepRank                                   |
 |                                                               |
 | **SetTimeStepRank(TimeStep, Rank)**                           |
+|     Définit les instants pour le champ                        |
+|                                                               |
+|     Inutile si aucun instant n'est défini pour le champ       |
 |                                                               |
 |     - ``TimeStep`` : l'instant où est pris le champ           |
 |     - ``Rank`` : le numéro d'ordre où est pris le champ       |
@@ -160,7 +181,8 @@ Pour la création de la première itération, il faut récupérer le nom qui a été do
 
     iter_name = "Iteration_1"
     iter_1 = homard.CreateIteration(iter_name, case_1.GetIter0Name())
-    iter_1.SetField(field_file, 0, 0)
+    iter_1.SetField(field_file)
+    iter_1.SetTimeStepRank( 0, 0)
     iter_1.SetMeshName("maill_01")
     iter_1.SetMeshFile("/local00/M.01.med")
     homard.AssociateIterHypo(iter_name, "HypoField")
@@ -170,7 +192,8 @@ Pour la création d'une itération suivante, on donnera le nom de l'itération pare
 
     iter_name = "Iteration_2"
     iter_2 = homard.CreateIteration(iter_name, "Iteration_1")
-    iter_2.SetField(field_file, 0, 0)
+    iter_2.SetField(field_file)
+    iter_2.SetTimeStepRank( 1, 1)
     iter_2.SetMeshName("maill_02")
     iter_2.SetMeshFile("/local00/M.02.med")
     homard.AssociateIterHypo(iter_name, "HypoField")

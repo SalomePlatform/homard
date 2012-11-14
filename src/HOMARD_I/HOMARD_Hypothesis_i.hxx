@@ -91,6 +91,8 @@ public:
   CORBA::Double                GetDiamMin();
   void                         SetAdapInit( CORBA::Long AdapInit );
   CORBA::Long                  GetAdapInit();
+  void                         SetLevelOutput( CORBA::Long LevelOutput );
+  CORBA::Long                  GetLevelOutput();
 
   std::string                  Dump() const;
   bool                         Restore( const std::string& stream );

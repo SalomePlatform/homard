@@ -16,7 +16,8 @@ Méthodes de la classe homard
 | .. module:: CreateCase                                        |
 |                                                               |
 | **CreateCase(case_name, mesh_name, mesh_file)**               |
-|     Retourne une instance de la classe cas                    |
+|     Retourne une instance de la classe ``cas`` après sa       |
+|     création                                                  |
 |                                                               |
 |     - ``case_name`` : le nom du cas                           |
 |     - ``mesh_name`` : le nom du maillage initial              |
@@ -26,6 +27,20 @@ Méthodes de la classe homard
 |                                                               |
 |  * le répertoire des résultats est ``/tmp``                   |
 |  * l'adaptation est conforme                                  |
++---------------------------------------------------------------+
+| .. module:: GetCase                                           |
+|                                                               |
+| **GetCase(case_name)**                                        |
+|     Retourne l'instance de la classe ``cas`` connue par       |
+|     son nom                                                   |
+|                                                               |
+|     - ``case_name`` : le nom du cas                           |
++---------------------------------------------------------------+
+| .. module:: GetAllCases                                       |
+|                                                               |
+| **GetAllCases()**                                             |
+|     Retourne la liste des noms de tous les cas créés          |
+|                                                               |
 +---------------------------------------------------------------+
 
 
@@ -42,6 +57,7 @@ Méthodes de la classe cas
 | .. module:: SetDirName                                        |
 |                                                               |
 | **SetDirName(dirname)**                                       |
+|     Affecte le répertoire des résutats associé au cas         |
 |                                                               |
 |     - ``dirname`` : le nom du répertoire des résutats         |
 +---------------------------------------------------------------+
@@ -53,6 +69,7 @@ Méthodes de la classe cas
 | .. module:: SetConfType                                       |
 |                                                               |
 | **SetConfType(conf_type)**                                    |
+|     Définit le mode de conformité associé au cas              |
 |                                                               |
 |     - ``conf_type`` : entier précisant le mode de conformité  |
 |                                                               |
@@ -70,12 +87,13 @@ Méthodes de la classe cas
 |                                                               |
 | **GetIter0Name()**                                            |
 |     Retourne le nom de l'itération 0, associée au maillage    |
-|     initial. Ce nom est mis automatiquement par le module     |
+|     initial. Ce nom est créé automatiquement par le module    |
 |     HOMARD et doit être utilisé pour enchaîner les adaptations|
 +---------------------------------------------------------------+
 | .. module:: AddBoundaryGroup                                  |
 |                                                               |
 | **AddBoundaryGroup(boundary, group)**                         |
+|     Ajoute une frontière à la définition du cas               |
 |                                                               |
 |     - ``boundary`` : nom d'une frontière courbe à suivre      |
 |                                                               |
@@ -100,6 +118,7 @@ Les options avancées
 | .. module:: SetPyram                                          |
 |                                                               |
 | **SetPyram(option)**                                          |
+|     Définit le statut des pyramides pour le cas               |
 |                                                               |
 |     - ``option`` : entier précisant le statut des pyramides   |
 |       éventuellement présentes dans le maillage initial       |

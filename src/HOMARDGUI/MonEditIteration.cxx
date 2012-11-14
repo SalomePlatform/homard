@@ -36,7 +36,7 @@ MonEditIteration::MonEditIteration ( QWidget* parent, bool modal,
     herite de MonCreateIteration
 */
    MonCreateIteration(parent, modal, myHomardGen, IterParentName),
-   _rank(0), _step(0), _IterationName(""), _FieldFile(""),_aTypeAdap()
+   _rank(-1), _step(-1), _IterationName(""), _FieldFile(""),_aTypeAdap()
 {
     MESSAGE("Debut de  MonEditIteration" << IterName.toStdString().c_str());
     setWindowTitle(QObject::tr("HOM_ITER_EDIT_WINDOW_TITLE"));

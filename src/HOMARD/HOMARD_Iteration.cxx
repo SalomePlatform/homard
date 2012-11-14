@@ -34,7 +34,7 @@ HOMARD_Iteration::HOMARD_Iteration():
   _NomIter( "" ), _Etat( false ),
  _NumIter( -1 ),
   _NomMesh( "" ), _MeshFile( "" ),
-  _FieldFile( "" ), _TimeStep( 0 ), _Rank( 0 ),
+  _FieldFile( "" ), _TimeStep( -1 ), _Rank( -1 ),
   _MessFile( "" ),
   _IterParent( "" ),
   _NomHypo( "" ), _NomCas( "" ), _NomDir( "" )
@@ -94,21 +94,22 @@ std::string HOMARD_Iteration::GetDumpPython() const
   aScript << "\t" << _NomIter << ".SetMeshName(\"" << _NomMesh << "\")\n" ;
 // Le fichier du maillage produit
   aScript << "\t" << _NomIter << ".SetMeshFile(\"" << _MeshFile << "\")\n";
-  if (_FieldFile != "") {
+// Le fichier des champs, avec l'instant eventuel
+  if ( _FieldFile != "" ) {
     aScript << "\t" << _NomIter << ".SetFieldFile(\"" << _FieldFile << "\")\n";
-    aScript << "\tTimeStep = " << _TimeStep << "\n";
-    aScript << "\tRank = " << _Rank << "\n";
-    aScript << "\t" << _NomIter << ".SetTimeStepRank( TimeStep, Rank )\n";
+    if ( ( _TimeStep != -1 ) and ( _Rank != -1 ) ) {
+      aScript << "\t" << _NomIter << ".SetTimeStepRank( " << _TimeStep << ", " << _Rank << " )\n";
+    }
   }
 
   aScript << "\thomard.AssociateIterHypo(\"" <<_NomIter << "\", \"" << _NomHypo << "\")\n";
   if (_Etat == true)
   {
-     aScript << "\tcodret = homard.Compute(\"" <<_NomIter << "\", 1)\n";
+     aScript << "\tcodret = " <<_NomIter << ".Compute(1)\n";
   }
   else
   {
-     aScript << "\t#codret = homard.Compute(\"" <<_NomIter << "\", 1)\n";
+     aScript << "\t#codret = " <<_NomIter << ".Compute(1)\n";
   }
 
   return aScript.str();

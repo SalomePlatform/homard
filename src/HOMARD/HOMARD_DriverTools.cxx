@@ -228,6 +228,8 @@ namespace HOMARD
 
     os << separator() << hypothesis.GetNivMax();
     os << separator() << hypothesis.GetDiamMin();
+    os << separator() << hypothesis.GetAdapInit();
+    os << separator() << hypothesis.GetLevelOutput();
 
 //    MESSAGE( ". Fin avec "<<os.str());
     return os.str();
@@ -584,6 +586,14 @@ namespace HOMARD
     chunk = getNextChunk( stream, start, ok );
     if ( !ok ) return false;
     hypothesis.SetDiamMin( strtod( chunk.c_str(), 0 ) );
+
+    chunk = getNextChunk( stream, start, ok );
+    if ( !ok ) return false;
+    hypothesis.SetAdapInit( strtod( chunk.c_str(), 0 ) );
+
+    chunk = getNextChunk( stream, start, ok );
+    if ( !ok ) return false;
+    hypothesis.SetLevelOutput( strtod( chunk.c_str(), 0 ) );
 
     return true;
   }

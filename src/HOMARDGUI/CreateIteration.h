@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'CreateIteration.ui'
 **
-** Created: Wed Apr 11 11:35:39 2012
+** Created: Wed Nov 14 11:09:41 2012
 **      by: Qt User Interface Compiler version 4.6.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -120,9 +120,9 @@ public:
 
         SpinBox_Rank = new QSpinBox(GBField);
         SpinBox_Rank->setObjectName(QString::fromUtf8("SpinBox_Rank"));
-        SpinBox_Rank->setMaximum(1010000);
         SpinBox_Rank->setMinimum(-1);
-        SpinBox_Rank->setValue(1);
+        SpinBox_Rank->setMaximum(1010000);
+        SpinBox_Rank->setValue(-1);
 
         gridLayout1->addWidget(SpinBox_Rank, 4, 5, 1, 1);
 
@@ -137,8 +137,8 @@ public:
 
         SpinBox_TimeStep = new QSpinBox(GBField);
         SpinBox_TimeStep->setObjectName(QString::fromUtf8("SpinBox_TimeStep"));
-        SpinBox_TimeStep->setMaximum(100000);
         SpinBox_TimeStep->setMinimum(-2);
+        SpinBox_TimeStep->setMaximum(100000);
         SpinBox_TimeStep->setValue(-1);
 
         gridLayout1->addWidget(SpinBox_TimeStep, 4, 1, 1, 1);

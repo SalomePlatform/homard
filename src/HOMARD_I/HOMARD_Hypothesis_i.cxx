@@ -395,6 +395,18 @@ CORBA::Long HOMARD_Hypothesis_i::GetAdapInit()
   ASSERT( myHomardHypothesis );
   return myHomardHypothesis->GetAdapInit();
 }
+//=============================================================================
+void HOMARD_Hypothesis_i::SetLevelOutput( CORBA::Long LevelOutput )
+{
+  ASSERT( myHomardHypothesis );
+  myHomardHypothesis->SetLevelOutput( LevelOutput );
+}
+//=============================================================================
+CORBA::Long HOMARD_Hypothesis_i::GetLevelOutput()
+{
+  ASSERT( myHomardHypothesis );
+  return myHomardHypothesis->GetLevelOutput();
+}
 
 //=============================================================================
 std::string HOMARD_Hypothesis_i::Dump() const

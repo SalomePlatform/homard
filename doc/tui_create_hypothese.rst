@@ -17,7 +17,7 @@ Méthodes de la classe homard
 | .. module:: CreateHypothesis                                  |
 |                                                               |
 | **CreateHypothesis(hypo_name)**                               |
-|     Retourne une instance de la classe hypothese              |
+|     Retourne une instance de la classe ``hypothese``          |
 |                                                               |
 |     - ``hypo_name`` : le nom de l'hypothèse                   |
 +---------------------------------------------------------------+
@@ -31,6 +31,20 @@ Méthodes de la classe homard
 |                                                               |
 |         * 1 : raffinement                                     |
 |         * -1 : déraffinement                                  |
++---------------------------------------------------------------+
+| .. module:: GetHypothesis                                     |
+|                                                               |
+| **GetHypothesis(hypo_name)**                                  |
+|     Retourne l'instance de la classe ``hypothese`` connue par |
+|     son nom                                                   |
+|                                                               |
+|     - ``hypo_name`` : le nom de l'hypothèse                   |
++---------------------------------------------------------------+
+| .. module:: GetAllHypotheses                                  |
+|                                                               |
+| **GetAllHypotheses()**                                        |
+|     Retourne la liste des noms de toutes les hypothèses créées|
+|                                                               |
 +---------------------------------------------------------------+
 
 Méthodes de la classe hypothese
@@ -49,6 +63,7 @@ Généralités
 | .. module:: SetAdapRefinUnRef                                 |
 |                                                               |
 | **SetAdapRefinUnRef(Adap, Refin, UnRef)**                     |
+|     Affecte le mode d'adaptation associé à l'hypothèse        |
 |                                                               |
 |     - ``Adap`` : entier précisant le type d'adaptation        |
 |                                                               |
@@ -91,6 +106,7 @@ Le champ et les seuils
 | .. module:: SetField                                          |
 |                                                               |
 | **SetField(field_name)**                                      |
+|     Attribue un nom de champ à l'hypothèse                    |
 |                                                               |
 |     - ``field_name`` : le nom du champ                        |
 +---------------------------------------------------------------+
@@ -102,6 +118,7 @@ Le champ et les seuils
 | .. module:: SetUseField                                       |
 |                                                               |
 | **SetUseField(use_field)**                                    |
+|     Attribue un mode d'usage du champ à l'hypothèse           |
 |                                                               |
 |     - ``use_field`` : entier précisant l'usage du champ       |
 |                                                               |
@@ -111,6 +128,7 @@ Le champ et les seuils
 | .. module:: SetRefinThr                                       |
 |                                                               |
 | **SetRefinThr(type_thres, threshold)**                        |
+|     Définit les seuils en raffinement                         |
 |                                                               |
 |     - ``type_thres`` : entier précisant le type de seuil en   |
 |       raffinement                                             |
@@ -129,6 +147,7 @@ Le champ et les seuils
 | .. module:: SetUnRefThr                                       |
 |                                                               |
 | **SetUnRefThr(type_thres, threshold)**                        |
+|     Définit les seuils en déraffinement                       |
 |                                                               |
 |     - ``type_thres`` : entier précisant le type de seuil en   |
 |       déraffinement                                           |
@@ -154,6 +173,7 @@ Les composantes du champ
 | .. module:: AddComp                                           |
 |                                                               |
 | **AddComp(comp_name)**                                        |
+|     Ajoute une composante du champ à considérer               |
 |                                                               |
 |     - ``comp_name`` : nom d'une composante à prendre en       |
 |       compte                                                  |
@@ -161,6 +181,7 @@ Les composantes du champ
 | .. module:: SetUseComp                                        |
 |                                                               |
 | **SetUseComp(use_comp)**                                      |
+|     Définit l'usage des composantes                           |
 |                                                               |
 |     - ``use_comp`` : entier précisant l'usage des composantes |
 |                                                               |
@@ -182,6 +203,7 @@ Le filtrage par les groupes
 | .. module:: AddGroup                                          |
 |                                                               |
 | **AddGroup(group_name)**                                      |
+|     Ajoute un groupe au filtrage                              |
 |                                                               |
 |     - ``group_name`` : nom du groupe à prendre en compte      |
 +---------------------------------------------------------------+
@@ -199,6 +221,7 @@ Les options avancées
 | .. module:: SetNivMax                                         |
 |                                                               |
 | **SetNivMax(nivmax)**                                         |
+|     Définit le niveau maximal de raffinement                  |
 |                                                               |
 |     - ``nivmax`` : niveau de raffinement à ne pas dépasser    |
 +---------------------------------------------------------------+
@@ -210,6 +233,7 @@ Les options avancées
 | .. module:: SetDiamMin                                        |
 |                                                               |
 | **SetDiamMin(diammin)**                                       |
+|     Définit le diamètre minimal des futures mailles           |
 |                                                               |
 |     - ``diammin`` : diamètre minimal voulu pour une maille    |
 +---------------------------------------------------------------+
@@ -217,6 +241,41 @@ Les options avancées
 |                                                               |
 | **GetDiamMin()**                                              |
 |     Retourne le diamètre minimal voulu                        |
++---------------------------------------------------------------+
+| .. module:: SetAdapInit                                       |
+|                                                               |
+| **SetAdapInit(option)**                                       |
+|     Définit le traitement à appliquer aux mailles où          |
+|     le champ de pilotage du raffinement n'est pas défini      |
+|                                                               |
+|     - ``option`` : entier précisant le choix retenu           |
+|                                                               |
+|         *  0 : aucun effet (défaut)                           |
+|         *  1 : les mailles sans indicateurs sont raffinées    |
+|         * -1 : les mailles sans indicateurs sont déraffinées  |
++---------------------------------------------------------------+
+| .. module:: GetAdapInit                                       |
+|                                                               |
+| **GetAdapInit()**                                             |
+|     Retourne le type de traitement à appliquer aux mailles où |
+|     le champ de pilotage du raffinement n'est pas défini      |
++---------------------------------------------------------------+
+| .. module:: SetLevelOutput                                    |
+|                                                               |
+| **SetLevelOutput(option)**                                    |
+|     Précise si on veut récupérer le niveau de raffinement des |
+|     mailles sous la forme d'un champ                          |
+|                                                               |
+|     - ``option`` : entier précisant le choix retenu           |
+|                                                               |
+|         *  0 : aucun effet (défaut)                           |
+|         *  1 : le champ est produit                           |
++---------------------------------------------------------------+
+| .. module:: GetLevelOutput                                    |
+|                                                               |
+| **GetLevelOutput()**                                          |
+|     Retourne le choix retenu pour la récupération du niveau   |
+|     de raffinement                                            |
 +---------------------------------------------------------------+
 
 

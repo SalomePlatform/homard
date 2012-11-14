@@ -301,36 +301,47 @@ void MonCreateIteration::SetFieldFile()
 // ------------------------------------------------------------------------
 void MonCreateIteration::SetTSNo()
 // ------------------------------------------------------------------------
-// Par defaut, on declare que le pas de temps vaut -1
+// Si on ne tient pas compte du pas de temps, on declare que le pas de temps
+// vaut -1, valeur par defaut de med
 {
   Rank->setVisible(0);
   SpinBox_Rank->setVisible(0);
+  SpinBox_Rank->setValue(-1);
+
   TimeStep->setVisible(0);
   SpinBox_TimeStep->setVisible(0);
   SpinBox_TimeStep->setValue(-1);
+
   adjustSize();
 }
 // ------------------------------------------------------------------------
 void MonCreateIteration::SetTSLast()
 // ------------------------------------------------------------------------
-// Par defaut, on declare que le pas de temps vaut -2
+// Si on choisit le dernier instant, on declare que le pas de temps vaut -2
 {
   Rank->setVisible(0);
   SpinBox_Rank->setVisible(0);
+  SpinBox_Rank->setValue(-2);
+
   TimeStep->setVisible(0);
   SpinBox_TimeStep->setVisible(0);
   SpinBox_TimeStep->setValue(-2);
+
   adjustSize();
 }
 // ------------------------------------------------------------------------
 void MonCreateIteration::SetTSChosen()
 // ------------------------------------------------------------------------
+// Si choisit un instant, on prepositionne a 0
 {
   Rank->setVisible(1);
   SpinBox_Rank->setVisible(1);
+  SpinBox_Rank->setValue(0);
+
   TimeStep->setVisible(1);
   SpinBox_TimeStep->setVisible(1);
-  SpinBox_TimeStep->setValue(1);
+  SpinBox_TimeStep->setValue(0);
+
   adjustSize();
 }
 

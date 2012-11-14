@@ -51,7 +51,9 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
     _UsField(0), _UsCmpI(0), _TypeFieldInterp(0),
     _NivMax(-1),
     _DiamMin(-1.),
-    _AdapInit(0)
+    _AdapInit(0),
+    _LevelOutput(0)
+
 {
       MESSAGE("Constructeur") ;
       _myHomardGen=HOMARD::HOMARD_Gen::_duplicate(myHomardGen);
@@ -70,6 +72,7 @@ MonCreateHypothesis::MonCreateHypothesis(MonCreateIteration* parent, bool modal,
       }
       SetFieldNo();
       GBAdvancedOptions->setVisible(0);
+      CBLevelOutput->setChecked(false);
 }
 
 // ------------------------------------------------------------------------
@@ -176,6 +179,9 @@ bool MonCreateHypothesis::PushOnApply()
     _aHypothesis->SetDiamMin(_DiamMin);
 // Enregistrement de l'intialisation de l'adaptation
     _aHypothesis->SetAdapInit(_AdapInit);
+// Sortie des niveaux de raffinement
+    if (CBLevelOutput->isChecked()) { _LevelOutput = 1 ; }
+    _aHypothesis->SetLevelOutput(_LevelOutput);
   }
 
   HOMARD_UTILS::updateObjBrowser();
@@ -839,6 +845,8 @@ void MonCreateHypothesis::SetAdvanced()
     _NivMax = -1 ;
     _DiamMin = -1. ;
     _AdapInit = 0 ;
+    CBLevelOutput->setChecked(false);
+    _LevelOutput = 0 ;
   }
   adjustSize();
 }
