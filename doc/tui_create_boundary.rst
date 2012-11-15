@@ -1,4 +1,4 @@
-.. _gui_create_hypothese:
+.. _tui_create_boundary:
 
 L'hypothèse
 ===========

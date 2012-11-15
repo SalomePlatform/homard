@@ -97,6 +97,7 @@ Par défaut, HOMARD sait traiter des maillages en 2 ou 3 dimensions et comportant
    - tétraèdres
    - hexaèdres
    - prismes
+
 Si le maillage initial comporte des pyramides, il y a arrêt en erreur. Toutefois, si on est certain que les raffinements ultérieurs ne toucheront aucune des arêtes des pyramides, on cochera la case "Pyramides autorisées". Les adaptations se dérouleront normalement et les pyramides seront restituées telles quelles dans le maillage final.
 
 L'arbre d'étude

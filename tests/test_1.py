@@ -132,6 +132,8 @@ Copyright EDF-R&D 2010
 ######################################################################################
 
 homard = salome.lcc.FindOrLoadComponent('FactoryServer', 'HOMARD')
+assert homard is not None, "Impossible to load homard engine"
+
 #
 # Exec of HOMARD-SALOME
 #
@@ -139,8 +141,8 @@ try :
   error_main = homard_exec(salome.myStudy)
   if error_main :
     raise Exception('Pb in homard_exec at iteration %d' %error_main )
-except :
-  raise Exception('Pb in homard_exec')
+except Exception, e:
+  raise Exception('Pb in homard_exec: '+e.message)
 
 #
 # Test of the result

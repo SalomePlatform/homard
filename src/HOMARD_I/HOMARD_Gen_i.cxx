@@ -27,6 +27,8 @@
 #include "HOMARD_DriverTools.hxx"
 #include "HomardMedCommun.h"
 
+#include "HOMARD_version.h"
+
 #include "utilities.h"
 #include "Utils_SINGLETON.hxx"
 #include "Utils_CorbaException.hxx"
@@ -2702,6 +2704,17 @@ Engines::TMPFile* HOMARD_Gen_i::DumpPython(CORBA::Object_ptr theStudy,
    Engines::TMPFile_var aStreamFile = new Engines::TMPFile(aLen+1, aLen+1, anOctetBuf, 1);
 
    return aStreamFile._retn();
+}
+
+
+// Version information
+char* HOMARD_Gen_i::getVersion()
+{
+#if HOMARD_DEVELOPMENT
+  return CORBA::string_dup(HOMARD_VERSION_STR"dev");
+#else
+  return CORBA::string_dup(HOMARD_VERSION_STR);
+#endif
 }
 
 //=============================================================================
