@@ -128,9 +128,8 @@ try :
   if error_main :
     raise Exception('Pb in homard_exec at iteration %d' %error_main )
 except :
-  if error_main :
-    raise Exception('Pb in homard_exec at iteration %d' %error_main )
-  sys.exit(1)
+  raise Exception('Pb in homard_exec')
+
 #
 # Test of the result
 #
