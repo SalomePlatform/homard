@@ -23,7 +23,7 @@
 # Modified by : Alexander BORODIN (OCN) - autotools usage
 # Created from configure.in.base
 #
-AC_INIT([Salome2 Project HOMARD module], [6.5.0], [webmaster.salome@opencascade.com], [SalomeHOMARD])
+AC_INIT([Salome2 Project HOMARD module], [6.6.0], [webmaster.salome@opencascade.com], [SalomeHOMARD])
 AC_CONFIG_AUX_DIR(adm_local/unix/config_files)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
@@ -33,7 +33,7 @@ SHORT_VERSION=`echo $VERSION | awk -F. '{printf("%d.%d",$1,$2)}'`
 AC_SUBST(SHORT_VERSION)
 XVERSION=`echo $VERSION | awk -F. '{printf("0x%02x%02x%02x",$1,$2,$3)}'`
 AC_SUBST(XVERSION)
-VERSION_DEV=1
+VERSION_DEV=0
 AC_SUBST(VERSION_DEV)
 
 # set up MODULE_NAME variable for dynamic construction of directories (resources, etc.)
