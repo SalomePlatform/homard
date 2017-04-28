@@ -1,6 +1,6 @@
     <HOMARD, a SALOME module for Mesh Adaptation>
 
-    Copyright (C) 1996, 2016 EDF
+    Copyright (C) 1996, 2017 EDF
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
