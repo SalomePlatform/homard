@@ -130,7 +130,7 @@ c
       texte(1,5) = '(/,''... '',a)'
 c
       texte(2,4) = '(''. Writings of meshes.'')'
-      texte(2,4) = '(/,''... '',a)'
+      texte(2,5) = '(/,''... '',a)'
 c
 #include "impr03.h"
 c

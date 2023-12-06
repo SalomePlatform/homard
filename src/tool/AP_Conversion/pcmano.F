@@ -302,6 +302,11 @@ c
           lenolo = nnosho(lenoeu)
           coonca(lenoeu,1) = coonoe(lenolo,1)
   221   continue
+        if(dimcst.eq.2) then
+          do 2223 , lenoeu = 1 , nbnoto
+            coonca(lenoeu,2) = 0.d0
+ 2223     continue
+        endif
 c
       elseif ( sdim.eq.2 ) then
 c

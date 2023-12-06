@@ -126,7 +126,7 @@ c
       texte(1,10) = '(''Nouveau nombre de noeuds : '',i10)'
 c
       texte(2,4) = '(''Adresses for nodes'')'
-      texte(2,6) = '(''Error codes'',20i3)'
+      texte(2,8) = '(''Error codes'',20i3)'
       texte(2,9) = '(''Old number of nodes : '',i10)'
       texte(2,10) = '(''New number of nodes : '',i10)'
 c

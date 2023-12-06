@@ -947,7 +947,9 @@ c                 12345678901234567890123456789012
       endif
 #ifdef _DEBUG_HOMARD_
       write (ulsort,texte(langue,3)) 'UTINMA', nompro
+      write (ulsort,'(A)') 'TEST2'
 #endif
+      write (ulsort,'(A)') 'TEST'
       call utinma ( iaux, saux32,
      >              sdimca, mdimca, degre,
      >              nbnoto, jaux, jaux, jaux,
