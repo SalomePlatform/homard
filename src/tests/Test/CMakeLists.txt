@@ -32,6 +32,7 @@ SET(HOMARD_TEST_FILES
   tutorial_5.py
   tutorial_6.py
   test_util.py
+  test_2d_1d_mesh.py
 )
 
 INSTALL(FILES ${HOMARD_TEST_FILES}

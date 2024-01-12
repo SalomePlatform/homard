@@ -36,6 +36,7 @@ tutorial_3
 tutorial_4
 tutorial_5
 tutorial_6
+test_2d_1d_mesh
 )
 
 FOREACH(tfile ${HOMARD_TEST_FILES})
