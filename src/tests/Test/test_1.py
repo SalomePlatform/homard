@@ -30,7 +30,9 @@ N_ITER_TEST_FILE = 3
 #========================================================================
 import os
 import sys
+
 import HOMARD
+import platform
 import salome
 #
 # ==================================
@@ -41,6 +43,7 @@ REP_PYTHON = os.path.normpath(REP_PYTHON)
 sys.path.append(REP_PYTHON)
 from test_util import get_dir
 from test_util import test_results
+from test_util import update_test_win
 # ==================================
 # Répertoires pour ce test
 REP_DATA, DIRCASE = get_dir(PATH_HOMARD, TEST_NAME, DEBUG)
@@ -171,6 +174,7 @@ Python script for HOMARD
   #
   # Creation of the schema YACS
   # ===========================
+  
     scriptfile = os.path.join(PATH_HOMARD, "share", "doc", "salome", "gui", "HOMARD", "en", "_downloads", "yacs_script_test.py")
     scriptfile = os.path.normpath(scriptfile)
     dirname = DIRCASE
@@ -178,8 +182,8 @@ Python script for HOMARD
     yacs_test_1.SetMaxIter(N_ITER_TEST_FILE)
     error = yacs_test_1.Write()
     if error :
-      error = 4
-      break
+     error = 4
+     break
   #
     break
   #
@@ -204,6 +208,12 @@ except RuntimeError as eee:
 #
 N_REP_TEST_FILE = N_ITER_TEST_FILE
 DESTROY_DIR = not DEBUG
+
+if platform.system() == 'Windows':
+  DESTROY_DIR = DEBUG
+  texte_sup= "Le maillage est conforme par boites." 
+  update_test_win(DIRCASE,N_REP_TEST_FILE,N_ITER_TEST_FILE,texte_sup)
+
 test_results(REP_DATA, TEST_NAME, DIRCASE, N_ITER_TEST_FILE, N_REP_TEST_FILE, DESTROY_DIR)
 #
 if salome.sg.hasDesktop():

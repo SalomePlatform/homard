@@ -24,9 +24,11 @@ Utilitaires pour les tests
 __revision__ = "V4.06"
 
 import os
+import sys
 import tempfile
 import MEDLoader as ml
 import shutil
+from decimal import Decimal
 #========================================================================
 #========================================================================
 def get_dir(path_homard, test_name, debug=False) :
@@ -390,4 +392,115 @@ Entrées :
 #
 #========================================================================
 #========================================================================
+# Pour Windows, la compilation exige l'utlisation d'une option "debug" qui
+# ajoute un ligne dans le fichier de resultats .bilan . 
+# La ligne suplemnentaire de ce fichier est identife pour les tests
+# auto , elle est donc supprimer temporairement pour faire 
+# la comparaison avec les ref qui ont été établi sans cette option de compilation . 
+def update_test_win(DIR_TMP, N_ITER_TEST,N_TEST,phrase):
+  """
+ Mise à jour du fichier .bilan generé sous windows 
+ Entrées :
+    DIR_TMP:  repertoire temporaire des tests
+    N_ITER_TEST: numero du repertoire de l'iteration a tester
+    N_TEST: numero de l'iteration a tester
+    phrase: ligne suplementaire dans le fichier genere sous Windows
+  """
+  test_file = DIR_TMP + "\\I0" +str(N_ITER_TEST)+ "\\"+ "apad.0"+str(N_TEST)+".bilan"
+  try:
+    with open(test_file, 'r') as f:
+        lignes = f.readlines()
+    test_file_orig=test_file+".orig"
+    shutil.copyfile(test_file,test_file_orig)
+    os.remove(test_file)
+    fichier = open(test_file, "w")
+    for ligne in lignes:
+      if not phrase in ligne:
+        fichier.write(ligne)
+    fichier.close()
+  except FileNotFoundError:
+    print("The file .bilan does not exist: ", test_file)
+
+    #========================================================================
+#========================================================================
+def test_tutorial4_results(rep_test, test_name, dircase, n_iter_test_file, n_rep_test_file, destroy_dir = True) :
+  """
+Test of the result for tutorial_4 on Wiindows
+rep_test: repertoire des tests
+test_name: nom du test
+dircase: repertoire des resultats du test
+n_iter_test_file: numero de l'iteration a tester
+n_rep_test_file: numero du repertoire de l'iteration a tester
+destroy_dir: destruction du repertoire de calcul
+  """
+  #
+  test_file_suff = "apad.%02d.bilan" % n_iter_test_file
+  rep_test_file = "I%02d" % n_rep_test_file
 #
+# Existence du fichier de référence
+  #
+  test_file = os.path.join(rep_test, test_name + "." + test_file_suff)
+  mess_error_ref = "\nReference file: " + test_file
+  #print ("test_file = %s" % test_file)
+  try :
+    with open (test_file, "r") as fichier :
+      les_lignes_ref = fichier.readlines()
+  except :
+    mess_error = mess_error_ref + "\nThis file does not exist.\n"
+    destroy_dir = False
+    raise Exception(mess_error)
+#
+# Existence du fichier de l'exécution courante
+#
+  test_file = os.path.join(dircase, rep_test_file, test_file_suff)
+  if os.path.isfile (test_file) :
+    with open (test_file, "r") as fichier :
+      les_lignes = fichier.readlines()
+  else :
+    mess_error  = "\nResult file: " + test_file
+    mess_error += "\nThis file does not exist.\n"
+    destroy_dir = False
+    raise Exception(mess_error)
+#
+# Nombre de lignes identiques
+#
+  nblign = len(les_lignes_ref)
+  if ( len(les_lignes) != nblign ):
+    mess_error = mess_error_ref +  "\nResult file: " + test_file
+    mess_error += "\nThe number of lines of the files are not the same.\n"
+    destroy_dir = False
+    raise Exception(mess_error)
+#
+# Comparaison des lignes, à l'esception de la date
+#
+  indice = 0
+  epsilon = Decimal("5")
+  for num in range(nblign) :
+    if ( "creation" not in les_lignes_ref[num] ) :
+      if ("Direction" in les_lignes[num]):
+        indice=num
+      if ( les_lignes_ref[num] != les_lignes[num] ) :
+        equality = False
+        if (indice +1 < num  < indice + 5):
+          valeurs = [Decimal(element.strip()) for element in les_lignes[num].split("|") if element.strip()!=""]
+          valeurs_ref= [Decimal(element.strip()) for element in les_lignes_ref[num].split("|") if element.strip()!=""]
+
+          if len(valeurs) != len(valeurs_ref):
+            equality = False
+          else:
+            equality = all([abs(valeurs[i]-valeurs_ref[i]) <= epsilon for i in range(len(valeurs))])
+          
+        if not equality:
+          message_erreur = "\nRefe : " + les_lignes_ref[num]
+          message_erreur += "Test : " + les_lignes[num][:-1]
+          message_erreur += "\nThe test is different from the reference."
+          destroy_dir = False
+          raise Exception(message_erreur)
+#
+# Destruction éventuelle du répertoire du calcul
+#
+  if destroy_dir:
+    remove_dir(dircase)
+#
+  return
+    

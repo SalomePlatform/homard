@@ -6,6 +6,7 @@
 
 import sys
 import salome
+import platform
 from os import path
 import shutil
 from MEDLoader import *
@@ -85,4 +86,5 @@ y_coords = coords.getValues()[1::2]
 ## Checking that Y values are still zeros
 assert all([val<1e-8 for val in y_coords]), y_coords
 
-shutil.rmtree(tmp_folder)
+if platform.system() != 'Windows':
+   shutil.rmtree(tmp_folder)

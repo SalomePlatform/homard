@@ -26,6 +26,7 @@ __revision__ = "V2.05"
 
 import os
 import sys
+import platform
 import numpy as np
 
 import salome
@@ -41,6 +42,7 @@ REP_PYTHON = os.path.normpath(REP_PYTHON)
 sys.path.append(REP_PYTHON)
 from test_util import get_dir
 from test_util import test_results
+from test_util import update_test_win
 # ==================================
 
 #========================================================================
@@ -306,6 +308,12 @@ except RuntimeError as eee:
 
 N_REP_TEST_FILE = N_ITER_TEST_FILE
 DESTROY_DIR = not DEBUG
+
+if platform.system() == 'Windows':
+  DESTROY_DIR = DEBUG
+  texte_sup= "Le maillage est conforme." 
+  update_test_win(DIRCASE,N_REP_TEST_FILE,N_ITER_TEST_FILE,texte_sup)
+
 test_results(REP_DATA, TEST_NAME, DIRCASE, N_ITER_TEST_FILE, N_REP_TEST_FILE, DESTROY_DIR)
 
 if salome.sg.hasDesktop():

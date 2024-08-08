@@ -32,6 +32,7 @@ ADD_DEFINITIONS(
 # libraries to link to
 SET(_link_LIBRARIES
   ${SALOMEBOOTSTRAP_SALOMELocalTrace}
+  ${KERNEL_SALOMELocalTrace}
 )
 
 # --- headers ---

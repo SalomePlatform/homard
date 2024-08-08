@@ -31,6 +31,7 @@ N_BOUCLE = 2
 #========================================================================
 import os
 import sys
+import platform
 import HOMARD
 import salome
 #
@@ -42,6 +43,7 @@ REP_PYTHON = os.path.normpath(REP_PYTHON)
 sys.path.append(REP_PYTHON)
 from test_util import get_dir
 from test_util import test_results
+from test_util import update_test_win
 # ==================================
 # Répertoires pour ce test
 REP_DATA, DIRCASE = get_dir(PATH_HOMARD, TEST_NAME, DEBUG)
@@ -209,6 +211,13 @@ except RuntimeError as eee:
 #
 N_REP_TEST_FILE = N_ITER_TEST_FILE*N_BOUCLE
 DESTROY_DIR = not DEBUG
+
+if platform.system() == 'Windows':
+  DESTROY_DIR = DEBUG
+  N_REP_TEST_FILE = 6
+  texte_sup= "Le maillage est conforme par boites." 
+  update_test_win(DIRCASE,N_REP_TEST_FILE,N_ITER_TEST_FILE,texte_sup)
+
 test_results(REP_DATA, TEST_NAME, DIRCASE, N_ITER_TEST_FILE, N_REP_TEST_FILE, DESTROY_DIR)
 #
 if salome.sg.hasDesktop():
