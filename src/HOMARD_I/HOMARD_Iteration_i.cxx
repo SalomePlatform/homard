@@ -131,7 +131,11 @@ char* HOMARD_Iteration_i::GetDirName()
   std::string casename = myHomardIteration->GetCaseName() ;
   HOMARD::HOMARD_Cas_ptr caseiter = _gen_i->GetCase(casename.c_str()) ;
   std::string dirnamecase = caseiter->GetDirName() ;
+#ifndef _WIN32
   std::string dirname = dirnamecase + "/" +  GetDirNameLoc() ;
+#else
+  std::string dirname = dirnamecase + "\\" +  GetDirNameLoc() ;
+#endif
   return CORBA::string_dup( dirname.c_str() );
 }
 //=============================================================================

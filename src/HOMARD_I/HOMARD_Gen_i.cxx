@@ -452,7 +452,11 @@ CORBA::Long HOMARD_Gen_i::DeleteYACS(const char* nomYACS, CORBA::Long Option)
   if ( Option == 1 )
   {
     std::string nomFichier = myYACS->GetXMLFile();
+#ifndef _WIN32
     std::string commande = "rm -rf " + nomFichier ;
+#else
+    std::string commande = "del /s /q " + nomFichier ;
+#endif
     MESSAGE ( "commande = " << commande );
     if ((system(commande.c_str())) != 0)
     {
@@ -626,8 +630,18 @@ void HOMARD_Gen_i::InvalideIterOption(const char* nomIter, CORBA::Long Option)
     };
     std::string nomDir     = myIteration->GetDirName();
     std::string nomFichier = myIteration->GetMeshFile();
+#ifndef _WIN32
     std::string commande = "rm -rf " + std::string(nomDir);
-    if ( Option == 1 ) { commande = commande + ";rm -rf " + std::string(nomFichier) ; }
+#else
+    std::string commande = "del /s /q " + std::string(nomDir);
+#endif
+    if ( Option == 1 ) {
+#ifndef _WIN32
+      commande = commande + ";rm -rf " + std::string(nomFichier) ;
+#else
+      commande = commande + " & del /s /q " + std::string(nomFichier) ;
+#endif
+    }
     MESSAGE ( "commande = " << commande );
     if ((system(commande.c_str())) != 0)
     {
@@ -685,8 +699,13 @@ void HOMARD_Gen_i::InvalideIterInfo(const char* nomIter)
       return ;
   };
   const char* nomDir   = myIteration->GetDirName();
+#ifndef _WIN32
   std::string commande = "rm -f " + std::string(nomDir) + "/info* " ;
   commande += std::string(nomDir) + "/Liste.*info" ;
+#else
+  std::string commande = "del /s /q " + std::string(nomDir) + "\\info* ";
+  commande += std::string(nomDir) + "\\Liste.*info" ;
+#endif
 /*  MESSAGE ( "commande = " << commande );*/
   if ((system(commande.c_str())) != 0)
   {
@@ -727,7 +746,11 @@ void HOMARD_Gen_i::InvalideYACS(const char* YACSName)
     }
   }
   std::string nomFichier = myYACS->GetXMLFile();
+#ifndef _WIN32
   std::string commande = "rm -rf " + std::string(nomFichier) ;
+#else
+  std::string commande = "del /s /q " + std::string(nomFichier) ;
+#endif
   MESSAGE ( "commande = " << commande );
   if ((system(commande.c_str())) != 0)
   {
@@ -1219,7 +1242,15 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
 //
 {
   MESSAGE ( "CreateCaseFromIteration : nomCas = " << nomCas << ", DirNameStart = " << DirNameStart );
+#ifndef _WIN32
   std::string nomDirWork = getenv("PWD") ;
+#else
+  std::string nomDirWork;
+  char cwd[1024];
+  if (_getcwd(cwd, sizeof(cwd)) != NULL) {
+    nomDirWork = cwd;
+  }
+#endif
   int codret ;
 
   // A. Decodage du point de reprise
@@ -1257,10 +1288,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   closedir(dp);
 #else
   HANDLE hFind = INVALID_HANDLE_VALUE;
-  WIN32_FIND_DATA ffd;
-  hFind = FindFirstFile(DirNameStart, &ffd);
+  WIN32_FIND_DATAA ffd;
+  hFind = FindFirstFileA(DirNameStart, &ffd);
   if (INVALID_HANDLE_VALUE != hFind) {
-    while (FindNextFile(hFind, &ffd) != 0) {
+    while (FindNextFileA(hFind, &ffd) != 0) {
       if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue; //skip directories
       std::string file_name(ffd.cFileName);
       bilan = file_name.find("HOMARD.Configuration.") ;
@@ -1395,7 +1426,11 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   char* nomDirIter = CreateDirNameIter(nomDirCase, 0 );
   Iter->SetDirNameLoc(nomDirIter);
   std::string nomDirIterTotal ;
+#ifndef _WIN32
   nomDirIterTotal = std::string(nomDirCase) + "/" + std::string(nomDirIter) ;
+#else
+  nomDirIterTotal = std::string(nomDirCase) + "\\" + std::string(nomDirIter) ;
+#endif
 #ifndef WIN32
   if (mkdir(nomDirIterTotal.c_str(), S_IRWXU|S_IRGRP|S_IXGRP) != 0)
 #else
@@ -1411,7 +1446,11 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   }
   // E.3. Copie du maillage HOMARD au format MED
   codret = CHDIR(DirNameStart) ;
+#ifndef _WIN32
   std::string commande = "cp " + file_maillage_homard + " " + nomDirIterTotal ;
+#else
+  std::string commande = "copy " + file_maillage_homard + " " + nomDirIterTotal ;
+#endif
   MESSAGE ( "commande : " << commande ) ;
   codret = system(commande.c_str()) ;
   MESSAGE ( "codret : " << codret ) ;
@@ -1442,8 +1481,11 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromCaseLastIteration(const char*
   MESSAGE ( "CreateCaseFromCaseLastIteration : nomCas = " << nomCas << ", DirNameStart = " << DirNameStart );
 
   std::string DirNameStartIter = CreateCase1(DirNameStart, -1) ;
-
+#ifndef _WIN32
   DirNameStartIter = string(DirNameStart) + "/" + DirNameStartIter ;
+#else
+  DirNameStartIter = string(DirNameStart) + "\\" + DirNameStartIter ;
+#endif
   HOMARD::HOMARD_Cas_ptr myCase = CreateCaseFromIteration(nomCas, DirNameStartIter.c_str()) ;
 
   return HOMARD::HOMARD_Cas::_duplicate(myCase);
@@ -1467,8 +1509,11 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromCaseIteration(const char* nom
   };
 
   std::string DirNameStartIter = CreateCase1(DirNameStart, Number) ;
-
+#ifndef _WIN32
   DirNameStartIter = string(DirNameStart) + "/" + DirNameStartIter ;
+#else
+  DirNameStartIter = string(DirNameStart) + "\\" + DirNameStartIter ;
+#endif
   HOMARD::HOMARD_Cas_ptr myCase = CreateCaseFromIteration(nomCas, DirNameStartIter.c_str()) ;
 
   return HOMARD::HOMARD_Cas::_duplicate(myCase);
@@ -1482,7 +1527,15 @@ std::string HOMARD_Gen_i::CreateCase1(const char* DirNameStart, CORBA::Long Numb
 //
 {
   MESSAGE ( "CreateCase1 : DirNameStart = " << DirNameStart << ", Number = " << Number );
+#ifndef _WIN32
   std::string nomDirWork = getenv("PWD") ;
+#else
+  std::string nomDirWork;
+  char cwd[1024];
+  if (_getcwd(cwd, sizeof(cwd)) != NULL) {
+    nomDirWork = cwd;
+  }
+#endif
   std::string DirNameStartIter ;
   int codret ;
   int NumeIterMax = -1 ;
@@ -1507,14 +1560,13 @@ std::string HOMARD_Gen_i::CreateCase1(const char* DirNameStart, CORBA::Long Numb
     std::string DirName_1(dirp->d_name);
 #else
   HANDLE hFind = INVALID_HANDLE_VALUE;
-  WIN32_FIND_DATA ffd;
-  hFind = FindFirstFile(DirNameStart, &ffd);
-  if (INVALID_HANDLE_VALUE != hFind) {
-    while (FindNextFile(hFind, &ffd) != 0) {
-      std::string DirName_1 = "";
-      if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-        DirName_1 = std::string(ffd.cFileName);
-      }
+  WIN32_FIND_DATAA ffd;
+  hFind = FindFirstFileA(DirNameStart, &ffd);
+  while (INVALID_HANDLE_VALUE != hFind && FindNextFileA(hFind, &ffd) != 0) {
+    std::string DirName_1 = "";
+    if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+      DirName_1 = std::string(ffd.cFileName);
+    }
 #endif
     if ( ( DirName_1 != "." ) && ( DirName_1 != ".." ) )
     {
@@ -1531,9 +1583,9 @@ std::string HOMARD_Gen_i::CreateCase1(const char* DirNameStart, CORBA::Long Numb
           std::string file_name_1(dirp_1->d_name);
 #else
         HANDLE hFind1 = INVALID_HANDLE_VALUE;
-        WIN32_FIND_DATA ffd1;
-        hFind1 = FindFirstFile(DirName_1.c_str(), &ffd1);
-        while (FindNextFile(hFind1, &ffd1) != 0)
+        WIN32_FIND_DATAA ffd1;
+        hFind1 = FindFirstFileA(DirName_1.c_str(), &ffd1);
+        while (FindNextFileA(hFind1, &ffd1) != 0)
         {
           if (ffd1.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue; //skip directories
           std::string file_name_1(ffd1.cFileName);
@@ -1633,8 +1685,8 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase0(const char* nomCas, const char*
 //         1 : aucune option
 //        x2 : publication du maillage dans SMESH
 {
-  MESSAGE ( "CreateCase0 : nomCas = " << nomCas );
-  MESSAGE ( "CreateCase0 : MeshName = " << MeshName << ", MeshFile = " << MeshFile << ", MeshOption = " << MeshOption );
+  INFOS ( "CreateCase0 : nomCas = " << nomCas );
+  INFOS ( "CreateCase0 : MeshName = " << MeshName << ", MeshFile = " << MeshFile << ", MeshOption = " << MeshOption );
   MESSAGE ( "CreateCase0 : NumeIter = " << NumeIter << ", Option = " << Option );
 //
   // A. Controles
@@ -1713,7 +1765,7 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase0(const char* nomCas, const char*
     NomIteration = nom.str();
     monNum += 1;
   }
-  MESSAGE ( "CreateCas0 : ==> NomIteration = " << NomIteration );
+  MESSAGE ( "CreateCase0 : ==> NomIteration = " << NomIteration );
 
   // D.2. Creation de l'iteration
   HOMARD::HOMARD_Iteration_var anIter = newIteration();
@@ -1721,17 +1773,22 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase0(const char* nomCas, const char*
   anIter->SetName(NomIteration.c_str());
   AssociateCaseIter (nomCas, NomIteration.c_str(), "IterationHomard");
 
+  MESSAGE ( "CreateCase0 : existeMeshFile" );
+
   // D.4. Maillage correspondant
   if ( existeMeshFile != 0 )
   {
     anIter->SetMeshFile(MeshFile);
     if ( Option % 2 == 0 ) { PublishResultInSmesh(MeshFile, 0); }
   }
+  MESSAGE ( "CreateCase0 : SetMeshName" );
   anIter->SetMeshName(MeshName);
 
+  MESSAGE ( "CreateCase0 : SetNumber" );
   // D.5. Numero d'iteration
   anIter->SetNumber(NumeIter);
 
+  MESSAGE ( "CreateCase0 : SetEtatIter" );
   // D.6. Etat
   SetEtatIter(NomIteration.c_str(), -NumeIter);
 //
@@ -1860,7 +1917,11 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* NomIterat
   std::ostringstream iaux ;
   iaux << std::setw(jaux) << std::setfill('0') << nbitercase ;
   std::stringstream MeshFile;
+#ifndef _WIN32
   MeshFile << nomDirCase << "/maill." << iaux.str() << ".med";
+#else
+  MeshFile << nomDirCase << "\\maill." << iaux.str() << ".med";
+#endif
   myIteration->SetMeshFile(MeshFile.str().c_str());
 
 // Association avec le cas
@@ -2468,7 +2529,15 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* NomIteration, CORBA::Long etatMena
 
   // B. Les répertoires
   // B.1. Le répertoire courant
+#ifndef _WIN32
   std::string nomDirWork = getenv("PWD") ;
+#else
+  std::string nomDirWork;
+  char cwd[1024];
+  if (_getcwd(cwd, sizeof(cwd)) != NULL) {
+    nomDirWork = cwd;
+  }
+#endif
   // B.2. Le sous-répertoire de l'iteration a traiter
   char* DirCompute = ComputeDirManagement(myCase, myIteration, etatMenage);
   MESSAGE( ". DirCompute = " << DirCompute );
@@ -2476,14 +2545,22 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* NomIteration, CORBA::Long etatMena
   // C. Le fichier des messages
   // C.1. Le deroulement de l'execution de HOMARD
   std::string LogFile = DirCompute ;
+#ifndef _WIN32
   LogFile += "/Liste" ;
+#else
+  LogFile += "\\Liste" ;
+#endif
   if ( modeHOMARD == 1 ) { LogFile += "." + siter + ".vers." + siterp1 ; }
   LogFile += ".log" ;
   MESSAGE (". LogFile = " << LogFile);
   if ( modeHOMARD == 1 ) { myIteration->SetLogFile(LogFile.c_str()); }
   // C.2. Le bilan de l'analyse du maillage
   std::string FileInfo = DirCompute ;
+#ifndef _WIN32
   FileInfo += "/" ;
+#else
+  FileInfo += "\\" ;
+#endif
   if ( modeHOMARD == 1 ) { FileInfo += "apad" ; }
   else
   { if ( NumeIter == 0 ) { FileInfo += "info_av" ; }
@@ -2725,7 +2802,11 @@ CORBA::Long HOMARD_Gen_i::ComputeAdap(HOMARD::HOMARD_Cas_var myCase, HOMARD::HOM
     }
     else
     {
+#ifndef _WIN32
       std::string commande = "rm -f " + std::string(MeshFile);
+#else
+      std::string commande = "del /s /q " + std::string(MeshFile);
+#endif
       codret = system(commande.c_str());
       if (codret != 0)
       {
@@ -2847,16 +2928,16 @@ CORBA::Long HOMARD_Gen_i::ComputeCAO(HOMARD::HOMARD_Cas_var myCase, HOMARD::HOMA
   }
 #else
   HANDLE hFind = INVALID_HANDLE_VALUE;
-  WIN32_FIND_DATA ffd;
-  hFind = FindFirstFile(DirNameStart, &ffd);
+  WIN32_FIND_DATAA ffd;
+  hFind = FindFirstFileA(DirCompute, &ffd);
   if (INVALID_HANDLE_VALUE != hFind) {
-    while (FindNextFile(hFind, &ffd) != 0) {
+    while (FindNextFileA(hFind, &ffd) != 0) {
       std::string file_name(ffd.cFileName);
       bilan = file_name.find("fr") ;
       if ( bilan != string::npos )
       {
         std::stringstream filename_total ;
-        filename_total << DirCompute << "/" << file_name ;
+        filename_total << DirCompute << "\\" << file_name ;
         theInputNodeFiles.push_back(filename_total.str()) ;
         icpt += 1 ;
       }
@@ -2940,7 +3021,11 @@ CORBA::Long HOMARD_Gen_i::ComputeCAObis(HOMARD::HOMARD_Iteration_var myIteration
 
   // C. Le fichier des messages
   std::string LogFile = DirCompute ;
+#ifndef _WIN32
   LogFile += "/Liste." + siterp1 + ".maj_coords.log" ;
+#else
+  LogFile += "\\Liste." + siterp1 + ".maj_coords.log" ;
+#endif
   MESSAGE (". LogFile = " << LogFile);
   myIteration->SetFileInfo(LogFile.c_str());
 
@@ -3025,7 +3110,15 @@ char* HOMARD_Gen_i::CreateDirNameIter(const char* nomrep, CORBA::Long num )
     throw SALOME::SALOME_Exception(es);
     return 0;
   };
+#ifndef _WIN32
   std::string nomDirActuel = getenv("PWD") ;
+#else
+  std::string nomDirActuel;
+  char cwd[1024];
+  if (_getcwd(cwd, sizeof(cwd)) != NULL) {
+    nomDirActuel = cwd;
+  }
+#endif
   std::string DirName ;
   // On boucle sur tous les noms possibles jusqu'a trouver un nom correspondant a un répertoire inconnu
   bool a_chercher = true ;
@@ -3059,12 +3152,11 @@ char* HOMARD_Gen_i::CreateDirNameIter(const char* nomrep, CORBA::Long num )
         std::string file_name(dirp->d_name);
 #else
       HANDLE hFind = INVALID_HANDLE_VALUE;
-      WIN32_FIND_DATA ffd;
-      hFind = FindFirstFile(nomrep, &ffd);
-      if (INVALID_HANDLE_VALUE != hFind) {
-        while (FindNextFile(hFind, &ffd) != 0) {
-         if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue; //skip directories
-         std::string file_name(ffd.cFileName);
+      WIN32_FIND_DATAA ffd;
+      hFind = FindFirstFileA(nomrep, &ffd);
+      while (INVALID_HANDLE_VALUE != hFind && FindNextFileA(hFind, &ffd) != 0) {
+        if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue; //skip directories
+        std::string file_name(ffd.cFileName);
 #endif
         if ( file_name == DirNameA.str() ) { existe = true ; }
       }
@@ -3108,7 +3200,11 @@ char* HOMARD_Gen_i::ComputeDirManagement(HOMARD::HOMARD_Cas_var myCase, HOMARD::
 
   // B.3.2. Le nom complet du sous-répertoire
   std::stringstream DirCompute ;
+#ifndef _WIN32
   DirCompute << nomDirCase << "/" << nomDirIt;
+#else
+  DirCompute << nomDirCase << "\\" << nomDirIt;
+#endif
   MESSAGE (". DirCompute = " << DirCompute.str() );
 
   // B.3.3. Si le sous-répertoire n'existe pas, on le cree
@@ -3159,11 +3255,11 @@ char* HOMARD_Gen_i::ComputeDirManagement(HOMARD::HOMARD_Cas_var myCase, HOMARD::
         closedir(dp);
 #else
        HANDLE hFind = INVALID_HANDLE_VALUE;
-       WIN32_FIND_DATA ffd;
-       hFind = FindFirstFile(DirCompute.str().c_str(), &ffd);
+       WIN32_FIND_DATAA ffd;
+       hFind = FindFirstFileA(DirCompute.str().c_str(), &ffd);
        bool result = true;
        if (INVALID_HANDLE_VALUE != hFind) {
-         while (FindNextFile(hFind, &ffd) != 0) {
+         while (FindNextFileA(hFind, &ffd) != 0) {
           if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue; //skip directories
           std::string file_name(ffd.cFileName);
           result = file_name.empty() || file_name == "." || file_name == ".."; //if any file - break and return false
@@ -3202,7 +3298,11 @@ char* HOMARD_Gen_i::ComputeDirPaManagement(HOMARD::HOMARD_Cas_var myCase, HOMARD
   HOMARD::HOMARD_Iteration_var myIterationParent = myStudyContext._mesIterations[nomIterationParent];
   const char* nomDirItPa = myIterationParent->GetDirNameLoc();
   std::stringstream DirComputePa ;
+#ifndef _WIN32
   DirComputePa << nomDirCase << "/" << nomDirItPa;
+#else
+  DirComputePa << nomDirCase << "\\" << nomDirItPa;
+#endif
   MESSAGE( ". nomDirItPa = " << nomDirItPa);
   MESSAGE( ". DirComputePa = " << DirComputePa.str() );
 
@@ -3854,7 +3954,15 @@ void HOMARD_Gen_i::PublishInStudyAttr(SALOMEDS::StudyBuilder_var aStudyBuilder,
                                       SALOMEDS::SObject_var aResultSO,
                                       const char* name, const char* comment, const char* icone, const char* ior)
 {
-  MESSAGE("PublishInStudyAttr pour name = "<<name<<", comment = "<<comment);
+  MESSAGE("PublishInStudyAttr");
+
+  MESSAGE("PublishInStudyAttr name?"<<(name==0 ? "0": "1"));
+  MESSAGE("PublishInStudyAttr comment?"<<(comment==0 ? "0":"1"));
+  MESSAGE("PublishInStudyAttr icone?"<<(icone==0 ? "0": "1"));
+  MESSAGE("PublishInStudyAttr ior?"<<(ior==0 ? "0": "1"));
+  
+  //if (name)
+//     MESSAGE("PublishInStudyAttr pour name = "<<name<<", comment = "<<comment);
 //   MESSAGE("icone = "<<icone);
 //   MESSAGE("ior   = "<<ior);
   SALOMEDS::GenericAttribute_var anAttr ;
@@ -4233,7 +4341,11 @@ HOMARD::HOMARD_YACS_ptr HOMARD_Gen_i::CreateYACSSchema (const char* nomYACS, con
   HOMARD::HOMARD_Cas_ptr caseyacs = GetCase(nomCas) ;
   std::string dirnamecase = caseyacs->GetDirName() ;
   std::string XMLFile ;
+#ifndef _WIN32
   XMLFile = dirnamecase + "/schema.xml" ;
+#else
+  XMLFile = dirnamecase + "\\schema.xml" ;
+#endif
   myYACS->SetXMLFile( XMLFile.c_str() ) ;
 
   return HOMARD::HOMARD_YACS::_duplicate(myYACS);

@@ -26,11 +26,11 @@
 #define DOUBLE double
 
 #ifdef _USE_64_BITS
-#warning "-------- passage par ifdef _USE_64_BITS --------"
-  typedef long INTGR ;
+#pragma message ( "-------- passage par ifdef _USE_64_BITS --------" )
+  typedef long long INTGR ;
   #define INTEGER_NB_CHIFFRES_SIGNIFICATIFS 19
 #else
-#warning "-------- passage par else de ifdef _USE_64_BITS --------"
+#pragma message ( "-------- passage par else de ifdef _USE_64_BITS --------" )
   typedef int INTGR ;
   #define INTEGER_NB_CHIFFRES_SIGNIFICATIFS  9
 #endif
@@ -41,7 +41,7 @@
 /* comme arguments cachés par les compilateurs fortran)              */
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 #ifdef _USE_64_BITS
-    typedef long LNSTRF ;
+    typedef long long LNSTRF ;
 #else
     typedef int LNSTRF ;
 #endif

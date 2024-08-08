@@ -159,8 +159,8 @@ c
       jaux=0
       do 1105 , iaux = 1 , nbquto
       if ( nivqua(iaux).eq.3 .and. decfac(-iaux).lt.0) then
-        write (ulsort,90015) 'quadrangle', iaux, ' decision,niveau,etat',
-     >  decfac(-iaux), nivqua(iaux), hetqua(iaux)
+        write (ulsort,90015) 'quadrangle', iaux, ' decision,niveau,etat'
+     >  ,decfac(-iaux), nivqua(iaux), hetqua(iaux)
         write (ulsort,90002) 'aretes',
      >  arequa(iaux,1), arequa(iaux,2), arequa(iaux,3), arequa(iaux,4)
         write (ulsort,90002) 'decare',

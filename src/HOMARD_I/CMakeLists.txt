@@ -37,6 +37,7 @@ INCLUDE_DIRECTORIES(
 # additional preprocessor / compiler flags
 ADD_DEFINITIONS(
   ${OMNIORB_DEFINITIONS}
+  ${BOOST_DEFINITIONS}
 )
 
 # libraries to link to
@@ -54,6 +55,7 @@ SET(_link_LIBRARIES
   FrontTrack
   SalomeIDLHOMARD
   HOMARDImpl
+  ${Boost_LIBRARIES}
 )
 
 # --- headers ---

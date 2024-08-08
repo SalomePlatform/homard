@@ -45,3 +45,20 @@ SET(_idl_link_flags
 
 OMNIORB_ADD_MODULE(SalomeIDLHOMARD "${SalomeIDLHOMARD_IDLSOURCES}" "${_idl_include_dirs}" "${_idl_link_flags}")
 INSTALL(TARGETS SalomeIDLHOMARD EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
+
+message (STATUS "OMNIORB_IDLCXXFLAGS=${OMNIORB_IDLCXXFLAGS}")
+message (STATUS "OMNIORB_IDLPYFLAGS=${OMNIORB_IDLPYFLAGS}")
+message (STATUS "OMNIORB_IDL_COMPILER=${OMNIORB_IDL_COMPILER}")
+message (STATUS "KERNEL_ROOT_DIR=${KERNEL_ROOT_DIR}")
+
+foreach(_idl_file ${SalomeIDLHOMARD_IDLSOURCES})
+  get_filename_component(_id ${_idl_file} NAME_WE)
+  add_custom_target(custom_idl_${_id} ALL
+    COMMAND ${OMNIORB_IDL_COMPILER} -bpython -p${OMNIORB_PYTHON_BACKEND} -I${KERNEL_ROOT_DIR}/idl/salome ${CMAKE_CURRENT_SOURCE_DIR}/${_idl_file}
+    DEPENDS ${_idl_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+  message(STATUS "custom_idl_${_id} => ${OMNIORB_IDL_COMPILER} -bpython -p${OMNIORB_PYTHON_BACKEND} -I${KERNEL_ROOT_DIR}/idl/salome ${CMAKE_CURRENT_SOURCE_DIR}/${_idl_file}")
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_id}_idl.py DESTINATION lib/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/salome)
+endforeach()
+
+install(FILES __init__.py ${CMAKE_CURRENT_BINARY_DIR}/${_id}_idl.py DESTINATION lib/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/salome/HOMARD)

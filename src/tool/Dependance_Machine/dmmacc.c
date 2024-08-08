@@ -22,6 +22,9 @@
 #include "FC.h"
 #include <string.h>
 
+// for getenv
+#include <stdlib.h>
+
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 /* Retourne le nom de la machine, son système, etc.                  */
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */

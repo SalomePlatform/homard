@@ -27,7 +27,17 @@
 #include <vector>
 #include <string>
 
-class FrontTrack
+#ifdef _WIN32
+  #if defined(FrontTrack_EXPORTS)
+    #define FRONTTRACK_EXPORT __declspec(dllexport)
+  #else
+    #define FRONTTRACK_EXPORT __declspec(dllimport)
+  #endif
+#else
+   #define FRONTTRACK_EXPORT
+#endif
+
+class FRONTTRACK_EXPORT FrontTrack
 {
 public:
 

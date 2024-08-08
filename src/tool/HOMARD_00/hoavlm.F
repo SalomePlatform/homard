@@ -194,7 +194,8 @@ c 3. lecture du maillage au format HOMARD
 c====
 c
 #ifdef _DEBUG_HOMARD_
-      write (ulsort,90002) '3. lecture au format HOMARD ; codret', codret
+      write (ulsort,90002) '3. lecture au format HOMARD ; codret',
+     & codret
 #endif
 c
 c

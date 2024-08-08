@@ -30,6 +30,7 @@ INCLUDE_DIRECTORIES(
 # additional preprocessor / compiler flags
 ADD_DEFINITIONS(
   ${OpenCASCADE_DEFINITIONS}
+  ${BOOST_DEFINITIONS}
 )
 
 IF(FRONTTRACK_USE_TBB)
@@ -44,6 +45,7 @@ SET(_link_LIBRARIES
   ${GEOM_XAO}
   ${MEDCoupling_medloader}
   ${TBB_LIBS}
+  ${Boost_LIBRARIES}
 )
 
 # --- headers ---

@@ -854,8 +854,10 @@ c
       write (ulsort,90002) 'lgtrc3, npqurc', lgtrc3, npqurc
       write (ulsort,90002) 'lgtrc4, npterc', lgtrc4, npterc
       write (ulsort,90002) 'lgtrc5, npherc', lgtrc5, npherc
-      write (ulsort,90002) 'lgtrc6, nptrrc+npqurc', lgtrc6, nptrrc+npqurc
-      write (ulsort,90002) 'lgtrc7, nptrrc+npqurc', lgtrc7, nptrrc+npqurc
+      write (ulsort,90002) 'lgtrc6, nptrrc+npqurc', lgtrc6,
+     > nptrrc+npqurc
+      write (ulsort,90002) 'lgtrc7, nptrrc+npqurc', lgtrc7,
+     > nptrrc+npqurc
 #endif
 c
       call gmecat ( nospec, 1, nparrc, codre1 )

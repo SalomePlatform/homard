@@ -41,7 +41,7 @@
 void dmalmc_( long * const ad_mem, const INTGR * const size )
 #else
 #ifdef extern_stdcall
-extern void __stdcall DMALMC( long * const ad_mem, const INTGR * const size )
+extern void __stdcall DMALMC( long long * const ad_mem, const INTGR * const size )
 #else
 void FortranCInterface_GLOBAL(dmalmc, DMALMC)(long * const ad_mem, const INTGR * const size)
 #endif
@@ -60,9 +60,10 @@ void FortranCInterface_GLOBAL(dmalmc, DMALMC)(long * const ad_mem, const INTGR *
 #endif
 
    // p_intgr est un pointeur sur des entiers de taille sizeof(INTGR)
-   INTGR * p_intgr =  malloc( *size * sizeof(INTGR) ) ;
+     size_t size_pintgr = (*size) * sizeof(INTGR);
+     INTGR* p_intgr =  malloc(size_pintgr) ;
    // On renvoie la valeur de notre pointeur alloué dans la variable Fortran *ad_mem
-   (*ad_mem) = (long) p_intgr;
+   (*ad_mem) = (long long) p_intgr;
 
 #ifdef _DEBUG_HOMARD_
      printf ("==> ad_mem = %d\n",*ad_mem);

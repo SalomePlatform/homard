@@ -625,7 +625,8 @@ c                        le type de deraffinement car il a ete inhibe
 c    . Aux iterations suivantes : toujours
 c====
 #ifdef _DEBUG_HOMARD_
-      write (ulsort,90002) '8. creation des noeuds supp ; codret', codret
+      write (ulsort,90002) '8. creation des noeuds supp ; codret',
+     & codret
 #endif
 c
       if ( imem(adopti+30).ne.0 .or. imem(adopti+31).ne.0 ) then

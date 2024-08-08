@@ -169,7 +169,11 @@ void HOMARD_Cas_i::SetDirName( const char* NomDir )
     MESSAGE ( "SetDirName : nom futur pour le repertoire de l iteration, nomDirIter = "<< nomDirIter);
     // D.3. Creation du futur repertoire local pour l'iteration de depart
     std::string nomDirIterTotal ;
+#ifndef WIN32
     nomDirIterTotal = std::string(NomDir) + "/" + std::string(nomDirIter) ;
+#else
+    nomDirIterTotal = std::string(NomDir) + "\\" + std::string(nomDirIter) ;
+#endif
 #ifndef WIN32
     if (mkdir(nomDirIterTotal.c_str(), S_IRWXU|S_IRGRP|S_IXGRP) != 0)
 #else
@@ -186,7 +190,11 @@ void HOMARD_Cas_i::SetDirName( const char* NomDir )
     // D.4. Deplacement du contenu du repertoire
     std::string oldnomDirIterTotal ;
     oldnomDirIterTotal = std::string(oldrep) + "/" + std::string(DirNameIter) ;
+#ifndef _WIN32
     std::string commande = "mv " + std::string(oldnomDirIterTotal) + "/*" + " " + std::string(nomDirIterTotal) ;
+#else
+    std::string commande = "move " + std::string(oldnomDirIterTotal) + "\\*.*" + " " + std::string(nomDirIterTotal) ;
+#endif
     codret = system(commande.c_str()) ;
     if ( codret != 0 )
     {

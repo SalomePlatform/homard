@@ -26,6 +26,11 @@
 #include <XAO_Group.hxx>
 
 #include <fcntl.h>
+#ifdef _WIN32
+#include <windows.h>
+#include <fileapi.h>
+#endif
+
 #include <boost/filesystem.hpp>
 
 namespace boofs = boost::filesystem;
@@ -61,7 +66,7 @@ bool FT_Utils::canWrite( const std::string& path )
   bool can = false;
 #ifdef WIN32
 
-  HANDLE file = CreateFile( path.c_str(),           // name of the write
+  HANDLE file = CreateFileA(path.c_str(),           // name of the write
                             GENERIC_WRITE,          // open for writing
                             0,                      // do not share
                             NULL,                   // default security

@@ -256,7 +256,8 @@ c
           write (ulsort,*) 'Famille ', saux64
           write (ulsort,90002) 'ngro', ngro
           do 224 , jaux = 1 , ngro
-            write (ulsort,1002) (tbsaux(kaux),kaux=10*(jaux-1)+1,10*jaux)
+            write (ulsort,1002)
+     >         (tbsaux(kaux),kaux=10*(jaux-1)+1,10*jaux)
   224     continue
 #endif
 #ifdef _DEBUG_HOMARD_
