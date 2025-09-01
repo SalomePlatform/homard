@@ -24,10 +24,10 @@ import os
 import sys
 import platform
 
-import salome
+from salome.kernel import salome
 import SHAPERSTUDY
-import SMESH
-import HOMARD
+from salome.kernel import SMESH
+from salome.kernel import HOMARD
 
 from salome.shaper import model
 from salome.smesh import smeshBuilder

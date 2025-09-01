@@ -5,14 +5,14 @@
 ###
 
 import sys
-import salome
+from salome.kernel import salome
 import platform
 from os import path
 import shutil
 from MEDLoader import *
 
 salome.salome_init()
-import salome_notebook
+from salome.kernel import salome_notebook
 notebook = salome_notebook.NoteBook()
 
 import tempfile
@@ -50,7 +50,7 @@ print("mesh_file ", mesh_file)
 ### HOMARD component
 ###
 
-import HOMARD
+from salome.kernel import HOMARD
 homard = salome.lcc.FindOrLoadComponent('FactoryServer','HOMARD')
 homard.UpdateStudy()
 #

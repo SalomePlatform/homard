@@ -40,9 +40,9 @@ from tutorial_util import creation_dircase
 DIRCASE = creation_dircase(3)
 # ==================================
 #
-import salome
+from salome.kernel import salome
 salome.salome_init()
-import HOMARD
+from salome.kernel import HOMARD
 #
 homard = salome.lcc.FindOrLoadComponent("FactoryServer", "HOMARD")
 homard.UpdateStudy()

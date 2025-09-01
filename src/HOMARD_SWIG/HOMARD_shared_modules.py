@@ -31,7 +31,7 @@
 
 print("============== import HOMARD =======================")
 
-import HOMARD
+from salome.kernel import HOMARD
 
 # this function is required
 

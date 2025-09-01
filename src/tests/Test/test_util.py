@@ -147,7 +147,7 @@ def saveGeometry( xao_file, name, author="" ):
   """
   Save the geometry in a XAO file
   """
-  import salome
+  from salome.kernel import salome
   from salome.geom import geomBuilder
   geompy = geomBuilder.New()
   error = 0

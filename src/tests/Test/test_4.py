@@ -25,10 +25,10 @@ import sys
 import numpy as np
 import platform
 
-import salome
+from salome.kernel import salome
 import SHAPERSTUDY
-import SMESH
-import HOMARD
+from salome.kernel import SMESH
+from salome.kernel import HOMARD
 import medcoupling as mc
 import MEDLoader as ml
 

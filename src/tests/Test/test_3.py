@@ -32,8 +32,8 @@ N_BOUCLE = 2
 import os
 import sys
 import platform
-import HOMARD
-import salome
+from salome.kernel import HOMARD
+from salome.kernel import salome
 #
 # ==================================
 PATH_HOMARD = os.getenv('HOMARD_ROOT_DIR')
@@ -50,7 +50,7 @@ REP_DATA, DIRCASE = get_dir(PATH_HOMARD, TEST_NAME, DEBUG)
 # ==================================
 
 salome.salome_init_without_session()
-import iparameters
+from salome.kernel import iparameters
 IPAR = iparameters.IParameters(salome.myStudy.GetCommonParameters("Interface Applicative", 1))
 IPAR.append("AP_MODULES_LIST", "Homard")
 #
