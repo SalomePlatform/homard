@@ -157,7 +157,7 @@ bool MonMeshInfo::PushOnApply()
             CORBA::string_dup(aDirName.toStdString().c_str()),  \
             _Quality, _Diametre, _Connection, _BlockSize, _Entanglement );
     }
-    catch( SALOME::SALOME_Exception& S_ex )
+    catch( SALOME_CMOD::SALOME_Exception& S_ex )
     {
       QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                 QObject::tr(CORBA::string_dup(S_ex.details.text)) );

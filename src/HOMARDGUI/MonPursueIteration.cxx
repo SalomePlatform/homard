@@ -151,7 +151,7 @@ bool MonPursueIteration::PushOnApply()
                   CORBA::string_dup(_aCaseName.toStdString().c_str()),  \
                   CORBA::string_dup(_aDirNameStart.toStdString().c_str()) );
       }
-      catch( SALOME::SALOME_Exception& S_ex )
+      catch( SALOME_CMOD::SALOME_Exception& S_ex )
       {
         QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                   QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -168,7 +168,7 @@ bool MonPursueIteration::PushOnApply()
                   CORBA::string_dup(_aCaseName.toStdString().c_str()),  \
                   CORBA::string_dup(_aDirNameStart.toStdString().c_str()) );
       }
-      catch( SALOME::SALOME_Exception& S_ex )
+      catch( SALOME_CMOD::SALOME_Exception& S_ex )
       {
         QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                   QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -186,7 +186,7 @@ bool MonPursueIteration::PushOnApply()
                   CORBA::string_dup(_aDirNameStart.toStdString().c_str()),  \
                   Number );
       }
-      catch( SALOME::SALOME_Exception& S_ex )
+      catch( SALOME_CMOD::SALOME_Exception& S_ex )
       {
         QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                   QObject::tr(CORBA::string_dup(S_ex.details.text)) );

@@ -419,7 +419,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
     {
       MESSAGE("command " << theCommandID << " activated avec objet " << _ObjectName.toStdString().c_str() );
       try { homardGen->Compute(_ObjectName.toStdString().c_str(), 0, 1, -1, 1); }
-      catch( SALOME::SALOME_Exception& S_ex )
+      catch( SALOME_CMOD::SALOME_Exception& S_ex )
       {
         QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                   QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -433,7 +433,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
     {
       MESSAGE("command " << theCommandID << " activated avec objet " << _ObjectName.toStdString().c_str() );
       try { homardGen->Compute(_ObjectName.toStdString().c_str(), 0, 1, -1, 2); }
-      catch( SALOME::SALOME_Exception& S_ex )
+      catch( SALOME_CMOD::SALOME_Exception& S_ex )
       {
         QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                   QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -539,7 +539,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
         {
           try
           { homardGen->DeleteBoundary(_ObjectName.toStdString().c_str()); }
-          catch( SALOME::SALOME_Exception& S_ex )
+          catch( SALOME_CMOD::SALOME_Exception& S_ex )
           {
             QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                       QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -552,7 +552,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
         {
           try
           { homardGen->DeleteCase(_ObjectName.toStdString().c_str(), 1); }
-          catch( SALOME::SALOME_Exception& S_ex )
+          catch( SALOME_CMOD::SALOME_Exception& S_ex )
           {
             QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                       QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -565,7 +565,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
         {
           try
           { homardGen->DeleteHypo(_ObjectName.toStdString().c_str()); }
-          catch( SALOME::SALOME_Exception& S_ex )
+          catch( SALOME_CMOD::SALOME_Exception& S_ex )
           {
             QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                       QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -578,7 +578,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
         {
           try
           { homardGen->DeleteIteration(_ObjectName.toStdString().c_str(), 1); }
-          catch( SALOME::SALOME_Exception& S_ex )
+          catch( SALOME_CMOD::SALOME_Exception& S_ex )
           {
             QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                       QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -591,7 +591,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
         {
           try
           { homardGen->DeleteYACS(_ObjectName.toStdString().c_str(), 1); }
-          catch( SALOME::SALOME_Exception& S_ex )
+          catch( SALOME_CMOD::SALOME_Exception& S_ex )
           {
             QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                       QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -604,7 +604,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
         {
           try
           { homardGen->DeleteZone(_ObjectName.toStdString().c_str()); }
-          catch( SALOME::SALOME_Exception& S_ex )
+          catch( SALOME_CMOD::SALOME_Exception& S_ex )
           {
             QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                       QObject::tr(CORBA::string_dup(S_ex.details.text)) );
@@ -651,7 +651,7 @@ bool HOMARDGUI::OnGUIEvent (int theCommandID)
       MESSAGE("etape 1402");
       MESSAGE("command " << theCommandID << " activated avec objet " << _ObjectName.toStdString().c_str() );
       try { homardGen->YACSWrite(_ObjectName.toStdString().c_str()); }
-      catch( SALOME::SALOME_Exception& S_ex )
+      catch( SALOME_CMOD::SALOME_Exception& S_ex )
       {
         QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                   QObject::tr(CORBA::string_dup(S_ex.details.text)) );

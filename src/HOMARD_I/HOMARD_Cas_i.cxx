@@ -137,24 +137,24 @@ void HOMARD_Cas_i::SetDirName( const char* NomDir )
   if ( ( std::string(casenamedir).size() > 0 ) & ( strcmp(CaseName,casenamedir)!=0 ) )
   {
     INFOS ( "Le repertoire " << NomDir << " est deja utilise pour le cas "<< casenamedir );
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text ;
     text = "The directory " + std::string(NomDir) + " is already used for the case " + std::string(casenamedir) ;
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
   // C. Changement/creation du repertoire
   codret = myHomardCas->SetDirName( NomDir );
   if ( codret != 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text ;
     if ( codret == 1 ) { text = "The directory for the case cannot be modified because some iterations are already defined." ; }
     else               { text = "The directory for the case cannot be reached." ; }
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
   // D. En cas de reprise, deplacement du point de depart
   if ( GetState() != 0 )
@@ -181,11 +181,11 @@ void HOMARD_Cas_i::SetDirName( const char* NomDir )
 #endif
     {
       MESSAGE ( "nomDirIterTotal : " << nomDirIterTotal ) ;
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       std::string text = "The directory for the starting iteration cannot be created." ;
       es.text = CORBA::string_dup(text.c_str());
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
     }
     // D.4. Deplacement du contenu du repertoire
     std::string oldnomDirIterTotal ;
@@ -198,21 +198,21 @@ void HOMARD_Cas_i::SetDirName( const char* NomDir )
     codret = system(commande.c_str()) ;
     if ( codret != 0 )
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       std::string text = "The starting point for the case cannot be moved into the new directory." ;
       es.text = CORBA::string_dup(text.c_str());
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
     }
     commande = "rm -rf " + std::string(oldnomDirIterTotal) ;
     codret = system(commande.c_str()) ;
     if ( codret != 0 )
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       std::string text = "The starting point for the case cannot be deleted." ;
       es.text = CORBA::string_dup(text.c_str());
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
     }
     // D.5. Memorisation du nom du repertoire de l'iteration
     Iter->SetDirNameLoc(nomDirIter) ;
@@ -452,14 +452,14 @@ void HOMARD_Cas_i::AddBoundaryGroup( const char* BoundaryName, const char* Group
     else if ( erreur == 5 ) { texte += "\nLe groupe " + std::string(Group) + " est déjà enregistré pour la frontière " ; }
     texte += std::string(boun) ;
     //
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
 #ifdef _DEBUG_
     texte += "\nInvalid AddBoundaryGroup";
 #endif
     INFOS(texte) ;
     es.text = CORBA::string_dup(texte.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
 }
 //=============================================================================

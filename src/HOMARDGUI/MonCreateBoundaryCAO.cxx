@@ -103,7 +103,7 @@ bool MonCreateBoundaryCAO::PushOnApply()
      _parent->AddBoundaryCAO(_aName);
      aBoundary->SetCaseCreation(_aCaseName.toStdString().c_str());
    }
-   catch( SALOME::SALOME_Exception& S_ex )
+   catch( SALOME_CMOD::SALOME_Exception& S_ex )
    {
       QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                 QObject::tr(CORBA::string_dup(S_ex.details.text)) );

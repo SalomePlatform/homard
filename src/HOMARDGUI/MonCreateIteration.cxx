@@ -153,7 +153,7 @@ bool MonCreateIteration::PushOnApply()
                CORBA::string_dup(_Name.toStdString().c_str()),
                CORBA::string_dup(_IterParentName.toStdString().c_str()));
     }
-    catch( SALOME::SALOME_Exception& S_ex )
+    catch( SALOME_CMOD::SALOME_Exception& S_ex )
     {
       QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                 QObject::tr(CORBA::string_dup(S_ex.details.text)) );

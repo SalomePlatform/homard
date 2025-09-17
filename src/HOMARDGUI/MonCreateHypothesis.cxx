@@ -160,7 +160,7 @@ bool MonCreateHypothesis::PushOnApply()
      aHypothesis=myHomardGen->CreateHypothesis(CORBA::string_dup(_Name.toStdString().c_str()) );
      _parent->addHypothese(_Name);
     }
-    catch( SALOME::SALOME_Exception& S_ex )
+    catch( SALOME_CMOD::SALOME_Exception& S_ex )
     {
       QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                 QString(CORBA::string_dup(S_ex.details.text)) );

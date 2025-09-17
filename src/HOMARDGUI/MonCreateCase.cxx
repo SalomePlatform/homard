@@ -259,7 +259,7 @@ bool MonCreateCase::PushOnApply(int option)
             CORBA::string_dup(aMeshName.toStdString().c_str()),  \
             CORBA::string_dup(aFileName.toStdString().c_str()) );
     }
-    catch( SALOME::SALOME_Exception& S_ex )
+    catch( SALOME_CMOD::SALOME_Exception& S_ex )
     {
       QMessageBox::critical( 0, QObject::tr("HOM_ERROR"),
                                 QObject::tr(CORBA::string_dup(S_ex.details.text)) );

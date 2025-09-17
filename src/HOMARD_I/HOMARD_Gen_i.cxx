@@ -168,10 +168,10 @@ void HOMARD_Gen_i::SetEtatIter(const char* nomIter, const CORBA::Long Etat)
   HOMARD::HOMARD_Iteration_var myIteration = myStudyContext._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid iteration";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -206,10 +206,10 @@ CORBA::Long HOMARD_Gen_i::DeleteBoundary(const char* BoundaryName)
   HOMARD::HOMARD_Boundary_var myBoundary = myStudyContext._mesBoundarys[BoundaryName];
   if (CORBA::is_nil(myBoundary))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid boundary";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1 ;
   };
 
@@ -234,10 +234,10 @@ CORBA::Long HOMARD_Gen_i::DeleteBoundary(const char* BoundaryName)
     {
       if ( std::string((*ListBoundaryGroupType)[NumBoundary]) == BoundaryName )
       {
-        SALOME::ExceptionStruct es;
-        es.type = SALOME::BAD_PARAM;
+        SALOME_CMOD::ExceptionStruct es;
+        es.type = SALOME_CMOD::BAD_PARAM;
         es.text = "This boundary is used in a case and cannot be deleted.";
-        throw SALOME::SALOME_Exception(es);
+        throw SALOME_CMOD::SALOME_Exception(es);
         return 2 ;
       };
     };
@@ -260,10 +260,10 @@ CORBA::Long HOMARD_Gen_i::DeleteCase(const char* nomCas, CORBA::Long Option)
   HOMARD::HOMARD_Cas_var myCase = myStudyContext._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid case context";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1;
   };
   // On commence par detruire toutes les iterations en partant de l'initiale et y compris elle
@@ -290,10 +290,10 @@ CORBA::Long HOMARD_Gen_i::DeleteHypo(const char* nomHypo)
   HOMARD::HOMARD_Hypothesis_var myHypo = myStudyContext._mesHypotheses[nomHypo];
   if (CORBA::is_nil(myHypo))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid hypothesis";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1 ;
   };
 
@@ -302,10 +302,10 @@ CORBA::Long HOMARD_Gen_i::DeleteHypo(const char* nomHypo)
   int numberOfIter = maListeIter->length();
   if ( numberOfIter > 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This hypothesis is used in an iteration and cannot be deleted.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 2 ;
   };
 
@@ -352,10 +352,10 @@ CORBA::Long HOMARD_Gen_i::DeleteIterationOption(const char* nomIter, CORBA::Long
   HOMARD::HOMARD_Iteration_var myIteration = myStudyContext._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid iteration";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1 ;
   };
 
@@ -363,10 +363,10 @@ CORBA::Long HOMARD_Gen_i::DeleteIterationOption(const char* nomIter, CORBA::Long
   MESSAGE ( "DeleteIterationOption : numero = " << numero );
   if ( numero == 0 && Option1 == 1 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This iteration cannot be deleted.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 2 ;
   };
 
@@ -397,10 +397,10 @@ CORBA::Long HOMARD_Gen_i::DeleteIterationOption(const char* nomIter, CORBA::Long
     HOMARD::HOMARD_Iteration_var myIterationParent = myStudyContext._mesIterations[nomIterationParent];
     if (CORBA::is_nil(myIterationParent))
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid iteration";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 3 ;
     };
     myIterationParent->UnLinkNextIteration(nomIter);
@@ -442,10 +442,10 @@ CORBA::Long HOMARD_Gen_i::DeleteYACS(const char* nomYACS, CORBA::Long Option)
   HOMARD::HOMARD_YACS_var myYACS = myStudyContext._mesYACSs[nomYACS];
   if (CORBA::is_nil(myYACS))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid schema YACS";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1 ;
   };
   // Suppression eventuelle du fichier XML
@@ -460,10 +460,10 @@ CORBA::Long HOMARD_Gen_i::DeleteYACS(const char* nomYACS, CORBA::Long Option)
     MESSAGE ( "commande = " << commande );
     if ((system(commande.c_str())) != 0)
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "The xml file for the schema YACS cannot be removed." ;
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 2 ;
     }
   }
@@ -483,10 +483,10 @@ CORBA::Long HOMARD_Gen_i::DeleteZone(const char* nomZone)
   HOMARD::HOMARD_Zone_var myZone = myStudyContext._mesZones[nomZone];
   if (CORBA::is_nil(myZone))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid zone";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1 ;
   };
 
@@ -496,10 +496,10 @@ CORBA::Long HOMARD_Gen_i::DeleteZone(const char* nomZone)
   MESSAGE ( ".. Nombre d'hypotheses = " << numberOfHypo );
   if ( numberOfHypo > 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This zone is used in a hypothesis and cannot be deleted.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 2 ;
   };
 //
@@ -526,18 +526,18 @@ void HOMARD_Gen_i::InvalideBoundary(const char* BoundaryName)
   HOMARD::HOMARD_Boundary_var myBoundary = myStudyContext._mesBoundarys[BoundaryName];
   if (CORBA::is_nil(myBoundary))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid boundary";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   }
   else
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "No change is allowed in a boundary. Ask for evolution.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   };
 }
@@ -548,10 +548,10 @@ void HOMARD_Gen_i::InvalideHypo(const char* nomHypo)
   HOMARD::HOMARD_Hypothesis_var myHypo = myStudyContext._mesHypotheses[nomHypo];
   if (CORBA::is_nil(myHypo))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid hypothesis";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -581,10 +581,10 @@ void HOMARD_Gen_i::InvalideIterOption(const char* nomIter, CORBA::Long Option)
   HOMARD::HOMARD_Iteration_var myIteration = myStudyContext._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid iteration";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -622,10 +622,10 @@ void HOMARD_Gen_i::InvalideIterOption(const char* nomIter, CORBA::Long Option)
     HOMARD::HOMARD_Cas_var myCase = myStudyContext._mesCas[nomCas];
     if (CORBA::is_nil(myCase))
     {
-        SALOME::ExceptionStruct es;
-        es.type = SALOME::BAD_PARAM;
+        SALOME_CMOD::ExceptionStruct es;
+        es.type = SALOME_CMOD::BAD_PARAM;
         es.text = "Invalid case context";
-        throw SALOME::SALOME_Exception(es);
+        throw SALOME_CMOD::SALOME_Exception(es);
         return ;
     };
     std::string nomDir     = myIteration->GetDirName();
@@ -645,10 +645,10 @@ void HOMARD_Gen_i::InvalideIterOption(const char* nomIter, CORBA::Long Option)
     MESSAGE ( "commande = " << commande );
     if ((system(commande.c_str())) != 0)
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "The directory for the calculation cannot be cleared." ;
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
     }
   // Suppression du maillage publie dans SMESH
@@ -664,10 +664,10 @@ void HOMARD_Gen_i::InvalideIterInfo(const char* nomIter)
   HOMARD::HOMARD_Iteration_var myIteration = myStudyContext._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid iteration";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -692,10 +692,10 @@ void HOMARD_Gen_i::InvalideIterInfo(const char* nomIter)
   HOMARD::HOMARD_Cas_var myCase = myStudyContext._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid case context";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
   const char* nomDir   = myIteration->GetDirName();
@@ -709,10 +709,10 @@ void HOMARD_Gen_i::InvalideIterInfo(const char* nomIter)
 /*  MESSAGE ( "commande = " << commande );*/
   if ((system(commande.c_str())) != 0)
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The directory for the calculation cannot be cleared." ;
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   }
 }
@@ -723,10 +723,10 @@ void HOMARD_Gen_i::InvalideYACS(const char* YACSName)
   HOMARD::HOMARD_YACS_var myYACS = myStudyContext._mesYACSs[YACSName];
   if (CORBA::is_nil(myYACS))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid schema YACS";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
   //
@@ -754,10 +754,10 @@ void HOMARD_Gen_i::InvalideYACS(const char* YACSName)
   MESSAGE ( "commande = " << commande );
   if ((system(commande.c_str())) != 0)
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The XML file for the schema YACS cannot be removed." ;
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   }
 }
@@ -768,10 +768,10 @@ void HOMARD_Gen_i::InvalideZone(const char* ZoneName)
   HOMARD::HOMARD_Zone_var myZone = myStudyContext._mesZones[ZoneName];
   if (CORBA::is_nil(myZone))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid zone";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
   HOMARD::listeHypo* maListe = myZone->GetHypo();
@@ -799,20 +799,20 @@ void HOMARD_Gen_i::AssociateCaseIter(const char* nomCas, const char* nomIter, co
   HOMARD::HOMARD_Cas_var myCase = myStudyContext._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid case";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   };
 
   HOMARD::HOMARD_Iteration_var myIteration = myStudyContext._mesIterations[nomIter];
   if (CORBA::is_nil(myIteration))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid iteration";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   };
 
@@ -820,10 +820,10 @@ void HOMARD_Gen_i::AssociateCaseIter(const char* nomCas, const char* nomIter, co
   SALOMEDS::SObject_var aCasSO = SALOMEDS::SObject::_narrow(myStudy->FindObjectIOR(_orb->object_to_string(myCase)));
   if (CORBA::is_nil(aCasSO))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid case";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   };
 
@@ -1258,10 +1258,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   codret = CHDIR(DirNameStart) ;
   if ( codret != 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The directory of the iteration does not exist.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
   // A.2. Reperage des fichiers du répertoire de reprise
@@ -1311,13 +1311,13 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   // A.3. Controle
   if ( ( file_configuration == "" ) || ( file_maillage_homard == "" ) )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text ;
     if ( file_configuration == "" ) { text = "The configuration file cannot be found." ; }
     else                            { text = "The HOMARD mesh file cannot be found." ; }
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
 
   // B. Lecture du fichier de configuration
@@ -1397,11 +1397,11 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   }
   else
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text = "The configuration file cannot be read." ;
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
 
   // C. Creation effective du cas
@@ -1438,11 +1438,11 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
 #endif
   {
     MESSAGE ( "nomDirIterTotal : " << nomDirIterTotal ) ;
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text = "The directory for the computation cannot be created." ;
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
   // E.3. Copie du maillage HOMARD au format MED
   codret = CHDIR(DirNameStart) ;
@@ -1456,10 +1456,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromIteration(const char* nomCas,
   MESSAGE ( "codret : " << codret ) ;
   if ( codret != 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The starting point for the case cannot be copied into the working directory.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -1501,10 +1501,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCaseFromCaseIteration(const char* nom
   MESSAGE ( "CreateCaseFromCaseIteration : nomCas = " << nomCas << ", DirNameStart = " << DirNameStart << ", Number = " << Number );
   if ( Number < 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The number of iteration must be positive.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -1544,10 +1544,10 @@ std::string HOMARD_Gen_i::CreateCase1(const char* DirNameStart, CORBA::Long Numb
   codret = CHDIR(DirNameStart) ;
   if ( codret != 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The directory of the case for the pursuit does not exist.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
   // A.2. Reperage des sous-répertoire du répertoire de reprise
@@ -1635,11 +1635,11 @@ std::string HOMARD_Gen_i::CreateCase1(const char* DirNameStart, CORBA::Long Numb
             }
             else
             {
-              SALOME::ExceptionStruct es;
-              es.type = SALOME::BAD_PARAM;
+              SALOME_CMOD::ExceptionStruct es;
+              es.type = SALOME_CMOD::BAD_PARAM;
               std::string text = "The configuration file cannot be read." ;
               es.text = CORBA::string_dup(text.c_str());
-              throw SALOME::SALOME_Exception(es);
+              throw SALOME_CMOD::SALOME_Exception(es);
             }
             CHDIR(DirNameStart) ;
           }
@@ -1663,10 +1663,10 @@ std::string HOMARD_Gen_i::CreateCase1(const char* DirNameStart, CORBA::Long Numb
 
   if ( ( Number >= 0 && ( !existe ) ) || ( Number < 0 && ( NumeIterMax == -1 ) ) )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The directory of the iteration does not exist.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -1696,10 +1696,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase0(const char* nomCas, const char*
   // A.2. Controle du nom :
   if ((myStudyContext._mesCas).find(nomCas)!=(myStudyContext._mesCas).end())
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This case has already been defined.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -1711,10 +1711,10 @@ HOMARD::HOMARD_Cas_ptr HOMARD_Gen_i::CreateCase0(const char* nomCas, const char*
     MESSAGE ( "CreateCase0 : existeMeshFile = " << existeMeshFile );
     if ( ( existeMeshFile == 0 ) && ( MeshOption == 0 ) )
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "The mesh file does not exist.";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 0;
     }
   }
@@ -1804,10 +1804,10 @@ HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypo
   // A. Controle du nom :
   if ((myStudyContext._mesHypotheses).find(nomHypothesis) != (myStudyContext._mesHypotheses).end())
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This hypothesis has already been defined.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   }
 
@@ -1815,10 +1815,10 @@ HOMARD::HOMARD_Hypothesis_ptr HOMARD_Gen_i::CreateHypothesis(const char* nomHypo
   HOMARD::HOMARD_Hypothesis_var myHypothesis = newHypothesis();
   if (CORBA::is_nil(myHypothesis))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Unable to create the hypothesis";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
   myHypothesis->SetName(nomHypothesis);
@@ -1848,10 +1848,10 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* NomIterat
   HOMARD::HOMARD_Iteration_var myIterationParent = myStudyContext._mesIterations[nomIterParent];
   if (CORBA::is_nil(myIterationParent))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The parent iteration is not defined.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -1860,10 +1860,10 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* NomIterat
   HOMARD::HOMARD_Cas_var myCase = myStudyContext._mesCas[nomCas];
   if (CORBA::is_nil(myCase))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid case context";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
   const char* nomDirCase = myCase->GetDirName();
@@ -1871,20 +1871,20 @@ HOMARD::HOMARD_Iteration_ptr HOMARD_Gen_i::CreateIteration(const char* NomIterat
   // Controle du nom :
   if ((myStudyContext._mesIterations).find(NomIteration)!=(myStudyContext._mesIterations).end())
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This iteration has already been defined.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
    HOMARD::HOMARD_Iteration_var myIteration = newIteration();
    if (CORBA::is_nil(myIteration))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Unable to create the iteration";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
   myStudyContext._mesIterations[std::string(NomIteration)] = myIteration;
@@ -1951,10 +1951,10 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundary(const char* BoundaryNam
   if ((myStudyContext._mesBoundarys).find(BoundaryName)!=(myStudyContext._mesBoundarys).end())
   {
     MESSAGE ("CreateBoundary : la frontiere " << BoundaryName << " existe deja");
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This boundary has already been defined";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -1996,7 +1996,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryCylinder(const char* Bou
 {
   MESSAGE ("CreateBoundaryCylinder : BoundaryName  = " << BoundaryName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 )
   { es.text = "The radius must be positive." ;
@@ -2007,8 +2007,8 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryCylinder(const char* Bou
     error = 2 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2024,15 +2024,15 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundarySphere(const char* Bound
 {
   MESSAGE ("CreateBoundarySphere : BoundaryName  = " << BoundaryName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 )
   { es.text = "The radius must be positive." ;
     error = 1 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2048,7 +2048,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryConeA(const char* Bounda
 {
   MESSAGE ("CreateBoundaryConeA : BoundaryName  = " << BoundaryName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Angle <= 0.0 || Angle >= 90.0 )
   { es.text = "The angle must be included higher than 0 degree and lower than 90 degrees." ;
@@ -2059,8 +2059,8 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryConeA(const char* Bounda
     error = 2 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2076,7 +2076,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryConeR(const char* Bounda
 {
   MESSAGE ("CreateBoundaryConeR : BoundaryName  = " << BoundaryName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon1 < 0.0 || Rayon2 < 0.0 )
   { es.text = "The radius must be positive." ;
@@ -2091,8 +2091,8 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryConeR(const char* Bounda
     error = 3 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2109,7 +2109,7 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryTorus(const char* Bounda
 {
   MESSAGE ("CreateBoundaryTorus : BoundaryName  = " << BoundaryName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( ( RayonRev <= 0.0 ) || ( RayonPri <= 0.0 ) )
   { es.text = "The radius must be positive." ;
@@ -2120,8 +2120,8 @@ HOMARD::HOMARD_Boundary_ptr HOMARD_Gen_i::CreateBoundaryTorus(const char* Bounda
     error = 2 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2139,10 +2139,10 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZone(const char* ZoneName, CORBA::Lo
   // Controle du nom :
   if ((myStudyContext._mesZones).find(ZoneName)!=(myStudyContext._mesZones).end())
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This zone has already been defined";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -2165,7 +2165,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
 {
   MESSAGE ("CreateZoneBox : ZoneName  = " << ZoneName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Xmini > Xmaxi )
   { es.text = "The X coordinates are not coherent." ;
@@ -2178,8 +2178,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox(const char* ZoneName,
     error = 3 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2194,15 +2194,15 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneSphere(const char* ZoneName,
 {
   MESSAGE ("CreateZoneSphere : ZoneName  = " << ZoneName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 )
   { es.text = "The radius must be positive." ;
     error = 1 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2219,7 +2219,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneCylinder(const char* ZoneName,
 {
   MESSAGE ("CreateZoneCylinder : ZoneName  = " << ZoneName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 )
   { es.text = "The radius must be positive." ;
@@ -2233,8 +2233,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneCylinder(const char* ZoneName,
     error = 3 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2251,7 +2251,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZonePipe(const char* ZoneName,
 {
   MESSAGE ("CreateZonePipe : ZoneName  = " << ZoneName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 || Rayonint <= 0.0 )
   { es.text = "The radius must be positive." ;
@@ -2268,8 +2268,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZonePipe(const char* ZoneName,
     error = 4 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2289,7 +2289,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox2D(const char* ZoneName,
 //   MESSAGE ("Vmini = " << Vmini << ", Vmaxi =" << Vmaxi ) ;
 //   MESSAGE ("Orient = " << Orient ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Umini > Umaxi )
   { es.text = "The first coordinates are not coherent." ;
@@ -2302,8 +2302,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneBox2D(const char* ZoneName,
     error = 3 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2346,7 +2346,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDisk(const char* ZoneName,
 {
   MESSAGE ("CreateZoneDisk : ZoneName  = " << ZoneName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 )
   { es.text = "The radius must be positive." ;
@@ -2356,8 +2356,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDisk(const char* ZoneName,
     error = 3 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2391,7 +2391,7 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneNam
 {
   MESSAGE ("CreateZoneDiskWithHole : ZoneName  = " << ZoneName ) ;
 //
-  SALOME::ExceptionStruct es;
+  SALOME_CMOD::ExceptionStruct es;
   int error = 0 ;
   if ( Rayon <= 0.0 || Rayonint <= 0.0 )
   { es.text = "The radius must be positive." ;
@@ -2404,8 +2404,8 @@ HOMARD::HOMARD_Zone_ptr HOMARD_Gen_i::CreateZoneDiskWithHole(const char* ZoneNam
     error = 4 ; }
   if ( error != 0 )
   {
-    es.type = SALOME::BAD_PARAM;
-    throw SALOME::SALOME_Exception(es);
+    es.type = SALOME_CMOD::BAD_PARAM;
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 //
@@ -2469,18 +2469,18 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* NomIteration, CORBA::Long etatMena
   {
     if ( etat <= 0 )
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "This iteration is the first of the case and cannot be computed.";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 1 ;
     }
     else if ( ( etat == 2 ) & ( modeHOMARD == 1 ) )
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "This iteration is already computed.";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 1 ;
     }
   }
@@ -2489,10 +2489,10 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* NomIteration, CORBA::Long etatMena
   {
     if ( etat == 1 )
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "This iteration is not computed.";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 1 ;
     }
   }
@@ -2684,10 +2684,10 @@ CORBA::Long HOMARD_Gen_i::Compute(const char* NomIteration, CORBA::Long etatMena
       }
       text += "\n\nSee the file " + LogFile + "\n" ;
       INFOS ( text ) ;
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = CORBA::string_dup(text.c_str());
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
 //
       // En mode information, on force le succes pour pouvoir consulter le fichier log
       if ( modeHOMARD != 1 ) { codretexec = 0 ; }
@@ -2740,10 +2740,10 @@ CORBA::Long HOMARD_Gen_i::ComputeAdap(HOMARD::HOMARD_Cas_var myCase, HOMARD::HOM
   const char* nomHypo = myIteration->GetHypoName();
   if (std::string(nomHypo) == std::string(""))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "This iteration does not have any associated hypothesis.";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 2;
   };
   HOMARD::HOMARD_Hypothesis_var myHypo = myStudyContext._mesHypotheses[nomHypo];
@@ -2793,11 +2793,11 @@ CORBA::Long HOMARD_Gen_i::ComputeAdap(HOMARD::HOMARD_Cas_var myCase, HOMARD::HOM
     fclose(file);
     if (etatMenage == 0)
     {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       std::string text = "MeshFile : " + std::string(MeshFile) + " already exists ";
       es.text = CORBA::string_dup(text.c_str());
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return 4;
     }
     else
@@ -2810,10 +2810,10 @@ CORBA::Long HOMARD_Gen_i::ComputeAdap(HOMARD::HOMARD_Cas_var myCase, HOMARD::HOM
       codret = system(commande.c_str());
       if (codret != 0)
       {
-        SALOME::ExceptionStruct es;
-        es.type = SALOME::BAD_PARAM;
+        SALOME_CMOD::ExceptionStruct es;
+        es.type = SALOME_CMOD::BAD_PARAM;
         es.text = "The mesh file cannot be deleted.";
-        throw SALOME::SALOME_Exception(es);
+        throw SALOME_CMOD::SALOME_Exception(es);
         return 5;
       }
     }
@@ -2994,10 +2994,10 @@ CORBA::Long HOMARD_Gen_i::ComputeCAObis(HOMARD::HOMARD_Iteration_var myIteration
   // A.1.2. L'iteration doit être calculee
   if ( etat == 1 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This iteration is not computed.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 1 ;
   }
   // A.2. Numero de l'iteration
@@ -3077,10 +3077,10 @@ CORBA::Long HOMARD_Gen_i::ComputeCAObis(HOMARD::HOMARD_Iteration_var myIteration
     {
       std::string text = "\n\nSee the file " + LogFile + "\n" ;
       INFOS ( text ) ;
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = CORBA::string_dup(text.c_str());
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
 
       // On force le succes pour pouvoir consulter le fichier log
       codretexec = 0 ;
@@ -3104,10 +3104,10 @@ char* HOMARD_Gen_i::CreateDirNameIter(const char* nomrep, CORBA::Long num )
   int codret = CHDIR(nomrep) ;
   if ( codret != 0 )
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "The directory of the case does not exist.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 #ifndef _WIN32
@@ -3269,11 +3269,11 @@ char* HOMARD_Gen_i::ComputeDirManagement(HOMARD::HOMARD_Cas_var myCase, HOMARD::
 #endif
         if ( result == false)
         {
-          SALOME::ExceptionStruct es;
-          es.type = SALOME::BAD_PARAM;
+          SALOME_CMOD::ExceptionStruct es;
+          es.type = SALOME_CMOD::BAD_PARAM;
           std::string text = "Directory : " + DirCompute.str() + " is not empty";
           es.text = CORBA::string_dup(text.c_str());
-          throw SALOME::SALOME_Exception(es);
+          throw SALOME_CMOD::SALOME_Exception(es);
           VERIFICATION("Directory is not empty" == 0);
         }
       }
@@ -3622,10 +3622,10 @@ SALOMEDS::SObject_ptr HOMARD_Gen_i::PublishInStudy(SALOMEDS::SObject_ptr theSObj
   SALOMEDS::SObject_var aResultSO;
   if (CORBA::is_nil(myStudy))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid study context";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
 
@@ -4058,10 +4058,10 @@ void HOMARD_Gen_i::PublishResultInSmesh(const char* NomFich, CORBA::Long Option)
   MESSAGE( "PublishResultInSmesh " << NomFich << ", avec Option = " << Option);
   if (CORBA::is_nil(myStudy))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid study context";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return ;
   };
 
@@ -4136,10 +4136,10 @@ void HOMARD_Gen_i::DeleteResultInSmesh(std::string NomFich, std::string MeshName
   MESSAGE ("DeleteResultInSmesh pour le maillage " << MeshName << " dans le fichier " << NomFich );
   if (CORBA::is_nil(myStudy))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid study context";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -4186,10 +4186,10 @@ void HOMARD_Gen_i::PublishMeshIterInSmesh(const char* NomIter)
   SALOMEDS::SObject_var aIterSO=SALOMEDS::SObject::_narrow(myStudy->FindObjectIOR(_orb->object_to_string(myIteration)));
   if (CORBA::is_nil(myIteration))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid iterationStudy Object";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
   const char* MeshFile = myIteration->GetMeshFile() ;
@@ -4217,10 +4217,10 @@ void HOMARD_Gen_i::PublishFileUnderIteration(const char* NomIter, const char* No
   SALOMEDS::SObject_var aIterSO=SALOMEDS::SObject::_narrow(myStudy->FindObjectIOR(_orb->object_to_string(myIteration)));
   if (CORBA::is_nil(myIteration))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid iterationStudy Object";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -4252,10 +4252,10 @@ void HOMARD_Gen_i::PublishFileUnderYACS(const char* nomYACS, const char* NomFich
   SALOMEDS::SObject_var aYACSSO=SALOMEDS::SObject::_narrow(myStudy->FindObjectIOR(_orb->object_to_string(myYACS)));
   if (CORBA::is_nil(myYACS))
   {
-      SALOME::ExceptionStruct es;
-      es.type = SALOME::BAD_PARAM;
+      SALOME_CMOD::ExceptionStruct es;
+      es.type = SALOME_CMOD::BAD_PARAM;
       es.text = "Invalid YACSStudy Object";
-      throw SALOME::SALOME_Exception(es);
+      throw SALOME_CMOD::SALOME_Exception(es);
       return ;
   };
 
@@ -4293,10 +4293,10 @@ HOMARD::HOMARD_YACS_ptr HOMARD_Gen_i::CreateYACSSchema (const char* nomYACS, con
   // A. Controle du nom :
   if ((myStudyContext._mesYACSs).find(nomYACS) != (myStudyContext._mesYACSs).end())
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "This schema YACS has already been defined.";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   }
 
@@ -4304,10 +4304,10 @@ HOMARD::HOMARD_YACS_ptr HOMARD_Gen_i::CreateYACSSchema (const char* nomYACS, con
   HOMARD::HOMARD_YACS_var myYACS = newYACS();
   if (CORBA::is_nil(myYACS))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Unable to create the schema YACS";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   };
   myYACS->SetName( nomYACS ) ;
@@ -4413,11 +4413,11 @@ CORBA::Long HOMARD_Gen_i::YACSWriteOnFile(const char* nomYACS, const char* XMLFi
   if ( numberOfIter > 1 )
   {
     MESSAGE (". numberOfIter = " << numberOfIter);
-    SALOME::ExceptionStruct es ;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es ;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text = "Une seule iteration est permise." ;
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   }
   std::string Iter1Name = std::string((*maListe)[0]);
@@ -4451,11 +4451,11 @@ CORBA::Long HOMARD_Gen_i::YACSWriteOnFile(const char* nomYACS, const char* XMLFi
   if ( getenv("HOMARD_ROOT_DIR") != NULL ) { XMLFile_base = getenv("HOMARD_ROOT_DIR") ; }
   else
   {
-    SALOME::ExceptionStruct es ;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es ;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text = "HOMARD_ROOT_DIR est inconnu." ;
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
     return 0;
   }
   XMLFile_base += "/share/salome/resources/homard/yacs_01." + _LangueShort + ".xml" ;
@@ -4528,11 +4528,11 @@ CORBA::Long HOMARD_Gen_i::YACSWriteOnFile(const char* nomYACS, const char* XMLFi
   }
   else
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     std::string text = "The reference file for the YACS schema cannot be read." ;
     es.text = CORBA::string_dup(text.c_str());
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   }
 
   delete myDriver;
@@ -5242,10 +5242,10 @@ void HOMARD_Gen_i::IsValidStudy( )
 //   MESSAGE( "IsValidStudy" );
   if (CORBA::is_nil(myStudy))
   {
-    SALOME::ExceptionStruct es;
-    es.type = SALOME::BAD_PARAM;
+    SALOME_CMOD::ExceptionStruct es;
+    es.type = SALOME_CMOD::BAD_PARAM;
     es.text = "Invalid study context";
-    throw SALOME::SALOME_Exception(es);
+    throw SALOME_CMOD::SALOME_Exception(es);
   };
   return ;
 }
@@ -5269,10 +5269,10 @@ char* HOMARD_Gen_i::VerifieDir(const char* nomDir)
 /*//=============================================================================
 void SALOMEException( std::string message )
 {
-  SALOME::ExceptionStruct es;
-  es.type = SALOME::BAD_PARAM;
+  SALOME_CMOD::ExceptionStruct es;
+  es.type = SALOME_CMOD::BAD_PARAM;
   es.text = message;
-  throw SALOME::SALOME_Exception(es);
+  throw SALOME_CMOD::SALOME_Exception(es);
   return ;
 }*/
 //=============================================================================
