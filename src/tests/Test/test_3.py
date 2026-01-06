@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2011-2025  CEA, EDF
+# Copyright (C) 2011-2026  CEA, EDF
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,8 +32,8 @@ N_BOUCLE = 2
 import os
 import sys
 import platform
-import HOMARD
-import salome
+from salome.kernel import HOMARD
+from salome.kernel import salome
 #
 # ==================================
 PATH_HOMARD = os.getenv('HOMARD_ROOT_DIR')

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2011-2025  CEA, EDF
+# Copyright (C) 2011-2026  CEA, EDF
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -46,11 +46,11 @@ from test_util import update_test_win
 REP_DATA, DIRCASE = get_dir(PATH_HOMARD, TEST_NAME, DEBUG)
 # ==================================
 #
-import salome
+from salome.kernel import salome
 salome.salome_init_without_session()
-import HOMARD
+from salome.kernel import HOMARD
 #
-import iparameters
+from salome.kernel import iparameters
 IPAR = iparameters.IParameters(salome.myStudy.GetCommonParameters("Interface Applicative", 1))
 IPAR.append("AP_MODULES_LIST", "Homard")
 #

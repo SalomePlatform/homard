@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2011-2025  CEA, EDF
+# Copyright (C) 2011-2026  CEA, EDF
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,9 +31,9 @@ N_ITER_TEST_FILE = 3
 import os
 import sys
 
-import HOMARD
+from salome.kernel import HOMARD
 import platform
-import salome
+from salome.kernel import salome
 #
 # ==================================
 PATH_HOMARD = os.getenv('HOMARD_ROOT_DIR')

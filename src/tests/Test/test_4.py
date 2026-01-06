@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2011-2025  CEA, EDF
+# Copyright (C) 2011-2026  CEA, EDF
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,10 +25,10 @@ import sys
 import numpy as np
 import platform
 
-import salome
-import SHAPERSTUDY
-import SMESH
-import HOMARD
+from salome.kernel import salome
+from salome.kernel import SHAPERSTUDY
+from salome.kernel import SMESH
+from salome.kernel import HOMARD
 import medcoupling as mc
 import MEDLoader as ml
 
