@@ -35,6 +35,10 @@ ELSE()
   MESSAGE(FATAL_ERROR "We absolutely need the Salome CMake configuration files, please define CONFIGURATION_ROOT_DIR !")
 ENDIF()
 
+# Use PySide2/Shiboken2 or PyQt5/SIP5
+# ===================================
+SET (SALOME_USE_PYSIDE $ENV{SALOME_USE_PYSIDE} CACHE BOOL "Use PySide or PyQt")
+
 # Versioning
 # ===========
 SALOME_SETUP_VERSION(9.15.0)
@@ -145,10 +149,12 @@ FIND_PACKAGE(SalomeHDF5 REQUIRED COMPONENTS C)
 # Various
 # Qt
 FIND_PACKAGE(SalomeQt5 REQUIRED)
-# SIP
-FIND_PACKAGE(SalomeSIP REQUIRED)
-# PyQt
-FIND_PACKAGE(SalomePyQt5 REQUIRED)
+IF(NOT SALOME_USE_PYSIDE)
+  # SIP
+  FIND_PACKAGE(SalomeSIP REQUIRED)
+  # PyQt
+  FIND_PACKAGE(SalomePyQt5 REQUIRED)
+ENDIF(NOT SALOME_USE_PYSIDE)
 # OCCT
 FIND_PACKAGE(SalomeOpenCASCADE REQUIRED)
 

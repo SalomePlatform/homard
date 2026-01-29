@@ -18,7 +18,6 @@
 #
 
 INCLUDE(UseQtExt)
-INCLUDE(UsePyQt)
 
 # --- options ---
 
