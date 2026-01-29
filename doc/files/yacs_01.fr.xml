@@ -397,7 +397,11 @@ else :
    </while>
    <inline name="Bilan">
       <script><code><![CDATA[
-from PyQt5 import QtWidgets
+import os
+if 'SALOME_USE_PYSIDE' in os.environ:
+  from PySide2 import QtWidgets
+else:
+  from PyQt5 import QtWidgets
 import sys
 app = QtWidgets.QApplication(sys.argv)
 MessageBoxTitle = "Bilan"

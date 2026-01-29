@@ -233,7 +233,11 @@ else :
    </forloop>
    <inline name="Bilan">
       <script><code><![CDATA[import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
+import os
+if 'SALOME_USE_PYSIDE' in os.environ:
+  from PySide2.QtWidgets import QApplication, QWidget, QMessageBox
+else:
+  from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 class App(QWidget):
     def __init__(self, MessInfo, MeshFile):
         super(App, self).__init__()
