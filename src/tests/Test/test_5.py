@@ -29,8 +29,8 @@ import sys
 import platform
 import numpy as np
 
-from salome.kernel import salome
-from salome.kernel import HOMARD
+import salome
+import HOMARD
 import medcoupling as mc
 import MEDLoader as ml
 

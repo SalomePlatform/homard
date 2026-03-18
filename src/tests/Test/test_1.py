@@ -31,9 +31,9 @@ N_ITER_TEST_FILE = 3
 import os
 import sys
 
-from salome.kernel import HOMARD
+import HOMARD
 import platform
-from salome.kernel import salome
+import salome
 #
 # ==================================
 PATH_HOMARD = os.getenv('HOMARD_ROOT_DIR')
