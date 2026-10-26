@@ -6,7 +6,7 @@
 #ifndef dmport_h
 #define dmport_h
 
-#if defined(__unix__)
+#if defined(__unix__) || defined(__APPLE__)
 #define _POSIX
 #warning "-------- definition de _POSIX --------"
 #endif
