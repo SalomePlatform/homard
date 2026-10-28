@@ -21,7 +21,9 @@
 #include "dmport.h"
 #include "FC.h"
 #include <stdlib.h>
+#if !defined(__APPLE__)
 #include <malloc.h>
+#endif
 
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 /*   Libération de la mémoire associée à malloc                      */
